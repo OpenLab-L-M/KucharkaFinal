@@ -78,7 +78,7 @@ export class UserProfileComponent {
     
     this.newPassword = this.changePassword.controls["newPassword"].value;
     this.confirm = this.changePassword.controls["confirm"].value;
-    if(this.newPassword == this.confirm){
+    if(this.newPassword == this.confirm && this.confirm != ''){
     this.userService.changePassword({
       oldPassword: this.changePassword.controls["oldPassword"].value,
       newPassword: this.changePassword.controls["newPassword"].value,
@@ -90,7 +90,7 @@ export class UserProfileComponent {
     alert("you have successfully changed your password!")
   }
   else{
-    alert("Your new password doesnt match the confirm password");
+    alert("Either your new password doesnt match the confirm password, or you didnt fill out the boxes");
   }
   }
   ktoryRecept(id: number): void{

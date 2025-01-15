@@ -252,6 +252,7 @@ namespace AspNetCoreAPI.Controllers
             var neviemUz = new RecipesDTO()
             {
                 Id = nReceptik.Id,
+                Difficulty = nReceptik.Difficulty,
                 Name = nReceptik.Name,
                 Ingrediencie = nReceptik.Ingrediencie,
                 Description = nReceptik.Description,

@@ -196,6 +196,7 @@ Vymaz(id: number){
 
 export class EditDTO{
   id?:number;
+  difficulty?: string;
   name?: string;
   ingrediencie?: string;
   description?: string;

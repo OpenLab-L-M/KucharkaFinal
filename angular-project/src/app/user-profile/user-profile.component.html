@@ -1,28 +1,31 @@
+
 <body>
+  
+  <div *ngIf="clicked == true; else noCourses" class="same_as_background">
+    <img id="backgroundos" src="../../assets/backgroundos_recipes.png">
+    <h1>ChangePassword</h1>
+    <form class="edit_form" [formGroup]="changePassword" style="color: aliceblue;">
+  
+  
+      <mat-form-field>
+        <label for="oldPassword" style="color: white;">Old Password: </label>
+        <input matInput id="oldPassword" type="text" formControlName="oldPassword" >
+      </mat-form-field>
+      <mat-form-field>
+        <label for="newPassword" style="color: white;">New Password: </label>
+      <input matInput id="newPassword" type="text" formControlName="newPassword" >
+      </mat-form-field>
+      <mat-form-field>
+        <label for="confirm" style="color: white;">Confirm new password: </label>
+         <input matInput id="confirm" type="text" formControlName="confirm" >
+      </mat-form-field>
+      <div class="edit_btn">
+        <button type="button" (click)="submit()" style="width: 100px; height: 50px; font-size: 16px; font-weight: bold; font-family: system-ui; background-color: black; color: white; cursor: pointer;">Submit</button>
+        <button type="button" (click)="cancel()" style="width: 100px; height: 50px; font-size: 16px; font-weight: bold; font-family: system-ui; cursor: pointer;">Cancel</button>
+      </div>
+    </form>
+  </div>
 
-<div *ngIf="clicked == true; else noCourses">
-  <h1>ChangePassword</h1>
-  <form class="edit_form" [formGroup]="changePassword" style="color: aliceblue;">
-
-
-    <mat-form-field>
-      <label for="oldPassword" style="color: white;">Old Password: </label>
-      <input matInput id="oldPassword" type="text" formControlName="oldPassword" >
-    </mat-form-field>
-    <mat-form-field>
-      <label for="newPassword" style="color: white;">New Password: </label>
-    <input matInput id="newPassword" type="text" formControlName="newPassword" >
-    </mat-form-field>
-    <mat-form-field>
-      <label for="confirm" style="color: white;">Confirm new password: </label>
-       <input matInput id="confirm" type="text" formControlName="confirm" >
-    </mat-form-field>
-    <div class="edit_btn">
-      <button type="button" (click)="submit()" style="width: 100px; height: 50px; font-size: 16px; font-weight: bold; font-family: system-ui; background-color: black; color: white; cursor: pointer;">Submit</button>
-      <button type="button" (click)="cancel()" style="width: 100px; height: 50px; font-size: 16px; font-weight: bold; font-family: system-ui; cursor: pointer;">Cancel</button>
-    </div>
-  </form>
-</div>
 <ng-template #noCourses>
   <img id="backgroundos" src="../../assets/backgroundos_recipes.png">
 <div class="user_name">
