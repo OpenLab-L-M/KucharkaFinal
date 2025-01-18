@@ -1,25 +1,45 @@
 import {LiveAnnouncer} from '@angular/cdk/a11y';
-import {AfterViewInit, Component, ViewChild, inject} from '@angular/core';
+import {AfterViewInit, Component, ViewChild, inject, signal} from '@angular/core';
 import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import  { TaskDTO } from './TaskDTO'
+import { TaskService } from 'src/services/task.service';
+import { Subject, takeUntil } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [MatTableModule, MatSortModule, ],
+  imports: [MatTableModule, MatSortModule, CommonModule],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.css'
 })
 
 export class TaskListComponent {
- 
- 
+  dataSource = new MatTableDataSource();
+  getMeTasks(){
+    return this.taskService.getTasks()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {this.tasks = result
+      this.dataSource.data = result;
+    });
+   }
+  tasks: TaskDTO[];
+   
+
+    private destroy$ = new Subject<void>();
+  taskService = inject(TaskService);
+ ngOnInit(){
+this.getMeTasks();
+
+ }
+
   
   private _liveAnnouncer = inject(LiveAnnouncer);
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  displayedColumns: string[] = ['priority', 'name', 'startTime', 'deadLine'];
+
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -59,3 +79,4 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
   {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
 ];
+

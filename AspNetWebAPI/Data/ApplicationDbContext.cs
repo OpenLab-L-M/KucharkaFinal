@@ -23,6 +23,7 @@ namespace AspNetCoreAPI.Data
     public DbSet<Images> Images { get; set; }
     public DbSet<LikeRecensions> LikeRecensions { get; set; } = default!;
     public DbSet<Postupy> Postupiky { get; set; } = default!;
+    public DbSet<TaskList> Tasks { get; set; }
     
 
 
