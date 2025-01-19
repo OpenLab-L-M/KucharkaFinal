@@ -29,6 +29,21 @@ namespace AspNetCoreAPI.Controllers
                 StartTime = t.StartTime,
             });
         }
+        [HttpPost("/taskList/create")]
+        public void AddTask(TaskDTO taskToCreate)
+        {
+            TaskList nTask = new TaskList()
+            {
+                StartTime = DateTime.Now,
+                DeadLine = taskToCreate.DeadLine,
+                Description = taskToCreate.Description,
+                Priority = taskToCreate.Priority,
+                Name = taskToCreate.Name,
+            };
+            _context.Add(nTask);
+            _context.SaveChanges();
+            
+        }
 
     }
 }

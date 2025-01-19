@@ -14,4 +14,7 @@ export class TaskService {
    getTasks(){
       return this.http.get<TaskDTO[]>(this.taskUrl);
    }
+   addTask(taskToCreate: TaskDTO){
+    return this.http.post<void>(this.taskUrl + '/createTask', taskToCreate)
+   }
 }
