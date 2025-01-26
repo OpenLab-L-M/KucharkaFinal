@@ -1,0 +1,93 @@
+.task-detail-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f7fb;
+    padding: 20px;
+  }
+  
+  .task-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .task-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+  }
+  
+  .task-priority {
+    background-color: #ff9800;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+  }
+  
+  .task-info {
+    margin-bottom: 20px;
+  }
+  
+  .task-info-item {
+    margin-bottom: 15px;
+  }
+  
+  .task-info-item label {
+    font-weight: 600;
+    color: #555;
+  }
+  
+  .task-info-item p {
+    font-size: 1rem;
+    color: #333;
+    margin-top: 5px;
+  }
+  
+  .task-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-edit {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .btn-edit:hover {
+    background-color: #45a049;
+  }
+  
+  .btn-delete {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .btn-delete:hover {
+    background-color: #e53935;
+  }

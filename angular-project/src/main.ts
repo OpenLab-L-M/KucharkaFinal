@@ -21,6 +21,8 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAnalytics, provideAnalytics, ScreenTrackingService } from '@angular/fire/analytics';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { TaskListComponent } from './app/task-list/task-list.component';
+import { CreateTaskComponent } from './app/create-task/create-task.component';
+import { TaskDetailComponent } from './app/task-detail/task-detail.component';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -61,7 +63,9 @@ bootstrapApplication(AppComponent, {
         { path: 'CreateRecipe', component: CreateRecipeComponent},
         { path: 'RecipesDetails/:id', component: RecipesDetailsComponent },
         { path: 'userProfile/:userName', component: UserProfileComponent},
-        { path: 'taskList', component: TaskListComponent}
+        { path: 'taskList', component: TaskListComponent},
+        { path: 'createTask', component: CreateTaskComponent},
+        { path: 'TaskDetail/:id', component: TaskDetailComponent}
       ]),
       provideFirebaseApp(() => initializeApp({"projectId":"kucharka-f23d5","appId":"1:877324679360:web:88055d30f344841e0e9525","storageBucket":"kucharka-f23d5.firebasestorage.app","apiKey":"AIzaSyDizY3tqEbDJtkzWPiHD8-okoWu2RuMgbA","authDomain":"kucharka-f23d5.firebaseapp.com","messagingSenderId":"877324679360","measurementId":"G-F1FYEFP6YM"})), provideAnalytics(() => getAnalytics()), ScreenTrackingService, provideStorage(() => getStorage())
     ]

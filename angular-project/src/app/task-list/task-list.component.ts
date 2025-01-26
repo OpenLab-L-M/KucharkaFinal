@@ -5,18 +5,21 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import  { TaskDTO } from './TaskDTO'
 import { TaskService } from 'src/services/task.service';
 import { Subject, takeUntil } from 'rxjs';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [MatTableModule, MatSortModule, CommonModule],
+  imports: [MatTableModule, MatSortModule, CommonModule, DatePipe],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.css'
 })
 
 export class TaskListComponent {
+  constructor(){}
+  router = inject(Router)
   dataSource = new MatTableDataSource();
   getMeTasks(){
     return this.taskService.getTasks()
@@ -35,7 +38,9 @@ this.getMeTasks();
 
  }
 
-  
+navigateToTaskDetail(id: number){
+  this.router.navigate(['TaskDetail', id])
+}
   private _liveAnnouncer = inject(LiveAnnouncer);
 
   displayedColumns: string[] = ['priority', 'name', 'startTime', 'deadLine'];

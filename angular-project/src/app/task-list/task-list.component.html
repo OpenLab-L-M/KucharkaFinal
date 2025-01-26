@@ -10,11 +10,11 @@
   </ng-container>
 
   <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
+  <ng-container matColumnDef="name" >
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name" >
       Name
     </th>
-    <td mat-cell *matCellDef="let task"> {{task.name}} </td>
+    <td mat-cell *matCellDef="let task" (click)="navigateToTaskDetail(task.id)"> {{task.name }} </td>
   </ng-container>
 
   <!-- Weight Column -->
@@ -22,7 +22,7 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by weight">
       startTime
     </th>
-    <td mat-cell *matCellDef="let task"> {{task.startTime}} </td>
+    <td mat-cell *matCellDef="let task" > {{task.startTime | date: 'short'}} </td>
   </ng-container>
 
   <!-- Symbol Column -->
@@ -30,7 +30,7 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by deadLine">
       deadLine
     </th>
-    <td mat-cell *matCellDef="let task"> {{task.deadLine}} </td>
+    <td mat-cell *matCellDef="let task"> {{task.deadLine | date: 'short'}} </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

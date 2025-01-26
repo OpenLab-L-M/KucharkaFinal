@@ -15,6 +15,15 @@ export class TaskService {
       return this.http.get<TaskDTO[]>(this.taskUrl);
    }
    addTask(taskToCreate: TaskDTO){
-    return this.http.post<void>(this.taskUrl + '/createTask', taskToCreate)
+    return this.http.post<void>(this.baseUrl + '/createTask', taskToCreate)
+   }
+   getTasksDetail(id: number){
+    return this.http.get<TaskDTO>(this.baseUrl + '/TaskDetail/' + id)
+   }
+   editTask(editedTask: TaskDTO){
+    return this.http.post<TaskDTO>(this.baseUrl + '/TaskDetail/edit', editedTask)
+   }
+   deleteTask(id: number){
+    return this.http.delete<void>(this.baseUrl + '/TaskDetail/delete/' + id)
    }
 }
