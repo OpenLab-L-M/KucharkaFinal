@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { TaskDTO } from '../task-list/TaskDTO';
 import { TaskService } from 'src/services/task.service';
-import { Subject, takeUntil } from 'rxjs';
+import { min, Subject, takeUntil } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
 
@@ -23,6 +23,7 @@ taskCreateForm= new FormGroup({
   description: new FormControl('')
 })
  private destroy$ = new Subject<void>();
+  public currentDate = Date.now.toString();
 submit(){
   console.log(this.taskCreateForm.controls['priority']?.value);
   console.log(this.taskCreateForm.controls['deadLine']?.value);
