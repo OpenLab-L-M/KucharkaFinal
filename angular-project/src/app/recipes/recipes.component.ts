@@ -44,7 +44,7 @@ export class RecipesComponent {
   imageDTO: ImageDTO[] = [];
   userImages: CreatorDTO[] = [];
   ktoryRecept(id: number){
-    debugger
+    
     const checkbox = document.getElementById('favourite') as HTMLInputElement;
     const isChecked = (event.target as HTMLInputElement).checked;
     if(isChecked){
@@ -55,11 +55,11 @@ export class RecipesComponent {
     }
   recipeService = inject(RecipesService);
   private destroy$ = new Subject<void>();
-  guild = signal<RecipesDTO>(undefined);
+  recipe = signal<RecipesDTO>(undefined);
 
 
   useris: UserDTO;
-  realRecipes: RecipesDTO[] = [];
+  realRecipes = signal<RecipesDTO[]>([])
 
   easyChecked: boolean = false;
   mediumChecked: boolean = false;
@@ -81,7 +81,7 @@ export class RecipesComponent {
     })
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
-        this.realRecipes = result.recipes;
+        this.realRecipes.set(result.recipes);
         this.useris = result.currentUser;
         this.imageDTO = result.images;
         this.userImages = result.userCreators;
@@ -92,7 +92,7 @@ export class RecipesComponent {
   }
 
   comprim() {
-    this.realRecipes.forEach(a =>
+    this.realRecipes().forEach(a =>
       a.comprimedImage = `data:image/jpeg;base64,${this.userImages.find(b => b.id === a.userID).pictureURL}`,
 
     )

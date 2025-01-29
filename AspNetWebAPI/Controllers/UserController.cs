@@ -157,7 +157,7 @@ namespace AspNetCoreAPI.Controllers
 
         }
         [HttpPost("/recipes/addtofav/{id:int}")]
-         public IActionResult addtofav([FromRoute] int id)
+         public RecipesDTO addtofav([FromRoute] int id)
          {
              var novyOblubenec = _context.Recipes.Where(x => x.Id == id).FirstOrDefault();
              var userik = GetCurrentUser();
@@ -174,7 +174,7 @@ namespace AspNetCoreAPI.Controllers
             {
                 _context.UserRecipes.Add(pridajOblubeny);
                 _context.SaveChanges();
-                return Ok();
+                return mapReceptToDto(novyOblubenec);
             }
             else
             {

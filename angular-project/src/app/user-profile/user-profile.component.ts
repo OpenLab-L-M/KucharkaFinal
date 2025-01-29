@@ -52,7 +52,7 @@ export class UserProfileComponent {
   ourListOfRecipes: RecipesDTO[] = [];
 
  // ourFavRecipes = signal<RecipesDTO[]>([]);
-  ourFavRecipes: RecipesDTO[] = [];
+  ourFavRecipes = signal<RecipesDTO[]>([]);
 
 //  user = signal<UserDTO>(undefined);
   user: UserDTO;
@@ -96,13 +96,22 @@ export class UserProfileComponent {
   ktoryRecept(id: number): void{
     
     const checkbox = document.getElementById('favourite') as HTMLInputElement;
-    const isChecked = (event.target as HTMLInputElement).checked;
-    if(isChecked){
+   
+    
       this.recipesSevice.addToFav(id)
       .pipe(takeUntil(this.destroy$))
-      .subscribe();
+      .subscribe(result => {
+        if(result != null){
+          const isChecked = (event.target as HTMLInputElement).checked
+          this.ourFavRecipes.update(res => [...res, result] )
+        }
+        else{
+          this.ourFavRecipes.update(res => res.filter(fav => fav == result))
+          
+        }
+      });
     }
-    }
+    
     chPasswordClicked(){
       this.clicked = true;
     }
@@ -143,7 +152,7 @@ export class UserProfileComponent {
         this.user = result.currentUser;
         this.recensions = result.myComments;
         this.ourListOfRecipes = result.usersRecipes;
-        this.ourFavRecipes = result.favourites;
+        this.ourFavRecipes.set(result.favourites);
         this.imageDTO = result.allImages;
         this.userImages = result.userCreators;
         this.comprim();
@@ -152,7 +161,7 @@ export class UserProfileComponent {
   }
 
   comprim() {
-    this.ourFavRecipes.forEach(a =>
+    this.ourFavRecipes().forEach(a =>
       a.comprimedImage = `data:image/jpeg;base64,${this.userImages.find(b => b.id === a.userID).pictureURL}`,
     )
   }

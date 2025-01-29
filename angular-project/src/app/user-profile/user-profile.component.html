@@ -76,7 +76,7 @@
 <div *ngIf="user.userName == currentUserUsername">
 <h1>My Favourite Recipes</h1>
 <div class="recipes-container">
-  <mat-card class="recipes-items" *ngFor="let oursFavRecipe of ourFavRecipes">
+  <mat-card class="recipes-items" *ngFor="let oursFavRecipe of ourFavRecipes()">
     <mat-card-header>
       <img *ngIf="oursFavRecipe.comprimedImage" id="avatar" mat-card-avatar class="example-header-image" [src]="oursFavRecipe.comprimedImage" matTooltip="Creator">
       <!-- <img *ngIf="!this.user.pictureURL" id="avatar" mat-card-avatar class="example-header-image" src="../../assets/Whithout_profile_picture.jpg" matTooltip="Creator"> -->

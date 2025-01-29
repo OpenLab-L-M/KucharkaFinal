@@ -39,7 +39,7 @@
 
 
     <div class="recipes-container">
-      <mat-card class="recipes-items" *ngFor="let recipe of realRecipes | filter : sSearchRecept">
+      <mat-card class="recipes-items" *ngFor="let recipe of realRecipes() | filter : sSearchRecept">
         <mat-card-header>
           <div class="left-header">
             <img id="avatar" mat-card-avatar class="example-header-image" [src]="recipe.comprimedImage" matTooltip="Creator">
