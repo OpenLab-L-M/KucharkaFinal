@@ -286,9 +286,11 @@ h1 {
 }
 
 mat-card {
-  width: 70%;
-  min-width: 70%;
-  max-width: 70%; /* Optional, can be adjusted based on design needs */
+  
+  min-width: 100%;
+
+  display: inline-block;
+  max-width: 100%; /* Optional, can be adjusted based on design needs */
   overflow-wrap: break-word; /* Ensures text wraps within the card */
   word-wrap: break-word; /* Fallback for older browsers */
   word-break: break-word; /* Additional support for word breaking */
@@ -296,7 +298,12 @@ mat-card {
   background-color: rgb(41, 41, 41);
 }
 
-
+.recipeContainer{
+  display: inline-block;
+  max-width: 70%;
+  min-width: 70%;
+  
+}
 
 
 
