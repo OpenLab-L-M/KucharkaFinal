@@ -23,6 +23,7 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 import { TaskListComponent } from './app/task-list/task-list.component';
 import { CreateTaskComponent } from './app/create-task/create-task.component';
 import { TaskDetailComponent } from './app/task-detail/task-detail.component';
+import { FinishedTasksComponent } from './app/finished-tasks/finished-tasks.component';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -30,8 +31,8 @@ import { TaskDetailComponent } from './app/task-detail/task-detail.component';
 
 
 export function getBaseUrl() {
-  //return 'https://GulityCrown.bsite.net/api';
-  return 'https://localhost:7186/api';
+  return 'https://GulityCrown.bsite.net/api';
+  //return 'https://localhost:7186/api';
 }
 
 export function tokenGetter() {
@@ -48,7 +49,7 @@ bootstrapApplication(AppComponent, {
       importProvidersFrom(BrowserModule, JwtModule.forRoot({
         config: {
           tokenGetter: tokenGetter,
-          allowedDomains: ['https://localhost:7189'],
+          allowedDomains: ['https://localhost:7189', 'https://GulityCrown.bsite.net/api'],
           disallowedRoutes: [],
         },
       })),
@@ -64,6 +65,7 @@ bootstrapApplication(AppComponent, {
         { path: 'RecipesDetails/:id', component: RecipesDetailsComponent },
         { path: 'userProfile/:userName', component: UserProfileComponent},
         { path: 'taskList', component: TaskListComponent},
+        { path: 'finishedTasks', component: FinishedTasksComponent},
         { path: 'createTask', component: CreateTaskComponent},
         { path: 'TaskDetail/:id', component: TaskDetailComponent}
       ]),

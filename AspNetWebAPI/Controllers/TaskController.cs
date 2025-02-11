@@ -1,4 +1,5 @@
 ﻿using AspNetCoreAPI.Data;
+using AspNetCoreAPI.Migrations;
 using AspNetCoreAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,7 @@ namespace AspNetCoreAPI.Controllers
         [HttpGet("/taskList")]
         public IEnumerable<TaskDTO> GetTasks()
         {
-            IEnumerable<TaskList> dbTasks = _context.Tasks;
+            IEnumerable<TaskList> dbTasks = _context.Tasks.Where(x=> x.IsCompleted == false);
             return dbTasks.Select(t => new TaskDTO
             {
                 Id = t.Id,
@@ -27,6 +28,7 @@ namespace AspNetCoreAPI.Controllers
                 Description = t.Description,
                 Priority = t.Priority,
                 StartTime = t.StartTime,
+                IsCompleted = t.IsCompleted,
             });
         }
         [HttpPost("/createTask")]
@@ -39,6 +41,7 @@ namespace AspNetCoreAPI.Controllers
                 Description = taskToCreate.Description,
                 Priority = taskToCreate.Priority,
                 Name = taskToCreate.Name,
+                IsCompleted = false,
             };
             _context.Add(nTask);
             _context.SaveChanges();
@@ -59,6 +62,7 @@ namespace AspNetCoreAPI.Controllers
                 DeadLine = task.DeadLine, 
                 Description = task.Description,
                 Name = task.Name,
+                IsCompleted = task.IsCompleted,
             };
         }
         [HttpPost("/TaskDetail/edit")]
@@ -74,11 +78,46 @@ namespace AspNetCoreAPI.Controllers
             return mapToDTO(taskFromDB);
         }
         [HttpDelete("/TaskDetail/delete/{id:int}")]
-        public void DeleteTask([FromRoute] int id)
+        public TaskDTO DeleteTask([FromRoute] int id)
         {
             _context.Remove(_context.Tasks.FirstOrDefault(t=>t.Id == id));
             _context.SaveChanges();
+            return null;
         }
+        [HttpPut("/changeToFinished")]
+        public void changeToFinished([FromBody]int id)
+        {
+            
+            var naZmenu = _context.Tasks.FirstOrDefault(x => x.Id == id);
+            if (naZmenu.IsCompleted == false)
+            {
+                naZmenu.IsCompleted = true;
+            }
+            else if (naZmenu.IsCompleted == true)
+            {
+                naZmenu.IsCompleted = false;
+            }
+            _context.SaveChanges();
+        }
+
+        [HttpGet("/finishedTasks")]
+        public IEnumerable<TaskDTO> getFinishedTasks()
+        {
+            var finishedTasks =  _context.Tasks.Where(x => x.IsCompleted == true);
+            return finishedTasks.Select(x => new TaskDTO
+            {
+                DeadLine = x.DeadLine,
+                Description = x.Description,
+                Id = x.Id,
+                IsCompleted = x.IsCompleted,
+                Name = x.Name,
+                Priority = x.Priority,
+                StartTime = x.StartTime,
+            });
+        }
+        
+
+
 
     }
 }

@@ -26,4 +26,10 @@ export class TaskService {
    deleteTask(id: number){
     return this.http.delete<void>(this.baseUrl + '/TaskDetail/delete/' + id)
    }
+   getFinishedTasks(){
+    return this.http.get<TaskDTO[]>(this.baseUrl + "/finishedTasks");
+   }
+   changeToFinishedOrUnfinished(id: number){
+    return this.http.put<TaskDTO>(this.baseUrl + "/changeToFinished", id);
+   }
 }
