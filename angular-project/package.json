@@ -7,9 +7,13 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "login": "firebase login",
+    "deploy": "firebase deploy",
     "finishedTasks": "ng g c finishedTasks",
     "main-profile": "ng g c main-profile",
     "homepage": "ng g c homepage",
+    "addProject": "firebase use --add soc4aicupa",
+    "projectLists": "firebase projects:list",
     "angularis": "ng update @angular/core@18 @angular/cli@18"
   },
   "private": true,

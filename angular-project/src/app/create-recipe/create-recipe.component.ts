@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, inject, Inject, OnInit, Output} from '@angular/core';
 import {FormGroup, FormControl, ReactiveFormsModule, Validators, FormsModule, FormArray} from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -40,6 +40,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { IngredientsFilterPipe } from './ingredients-filter.pipe';
 import { DialogComponent } from './dialog/dialog.component';
+import { getBaseUrl } from 'src/main';
 
 @Component({
   selector: 'app-create-recipe',
@@ -209,13 +210,13 @@ export class CreateRecipeComponent {
   liveDemo:any;
 
 
-
+  BASE_URL= getBaseUrl();
   imageUploadAction() {
     const imageFormData = new FormData();
     imageFormData.append('image', this.uploadedImage, this.uploadedImage.name);
 
 
-    this.httpClient.post('https://localhost:7186/recipes/upload', imageFormData)
+    this.httpClient.post(this.BASE_URL, imageFormData)
       .subscribe((value: number) => {
         this.createRecipe(value);
         }
