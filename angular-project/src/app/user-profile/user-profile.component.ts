@@ -27,6 +27,7 @@ import {ImageDTO} from "../recipes/ImageDTO";
 import {CreatorDTO} from "../recipes/CreatorDTO";
 import { RecensionsDTO } from '../recipes-details/recensions-dto';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { getBaseUrl } from 'src/main';
 
 export interface DialogData {
   animal: string;
@@ -242,9 +243,9 @@ export class DialogOverviewExampleDialog {
   imageUploadAction() {
     const imageFormData = new FormData();
     imageFormData.append('image', this.uploadedImage, this.uploadedImage.name);
-
-
-    this.httpClient.post('https://localhost:7186/user/upload', imageFormData, { observe: 'response' })
+    //'https://localhost:7186/user/upload'
+    var base_URL = getBaseUrl();
+    this.httpClient.post(base_URL + '/user/upload', imageFormData, { observe: 'response' })
       .subscribe((response) => {
         if (response.status === 200) {
           this.postResponse = response;

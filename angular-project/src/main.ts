@@ -31,8 +31,8 @@ import { FinishedTasksComponent } from './app/finished-tasks/finished-tasks.comp
 
 
 export function getBaseUrl() {
-  return 'https://GulityCrown.bsite.net/api';
-  //return 'https://localhost:7186/api';
+  //return 'https://GulityCrown.bsite.net/api';
+  return 'https://localhost:7186/api';
 }
 
 export function tokenGetter() {
@@ -50,7 +50,7 @@ bootstrapApplication(AppComponent, {
         config: {
           tokenGetter: tokenGetter,
           //'https://localhost:7189',
-           allowedDomains: ['https://GulityCrown.bsite.net/api'],
+           allowedDomains: ['https://localhost:7189'],
           disallowedRoutes: [],
         },
       })),

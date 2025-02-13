@@ -216,7 +216,7 @@ export class CreateRecipeComponent {
     imageFormData.append('image', this.uploadedImage, this.uploadedImage.name);
 
 
-    this.httpClient.post(this.BASE_URL, imageFormData)
+    this.httpClient.post(this.BASE_URL + '/recipes/upload', imageFormData)
       .subscribe((value: number) => {
         this.createRecipe(value);
         }
