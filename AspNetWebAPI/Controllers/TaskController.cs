@@ -85,7 +85,7 @@ namespace AspNetCoreAPI.Controllers
             return null;
         }
         [HttpPut("/changeToFinished")]
-        public void changeToFinished([FromBody]int id)
+        public TaskDTO changeToFinished([FromBody]int id)
         {
             
             var naZmenu = _context.Tasks.FirstOrDefault(x => x.Id == id);
@@ -98,6 +98,7 @@ namespace AspNetCoreAPI.Controllers
                 naZmenu.IsCompleted = false;
             }
             _context.SaveChanges();
+            return mapToDTO(naZmenu);
         }
 
         [HttpGet("/finishedTasks")]

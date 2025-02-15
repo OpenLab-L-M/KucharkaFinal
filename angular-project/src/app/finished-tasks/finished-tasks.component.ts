@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 export class FinishedTasksComponent {
   constructor(){}
   router = inject(Router)
-  dataSource = new MatTableDataSource();
+  dataSource = new MatTableDataSource<TaskDTO>();
   getFinishedTasks(){
     return this.taskService.getFinishedTasks()
     .pipe(takeUntil(this.destroy$))
@@ -37,12 +37,26 @@ this.getFinishedTasks();
 
  }
  changeToFinishedOrUnfinished(id: number){
-  debugger
   this.taskService.changeToFinishedOrUnfinished(id)
   .pipe(takeUntil(this.destroy$))
-  .subscribe()
-  this.dataSource.data.slice(id, 1);
-  this.dataSource._updateChangeSubscription();
+  .subscribe(result => {
+    console.log('result.id:', result.id);
+    console.log('dataSource.data:', this.dataSource.data);
+    console.log(id);
+
+    // Ensure both values are numbers before comparison
+    const deleteAt = this.dataSource.data.findIndex(task => Number(task.id) === Number(result.id));
+
+    if (deleteAt === -1) {
+      console.warn(`Task with id ${result.id} not found in dataSource.`);
+      return; 
+    }
+
+    this.dataSource.data.splice(deleteAt, 1);
+    this.dataSource.data = [...this.dataSource.data]; 
+
+    console.log(deleteAt);
+  });
  }
 navigateToTaskDetail(id: number){
   this.router.navigate(['TaskDetail', id])

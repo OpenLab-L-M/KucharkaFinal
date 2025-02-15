@@ -1,5 +1,5 @@
 import {LiveAnnouncer} from '@angular/cdk/a11y';
-import {AfterViewInit, Component, ViewChild, inject, signal} from '@angular/core';
+import {AfterViewInit, Component, ViewChild, inject, numberAttribute, signal} from '@angular/core';
 import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import  { TaskDTO } from './TaskDTO'
@@ -8,11 +8,19 @@ import { Subject, takeUntil } from 'rxjs';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatIconAnchor } from '@angular/material/button';
+
+import {MatCardModule} from '@angular/material/card';
+import {MatFormField, MatFormFieldModule, MatLabel} from '@angular/material/form-field';
+
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [MatTableModule, MatSortModule, CommonModule, DatePipe],
+  imports: [MatTableModule, MatSortModule, CommonModule, DatePipe,MatIconModule, ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.css'
 })
@@ -20,22 +28,39 @@ import { Router } from '@angular/router';
 export class TaskListComponent {
   constructor(){}
   router = inject(Router)
-  dataSource = new MatTableDataSource();
+  updatedDataSource = new MatTableDataSource<TaskDTO>();
+  dataSource = new MatTableDataSource<TaskDTO>();
   getMeTasks(){
     return this.taskService.getTasks()
     .pipe(takeUntil(this.destroy$))
-    .subscribe(result => {this.tasks = result
+    .subscribe(result => {this.tasks = result;
       this.dataSource.data = result;
     });
    }
    changeToFinishedOrUnfinished(id: number){
-    debugger
+
     this.taskService.changeToFinishedOrUnfinished(id)
     .pipe(takeUntil(this.destroy$))
-    .subscribe();
-    this.dataSource.data.slice(id, 1);
-    this.dataSource._updateChangeSubscription();
+    .subscribe(result => {
+      console.log('result.id:', result.id); // Log the result.id
+      console.log('dataSource.data:', this.dataSource.data); // Log the data source
+      console.log(id);
+
+      // Ensure both values are numbers before comparison
+      const deleteAt = this.dataSource.data.findIndex(task => Number(task.id) === Number(result.id));
+
+      if (deleteAt === -1) {
+        console.warn(`Task with id ${result.id} not found in dataSource.`);
+        return; // Exit the function if the task isn't found
+      }
+
+      this.dataSource.data.splice(deleteAt, 1);  // Remove the element
+      this.dataSource.data = [...this.dataSource.data]; // Trigger data source update
+
+      console.log(deleteAt);
+    });
    }
+
   tasks: TaskDTO[];
    
 

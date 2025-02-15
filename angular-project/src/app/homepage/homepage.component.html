@@ -14,6 +14,16 @@
   <div class="button-container">
     <button id="check_btn" [routerLink]="['/Recipes']">Check some created recipes</button>
   </div>
+  <div class="center">
+    <img id="food" src="../../assets/taskImg.png">
+    <div class="slogan2">
+      <h2>"Plan your time effectively"</h2>
+    </div>
+    
+  </div>
+  <div class="button-container">
+    <button id="check_btn" [routerLink]="['/taskList']">Check some created Tasks</button>
+  </div>
   
   <div class="recipes-container">
     <mat-card class="recipes-items" *ngFor="let recipe of realRecipes | filter : sSearchRecept">

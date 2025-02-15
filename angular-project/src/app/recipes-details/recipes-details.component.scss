@@ -1,250 +1,250 @@
-body #backgroundos{
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  z-index: -2;
-}
+body {
+  #backgroundos {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    z-index: -2;
+  }
 
-/* body {
-    padding-left: 30px;
-} */
-.comment-box input{
-  background: rgb(50, 50, 50);
-  color: #fff;
-  width: 75%;
-  height: 50px;
-  margin-left: 50px;
-  padding: 10px;
-  border: 1px solid #444;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: all 0.3s ease-in-out;
-}
+    
+  color: #333333;          /* Set default text color to dark gray */
 
-.comment-box input:focus {
-  border-color: darkgoldenrod;
-  outline: none;
-}
+  /* stylelint-disable-next-line selector-max-specificity */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: #3E2723;        /* Set heading color to dark brown */
+  }
 
-.comment-box input:hover {
-  border-color: darkgoldenrod;
-  transition: all 0.3s ease-in-out;
-}
+  .comment-box {
 
-.comment-box button {
-  height: 50px;
-  width: 100px;
-  background-color: darkgoldenrod;
-  border: none;
-  border-radius: 10%;
-  cursor: pointer;
-  color: white;
-  font-size: 18px;
-  padding-top: 5px;
-  transition: background-color 0.3s ease;
-}
+    input {
+      background: #FFFDD0;
+      color: #3E2723;
+      
+      width: 75%;
+      height: 50px;
+      margin-left: 50px;
+      padding: 10px;
+      border: 1px solid #444;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.3s ease-in-out;
 
-.comment-box button:hover {
-  background-color: #dda30f;
-}
+      &:focus {
+        border-color: #3E2723;
+        outline: none;
+      }
 
-.comment-box {
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 20px;
-  justify-content: space-between;
-  align-items: center;
-  margin-left: 10px;
-  margin-bottom: 20px;
+      &:hover {
+        border-color: #3E2723;
+        transition: all 0.3s ease-in-out;
+      }
+    }
 
-}
+    button {
+      height: 50px;
+      width: 100px;
+      background-color: #3E2723;
+      border: none;
+      border-radius: 10%;
+      cursor: pointer;
+      color: white;
+      font-size: 18px;
+      padding-top: 5px;
+      transition: background-color 0.3s ease;
 
-.comment-section {
+      &:hover {
+        background-color: #dda30f;
+      }
 
-  margin-left:50px;
-  margin-bottom: 40px;
-  margin-top: 50px;
+      &:before {
+        content: '➤ ';  /* Modified content */
+      }
+    }
 
-}
-.comment-section h2{
-  font-size: 32px;
-  color: darkgoldenrod;
-  text-align: left;
-  padding-left: 10px;
-  border-bottom: 2px solid darkgoldenrod;
-  padding-bottom: 10px;
-}
-.comment {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 75%;
-  margin: 20px auto;
-  padding: 15px;
-  border: 1px solid #333;
-  border-radius: 10px;
-  background-color: #252525;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 10px;
+    margin-bottom: 20px;
+  }
 
-.comment:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 10px rgba(175, 123, 11, 0.568);
-}
+  .comment-section {
+    margin-left: 50px;
+    margin-bottom: 40px;
+    margin-top: 50px;
 
-.comment h3 {
-  font-size: 18px;
-  color: rgb(228, 167, 14);
-  margin-bottom: 10px;
+    h2 {
+      font-size: 32px;
+      color: #3E2723;
+      text-align: left;
+      padding-left: 10px;
+      border-bottom: 2px solid darkgoldenrod;
+      padding-bottom: 10px;
+    }
+  }
 
-}
-.comment p {
-  padding-left: 10px;
-  font-size: 14px;
+  .comment {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 75%;
+    margin: 20px auto;
+    padding: 15px;
+    
+    background-color: #F5F5DC;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-}
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 10px rgba(175, 123, 11, 0.568);
+    }
 
-.form-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* height: 100vh;  Remove height: 100vh */
-}
+    h3 {
+      font-size: 18px;
+      color: #3E2723;
+      margin-bottom: 10px;
+    }
 
-.edit_form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: rgb(41, 41, 41);
-  border-radius: 0px 0px 10px 10px;
-  padding: 50px;
-}
+    p {
+      padding-left: 10px;
+      font-size: 14px;
+    }
+  }
 
-.edit_btn {
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
+  .form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-.detail_title {
-  font-size: 50px;
-  text-align: center;
-  font-weight: bold;
-  padding-bottom: 20px;
-  color: darkgoldenrod;
+  .edit_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgb(41, 41, 41);
+    border-radius: 0px 0px 10px 10px;
+    padding: 50px;
+  }
 
-}
+  .edit_btn {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
 
+  .detail_title {
+    font-size: 50px;
+    text-align: center;
+    font-weight: bold;
+    padding-bottom: 20px;
+    color: #3E2723;
+  }
 
+  mat-card-title {
+    font-size: 30px;
+    color: #3E2723;
+    font-family: 'Times New Roman', Times, serif;
+  }
 
-mat-card-title {
-  font-size: 30px;
-  color: darkgoldenrod;
-  font-family: 'Times New Roman', Times, serif;
-}
+  mat-subtitle {
+    color: #333333;     /* Set subtitle color to dark gray */
+  }
 
-mat-subtitle {
-  color: white;
-}
+  mat-card-actions {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
 
-mat-card-actions {
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
+  mat-header mat-card-content {
+    color: #333333;    /* Set card content color to dark gray */
+  }
 
-mat-header mat-card-content{
-  color: white;
-}
+  mat-card-content {
+    color: #333333;
+  }
 
-mat-card-content {
-  color: white;
-}
-
-/* mat-card-subtitle {
-  left: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-} */
-
-.detail_description {
+  .detail_description {
     font-size: 20px;
     line-height: 1.5;
-}
+    
+  }
 
-.detail_difficulty {
+  .detail_difficulty {
     font-size: 33px;
     padding-bottom: 20px;
-}
+    
+  }
 
-#radio_up:checked + #thumb_up{
+  #radio_up:checked+#thumb_up {
     color: green;
-}
+  }
 
-#radio_up {
-  position: absolute;
-  width: 22px;
-  height: 22px;
-  z-index: 2;
-  opacity: 0;
-}
+  #radio_up {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    z-index: 2;
+    opacity: 0;
+  }
 
-#thumb_up {
-  position: relative;
-}
+  #thumb_up {
+    position: relative;
+  }
 
-#radio_down:checked + #thumb_down{
-  color: red;
-}
+  #radio_down:checked+#thumb_down {
+    color: red;
+  }
 
-#radio_down {
-  position: absolute;
-  width: 22px;
-  margin-left: 37px;
-  height: 22px;
-  z-index: 2;
-  opacity: 0;
-}
+  #radio_down {
+    position: absolute;
+    width: 22px;
+    margin-left: 37px;
+    height: 22px;
+    z-index: 2;
+    opacity: 0;
+  }
 
-#thumb_down {
-  position: absolute;
-  margin-left: 37px;
-}
+  #thumb_down {
+    position: absolute;
+    margin-left: 37px;
+  }
 
+  .detail_image {
+    display: flex;
+    display: block;  /* Ensure it behaves as a block element */
+    margin: auto;
 
-.detail_image {
-  display: flex;
-  display: block; /* Ensure it behaves as a block element */
-  margin: auto;
+    max-width: 450px;
+    max-height: 310px;
+    min-width: 400px;
+    min-height: 260px;
+    width: auto;     /* Automatically adjust the width to maintain aspect ratio */
+    height: auto;
+  }
 
-  max-width: 450px;
-  max-height: 310px;
-  min-width: 400px;
-  min-height: 260px;
-  width: auto; /* Automatically adjust the width to maintain aspect ratio */
-  height: auto;
-
-
-}
-
-mat-card-footer #back {
+  mat-card-footer #back {
     background: #fff;
     margin-top: 20px;
     margin-bottom: 20px;
     width: 10%;
     height: 60px;
     transition: .2s all ease-in-out;
-  }
 
-  mat-card-footer #back:hover {
-    background: #171A2B;
-    color: white;
-
+    &:hover {
+      background: #171A2B;
+      color: white;
+    }
   }
 
   mat-card-footer #delete {
@@ -253,10 +253,10 @@ mat-card-footer #back {
     width: 10%;
     height: 60px;
     color: #fff;
-  }
 
-  mat-card-footer #delete:hover {
-    background: #171A2B;
+    &:hover {
+      background: #171A2B;
+    }
   }
 
   .edit_form {
@@ -264,145 +264,132 @@ mat-card-footer #back {
     align-items: center;
   }
 
-
   .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* height: 100%; Remove height: 100% */
-    min-height: 100%; /* Or consider using min-height: 100vh; if you want it to at least cover the viewport */
+    /* height: 100%; */
+    min-height: 100%; /* Use min-height if you want it to cover the whole viewport */
   }
 
-h1 {
-  text-align: center;
-  padding: 5px 0 20px 0;
-  border-bottom: 1px solid silver;
-  /*background-color: rgb(232, 0, 0);*/
-  background-color: darkgoldenrod;
-  color: white;
-  padding-top: 15px;
-  border-radius: 10px 10px 0px 0px;
-  margin-bottom: unset;
-}
+  h1 {
+    text-align: center;
+    padding: 5px 0 20px 0;
+    border-bottom: 1px solid silver;
+    background-color: darkgoldenrod;
+    color: white;
+    padding-top: 15px;
+    border-radius: 10px 10px 0px 0px;
+    margin-bottom: unset;
+  }
 
-mat-card {
-
-  min-width: 100%;
-
-  display: inline-block;
-  max-width: 100%; /* Optional, can be adjusted based on design needs */
-  overflow-wrap: break-word; /* Ensures text wraps within the card */
-  word-wrap: break-word; /* Fallback for older browsers */
-  word-break: break-word; /* Additional support for word breaking */
-  margin: auto; /* Center the card horizontally */
-  background-color: rgb(41, 41, 41);
-}
-
-.recipeContainer{
-  display: block; /* Changed to display: block for better content flow */
-  max-width: 70%;
-  min-width: 70%;
-
-}
-
-
-
-
-/*RatingDesign*/
-
-
-.like-dislike-container {
-  display: flex;
-  justify-content: flex-end; /* Align to the right */
-  margin-top: 10px; /* Add spacing from the comment */
-}
-
-.like-button,
-.dislike-button {
-  display: flex;
-  align-items: center; /* Center icon and count vertically */
-  margin-left: 5px; /* Add spacing between buttons */
-}
-
-.like-button mat-icon,
-.dislike-button mat-icon {
-  color: white;
-  font-size: 18px;
-}
-
-.like-count,
-.dislike-count {
-  color: white;
-  margin-left: 2px; /* Add spacing between icon and count */
-}
-#matBug p {
-  visibility: visible;
-  font-size: large;
-
-}
-
-#matBug {
-  display: flex;
-  align-items: center;
-  background-color: #333;
-  padding: 10px;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
-}
-#matBug:hover {
-  background-color: #444;
-}
-
-#matBug p {
-  margin-left: 10px;
-  font-size: 18px;
-  color: white;
-}
-
-#liked:checked + #like {
-  color: darkgoldenrod
-}
-
-#dissliked:checked + #dislike {
-  color: red
-}
-
-.matCardContainer {
-  display: flex; /* Flexbox pre lepšie rozloženie */
-  flex-direction: column;
-  justify-content: flex-start; /* Posunutie k ľavej strane */
-  align-items: center; /* Vertikálne centrovanie */
-  margin-top: 10px; /* Pridanie medzery od vrchu */
-}
-
-
-
-.comment .matCardContainer mat-card {
-  background-color: transparent;
-  border: none;
-  box-shadow: none;
-}
-
-.comment-box button:before {
-  content: '➤ '; /* Môžeš to upraviť na ikonu alebo iný symbol */
-}
-.delete-link {
-  color: red;
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-@media screen and (max-width: 1300px) {
-
-  .detail_image {
-    display: flex;
-    display: block; /* Ensure it behaves as a block element */
+  mat-card {
+    min-width: 100%;
+    display: inline-block;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
     margin: auto;
+    background-color: #F5F5DC;
+  }
 
-    max-width: 200px;
-    max-height: 150px;
+  .recipeContainer {
+    display: block;  /* Changed to display: block for better content flow */
+    max-width: 70%;
+    min-width: 70%;
+  }
 
+  /* RatingDesign */
+  .like-dislike-container {
+    display: flex;
+    justify-content: flex-end; /* Align to the right */
+    margin-top: 10px;  /* Add spacing from the comment */
+    
+  }
+  .fa fa-thumbs-up{
+    color: #000;
+  }
+  .like-button,
+  .dislike-button {
+    display: flex;
+    align-items: center;  /* Center icon and count vertically */
+    margin-left: 5px;  /* Add spacing between buttons */
+  }
 
+  .like-button mat-icon,
+  .dislike-button mat-icon {
+    color: white;
+    font-size: 18px;
+  }
+
+  .like-count,
+  .dislike-count {
+    color: white;
+    margin-left: 2px;  /* Add spacing between icon and count */
+  }
+
+  #matBug p {
+    visibility: visible;
+    font-size: large;
+  }
+
+  #matBug {
+    display: flex;
+    align-items: center;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #444;
+    }
+
+    p {
+      margin-left: 10px;
+      font-size: 18px;
+      color: #333333;
+    }
+  }
+
+  #liked:checked+#like {
+    color: darkgoldenrod
+  }
+
+  #dissliked:checked+#dislike {
+    color: red
+  }
+
+  .matCardContainer {
+    display: flex;  /* Flexbox pre lepšie rozloženie */
+    flex-direction: column;
+    justify-content: flex-start; /* Posunutie k ľavej strane */
+    align-items: center; /* Vertikálne centrovanie */
+    margin-top: 10px;  /* Pridanie medzery od vrchu */
+
+    mat-card {
+      background-color: transparent;
+      border: none;
+      box-shadow:5px 5px 5px black;
+    }
+  }
+
+  .delete-link {
+    color: red;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  @media screen and (max-width: 1300px) {
+    .detail_image {
+      display: flex;
+      display: block;  /* Ensure it behaves as a block element */
+      margin: auto;
+
+      max-width: 200px;
+      max-height: 150px;
+    }
   }
 }

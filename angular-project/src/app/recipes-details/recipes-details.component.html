@@ -1,6 +1,6 @@
 
 <body>
-  <img id="backgroundos" src="../../assets/backgroundos_recipes.png">
+  <img id="backgroundos" src="../../assets/kuchynaBackgroundos.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <div class="container">
   <div class="inside_container" *ngIf="clicked == true; else noCourses">
@@ -41,12 +41,12 @@
   </div>
   </div>
 
-  <ng-template #noCourses>
+  <ng-template #noCourses >
 
     <p class="detail_title" style="font-family: 'Times New Roman', Times, serif; font-style: italic;">
       {{this.recipe().name}}
     </p>
-  <div style="display: flex; justify-content: center; overflow: auto;" class="recipeContainer">
+  <div style="display: flex; justify-content: center; " class="recipeContainer">
     <!-- <p class="detail_title">
       {{this.recipeService.chRecipe.name}}
     </p> -->
@@ -55,10 +55,10 @@
     </p> -->
     <mat-card>
       <mat-card-header>
-        <mat-card-subtitle style="color: white;">time: {{this.recipe().cas}} min</mat-card-subtitle>
+        <mat-card-subtitle style="color: #333333;">time: {{this.recipe().cas}} min</mat-card-subtitle>
       </mat-card-header>
       <mat-card-header>
-        <mat-card-subtitle style="color: white;">Difficulty: {{this.recipe().difficulty}}</mat-card-subtitle>
+        <mat-card-subtitle style="color: #333333;">Difficulty: {{this.recipe().difficulty}}</mat-card-subtitle>
         <!-- <mat-card-title>Rate this recipe</mat-card-title> -->
       </mat-card-header>
 
@@ -145,7 +145,7 @@
   <a [routerLink]="['/userProfile', recension.userName]"><h3 >{{recension.userName}}</h3></a>
   
   <span>{{recension.datetime}}</span>
-  <p style="color: white;">{{recension.content}}</p>
+  <p style="color:#333333;">{{recension.content}}</p>
   <!-- <div class="matCardContainer">
     
     <mat-card id="matBug" [attr.id]="'like-card-' + i">
@@ -162,12 +162,12 @@
   </div> -->
   <div class="like-dislike-container">
     <div class="like-button">
-      <mat-icon class="fa fa-thumbs-up" (click)="likeRecension(recension.id)"></mat-icon>
-      <span class="like-count" [textContent]="recension.amountOfLikes"></span>
+      <mat-icon class="fa fa-thumbs-up" (click)="likeRecension(recension.id)" style="color:#333333;"></mat-icon>
+      <span class="like-count" [textContent]="recension.amountOfLikes" style="color:#333333;"></span>
     </div>
     <div class="dislike-button">
-      <mat-icon class="fa fa-thumbs-down" (click)="disslikeRecension(recension.id)"></mat-icon>
-      <span class="dislike-count" [textContent]="recension.amountOfDisslikes"></span>
+      <mat-icon class="fa fa-thumbs-down" (click)="disslikeRecension(recension.id)" style="color: #333333;"></mat-icon>
+      <span class="dislike-count" [textContent]="recension.amountOfDisslikes" style="color: #333333;"></span>
     </div>
   </div>
   <div *ngIf="recension.userID == recension.checkID">

@@ -1,11 +1,11 @@
 
 div {
   z-index: 2;
-  background-color: black;
+  background-color: #FFCBA4;
 }
 mat-toolbar {
   background-color: transparent;
-  color: white;
+  color: 3E2723;
   font-size: 30px;
   font-family: Brush Script MT, Brush Script Std, cursive;
 
@@ -15,6 +15,7 @@ mat-toolbar {
 }
 
 span {
+  
   cursor: pointer;
 }
 
@@ -28,7 +29,7 @@ button {
 }
 
 #white {
-  color: white;
+  color: 3E2723;
   font-weight: bold;
 }
 
@@ -96,7 +97,7 @@ img {
   flex-direction: column;
   padding-top: 200px;
   margin-right: 20px;
-    background-color: black;
+    background-color: #FFCBA4;
     
    }
 

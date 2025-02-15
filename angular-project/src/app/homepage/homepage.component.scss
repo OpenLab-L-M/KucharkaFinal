@@ -58,7 +58,7 @@ body #backgroundos {
     display: flex;
     justify-content: center;
     width: 100%;
-    position: absolute;
+    position: relative;
     /* bottom: 20px; */
     bottom: 1px;
     z-index: 10;
@@ -191,6 +191,26 @@ body #backgroundos {
   justify-content: center;
   padding-left: 40px;
 }
+.slogan2 h2 {
+  color: rgb(255, 255, 255);
+  font-size: 80px;
+  line-height: 1.5;
+  font-family: "Times New Roman", Times, serif;
+  margin-left: 60px;
+  transition: font-size 0.7s;
+}
+
+.slogan2 {
+  display: flex;
+align-items: center;
+height: 100vh;
+width: 50%;
+z-index: 4;
+
+}
+.slogan2 h2:hover {
+  font-size: 83px;
+}
 
 @media screen and (max-width: 1300px) {
   .slogan h2 {
@@ -294,4 +314,19 @@ body #backgroundos {
     width: 100%;
     height: auto;
   }
+
+  .slogan2 {
+    width: 100%;
+    text-align: center; /* Center text */
+    justify-content: center; /* Center flexbox items */
+    align-items: center; /* Vertically center items */
+    margin: 0 auto; /* Center horizontally */
+  }
+
+  .slogan2 h2 {
+    font-size: 25px;
+    margin-left: 0;
+    text-align: center;
+  }
 }
+

@@ -37,7 +37,7 @@ submit(){
     description: this.taskCreateForm.controls['description']?.value
   })
   .pipe(takeUntil(this.destroy$))
-  .subscribe();
+  .subscribe(() => this.router.navigate(['/taskList']));
 }
 
 

@@ -2,7 +2,7 @@
   <form [formGroup]="taskCreateForm">
 
     <label for="priority">Priority:</label>
-    <input type="number" id="priority" name="priority" formControlName="priority" min="0" />
+    <input type="number" id="priority" name="priority" formControlName="priority" min="1" />
 
   
 
@@ -21,5 +21,5 @@
 
 
 </form>
-<button class="button-73" (click)="submit()" [routerLink]="['/taskList']">create</button>
+<button class="button-73" (click)="submit()">create</button>
 </div>
