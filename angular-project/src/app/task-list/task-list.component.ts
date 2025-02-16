@@ -28,7 +28,6 @@ import {MatFormField, MatFormFieldModule, MatLabel} from '@angular/material/form
 export class TaskListComponent {
   constructor(){}
   router = inject(Router)
-  updatedDataSource = new MatTableDataSource<TaskDTO>();
   dataSource = new MatTableDataSource<TaskDTO>();
   getMeTasks(){
     return this.taskService.getTasks()
@@ -42,8 +41,8 @@ export class TaskListComponent {
     this.taskService.changeToFinishedOrUnfinished(id)
     .pipe(takeUntil(this.destroy$))
     .subscribe(result => {
-      console.log('result.id:', result.id); // Log the result.id
-      console.log('dataSource.data:', this.dataSource.data); // Log the data source
+      console.log('result.id:', result.id);
+      console.log('dataSource.data:', this.dataSource.data);
       console.log(id);
 
       // Ensure both values are numbers before comparison
@@ -51,11 +50,11 @@ export class TaskListComponent {
 
       if (deleteAt === -1) {
         console.warn(`Task with id ${result.id} not found in dataSource.`);
-        return; // Exit the function if the task isn't found
+        return; 
       }
 
-      this.dataSource.data.splice(deleteAt, 1);  // Remove the element
-      this.dataSource.data = [...this.dataSource.data]; // Trigger data source update
+      this.dataSource.data.splice(deleteAt, 1);
+      this.dataSource.data = [...this.dataSource.data]; 
 
       console.log(deleteAt);
     });

@@ -33,7 +33,7 @@ export class FilterPipe implements PipeTransform {
         const nizkoKalorickeMatches = difficultiesArray.includes('lowcalorie') && item.nizkoKaloricke === true;
 
         
-        return difficultyMatches && veganskeMatches && vegetarianskeMatches && nizkoKalorickeMatches;
+        return difficultyMatches || veganskeMatches || vegetarianskeMatches || nizkoKalorickeMatches;
       }
       return false;
     });

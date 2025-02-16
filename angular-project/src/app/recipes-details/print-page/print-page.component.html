@@ -1,0 +1,53 @@
+<mat-card id="myPrintThing">
+    
+    <mat-card-header>
+      <mat-card-subtitle style="color: #333333;">time: {{this.recipe().cas}} min</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-header>
+      <mat-card-subtitle style="color: #333333;">Difficulty: {{this.recipe().difficulty}}</mat-card-subtitle>
+      <!-- <mat-card-title>Rate this recipe</mat-card-title> -->
+    </mat-card-header>
+
+    <!-- <mat-card-actions>
+      <input type="radio" name="rating" value="1" id="radio_up">
+      <mat-icon id="thumb_up">thumb_up</mat-icon>
+      <input type="radio" name="rating" value="2" id="radio_down">
+      <mat-icon id="thumb_down">thumb_down</mat-icon>
+    </mat-card-actions> -->
+    <mat-card-actions>
+    </mat-card-actions>
+    <br>
+
+<!--     <img mat-card-image class="detail_image" [src]="this.recipeService.chRecipe.imageURL" />-->
+  <mat-card-content>
+    <img mat-card-image class="detail_image" [src]="this.showImage()" />
+  </mat-card-content>
+
+    <br>
+    <br>
+
+  <mat-card-content>
+    <p class="detail_description">
+      <mat-card-title>ingrediencie:</mat-card-title>
+
+        {{this.recipe().ingrediencie}}
+    </p>
+  </mat-card-content>
+  <br>
+    <mat-card-content>
+      <p class="detail_description">
+        <mat-card-title>popis:</mat-card-title>
+
+         {{this.recipe().description}}
+      </p>
+    </mat-card-content>
+    <br>
+    <mat-card-content>
+      <ul class="detail_description">
+        <mat-card-title>Postup:</mat-card-title>
+        <li *ngFor="let postup of recipe().postupicky">{{ postup }}</li>
+      </ul>
+        
+
+    </mat-card-content>
+  </mat-card>

@@ -7,7 +7,9 @@ import { ActivatedRoute } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatIcon } from '@angular/material/icon';
 import { MatIconAnchor } from '@angular/material/button';
+
 
 import {MatCardModule} from '@angular/material/card';
 import {MatFormField, MatFormFieldModule, MatLabel} from '@angular/material/form-field';
@@ -22,13 +24,14 @@ import { MatPseudoCheckbox } from '@angular/material/core';
 @Component({
   selector: 'app-recipes-details',
   standalone: true,
-  imports: [CommonModule, RouterLink, MatIconModule, MatIconAnchor, MatButtonModule, 
+  imports: [CommonModule, RouterLink, MatIconModule, MatIconAnchor, MatButtonModule, MatIcon,
     MatRadioModule, MatCardModule, ReactiveFormsModule, MatFormField, MatFormFieldModule, MatLabel, MatInput, MatInputModule, DatePipe, MatPseudoCheckbox],
   providers: [DatePipe],
   templateUrl: './recipes-details.component.html',
   styleUrl: './recipes-details.component.scss'
 })
 export class RecipesDetailsComponent implements OnInit{
+  
 
   userImages: CreatorDTO[] = [];
  public recensions = signal<RecensionsDTO[]>([])

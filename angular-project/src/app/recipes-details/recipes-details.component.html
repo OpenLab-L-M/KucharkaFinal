@@ -1,7 +1,10 @@
 
 <body>
+
   <img id="backgroundos" src="../../assets/kuchynaBackgroundos.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
   <div class="container">
   <div class="inside_container" *ngIf="clicked == true; else noCourses">
     <h1>EDIT</h1>
@@ -42,8 +45,7 @@
   </div>
 
   <ng-template #noCourses >
-
-    <p class="detail_title" style="font-family: 'Times New Roman', Times, serif; font-style: italic;">
+    <p class="detail_title" style="font-family: 'Times New Roman', Times, serif; font-style: italic; margin-top: 10px;">
       {{this.recipe().name}}
     </p>
   <div style="display: flex; justify-content: center; " class="recipeContainer">
@@ -53,12 +55,23 @@
     <!-- <p class="detail_difficulty">
       Difficulty: {{this.recipeService.chRecipe.difficulty}}
     </p> -->
+    <!-- [routerLink]="['/RecipesDetails', recipe.id]" -->
     <mat-card>
-      <mat-card-header>
-        <mat-card-subtitle style="color: #333333;">time: {{this.recipe().cas}} min</mat-card-subtitle>
+      <mat-card-header style="display: flex; align-items: center;">
+        <div>
+          <mat-card-subtitle style="color: #333333;">
+            <mat-icon>query_builder</mat-icon> {{this.recipe().cas}} min
+          </mat-card-subtitle>
+        </div>
+        <span style="margin-left: auto; display: flex; align-items: center;">
+          <div *ngIf="recipeService.chRecipe.checkID == recipeService.chRecipe.userID">
+            <mat-icon (click)="edit()" style="cursor: pointer;">edit</mat-icon>
+          </div>
+          <mat-icon style="cursor: pointer;" [routerLink]="['/PrintPage', recipe().id]">print</mat-icon>
+        </span>
       </mat-card-header>
       <mat-card-header>
-        <mat-card-subtitle style="color: #333333;">Difficulty: {{this.recipe().difficulty}}</mat-card-subtitle>
+        <mat-card-subtitle style="color: #333333;">obtiažnosť: {{this.recipe().difficulty}}</mat-card-subtitle>
         <!-- <mat-card-title>Rate this recipe</mat-card-title> -->
       </mat-card-header>
 
@@ -68,11 +81,6 @@
         <input type="radio" name="rating" value="2" id="radio_down">
         <mat-icon id="thumb_down">thumb_down</mat-icon>
       </mat-card-actions> -->
-      <mat-card-actions>
-        <div style="justify-content: center; display: flex; align-items: center;" *ngIf="recipeService.chRecipe.checkID == recipeService.chRecipe.userID">
-          <button color="basic" mat-raised-button id="Edit" type="submit" name="editBtn" value="enter" (click)="edit()">Edit Recipe</button>
-        </div>
-      </mat-card-actions>
       <br>
 
 <!--     <img mat-card-image class="detail_image" [src]="this.recipeService.chRecipe.imageURL" />-->
@@ -85,7 +93,7 @@
 
     <mat-card-content>
       <p class="detail_description">
-        <mat-card-title>Ingredients:</mat-card-title>
+        <mat-card-title>ingrediencie:</mat-card-title>
 
           {{this.recipe().ingrediencie}}
       </p>
@@ -93,7 +101,7 @@
     <br>
       <mat-card-content>
         <p class="detail_description">
-          <mat-card-title>Description:</mat-card-title>
+          <mat-card-title>popis:</mat-card-title>
 
            {{this.recipe().description}}
         </p>
@@ -119,7 +127,7 @@
         <div *ngIf="recipeService.chRecipe.checkID == recipeService.chRecipe.userID">
 
 
-        <button mat-raised-button color="warn" (click)="deleteBtn()">Delete Recipe</button>
+        <mat-icon style="cursor: pointer;" (click)="deleteBtn()">delete</mat-icon>
       </div>
         </mat-card-actions>
 
@@ -160,19 +168,23 @@
     </mat-card>
     
   </div> -->
-  <div class="like-dislike-container">
-    <div class="like-button">
-      <mat-icon class="fa fa-thumbs-up" (click)="likeRecension(recension.id)" style="color:#333333;"></mat-icon>
-      <span class="like-count" [textContent]="recension.amountOfLikes" style="color:#333333;"></span>
+  <div style="display: flex; align-items: center; justify-content: space-between;">
+    <div *ngIf="recension.userID == recension.checkID">
+      <mat-icon style="cursor: pointer;" (click)="Vymaz(recension.id)">delete</mat-icon>
     </div>
-    <div class="dislike-button">
-      <mat-icon class="fa fa-thumbs-down" (click)="disslikeRecension(recension.id)" style="color: #333333;"></mat-icon>
-      <span class="dislike-count" [textContent]="recension.amountOfDisslikes" style="color: #333333;"></span>
+  
+    <div class="like-dislike-container" style="display: flex;">
+      <div class="like-button">
+        <mat-icon class="fa fa-thumbs-up" (click)="likeRecension(recension.id)" style="color:#333333;"></mat-icon>
+        <span class="like-count" [textContent]="recension.amountOfLikes" style="color:#333333;"></span>
+      </div>
+      <div class="dislike-button">
+        <mat-icon class="fa fa-thumbs-down" (click)="disslikeRecension(recension.id)" style="color: #333333;"></mat-icon>
+        <span class="dislike-count" [textContent]="recension.amountOfDisslikes" style="color: #333333;"></span>
+      </div>
     </div>
   </div>
-  <div *ngIf="recension.userID == recension.checkID">
-  <span class="delete-link"  (click)="Vymaz(recension.id)">Delete </span>
-  </div>
+
 </div>
 <section  style="color: white;" id="bottom"></section>
 </body>
