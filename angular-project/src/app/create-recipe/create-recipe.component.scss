@@ -1,3 +1,4 @@
+/* Reset */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,16 +6,16 @@
 }
 
 body {
-  overflow: auto;
+  overflow: auto; /* Let body scroll if content exceeds viewport */
 }
 
-
-body #backgroundos{
+body #backgroundos {
   width: 100%;
   height: 100%;
   position: fixed;
   top: 0;
   z-index: -2;
+  /* Add a background color or image here if needed */
 }
 
 form {
@@ -22,7 +23,8 @@ form {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  /* height: 100vh;  REMOVED THIS LINE */
+  /* The form will now size to its content */
 }
 
 .form-container {
@@ -37,56 +39,6 @@ form {
   padding: 20px;
 }
 
-
-/* width */
-
-
-
-
-
-
-/* .dropbtn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-content a:hover {background-color: #f1f1f1}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.dropdown:hover .dropbtn {
-  background-color: #3e8e41;
-} */
-
-
-
 textarea {
   white-space: pre-wrap;
 }
@@ -95,7 +47,6 @@ textarea::before {
   content: '• ';
   display: inline-block;
 }
-
 
 .example-margin {
   width: 250px;
@@ -109,9 +60,9 @@ mat-form-field {
 
 mat-label .centered-label {
   text-align: center;
-    display: block;
-    justify-content: center;
-    margin-left: 20px;
+  display: block;
+  justify-content: center;
+  margin-left: 20px;
 }
 
 .centered-label {
@@ -124,66 +75,65 @@ h1 {
   text-align: center;
   padding: 5px 0 20px 0;
   border-bottom: 1px solid silver;
-  /*background-color: rgb(232, 0, 0);*/
   background-color: darkgoldenrod;
   color: white;
   padding-top: 15px;
   border-radius: 10px;
-
 }
 
 .diff_radio {
-    background: #fff;
-    border: 1px solid rgba(0,0,0,.1);
-    border-radius: 4px;
-    display: inline-block;
-    padding: 2px;
-    padding-left: 20px;
-    padding-top: 15px;
-    text-align: center;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, .1);
+  border-radius: 4px;
+  display: inline-block;
+  padding: 2px;
+  padding-left: 20px;
+  padding-top: 15px;
+  text-align: center;
 }
 
-.diff_radio, .diff_checkbox {
+.diff_radio,
+.diff_checkbox {
   display: flex;
   justify-content: space-between;
   width: 90%;
 }
 
 .diff_radio label {
-    background: transparent;
-    border: 1px solid transparent;
-    border-radius: 2px;
-    display: inline-block;
-    height: 36px;
-    line-height: 26px;
-    margin: 0;
-    padding: 0;
-    padding-top: 4px;
-    align-items: center;
-    text-align: center;
-    transition: .2s all ease-in-out;
-    width: 120px;
-    font-size: 20px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  display: inline-block;
+  height: 36px;
+  line-height: 26px;
+  margin: 0;
+  padding: 0;
+  padding-top: 4px;
+  align-items: center;
+  text-align: center;
+  transition: .2s all ease-in-out;
+  width: 120px;
+  font-size: 20px;
 }
+
 .diff_radio input[type="radio"] {
-    display: none;
-
+  display: none;
 }
+
 .diff_radio input[type="radio"]:checked + label {
-    background: black;
-    color: white;
-    border: 1px solid rgba(0,0,0,.1);
+  background: black;
+  color: white;
+  border: 1px solid rgba(0, 0, 0, .1);
 }
-
 
 .diff_radio input[type="checkbox"] {
   display: none;
-
 }
+
 .diff_radio input[type="checkbox"]:checked + label {
   background: darkgoldenrod;
   color: white;
-  border: 1px solid rgba(0,0,0,.1);
+  border: 1px solid rgba(0, 0, 0, .1);
   box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 1px 0px inset, rgba(255, 255, 255, 0.17) 0px 1px 1px 0px;
 }
 
@@ -200,14 +150,14 @@ h1 {
   color: white;
 }
 
-.findInput::placeholder{
+.findInput::placeholder {
   font-size: 20px;
   padding-left: 10px;
   color: white;
 }
 
 .formaNaPostup {
-  width: 50%; /* Adjust width as needed */
+  width: 50%;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #b89023;
@@ -222,7 +172,7 @@ h1 {
 }
 
 .formaNaPostup input {
-  position:static;
+  position: static;
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
@@ -239,16 +189,9 @@ h1 {
   cursor: pointer;
 }
 
-.postupForm{
+.postupForm {
   padding-top: 10px;
   padding-bottom: 10px;
-}
-
-
-.diff_radio {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
 }
 
 .Image_rcp label {
@@ -261,13 +204,12 @@ h1 {
   background-color: black;
   color: white;
   font-weight: bold;
-  
 }
 
 form {
-  height: min-content;
+  /* height: min-content; */ /* Removed or commented out */
   width: auto;
-  background: rgb(41, 41, 41);
+  background: #d4c4a1;
   border-radius: 10px;
 }
 
@@ -291,12 +233,14 @@ img {
   margin: 0 25px 25px 0;
   display: inline-block;
   vertical-align: top;
-  position:relative;
+  position: relative;
 }
-.example-container input{
- position: absolute; 
- width: 100%;
+
+.example-container input {
+  position: absolute;
+  width: 100%;
 }
+
 .example-list {
   border: solid 1px #ccc;
   min-height: 60px;
@@ -313,19 +257,19 @@ img {
 
 /* Track */
 .example-list::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey; 
+  box-shadow: inset 0 0 5px grey;
   border-radius: 10px;
 }
- 
+
 /* Handle */
 .example-list::-webkit-scrollbar-thumb {
-  background: darkgoldenrod; 
+  background: darkgoldenrod;
   border-radius: 10px;
 }
 
 /* Handle on hover */
 .example-list::-webkit-scrollbar-thumb:hover {
-  background: #b30000; 
+  background: #b30000;
 }
 
 .example-box {

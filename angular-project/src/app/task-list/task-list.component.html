@@ -36,7 +36,8 @@
 
   <ng-container matColumnDef="button">
     <th mat-header-cell *matHeaderCellDef >
-      <button mat-cell *matCellDef="let task" (click)="changeToFinishedOrUnfinished(task.id)">Change to finished </button>
+      
+      <mat-icon mat-cell *matCellDef="let task" (click)="changeToFinishedOrUnfinished(task.id)" style="cursor: pointer;">done_outline</mat-icon>
     </th>
   </ng-container>
   

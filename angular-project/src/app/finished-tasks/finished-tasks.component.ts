@@ -3,6 +3,7 @@ import {AfterViewInit, Component, ViewChild, inject, signal} from '@angular/core
 import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { TaskDTO } from '../task-list/TaskDTO';
+import { MatIcon } from '@angular/material/icon';
 import { TaskService } from 'src/services/task.service';
 import { Subject, takeUntil } from 'rxjs';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-finished-tasks',
   standalone: true,
-  imports: [CommonModule, DatePipe, MatSortModule, MatTableModule],
+  imports: [CommonModule, DatePipe, MatSortModule, MatTableModule, MatIcon],
   templateUrl: './finished-tasks.component.html',
   styleUrl: './finished-tasks.component.css'
 })
