@@ -1,24 +1,40 @@
-.form-group {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+html, body {
+  height: 100%; /* or 100vh - experiment */
+  margin: 0;
+  padding: 0;
+  background-color: beige; /* Set the background color */
   font-family: 'Arial', sans-serif;
 }
+
+body {
+  display: flex;               /* Use flexbox to center the form */
+  justify-content: center;     /* Horizontally center */
+  align-items: center;         /* Vertically center */
+  background-image: url("../../assets/taskListBackground.jpg"); /* Replace with your image path */
+  background-size: cover;       /* Cover the entire background area */
+  background-repeat: no-repeat; /* Prevent tiling */
+  background-position: center center; /* Center the image horizontally and vertically */
+  background-attachment: fixed; /* Optional: keep the image fixed while scrolling */
+}
+
+.form-group {
+  width: 100%;          /* Take up 100% of available width */
+  max-width: 600px;     /* But don't exceed 600px */
+  padding: 20px;        /* Add some space around the content */
+  background-color: #fff;  /* Form background */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin: 0;          /* Reset any default margin */
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
 form {
-  margin: 0;
+  margin-top: 0;
   padding: 0;
   font-family: 'Arial', sans-serif;
 }
 
-.form-group {
-  margin-bottom: 20px;
-}
-
-/* Container Styling */
+/* Form Elements (Labels, Inputs, Textareas) */
 .form-group label {
   font-size: 1rem;
   font-weight: bold;
@@ -40,6 +56,7 @@ textarea {
   background-color: #f7f7f7;
   box-sizing: border-box;
   transition: border-color 0.3s;
+  margin-bottom: 15px;
 }
 
 input[type="number"]:focus,
@@ -80,20 +97,16 @@ button.button-73:active {
   transform: translateY(0);
 }
 
-/* Form Container */
-.form-group input,
-.form-group textarea {
-  margin-bottom: 15px;
-}
-
 /* Responsiveness */
 @media (max-width: 768px) {
   .form-group label {
     font-size: 0.9rem;
   }
 
-  .form-group input,
-  .form-group textarea {
+  input[type="number"],
+  input[type="text"],
+  input[type="date"],
+  textarea {
     padding: 10px;
   }
 

@@ -131,7 +131,8 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgb(41, 41, 41);
+    background: #F5F5DC;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 0px 0px 10px 10px;
     padding: 50px;
   }
@@ -277,8 +278,8 @@ body {
     text-align: center;
     padding: 5px 0 20px 0;
     border-bottom: 1px solid silver;
-    background-color: darkgoldenrod;
-    color: white;
+    background-color: #FFDAB9;
+    color: #3E2723;
     padding-top: 15px;
     border-radius: 10px 10px 0px 0px;
     margin-bottom: unset;

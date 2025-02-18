@@ -67,6 +67,8 @@ export class UserProfileComponent {
   newPassword: string;
   confirm: string;
   public userName = this.route.snapshot.paramMap.get('userName');
+  zobrazKomenty: boolean;
+  zobrazRecepty: boolean;
 
   name: string;
 
@@ -152,6 +154,11 @@ export class UserProfileComponent {
       .subscribe(result => {
         this.user = result.currentUser;
         this.recensions = result.myComments;
+        if(this.recensions)
+        {
+          this.zobrazKomenty = true;
+        }
+        
         this.ourListOfRecipes = result.usersRecipes;
         this.ourFavRecipes.set(result.favourites);
         this.imageDTO = result.allImages;

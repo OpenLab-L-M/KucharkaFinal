@@ -19,8 +19,11 @@ body #backgroundos {
 }
 
 form {
+  margin-top: 5%;
   display: flex;
   justify-content: center;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* Adjust values as needed */
+  border-radius: 8px; /* Optional: Add rounded corners */
   flex-direction: column;
   align-items: center;
   /* height: 100vh;  REMOVED THIS LINE */
@@ -28,6 +31,7 @@ form {
 }
 
 .form-container {
+
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -143,11 +147,22 @@ h1 {
   opacity: 80%;
   box-shadow: rgba(0, 0, 0, 0.23) 0px -4px 1px 0px inset, rgba(255, 255, 255, 0.17) 0px -1px 1px 0px, rgba(0, 0, 0, 0.17) 0px 2px 4px 1px;
 }
+.search-container {
+    opacity: 0;             /* Initially hide the search bar */
+    visibility: hidden;    /* Hide the search bar completely */
+    transition: opacity 0.3s, visibility 0.3s; /* Smooth transition */
+}
 
-.findInput {
-  height: 50px;
-  background-color: #9e9e9e;
-  color: white;
+.search-container.visible {
+    opacity: 1;           /* Make the search bar visible */
+    visibility: visible;  /* Display the search bar */
+}
+
+.search-bar {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 200px; /* Adjust as needed */
 }
 
 .findInput::placeholder {
@@ -160,9 +175,9 @@ h1 {
   width: 50%;
   margin: 0 auto;
   padding: 20px;
-  border: 1px solid #b89023;
+
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* Adjust values as needed */
   position: relative;
 }
 
@@ -243,7 +258,8 @@ img {
 
 .example-list {
   border: solid 1px #ccc;
-  min-height: 60px;
+  min-height: 20%;
+  max-height: 20%;
   background: white;
   border-radius: 4px;
   overflow-y: auto; /* Enable vertical scrolling */

@@ -102,7 +102,7 @@ export class RecipesDetailsComponent implements OnInit{
 
 }
 submit(){
-  debugger
+  
   const id = parseInt(this.route.snapshot.paramMap.get('id'));
   this.recipeService.edit({
     id: parseInt(this.route.snapshot.paramMap.get('id')),
