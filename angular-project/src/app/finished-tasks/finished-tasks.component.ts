@@ -41,18 +41,11 @@ this.getFinishedTasks();
   this.taskService.changeToFinishedOrUnfinished(id)
   .pipe(takeUntil(this.destroy$))
   .subscribe(result => {
-    console.log('result.id:', result.id);
-    console.log('dataSource.data:', this.dataSource.data);
-    console.log(id);
-
-    // Ensure both values are numbers before comparison
     const deleteAt = this.dataSource.data.findIndex(task => Number(task.id) === Number(result.id));
-
     if (deleteAt === -1) {
       console.warn(`Task with id ${result.id} not found in dataSource.`);
       return; 
     }
-
     this.dataSource.data.splice(deleteAt, 1);
     this.dataSource.data = [...this.dataSource.data]; 
 

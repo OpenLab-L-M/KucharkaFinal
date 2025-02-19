@@ -1,4 +1,9 @@
-body #backgroundos{
+/* General Styles */
+* {
+  color: #424242; /* Darker, less stark brown */
+}
+
+body #backgroundos {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -6,30 +11,22 @@ body #backgroundos{
   z-index: -2;
 }
 
-
 .same_as_background {
-  
   width: 100%;
   height: 100%;
-  }
-  .same_as_background h1{
-    text-align: center;
-  }
-
-
-/* body {
-  animation: grow 1s;
 }
 
-@keyframes grow {
-    0% { transform: scale(.2); }
-  100% { transform: scale(1); }
+.same_as_background h1 {
+  text-align: center;
 }
 
-body { background-color: rgba(0,0,0,.1); } */
-
-h1, h2, h3 {
-  color: darkgoldenrod;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #795548; /* Brown Header color - slightly brighter than before*/
   font-family: 'Times New Roman', Times, serif;
   font-weight: bold;
 }
@@ -44,25 +41,94 @@ h1, h2, h3 {
   align-items: center;
   justify-content: center;
   font-size: 80px;
-  color: white;
+  color: #795548; /* Updated to be consistent with headers */
 }
 
 .obsah {
   margin-left: 15px;
 }
 
-
 #your_img {
-  border:6px solid rgb(93, 93, 93);
+  border: 6px solid #757575; /* Slightly lighter gray border for profile image */
 }
 
+/* Recipe Items Styling */
 .recipes-container {
-    margin: 20px auto;
-    display: flex;
-    flex-wrap: wrap;
-    z-index: 2;
-    
-    
+  margin: 20px auto;
+  display: flex;
+  flex-wrap: wrap;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.recipes-items {
+  width: 350px;
+  background-image: linear-gradient(to right, #FAFAD2, #FFCC80); /* Subtle gradient */
+  border-radius: 10px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #E0E0E0; /* Light gray border */
+  color: #5D4037; /* Darker text to increase contrast */
+  margin: 10px 10px;
+  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+.recipes-items mat-card-subtitle {
+  color: #6D4C41; /* Slightly different brown for subtitle */
+  margin-bottom: 2px;
+}
+
+.recipes-items mat-card-title {
+  color: #6D4C41; /* Slightly different brown for title */
+  font-style: italic;
+  margin-bottom: 5px;
+}
+
+.recipes-name {
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.recipes-difficulty {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.recipes-items:hover {
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* More subtle shadow */
+  background-color: rgba(255, 235, 205, 0.8); /* Light orange hover color */
+  cursor: pointer;
+  transform: scale(1.05);
+  transform-origin: center;
+  border-width: 2px;
+  border-color: #795548;
+  color: #5D4037;
+}
+
+.recipes-items:hover mat-card-title {
+  color: #5D4037;
+}
+
+.recipes-items:hover #avatar {
+  border-color: #5D4037;
+}
+
+.recipes-images {
+  width: 350px;
+  height: 290px;
+  padding-top: 5px;
+  overflow: none;
+  padding: 5px;
+}
+
+.recipes-difficulty mat-icon {
+  font-size: 20px;
+}
+
+.recipes-difficulty {
+  font-family: 'Times New Roman', Times, serif;
 }
 
 .profile_img {
@@ -78,13 +144,12 @@ h1, h2, h3 {
   border-color: transparent;
   width: 8%;
   height: 50px;
-  transition: .2s all ease-in-out;
+  transition: 0.2s all ease-in-out;
 }
 
 #add_picture:hover {
   background: #171A2B;
   color: white;
-
 }
 
 #delete {
@@ -99,437 +164,276 @@ h1, h2, h3 {
   background: #171A2B;
 }
 
-/* .recipes-items {
-    width: 350px;
-    background-color:rgb(63, 63, 63);
-    border-radius: 10px;
-    border-width: 10px;
-    border-color: rgb(63, 63, 63);
-    color: white;
-    margin: 10px 10px;
-    /* padding-top: 10px;
-    padding-bottom: 20px;
-    padding-left: 10px;
-    padding-right: 10px;
-    border: transparent;
+.comment-box input {
+  background: rgb(50, 50, 50);
+  color: #fff;
+  width: 75%;
+  height: 50px;
+  margin-left: 50px;
+  padding: 10px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease-in-out;
 }
 
-.recipes-items mat-card-title, .recipes-items mat-card-subtitle {
-  color: white;
+.comment-box input:focus {
+  border-color: #5D4037;
+  outline: none;
 }
 
-#avatar {
-  border:3px solid rgb(190, 190, 190);
+.comment-box input:hover {
+  border-color: #5D4037;
+  transition: all 0.3s ease-in-out;
 }
 
-.recipes-items:hover {
-    border: #efefef 2px solid;
-    box-shadow: 10px 10px 18px #cccccc;
-    transform: scale(1.00);
-    cursor: pointer;
-}
-
-.recipes-images {
-    width: 350px;
-    height:290px;
-    padding-top: 5px;
-}
-
-.recipes-name, .recipes-difficulty {
-  color: black;
-} */
-
-
-.recipes-container {
-  margin: 20px auto;
-  display: flex;
-  flex-wrap: wrap;
-  z-index: 2;
-  overflow: hidden;
-}
-
-.recipes-items {
-  width: 350px;
-  background-color:rgb(41,41,41);
-  border-radius: 10px;
-  border-width: 10px;
-  border-color: rgb(41,41,41);
-  color: white;
-  margin: 10px 10px;
-  /* padding-top: 10px;
-  padding-bottom: 20px;
-  padding-left: 10px;
-  padding-right: 10px; */
-  border: transparent;
-  transition: transform 0.3s;
-}
-
-.recipes-items mat-card-subtitle {
-color: white;
-margin-bottom: 2px;
-}
-
-.recipes-items mat-card-title {
-color: white;
-font-style: italic;
-margin-bottom: 5px;
-}
-
-#avatar {
-border:3px solid rgb(190, 190, 190);
-}
-
-.recipes-items:hover {
-
-  box-shadow: 0 8px 12px 0 #474747;
+.comment-box button {
+  height: 50px;
+  width: 100px;
+  background-color: darkgoldenrod;
+  border: none;
+  border-radius: 10%;
   cursor: pointer;
-  transform: scale(1.03);
-  transform-origin: center;
-}
-
-.recipes-images {
-  width: 350px;
-  height:290px;
+  color: white;
+  font-size: 18px;
   padding-top: 5px;
+  transition: background-color 0.3s ease;
 }
 
-/* .recipes-name, .recipes-difficulty {
-color: black;
-} */
-
-.recipes-difficulty mat-icon {
-font-size: 20px;
+.comment-box button:hover {
+  background-color: #dda30f;
 }
 
-#favourite {
-    position: relative;
-    z-index: 3;
-    width: 20px;
-    height: 20px;
-    margin-left: 10px;
-    opacity: 0;
-  }
+.comment-box {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 10px;
+  margin-bottom: 20px;
+}
 
-  /* #like-false {
-    position: absolute;
-    left: 0;
-    margin-left: 8px;
-  }
+.comment-section {
+  margin-left: 50px;
+  margin-bottom: 40px;
+  margin-top: 50px;
+}
 
-  #like-true {
-    position: absolute;
-    left: 0;
-    margin-left: 8px;
-    color: red;
-  } */
+.comment-section h2 {
+  font-size: 32px;
+  color: #795548; /* Changed h2 color */
+  text-align: left;
+  padding-left: 10px;
+  border-bottom: 2px solid darkgoldenrod;
+  padding-bottom: 10px;
+}
 
-  h2 {
-    padding-top: 15px;
-  }
+.comment {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 75%;
+  margin: 20px auto;
+  padding: 15px;
+  border: 1px solid #333;
+  border-radius: 10px;
+  background-color: #252525;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-  #like {
-    position: absolute;
-    left: 0;
-    margin-left: 8px;
-  }
+.comment:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(175, 123, 11, 0.568);
+}
 
-  #like_of_favourite {
-    position: absolute;
-    left: 0;
-    margin-left: 8px;
-    color: red;
-  }
+.comment h3 {
+  font-size: 18px;
+  color: rgb(228, 167, 14);
+  margin-bottom: 10px;
+}
 
-  #favourite:checked + #like {
-    color: red;
-    transition: 0.2s;
-  }
+.comment p {
+  padding-left: 10px;
+  font-size: 14px;
+}
 
+.edit_form {
+  width: 400px;
+  color: #5D4037;
+  margin: 50px auto;
+  padding: 20px;
+  background-image: linear-gradient(to right, #FAFAD2, #FFCC80); /* Same background as recipes*/
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid #E0E0E0;
+}
 
-  @media screen and (max-width: 1300px) {
-    .user_name {
-      font-size: 40px;
-      transition: 0.75s;
-    }
-
-    h1 {
-      padding-top: 20px;
-      font-size: 20px;
-      text-align: center;
-      transition: 0.75s;
-    }
-
-    .profile_img {
-      width: 200px;
-      height: 200px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      transition: 0.75s;
-    }
-
-    .button_position {
-      padding-top: 20px;
-      position: absolute;
-      left: 60%;
-      transition: 0.75s;
-    }
-
-    
-
-    .recipes-container {
-      margin: 20px auto;
-      display:flex;
-      flex-wrap: wrap;
-      z-index: 2;
-      overflow: hidden;
-      justify-content: center;
-      transition: 0.75s;
-    }
-    
-    .recipes-items {
-      width: 350px;
-      background-color:rgb(41,41,41);
-      border-radius: 10px;
-      border-width: 10px;
-      border-color: rgb(41,41,41);
-      color: white;
-      margin: 10px 10px;
-      /* padding-top: 10px;
-      padding-bottom: 20px;
-      padding-left: 10px;
-      padding-right: 10px; */
-      border: transparent;
-      transition: transform 0.3s;
-      transition: 0.75s;
-
-    }
-    
-    .recipes-items mat-card-subtitle {
-    color: white;
-    margin-bottom: 2px;
-    transition: 0.75s;
-
-    }
-    
-    .recipes-items mat-card-title {
-    color: white;
-    font-style: italic;
-    margin-bottom: 5px;
-    transition: 0.75s;
-
-    }
-    
-    #avatar {
-    border:3px solid rgb(190, 190, 190);
-    transition: 0.75s;
-
-    }
-  }
-  .comment-box input{
-    background: rgb(50, 50, 50);
-    color: #fff;
-    width: 75%;
-    height: 50px;
-    margin-left: 50px;
-    padding: 10px;
-    border: 1px solid #444;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .comment-box input:focus {
-    border-color: darkgoldenrod;
-    outline: none;
-  }
-  
-  .comment-box input:hover {
-    border-color: darkgoldenrod;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .comment-box button {
-    height: 50px;
-    width: 100px;
-    background-color: darkgoldenrod;
-    border: none;
-    border-radius: 10%;
-    cursor: pointer;
-    color: white;
-    font-size: 18px;
-    padding-top: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .comment-box button:hover {
-    background-color: #dda30f;
-  }
-  
-  .comment-box {
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 20px;
-    justify-content: space-between;
-    align-items: center;
-    margin-left: 10px;
+.edit_form h1 {
+    text-align: center;
+    color: #4caf50;
+    font-size: 24px;
     margin-bottom: 20px;
+  }
+
+.edit_form mat-form-field {
+    width: 100%;
+    margin-bottom: 15px;
+    color: black;
     
-  }
-  
-  .comment-section {
+}
+
+.edit_form mat-form-field mat-label {
+      font-size: 14px;
+      color: black;
+      font-weight: bold;
     
-    margin-left:50px;
-    margin-bottom: 40px;
-    margin-top: 50px;
-  
-  }
-  .comment-section h2{
-    font-size: 32px;
-    color: darkgoldenrod;
-    text-align: left;
-    padding-left: 10px;
-    border-bottom: 2px solid darkgoldenrod;
-    padding-bottom: 10px;
-  }
-  .comment {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 75%;
-    margin: 20px auto;
-    padding: 15px;
-    border: 1px solid #333;
-    border-radius: 10px;
-    background-color: #252525;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .comment:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 10px rgba(175, 123, 11, 0.568);
-  }
-  
-  .comment h3 {
-    font-size: 18px;
-    color: rgb(228, 167, 14);
-    margin-bottom: 10px;
-  
-  }
-  .comment p {
-    padding-left: 10px;
-    font-size: 14px;
-  
-  }
-  $primary-color: #1e1e1e;
-  $secondary-color: #4caf50;
-  $input-background: #2a2a2a;
-  $input-border-color: #5c5c5c;
-  $button-background: #333;
-  $button-hover-background: #444;
-  $button-text-color: white;
-  $label-color: white;
-  $form-width: 400px;
-  $border-radius: 8px;
-  
-  // Body background and font settings
- 
-  // Form container
-  .edit_form {
-    width: $form-width;
-    color: #dcdcdc;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: $primary-color;
-    border-radius: $border-radius;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    
-    h1 {
-      text-align: center;
-      color: $secondary-color;
-      font-size: 24px;
-      margin-bottom: 20px;
-    }
-  
-    mat-form-field {
+}
+
+.edit_form mat-form-field input {
+      background-color: white;
+      color: #2a2a2a;
+      border: 1px solid #5c5c5c;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 14px;
       width: 100%;
-      margin-bottom: 15px;
-      color: $label-color;
-  
-      mat-label {
-        font-size: 14px;
-        color: $label-color;
-        font-weight: bold;
-      }
-  
-      input {
-        background-color: $input-background;
-        color: white;
-        border: 1px solid $input-border-color;
-        border-radius: $border-radius;
-        padding: 10px;
-        font-size: 14px;
-        width: 100%;
-  
-        &:focus {
-          border-color: $secondary-color;
-          outline: none;
-        }
-      }
-    }
-  }
-  
-  // Buttons
-  .edit_btn {
+    
+}
+
+.edit_form .edit_btn {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
   
-    button {
+}
+
+.edit_form .edit_btn button {
       width: 100px;
       height: 50px;
       font-size: 16px;
       font-weight: bold;
-      border-radius: $border-radius;
+      border-radius: 8px;
       cursor: pointer;
       transition: background-color 0.3s ease;
-  
-      &.submit-btn {
-        background-color: $button-background;
-        color: $button-text-color;
-  
-        &:hover {
-          background-color: $button-hover-background;
-        }
-      }
-  
-      &.cancel-btn {
-        background-color: transparent;
-        border: 2px solid $secondary-color;
-        color: $secondary-color;
-  
-        &:hover {
-          background-color: $secondary-color;
-          color: #fff;
-        }
-      }
-    }
+    
+}
+
+.edit_form .edit_btn button.submit-btn {
+  background-color: #333;
+  color: white;
+}
+
+.edit_form .edit_btn button.cancel-btn {
+  background-color: transparent;
+  border: 2px solid #4caf50;
+  color: #4caf50;
+}
+
+
+@media screen and (max-width: 1300px) {
+  .user_name {
+    font-size: 40px;
+    transition: 0.75s;
   }
-  
-  // Responsive Design
-  @media (max-width: 768px) {
-    .edit_form {
-      width: 90%;
-    }
-  
-    .edit_btn {
-      flex-direction: column;
-  
-      button {
-        width: 100%;
-        margin-bottom: 10px;
-      }
-    }
+
+  h1 {
+    padding-top: 20px;
+    font-size: 20px;
+    text-align: center;
+    transition: 0.75s;
   }
-  
+
+  .profile_img {
+    width: 200px;
+    height: 200px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    transition: 0.75s;
+  }
+
+  .button_position {
+    padding-top: 20px;
+    position: absolute;
+    left: 60%;
+    transition: 0.75s;
+  }
+
+  .recipes-container {
+    margin: 20px auto;
+    display: flex;
+    flex-wrap: wrap;
+    z-index: 2;
+    overflow: hidden;
+    justify-content: center;
+    transition: 0.75s;
+  }
+
+  .recipes-items {
+    width: 350px;
+    background-color: rgb(41, 41, 41);
+    border-radius: 10px;
+    border-width: 10px;
+    border-color: rgb(41, 41, 41);
+    color: white;
+    margin: 10px 10px;
+    /* padding-top: 10px;
+      padding-bottom: 20px;
+      padding-left: 10px;
+      padding-right: 10px; */
+    border: transparent;
+    transition: transform 0.3s;
+    transition: 0.75s;
+  }
+
+  .recipes-items mat-card-subtitle {
+    color: white;
+    margin-bottom: 2px;
+    transition: 0.75s;
+  }
+
+  .recipes-items mat-card-title {
+    color: white;
+    font-style: italic;
+    margin-bottom: 5px;
+    transition: 0.75s;
+  }
+
+  #avatar {
+    border: 3px solid rgb(190, 190, 190);
+    transition: 0.75s;
+  }
+}
+
+#favourite {
+  position: relative;
+  z-index: 3;
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  opacity: 0;
+}
+
+h2 {
+  padding-top: 15px;
+}
+
+#like {
+  position: absolute;
+  left: 0;
+  margin-left: 8px;
+}
+
+#like_of_favourite {
+  position: absolute;
+  left: 0;
+  margin-left: 8px;
+  color: red;
+}
+
+#favourite:checked+#like {
+  color: red;
+  transition: 0.2s;
+}

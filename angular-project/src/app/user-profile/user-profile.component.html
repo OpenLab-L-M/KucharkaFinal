@@ -2,21 +2,21 @@
 <body>
   
   <div *ngIf="clicked == true; else noCourses" class="same_as_background">
-    <img id="backgroundos" src="../../assets/backgroundos_recipes.png">
+    <img id="backgroundos" src="../../assets/UserProfileBG.jpg">
     <h1>ChangePassword</h1>
-    <form class="edit_form" [formGroup]="changePassword" style="color: aliceblue;">
+    <form class="edit_form" [formGroup]="changePassword" style="color: #3E2723;">
   
   
       <mat-form-field>
-        <label for="oldPassword" style="color: white;">Old Password: </label>
+        <label for="oldPassword" style="color: #3E2723;">Old Password: </label>
         <input matInput id="oldPassword" type="text" formControlName="oldPassword" >
       </mat-form-field>
       <mat-form-field>
-        <label for="newPassword" style="color: white;">New Password: </label>
+        <label for="newPassword" style="color: #3E2723;">New Password: </label>
       <input matInput id="newPassword" type="text" formControlName="newPassword" >
       </mat-form-field>
       <mat-form-field>
-        <label for="confirm" style="color: white;">Confirm new password: </label>
+        <label for="confirm" style="color: #3E2723;">Confirm new password: </label>
          <input matInput id="confirm" type="text" formControlName="confirm" >
       </mat-form-field>
       <div class="edit_btn">
@@ -27,7 +27,7 @@
   </div>
 
 <ng-template #noCourses>
-  <img id="backgroundos" src="../../assets/backgroundos_recipes.png">
+  <img id="backgroundos" src="../../assets/UserProfileBG.jpg">
 <div class="user_name">
   <p>{{this.user.userName}}</p>
 </div>

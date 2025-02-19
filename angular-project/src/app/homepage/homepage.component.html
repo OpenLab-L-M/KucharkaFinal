@@ -13,7 +13,7 @@
     <button id="check_btn" [routerLink]="['/Recipes']">Check some created recipes</button>
   </div>
   <div class="center">
-    <img id="food" src="../../assets/taskImg.png">
+    <img id="food" src="../../assets/TaskImg.jpg">
     <div class="slogan2">
       <h2>"Plan your time effectively"</h2>
     </div>
@@ -23,12 +23,12 @@
     <button id="check_btn" [routerLink]="['/taskList']">Check some created Tasks</button>
   </div>
   
-  <div class="recipes-container">
+  <!-- <div class="recipes-container">
     <mat-card class="recipes-items" *ngFor="let recipe of realRecipes | filter : sSearchRecept">
       <mat-card-header>
         <div class="left-header">
           <img id="avatar" mat-card-avatar class="example-header-image" [src]="recipe.comprimedImage" matTooltip="Creator">
-<!--            <img *ngIf="!this.user().pictureURL" id="avatar" mat-card-avatar class="example-header-image" src="../../assets/Whithout_profile_picture.jpg" matTooltip="Creator">-->
+          <img *ngIf="!this.user().pictureURL" id="avatar" mat-card-avatar class="example-header-image" src="../../assets/Whithout_profile_picture.jpg" matTooltip="Creator">
 
           <div class="text-content">
             <mat-card-title class="recipes-name" style="font-family: 'Times New Roman', Times, serif; font-weight: bold; font-size: 25px;">{{recipe.name}}</mat-card-title>
@@ -53,7 +53,7 @@
 
 
     </mat-card>
-  </div>
+  </div> -->
 
 
 </body>
