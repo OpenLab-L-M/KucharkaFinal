@@ -109,7 +109,7 @@ export class UserProfileComponent {
           this.ourFavRecipes.update(res => [...res, result] )
         }
         else{
-          this.ourFavRecipes.update(res => res.filter(fav => fav == result))
+          this.ourFavRecipes.update(res => res.filter(fav => fav.id !== id))
           
         }
       });

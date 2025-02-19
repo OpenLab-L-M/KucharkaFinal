@@ -39,7 +39,7 @@
 
 
     <div class="recipes-container" >
-      <mat-card class="recipes-items" *ngFor="let recipe of realRecipes() | filter : sSearchRecept" [routerLink]="['/RecipesDetails', recipe.id]">
+      <mat-card class="recipes-items" *ngFor="let recipe of realRecipes() | filter : sSearchRecept" >
         <mat-card-header>
           <div class="left-header">
             <img id="avatar" mat-card-avatar class="example-header-image" [src]="recipe.comprimedImage" matTooltip="Creator">
@@ -58,7 +58,7 @@
           </div>
         </mat-card-header>
 
-          <img mat-card-image [src]="this.getImage(recipe.id)" class="recipes-images" matTooltip="Details of {{recipe.name}}" />
+          <img mat-card-image [src]="this.getImage(recipe.id)" class="recipes-images" matTooltip="Details of {{recipe.name}}" [routerLink]="['/RecipesDetails', recipe.id]" />
 
 
         <mat-card-footer>
