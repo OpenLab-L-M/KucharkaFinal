@@ -109,6 +109,7 @@ export class UserProfileComponent {
           this.ourFavRecipes.update(res => [...res, result] )
         }
         else{
+          const isChecked = (event.target as HTMLInputElement).checked =false;
           this.ourFavRecipes.update(res => res.filter(fav => fav.id !== id))
           
         }

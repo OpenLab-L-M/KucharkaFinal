@@ -214,6 +214,7 @@ h6 {
   margin-bottom: 20px;
 }
 
+
 .comment-section {
   margin-left: 50px;
   margin-bottom: 40px;
@@ -238,7 +239,7 @@ h6 {
   padding: 15px;
   border: 1px solid #333;
   border-radius: 10px;
-  background-color: #252525;
+  background-color: #F5F5DC;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -367,45 +368,98 @@ h6 {
     flex-wrap: wrap;
     z-index: 2;
     overflow: hidden;
-    justify-content: center;
-    transition: 0.75s;
   }
-
+  
   .recipes-items {
     width: 350px;
-    background-color: rgb(41, 41, 41);
+    background-image: linear-gradient(to right, rgb(245, 245, 220), rgb(255, 218, 185));
+    //background-size: cover;
+    background-repeat: no-repeat;
     border-radius: 10px;
-    border-width: 10px;
-    border-color: rgb(41, 41, 41);
-    color: white;
+    border-width: 2px;
+    border-style: solid;
+    //border-color: transparent;
+    border-color: white;
+    color: #3E2723;
     margin: 10px 10px;
-    /* padding-top: 10px;
-      padding-bottom: 20px;
-      padding-left: 10px;
-      padding-right: 10px; */
-    border: transparent;
-    transition: transform 0.3s;
-    transition: 0.75s;
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
   }
-
+  
   .recipes-items mat-card-subtitle {
-    color: white;
+    color: #3E2723;
     margin-bottom: 2px;
-    transition: 0.75s;
   }
-
+  
   .recipes-items mat-card-title {
-    color: white;
+    color: #3E2723;
     font-style: italic;
     margin-bottom: 5px;
-    transition: 0.75s;
   }
-
+  .recipes-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  
+  .recipes-difficulty {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+  }
+  
   #avatar {
     border: 3px solid rgb(190, 190, 190);
     transition: 0.75s;
   }
 }
+#avatar {
+  /*border:3px solid rgb(190, 190, 190);*/
+  width: 50px;
+  height: 50px;
+  border: 3px solid #3d3d3d;
+}
+
+.recipes-items:hover {
+
+  box-shadow: 0 8px 15px rgb(129, 95, 8);
+    background-color: rgba(0, 26, 92, 0.8);
+    cursor: pointer;
+    transform: scale(1.05);
+    transform-origin: center;
+    border-width: 2px;
+    border-color: darkgoldenrod;
+
+    mat-card-title {
+      color: darkgoldenrod;
+    }
+
+    #avatar {
+      border-color: darkgoldenrod;
+    }
+}
+
+.recipes-images {
+  width: 350px;
+  height:290px;
+  padding-top: 5px;
+  overflow: none;
+  padding: 5px;
+}
+
+/* .recipes-name, .recipes-difficulty {
+  color: black;
+} */
+
+.recipes-difficulty mat-icon {
+  font-size: 20px;
+  
+}
+
+.recipes-difficulty {
+  font-family: 'Times New Roman', Times, serif;
+}
+
+
 
 #favourite {
   position: relative;
