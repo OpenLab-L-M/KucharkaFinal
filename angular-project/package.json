@@ -35,6 +35,8 @@
     "firebase-tools": "^13.23.0",
     "material-design-icons-iconfont": "^6.7.0",
     "rxjs": "~7.8.0",
+    "tesseract.js": "^6.0.0",
+    "tesseract.ts": "^1.1.2",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
   },

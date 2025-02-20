@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AspNetCoreAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241022062936_FixPls")]
-    partial class FixPls
+    [Migration("20250220175948_CelkovaMigracia")]
+    partial class CelkovaMigracia
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -174,6 +174,30 @@ namespace AspNetCoreAPI.Migrations
                     b.ToTable("LikeRecensions");
                 });
 
+            modelBuilder.Entity("AspNetCoreAPI.Models.Postupy", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("RecipeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RecipesId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("postupy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("Postupiky");
+                });
+
             modelBuilder.Entity("AspNetCoreAPI.Models.Recensions", b =>
                 {
                     b.Property<int>("Id")
@@ -194,11 +218,17 @@ namespace AspNetCoreAPI.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Datetime")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("RecipeId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<byte[]>("UserImage")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
@@ -226,6 +256,9 @@ namespace AspNetCoreAPI.Migrations
                     b.Property<string>("CheckID")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Difficulty")
                         .HasColumnType("nvarchar(max)");
 
@@ -245,9 +278,6 @@ namespace AspNetCoreAPI.Migrations
                     b.Property<bool?>("NizkoKaloricke")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Postup")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool?>("Veganske")
                         .HasColumnType("bit");
 
@@ -263,6 +293,39 @@ namespace AspNetCoreAPI.Migrations
                         .IsUnique();
 
                     b.ToTable("Recipes");
+                });
+
+            modelBuilder.Entity("AspNetCoreAPI.Models.TaskList", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DeadLine")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tasks");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -436,6 +499,13 @@ namespace AspNetCoreAPI.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("AspNetCoreAPI.Models.Postupy", b =>
+                {
+                    b.HasOne("AspNetCoreAPI.Models.Recipe", null)
+                        .WithMany("Postupies")
+                        .HasForeignKey("RecipeId");
+                });
+
             modelBuilder.Entity("AspNetCoreAPI.Models.Recensions", b =>
                 {
                     b.HasOne("AspNetCoreAPI.Models.Recipe", "recept")
@@ -519,6 +589,11 @@ namespace AspNetCoreAPI.Migrations
                 {
                     b.Navigation("Recipe")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("AspNetCoreAPI.Models.Recipe", b =>
+                {
+                    b.Navigation("Postupies");
                 });
 #pragma warning restore 612, 618
         }

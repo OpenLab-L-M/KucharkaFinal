@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, Inject, OnInit } from '@angular/core';
 import { IngredienceDTO } from '../IngredienceDTO';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { DialogOverviewExampleDialog } from 'src/app/user-profile/user-profile.component';
@@ -10,6 +10,7 @@ import { CommonModule, NgForOf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatLabel } from '@angular/material/form-field';
+import { getBaseUrl } from 'src/main';
 
 @Component({
   selector: 'app-dialog',
@@ -27,7 +28,7 @@ export class DialogComponent implements OnInit{
 ingredience: IngredienceDTO = {Name: ''};
   inputString: string = '';
   ingrediences: any = [];
-
+  BASE_URL= getBaseUrl();
   //@Output() newItemEvent = new EventEmitter<string>();
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
@@ -35,7 +36,7 @@ ingredience: IngredienceDTO = {Name: ''};
   }
 
   ngOnInit() {
-    this.httpClient.get<any>("https://localhost:7186/ingredience/getIngredience").subscribe(value =>
+    this.httpClient.get<any>(this.BASE_URL + "/getIngredience").subscribe(value =>
       this.ingrediences = value,
     )
     
@@ -61,7 +62,7 @@ ingredience: IngredienceDTO = {Name: ''};
 
   sendIngredience() {
     this.ingredience.Name = this.inputString;
-    this.httpClient.post('https://localhost:7186/ingredience/addIngredience', this.ingredience).subscribe(response => {
+    this.httpClient.post(this.BASE_URL + '/addIngredience', this.ingredience).subscribe(response => {
         console.log(response);
         // Add the new ingredient to the list without refreshing
         this.dialogRef.close({ data: this.inputString })

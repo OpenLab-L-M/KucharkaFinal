@@ -19,7 +19,7 @@ namespace AspNetCoreAPI.Controllers
         }
 
 
-        [Route("addIngredience")]
+        [Route("/addIngredience")]
         [HttpPost]
         public IActionResult AddIngredience(IngredienceDTO ingredience)
         {
@@ -35,7 +35,7 @@ namespace AspNetCoreAPI.Controllers
 
             return Ok(ingredience1);
         }
-        [Route("addIngredienceDragAndDrop")]
+        [Route("/addIngredienceDragAndDrop")]
         [HttpPost]
         public string AddIngredience(string ingredience)
         {
@@ -53,7 +53,7 @@ namespace AspNetCoreAPI.Controllers
         }
 
 
-        [Route("getIngredience")]
+        [Route("/getIngredience")]
         [HttpGet]
         public IEnumerable<IngredienceDTO> GetIngredience()
         {

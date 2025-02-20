@@ -2,6 +2,7 @@
 using AspNetCoreAPI.Migrations;
 using AspNetCoreAPI.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
@@ -25,14 +26,11 @@ namespace AspNetCoreAPI.Controllers
         {
             _context = context;
         }
-
-        [HttpGet]
+        [HttpGet("/recipes/")]
         public IEnumerable<RecipesDTO> GetRecipesList()
         {
             IEnumerable<Recipe> dbRecipes = _context.Recipes;
-            List<string> postupiky;
             
-            IEnumerable<Postupy> dbPostupy = _context.Postupiky;
             return dbRecipes.Select(dbRecipe =>
                 new RecipesDTO
                 {
@@ -47,10 +45,11 @@ namespace AspNetCoreAPI.Controllers
                     Veganske = dbRecipe.Veganske,
                     Vegetarianske = dbRecipe.Vegetarianske,
                     NizkoKaloricke = dbRecipe.NizkoKaloricke,
-                    Postupicky = mapToPostupyStrings(dbRecipe.Id).ToList(),
+                    //Postupicky = mapToPostupyStrings(dbRecipe.Id).ToList(),
                     Cas = dbRecipe.Cas,
-                    imageId = dbRecipe.ImageId
-                }); 
+                    imageId = dbRecipe.ImageId,
+                    
+        }); 
         }
         public IEnumerable<string> mapToPostupyStrings( int recipesID)
         {
