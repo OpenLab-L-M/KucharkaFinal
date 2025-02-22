@@ -1,3 +1,5 @@
+import { IngredienceDTO } from "../create-recipe/IngredienceDTO";
+
 export class RecipesDTO{
     id: number;
     name?: string;
@@ -14,6 +16,7 @@ export class RecipesDTO{
     veganske?: boolean;
     vegetarianske?: boolean;
     nizkoKaloricke?: boolean;
+    
     image: number;
     comprimedImage: any;
   }

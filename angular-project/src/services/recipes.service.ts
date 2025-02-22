@@ -81,4 +81,18 @@ export class RecipesService {
   setIngredients(){
     return this.http.get<string[]>(this.baseUrl + "/CreateRecipe/Ingredients")
   }
+  getCalories(query: string){
+     let apiKey = '/1faurR8tsffSCv+pGqvqA==HFC2IkQnHYvVMUNr'; // Replace with your actual API key
+     let apiUrl = 'https://api.calorieninjas.com/v1/nutrition';
+  
+
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'X-Api-Key': apiKey
+      });
+  
+      const url = `${apiUrl}?query=${encodeURIComponent(query)}`;
+  
+      return this.http.get(url, { headers: headers })
+  }
 }

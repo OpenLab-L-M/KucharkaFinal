@@ -16,12 +16,10 @@
     
       
     <button id="white" mat-button (click)="logout()">Logout</button>
-    <button id="white" mat-button [routerLink]="['/Homepage']" [ngClass]="{'active': isActive('/Homepage')}">Home</button>
-    <button id="white" mat-button [routerLink]="['/Recipes']" [ngClass]="{'active': isActive('/Recipes')}">Recipes</button>
-    <button id="white" mat-button [routerLink]="['/CreateRecipe']" [ngClass]="{'active': isActive('/CreateRecipe')}">Create Recipe</button>
-    <button id="white" mat-button [routerLink]="['/taskList']" [ngClass]="{'active': isActive('/taskList')}">taskList</button>
-    <button id="white" mat-button [routerLink]="['/createTask']" [ngClass]="{'active': isActive('/createTask')}">createTask</button>
-    <button id="white" mat-button [routerLink]="['/finishedTasks']" [ngClass]="{'active': isActive('/finishedTasks')}">Finished Tasks</button>
+    <button id="white" mat-button [routerLink]="['/Homepage']" [ngClass]="{'active': isActive('/Homepage')}">Domov</button>
+    <button id="white" mat-button [routerLink]="['/Recipes']" [ngClass]="{'active': isActive('/Recipes')}">Recepty</button>
+    <button id="white" mat-button [routerLink]="['/taskList']" [ngClass]="{'active': isActive('/taskList')}">úlohy</button>
+    <button id="white" mat-button [routerLink]="['/finishedTasks']" [ngClass]="{'active': isActive('/finishedTasks')}">hotové úlohy</button>
     <button (click)="getCurrentUserName()" id="white" mat-button [ngClass]="{'active': isActive('/userProfile')}"><mat-icon>account_circle</mat-icon></button>
     } @else {
     <button id="white" mat-button [routerLink]="['/login']">Login</button>

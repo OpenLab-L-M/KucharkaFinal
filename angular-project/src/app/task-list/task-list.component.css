@@ -20,3 +20,29 @@ table {
   th.mat-sort-header-sorted {
     color: black;
   }
+  .create {
+    text-align: center;
+    align-items: center;
+    position: fixed;
+    margin-bottom: 80px;
+    margin-right: 80px;
+    right: 0;
+    bottom: 0;
+  }
+  
+  #create_link {
+  
+    background: darkgoldenrod;
+    font-size: 17px;
+      width: 70px;
+      height: 70px;
+      color: white;
+      transition: .2s all ease-in-out;
+      border-radius: 35px;
+  }
+  
+  #create_link:hover {
+    background: #916b08;
+      /* color: black; */
+      animation: 1s pulse infinite;
+  }

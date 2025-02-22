@@ -62,6 +62,7 @@ bootstrapApplication(AppComponent, {
         { path: 'login', component: LoginComponent},
         { path: 'register', component: RegistrationComponent},
         { path: 'Homepage', component: HomepageComponent},
+        { path: 'Dashboard', component: DashboardComponent},
         { path: 'Recipes', component: RecipesComponent},
         { path: 'CreateRecipe', component: CreateRecipeComponent},
         { path: 'RecipesDetails/:id', component: RecipesDetailsComponent },

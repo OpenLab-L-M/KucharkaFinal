@@ -37,6 +37,7 @@ export class RecipesDetailsComponent implements OnInit{
  public recensions = signal<RecensionsDTO[]>([])
   clicked = false;
   recipeService = inject(RecipesService);
+  matches: Array<number>;
   private destroy$ = new Subject<void>();
   public recipe = signal<RecipesDTO>(undefined);
   //recipe: RecipesDTO;
@@ -51,14 +52,42 @@ export class RecipesDetailsComponent implements OnInit{
   });
   
   constructor(private route: ActivatedRoute, private router: Router, private datePipe: DatePipe) { }
-  ngOnInit(): void {
 
+
+  extractAllNumbersFromString(str: string): number[] {
+    const matches = str.matchAll(/(\d+)(?:g)?/g); // Note the 'g' flag for global match
+    const numbers: number[] = [];
+  
+    if (matches) {
+      for (const match of matches) {
+        const numberString = match[1];
+        const number = parseInt(numberString, 10);
+  
+        if (!isNaN(number)) {
+          numbers.push(number);
+        }
+      }
+    }
+  
+    return numbers;
+  }
+  calorieCounter(){
+
+  }
+
+
+
+
+
+  ngOnInit(): void {
+    
 
     const id = parseInt(this.route.snapshot.paramMap.get('id'));
     this.recipeService.getClickedRecipes(id)
        .subscribe(result => {
         this.recipeService.chRecipe = result;
         this.recipe.set(result);
+        console.log(this.extractAllNumbersFromString(result.ingrediencie))
         this.profileForm.patchValue({
           name: this.recipeService.chRecipe.name,
           ingrediencie: this.recipeService.chRecipe.ingrediencie,
@@ -70,7 +99,7 @@ export class RecipesDetailsComponent implements OnInit{
       },
        );
        this.recipeService.getRecension(id).pipe(takeUntil(this.destroy$))
-    .subscribe(value => {this.recensions.set(value)
+    .subscribe(value => {this.recensions.set(value);
         console.log(value)}
     );
 
@@ -121,6 +150,7 @@ submit(){
 }
  addComment(){
   
+  var inputBox = (<HTMLInputElement>document.getElementById("koment"));
   var inputValue = (<HTMLInputElement>document.getElementById("koment")).value;
   const id = parseInt(this.route.snapshot.paramMap.get('id'));
   var date = this.datePipe.transform(new Date(), 'yyyy, MMM d, h:mm a');
@@ -131,7 +161,7 @@ submit(){
     this.recensions.update(actualRecension => [...actualRecension, value])} );
    
     this.scrollToBottom();
-    
+    inputBox.value = "";
 
 }
 
@@ -193,6 +223,46 @@ Vymaz(id: number){
   .pipe(takeUntil(this.destroy$))
   .subscribe(value => this.recensions.update(items => items.filter(item => item.id !== id)));
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 

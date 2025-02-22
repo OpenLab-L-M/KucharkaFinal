@@ -1,0 +1,9 @@
+<div style="align-items: center; text-align: center;">
+<div class="input-container">
+    <label for="inputString">zadaj množstvo a jednotku(ks/g/ml): </label>
+    <input type="text" id="inputString" [(ngModel)]="inputString" name="inputString">
+  </div>
+  <button mat-raised-button (click)="addGrams()" [disabled]="!(inputString.length > 0)" >ulož</button>
+  <button mat-raised-button (click)="onNoClick()" >Close</button>
+
+</div>

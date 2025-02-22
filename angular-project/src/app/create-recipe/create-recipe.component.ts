@@ -41,6 +41,7 @@ import {
 import { IngredientsFilterPipe } from './ingredients-filter.pipe';
 import { DialogComponent } from './dialog/dialog.component';
 import { getBaseUrl } from 'src/main';
+import { AddGramsDialogComponent } from './add-grams-dialog/add-grams-dialog.component';
 
 @Component({
   selector: 'app-create-recipe',
@@ -78,16 +79,31 @@ export class CreateRecipeComponent {
   }
   vybrane = [''];
 
+
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
+
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex,
       );
+      if(event.container.data == this.vybrane){
+        const dialogRef = this.dialog.open(AddGramsDialogComponent, {
+          width: '300px',
+        } );
+    
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log(result.grams)
+          this.vybrane[event.currentIndex] += " " + result.data;
+    
+        });
+      }
+
     }
   }
 
