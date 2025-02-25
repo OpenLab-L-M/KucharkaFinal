@@ -82,17 +82,23 @@ export class RecipesService {
     return this.http.get<string[]>(this.baseUrl + "/CreateRecipe/Ingredients")
   }
   getCalories(query: string){
-     let apiKey = '/1faurR8tsffSCv+pGqvqA==HFC2IkQnHYvVMUNr'; // Replace with your actual API key
-     let apiUrl = 'https://api.calorieninjas.com/v1/nutrition';
+     let apiKey = '1238dfcba9dc54bb7ff8f93acc107ad6'; // Replace with your actual API key
+     let apiUrl = 'https://trackapi.nutritionix.com/v2/natural/nutrients';
   
 
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'X-Api-Key': apiKey
-      });
-  
-      const url = `${apiUrl}?query=${encodeURIComponent(query)}`;
-  
-      return this.http.get(url, { headers: headers })
-  }
+     const httpOptions = {
+      headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'x-app-id': '46f0545f',
+          'x-app-key': apiKey,
+
+      }),
+  };
+
+const body = {
+      query: query, // You should be encoding it here.
+  };
+
+return this.http.post(apiUrl, body, httpOptions);
+}
 }

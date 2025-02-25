@@ -21,6 +21,7 @@ import { RecensionsDTO } from './recensions-dto';
 import {CreatorDTO} from 'src/app/recipes/CreatorDTO';
 import { DataSource } from '@angular/cdk/collections';
 import { MatPseudoCheckbox } from '@angular/material/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-recipes-details',
   standalone: true,
@@ -31,6 +32,7 @@ import { MatPseudoCheckbox } from '@angular/material/core';
   styleUrl: './recipes-details.component.scss'
 })
 export class RecipesDetailsComponent implements OnInit{
+  data:any;
   
 
   userImages: CreatorDTO[] = [];
@@ -71,6 +73,20 @@ export class RecipesDetailsComponent implements OnInit{
   
     return numbers;
   }
+
+
+  extractIngredientNames(ingredientsString: string): string {
+    //1. Split the string by the commas into array by item and remove whitespace.
+    return ingredientsString
+      .split(',')
+      .map(item => item.trim())
+  
+       //Extract the name from the strings, test with upper or lowercase.
+      .map(item => item.replace(/[^A-Za-z\s]/g, ''))
+  
+      .join(', '); //Join with "," and space in between
+  }
+  
   calorieCounter(){
 
   }
@@ -81,13 +97,14 @@ export class RecipesDetailsComponent implements OnInit{
 
   ngOnInit(): void {
     
-
+    
+    
     const id = parseInt(this.route.snapshot.paramMap.get('id'));
     this.recipeService.getClickedRecipes(id)
        .subscribe(result => {
         this.recipeService.chRecipe = result;
         this.recipe.set(result);
-        console.log(this.extractAllNumbersFromString(result.ingrediencie))
+        this.getCalories();
         this.profileForm.patchValue({
           name: this.recipeService.chRecipe.name,
           ingrediencie: this.recipeService.chRecipe.ingrediencie,
@@ -99,19 +116,43 @@ export class RecipesDetailsComponent implements OnInit{
       },
        );
        this.recipeService.getRecension(id).pipe(takeUntil(this.destroy$))
-    .subscribe(value => {this.recensions.set(value);
-        console.log(value)}
+    .subscribe(value => {this.recensions.set(value);}
     );
 
     this.recipeService.getImage(id).subscribe(value =>
       this.image = value.image
     )
-    console.log(parseInt(this.route.snapshot.paramMap.get('id')));
     
-    
+
     //console.log(this.currentDate);
    }
+   celkoveKalorie = signal<number>(undefined);
+   getCalories(){
+    this.recipeService.getCalories(this.recipe().ingrediencie.replace(/,/g, ' '))
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
+        this.data = result;
 
+        let vypocet = 0;
+
+        if (this.data && Array.isArray(this.data.foods)) { // Check if this.data and foods are defined
+            for (let i = 0; i < this.data.foods.length; i++) {
+                const food = this.data.foods[i];
+                if (food && typeof food.nf_calories === 'number') {  // Check if food and nf_calories are defined and a number
+                    vypocet += food.nf_calories;
+                } else {
+                    console.warn(`Invalid food data or nf_calories at index ${i}`, food); // Debugging
+                }
+            }
+        } else {
+            console.warn('Invalid result format from getCalories API:', result); // Debugging
+        }
+
+        this.celkoveKalorie.set(vypocet);
+        console.log("Calories " + vypocet);
+        console.log(this.recipe().ingrediencie.replace(/,/g, ' '));
+    });
+  }
 
    showImage() {
      return `data:image/jpeg;base64,${this.image}`
