@@ -98,13 +98,13 @@ export class RecipesDetailsComponent implements OnInit{
   ngOnInit(): void {
     
     
-    
+    this.translation();
     const id = parseInt(this.route.snapshot.paramMap.get('id'));
     this.recipeService.getClickedRecipes(id)
        .subscribe(result => {
         this.recipeService.chRecipe = result;
         this.recipe.set(result);
-        this.getCalories();
+        //this.getCalories();
         this.profileForm.patchValue({
           name: this.recipeService.chRecipe.name,
           ingrediencie: this.recipeService.chRecipe.ingrediencie,
@@ -127,7 +127,7 @@ export class RecipesDetailsComponent implements OnInit{
     //console.log(this.currentDate);
    }
    celkoveKalorie = signal<number>(undefined);
-   getCalories(){
+   /*getCalories(){
     this.recipeService.getCalories(this.recipe().ingrediencie.replace(/,/g, ' '))
     .pipe(takeUntil(this.destroy$))
     .subscribe(result => {
@@ -152,6 +152,24 @@ export class RecipesDetailsComponent implements OnInit{
         console.log("Calories " + vypocet);
         console.log(this.recipe().ingrediencie.replace(/,/g, ' '));
     });
+  }*/
+
+
+  translation(){
+    const res =  fetch("https://libretranslate.com/translate", {
+      method: "POST",
+      body: JSON.stringify({
+        q: "",
+        source: "auto",
+        target: "en",
+        format: "text",
+        alternatives: 3,
+        api_key: ""
+      }),
+      headers: { "Content-Type": "application/json" }
+    });
+    
+    console.log(res);
   }
 
    showImage() {

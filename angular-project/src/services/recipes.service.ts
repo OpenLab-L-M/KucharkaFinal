@@ -35,7 +35,6 @@ export class RecipesService {
 
   CreateRecipe(RecipesDTO: {
     difficulty: string;
-    
     ingrediencie: string;
     postupicky?: FormArray;
     imageId: Number;
@@ -46,6 +45,11 @@ export class RecipesService {
     name: string;
     nizkoKaloricke: any;
     description: string
+    tuky?:number;
+    cukor?:number;
+    sacharidy?:number;
+    bielkoviny?:number;
+    kalorie?:number;
   }) {
     return this.http.post<createRecipe>(this.baseUrl + '/CreateRecipe', RecipesDTO)
   }

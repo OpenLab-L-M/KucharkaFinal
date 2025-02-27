@@ -20,6 +20,7 @@ import { UserDTO } from '../user-profile/UserDTO';
 import {ImageDTO} from "./ImageDTO";
 import {CreatorDTO} from "./CreatorDTO";
 import { MatInput } from '@angular/material/input';
+import { NgArrayPipesModule } from 'ngx-pipes';
 
 @Component({
   selector: 'app-recipes',

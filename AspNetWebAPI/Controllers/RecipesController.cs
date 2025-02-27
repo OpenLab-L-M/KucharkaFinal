@@ -45,6 +45,11 @@ namespace AspNetCoreAPI.Controllers
                     Veganske = dbRecipe.Veganske,
                     Vegetarianske = dbRecipe.Vegetarianske,
                     NizkoKaloricke = dbRecipe.NizkoKaloricke,
+                    Tuky = dbRecipe.Tuky,
+                    Sacharidy = dbRecipe.Sacharidy,
+                    Bielkoviny = dbRecipe.Bielkoviny,
+                    Cukor = dbRecipe.Cukor,
+                    Kalorie = dbRecipe.Kalorie,
                     //Postupicky = mapToPostupyStrings(dbRecipe.Id).ToList(),
                     Cas = dbRecipe.Cas,
                     imageId = dbRecipe.ImageId,
@@ -72,6 +77,11 @@ namespace AspNetCoreAPI.Controllers
                 CheckID = recipe.CheckID,
                 userID = GetCurrentUser().Id,
                 Postupicky = mapToPostupyStrings(recipe.Id).ToList(),
+                Tuky = recipe.Tuky,
+                Bielkoviny = recipe.Bielkoviny,
+                Sacharidy = recipe.Sacharidy,
+                Cukor = recipe.Cukor,
+                Kalorie = recipe.Kalorie,
                 Ingrediencie = recipe.Ingrediencie,
                 Veganske = recipe.Veganske,
                 Vegetarianske = recipe.Vegetarianske,
@@ -118,15 +128,15 @@ namespace AspNetCoreAPI.Controllers
 
 
         [HttpPost("/CreateRecipe")]
-        public RecipesDTO CreateRecipe(RecipesDTO receptik)
+        public RecipesDTO CreateRecipe( [FromBody] RecipesDTO receptik)
         {
             var user = GetCurrentUser();
             RecipesDTO recept = new RecipesDTO();
             recept = receptik;
-            
-            
-           
-            
+
+
+
+
             var nReceptik = new Recipe()
             {
                 Id = receptik.Id,
@@ -140,6 +150,11 @@ namespace AspNetCoreAPI.Controllers
                 Veganske = receptik.Veganske,
                 Vegetarianske = receptik.Vegetarianske,
                 NizkoKaloricke = receptik.NizkoKaloricke,
+                Tuky =  receptik.Tuky,
+                Sacharidy = receptik.Sacharidy,
+                Cukor = receptik.Cukor,
+                Bielkoviny = receptik.Bielkoviny,
+                Kalorie = receptik.Kalorie,
                 Cas = receptik.Cas,
                 ImageId = receptik.imageId
 
@@ -253,6 +268,12 @@ namespace AspNetCoreAPI.Controllers
                 Id = nReceptik.Id,
                 Difficulty = nReceptik.Difficulty,
                 Name = nReceptik.Name,
+                Sacharidy = nReceptik.Sacharidy,
+                Bielkoviny = nReceptik.Bielkoviny,
+                Cukor = nReceptik.Cukor,
+                Kalorie = nReceptik.Kalorie,
+                NizkoKaloricke = nReceptik.NizkoKaloricke,
+                Tuky = nReceptik.Tuky,
                 Ingrediencie = nReceptik.Ingrediencie,
                 Description = nReceptik.Description,
                 ImageURL = nReceptik.ImageURL,

@@ -16,7 +16,11 @@ export class RecipesDTO{
     veganske?: boolean;
     vegetarianske?: boolean;
     nizkoKaloricke?: boolean;
-    
+    tuky?:number;
+    cukor?:number;
+    sacharidy?:number;
+    bielkoviny?:number;
+    kalorie?:number;
     image: number;
     comprimedImage: any;
   }

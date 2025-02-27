@@ -22,6 +22,11 @@ namespace AspNetCoreAPI.Models
         public bool? Veganske { get; set; }
         public bool? Vegetarianske { get; set; }
         public bool? NizkoKaloricke { get; set; }
+        public int? Tuky {  get; set; }
+        public int? Cukor {  get; set; }
+        public int? Sacharidy { get; set; }
+        public int? Bielkoviny { get; set; }
+        public int? Kalorie {  get; set; }
         public string? userID { get; set; }
 
         public int? ImageId { get; set; }
