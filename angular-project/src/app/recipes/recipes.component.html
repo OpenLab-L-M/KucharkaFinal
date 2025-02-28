@@ -12,17 +12,89 @@
           <!-- Difficulty Filters -->
           <div class="filter-group">
             <h4 class="filter-subtitle">Difficulty</h4>
-            <mat-checkbox class="cyberpunk-checkbox" [(ngModel)]="easyChecked" (ngModelChange)="easyChecked = $event" (click)="filterRecipesByDifficulty('Easy')">Easy</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox" [(ngModel)]="mediumChecked" (ngModelChange)="mediumChecked = $event" (click)="filterRecipesByDifficulty('Medium')">Medium</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox" [(ngModel)]="hardChecked" (ngModelChange)="hardChecked = $event" (click)="filterRecipesByDifficulty('Hard')">Hard</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Easy</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Medium</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Hard</mat-checkbox>
           </div>
 
           <!-- Dietary Filters -->
           <div class="filter-group">
             <h4 class="filter-subtitle">Dietary</h4>
-            <mat-checkbox class="cyberpunk-checkbox" [(ngModel)]="veganChecked" (ngModelChange)="veganChecked = $event" (click)="filterRecipesByDifficulty('Vegan')">Vegan</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox" [(ngModel)]="vegetarianChecked" (ngModelChange)="vegetarianChecked = $event" (click)="filterRecipesByDifficulty('Vegetarian')">Vegetarian</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox" [(ngModel)]="lowCalorieChecked" (ngModelChange)="lowCalorieChecked = $event" (click)="filterRecipesByDifficulty('LowCalorie')">Low Calorie</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Vegan</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Vegetarian</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Low Calorie</mat-checkbox>
+          </div>
+
+          <!-- Course Filters -->
+          <div class="filter-group">
+            <h4 class="filter-subtitle">Course</h4>
+            <mat-checkbox class="cyberpunk-checkbox">Rafajky</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Obedy a večere</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Šaláty</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Polievky</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Zdravé dezerty</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Snack</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Smoothies a nápoje</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Zdravé vianočné recepty</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Nátierky</mat-checkbox>
+          </div>
+
+          <!-- Preference Filters -->
+          <div class="filter-group">
+            <h4 class="filter-subtitle">Preferencie</h4>
+            <mat-checkbox class="cyberpunk-checkbox">Bez cukru</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Vysoký obsah bielkovín</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Vysoký obsah vlákniny</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Nízky obsah sacharidov</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Nízkokalorické</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Nízkotučné</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Vegetariánske</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Vegánske</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Proteínový prášok</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Rýchle</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Do 5 surovin</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Do krabičky</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Lacné</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Pre deti</mat-checkbox>
+          </div>
+
+          <!-- Allergen Filters -->
+          <div class="filter-group">
+            <h4 class="filter-subtitle">Alergény</h4>
+            <mat-checkbox class="cyberpunk-checkbox">Bez lepku</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Bez laktózy</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Bez vajec</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Bez orechov</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Bez histamínu</mat-checkbox>
+          </div>
+
+          <!-- Ingredient Filters -->
+          <div class="filter-group">
+            <h4 class="filter-subtitle">Surovina</h4>
+            <mat-checkbox class="cyberpunk-checkbox">Cuketa</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Kuracie máso</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Hovádzie máso</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Tuniak</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Arašidové maslo</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Avokádo</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Chia semienka</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Kokos</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Ovsené vločky</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Sladké zemiaky</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Tekvica</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Ryža</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Quinoa</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Losos</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Tofu</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Kuskus</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Vajcia</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Zelenina</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Cestoviny</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Strukoviny</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Tvaroh</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Brokolica</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Banán</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox">Špenát</mat-checkbox>
           </div>
         </div>
 
@@ -37,6 +109,7 @@
       <button type="button" mat-button class="toggle-filter-button" (click)="drawer.toggle()">
         <mat-icon>filter_list</mat-icon> Filters
       </button>
+
 
       <!-- Recipe Cards Container -->
       <div class="recipes-container">
@@ -55,7 +128,7 @@
 
             <!-- Portions -->
             <mat-card-subtitle class="recipes-difficulty">
-              <mat-icon>restaurant</mat-icon> {{ recipe.gramaz ? (recipe.gramaz / 250 | number : '1.0-0') : '1' }}
+              <mat-icon>restaurant</mat-icon> {{recipe.gramaz / 250 | number : '1.0-0'}}
             </mat-card-subtitle>
 
             <!-- Calories -->
@@ -71,7 +144,7 @@
 
           <!-- Recipe Footer (Favorite Button) -->
           <mat-card-footer>
-            <input type="checkbox" id="favourite-{{recipe.id}}" (change)="ktoryRecept(recipe.id)" class="favourite-checkbox">
+            <input type="checkbox" id="favourite-{{recipe.id}}" class="favourite-checkbox">
             <label for="favourite-{{recipe.id}}" class="favourite-label">
               <mat-icon id="like">favorite</mat-icon>
             </label>

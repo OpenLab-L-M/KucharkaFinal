@@ -16,10 +16,12 @@ body #backgroundos {
 
 /* Left Sidebar (Filters) */
 .example-sidenav {
-  width: 250px;
+  width: 27%; /* Sidebar takes up 27% of the width */
   background-color: #2c3e50; /* Dark blue-gray */
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  color: #ecf0f1; /* Light gray text for better readability */
+  font-family: 'Arial', sans-serif; /* Change font family */
 }
 
 .filter-section {
@@ -29,17 +31,17 @@ body #backgroundos {
 }
 
 .filter-title {
-  color: #ecf0f1; /* Light gray */
-  font-size: 24px;
+  font-size: 24px; /* Larger font for the main title */
   font-weight: bold;
   margin-bottom: 20px;
+  color: #ecf0f1; /* Light gray */
 }
 
 .filter-subtitle {
-  color: #bdc3c7; /* Light gray */
-  font-size: 18px;
+  font-size: 18px; /* Slightly larger font for subtitles */
   font-weight: 500;
   margin-bottom: 10px;
+  color: white; /* White color for filter headings (Difficulty, Dietary, etc.) */
 }
 
 .filter-group {
@@ -48,14 +50,25 @@ body #backgroundos {
   gap: 10px;
 }
 
-.cyberpunk-checkbox {
-  color: #ecf0f1; /* Light gray */
+/* Change the text color of checkboxes */
+.example-sidenav .mat-checkbox .mat-checkbox-layout .mat-checkbox-label {
+  background-color: white !important; /* Light gray color for checkbox text */
 }
 
 .clear-filter-button {
   margin-top: 20px;
   background-color: #e67e22; /* Orange */
   color: white;
+  font-size: 16px; /* Increase font size */
+  padding: 10px 20px; /* Add padding for better clickability */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.clear-filter-button:hover {
+  background-color: #d35400; /* Darker orange on hover */
 }
 
 /* Main Content Area */
@@ -69,6 +82,16 @@ body #backgroundos {
   margin-bottom: 20px;
   background-color: #3498db; /* Blue */
   color: white;
+  font-size: 16px; /* Increase font size */
+  padding: 10px 20px; /* Add padding for better clickability */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.toggle-filter-button:hover {
+  background-color: #2980b9; /* Darker blue on hover */
 }
 
 /* Recipe Cards Container */

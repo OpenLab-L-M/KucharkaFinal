@@ -26,6 +26,7 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { MatFormField } from '@angular/material/input';
 import { MatLabel } from '@angular/material/input';
 import { DecimalPipe } from '@angular/common';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 @Component({
@@ -47,7 +48,8 @@ import { DecimalPipe } from '@angular/common';
     MatFormField,
     MatLabel,
      MatNavList,
-     DecimalPipe
+     DecimalPipe,
+     MatCheckboxModule
   ],
 
   templateUrl: './recipes.component.html',
