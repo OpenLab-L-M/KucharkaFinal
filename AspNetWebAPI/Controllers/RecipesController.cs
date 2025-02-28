@@ -265,12 +265,23 @@ namespace AspNetCoreAPI.Controllers
             nReceptik.Description = receptik.Description;
             nReceptik.ImageURL = receptik.ImgURL;
             nReceptik.Cas = receptik.Cas;
+            nReceptik.Tuky = receptik.Tuky;
+            nReceptik.Sacharidy = receptik.Sacharidy;
+            nReceptik.Cukor = receptik.Cukor;
+            nReceptik.Gramaz = receptik.Gramaz;
+            nReceptik.Bielkoviny = receptik.Bielkoviny;
+            nReceptik.Kalorie = receptik.Kalorie;
             var neviemUz = new RecipesDTO()
             {
                 Id = nReceptik.Id,
                 Difficulty = nReceptik.Difficulty,
                 Name = nReceptik.Name,
                 Tuky = nReceptik.Tuky,
+                Sacharidy = nReceptik.Sacharidy,
+                Cukor = nReceptik.Cukor,
+                Gramaz = nReceptik.Gramaz,
+                Bielkoviny = nReceptik.Bielkoviny,
+                Kalorie = nReceptik.Kalorie,
                 Ingrediencie = nReceptik.Ingrediencie,
                 Description = nReceptik.Description,
                 ImageURL = nReceptik.ImageURL,
@@ -296,6 +307,7 @@ namespace AspNetCoreAPI.Controllers
             var vraciam = new RecensionDTO()
             {
                 Id = recenzia.Id,
+                
                 RecipesID = nRecenzia.RecipesID,
                 Content = nRecenzia.Content,
                 UserName = GetCurrentUser().UserName,

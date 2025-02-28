@@ -92,7 +92,12 @@ export class RecipesDetailsComponent implements OnInit{
   }
 
 
-
+  dTuky:number = 0;
+  dCukor:number = 0;
+  dSacharidy:number = 0;
+  dBielkoviny:number = 0;
+  dKalorie:number = 0;
+  dGramaz:number = 0;
 
 
   ngOnInit(): void {
@@ -114,6 +119,9 @@ export class RecipesDetailsComponent implements OnInit{
         }
         )
       },
+
+
+
        );
        this.recipeService.getRecension(id).pipe(takeUntil(this.destroy$))
     .subscribe(value => {this.recensions.set(value);}
@@ -189,21 +197,65 @@ export class RecipesDetailsComponent implements OnInit{
   this.clicked = true;
 
 }
+
 submit(){
   
   const id = parseInt(this.route.snapshot.paramMap.get('id'));
-  this.recipeService.edit({
-    id: parseInt(this.route.snapshot.paramMap.get('id')),
-    name: this.profileForm.controls['name']?.value,
-    ingrediencie: this.profileForm.controls['ingrediencie']?.value,
-    description: this.profileForm.controls['description']?.value,
-      imgURL: this.profileForm.controls['imgURL']?.value,
-      cas: this.profileForm.controls['cas']?.value,
-      postupicky: (this.profileForm.get('postupicky') as FormArray)?.value
-
-  })
+  this.recipeService.getCalories(this.profileForm.controls['ingrediencie']?.value.replace(/,/g, ' '))
   .pipe(takeUntil(this.destroy$))
-  .subscribe(result => this.recipe.set(result));
+  .subscribe(
+    result => {
+      this.data = result;
+
+        let vypocet = 0;
+
+        if (this.data && Array.isArray(this.data.foods)) { // Check if this.data and foods are defined
+            this.dKalorie = 0;
+                    this.dTuky = 0;
+                    this.dCukor = 0;
+                    this.dSacharidy =  0;
+                    this.dBielkoviny = 0;
+                    this.dGramaz = 0;
+          for (let i = 0; i < this.data.foods.length; i++) {
+                const food = this.data.foods[i];
+                if (food && typeof food.nf_calories === 'number') {  // Check if food and nf_calories are defined and a number
+                    this.dKalorie += food.nf_calories;
+                    this.dTuky += food.nf_total_fat;
+                    this.dCukor += food.nf_sugars;
+                    this.dSacharidy += food.nf_total_carbohydrate;
+                    this.dBielkoviny += food.nf_protein;
+                    this.dGramaz += food.serving_weight_grams;
+            }
+            else{
+              console.log("error");
+            }
+        }
+    }
+    this.recipeService.edit({
+      id: parseInt(this.route.snapshot.paramMap.get('id')),
+      name: this.profileForm.controls['name']?.value,
+      ingrediencie: this.profileForm.controls['ingrediencie']?.value,
+      description: this.profileForm.controls['description']?.value,
+        imgURL: this.profileForm.controls['imgURL']?.value,
+        cas: this.profileForm.controls['cas']?.value,
+        postupicky: (this.profileForm.get('postupicky') as FormArray)?.value,
+        tuky: Math.ceil(this.dTuky),
+        cukor: Math.ceil(this.dCukor),
+        sacharidy: Math.ceil(this.dSacharidy),
+        bielkoviny: Math.ceil(this.dBielkoviny),
+        kalorie: Math.ceil(this.dKalorie),
+        gramaz: Math.ceil(this.dGramaz),
+
+    })
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
+      this.recipe.set(result);
+  
+  
+  })
+  }
+  )
+
   this.clicked=false;
   
 }
@@ -336,4 +388,10 @@ export class EditDTO{
   imgURL?: string;
   cas?: number;
   postupicky?: string[];
+  tuky?:number;
+  cukor?:number;
+  sacharidy?:number;
+  bielkoviny?:number;
+  kalorie?:number;
+  gramaz?:number;
 }
