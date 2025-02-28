@@ -21,6 +21,12 @@ import {ImageDTO} from "./ImageDTO";
 import {CreatorDTO} from "./CreatorDTO";
 import { MatInput } from '@angular/material/input';
 import { NgArrayPipesModule } from 'ngx-pipes';
+import { MatListItem, MatNavList } from '@angular/material/list';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatFormField } from '@angular/material/input';
+import { MatLabel } from '@angular/material/input';
+import { DecimalPipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-recipes',
@@ -35,7 +41,13 @@ import { NgArrayPipesModule } from 'ngx-pipes';
     MatTooltip,
     MatCardModule,
     MatSidenavModule,
-    FormsModule
+    FormsModule,
+    MatListItem,
+    MatToolbar,
+    MatFormField,
+    MatLabel,
+     MatNavList,
+     DecimalPipe
   ],
 
   templateUrl: './recipes.component.html',
@@ -53,7 +65,9 @@ export class RecipesComponent {
       .pipe(takeUntil(this.destroy$))
       .subscribe();
     }
+    
     }
+  portions = signal<number>(undefined);
   recipeService = inject(RecipesService);
   private destroy$ = new Subject<void>();
   recipe = signal<RecipesDTO>(undefined);
@@ -73,7 +87,7 @@ export class RecipesComponent {
   constructor(private userService: UserService,) { }
   ngOnInit(): void {
 
-
+    
     forkJoin({
       recipes: this.recipeService.getRecipesList(),
       currentUser: this.userService.getCurrentUser(),
@@ -87,6 +101,7 @@ export class RecipesComponent {
         this.imageDTO = result.images;
         this.userImages = result.userCreators;
         this.comprim();
+        
       });
 
 

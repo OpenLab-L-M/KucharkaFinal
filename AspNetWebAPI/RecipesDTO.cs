@@ -15,6 +15,7 @@ namespace AspNetCoreAPI
         public bool? Veganske { get; set; }
         public bool? Vegetarianske { get; set; }
         public int? Tuky { get; set; }
+        public int? Gramaz {  get; set; }
         public int? Cukor { get; set; }
         public int? Sacharidy { get; set; }
         public int? Bielkoviny { get; set; }

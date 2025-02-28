@@ -49,8 +49,8 @@ namespace AspNetCoreAPI.Controllers
                     Sacharidy = dbRecipe.Sacharidy,
                     Bielkoviny = dbRecipe.Bielkoviny,
                     Cukor = dbRecipe.Cukor,
+                    Gramaz = dbRecipe.Gramaz,
                     Kalorie = dbRecipe.Kalorie,
-                    //Postupicky = mapToPostupyStrings(dbRecipe.Id).ToList(),
                     Cas = dbRecipe.Cas,
                     imageId = dbRecipe.ImageId,
                     
@@ -82,6 +82,7 @@ namespace AspNetCoreAPI.Controllers
                 Sacharidy = recipe.Sacharidy,
                 Cukor = recipe.Cukor,
                 Kalorie = recipe.Kalorie,
+                Gramaz = recipe.Gramaz,
                 Ingrediencie = recipe.Ingrediencie,
                 Veganske = recipe.Veganske,
                 Vegetarianske = recipe.Vegetarianske,
@@ -128,7 +129,7 @@ namespace AspNetCoreAPI.Controllers
 
 
         [HttpPost("/CreateRecipe")]
-        public RecipesDTO CreateRecipe( [FromBody] RecipesDTO receptik)
+        public RecipesDTO CreateRecipe( RecipesDTO receptik)
         {
             var user = GetCurrentUser();
             RecipesDTO recept = new RecipesDTO();
@@ -153,6 +154,7 @@ namespace AspNetCoreAPI.Controllers
                 Tuky =  receptik.Tuky,
                 Sacharidy = receptik.Sacharidy,
                 Cukor = receptik.Cukor,
+                Gramaz = receptik.Gramaz,
                 Bielkoviny = receptik.Bielkoviny,
                 Kalorie = receptik.Kalorie,
                 Cas = receptik.Cas,
@@ -268,11 +270,6 @@ namespace AspNetCoreAPI.Controllers
                 Id = nReceptik.Id,
                 Difficulty = nReceptik.Difficulty,
                 Name = nReceptik.Name,
-                Sacharidy = nReceptik.Sacharidy,
-                Bielkoviny = nReceptik.Bielkoviny,
-                Cukor = nReceptik.Cukor,
-                Kalorie = nReceptik.Kalorie,
-                NizkoKaloricke = nReceptik.NizkoKaloricke,
                 Tuky = nReceptik.Tuky,
                 Ingrediencie = nReceptik.Ingrediencie,
                 Description = nReceptik.Description,

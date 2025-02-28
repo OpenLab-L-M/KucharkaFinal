@@ -21,6 +21,7 @@ export class RecipesDTO{
     sacharidy?:number;
     bielkoviny?:number;
     kalorie?:number;
+    gramaz?:number;
     image: number;
     comprimedImage: any;
   }

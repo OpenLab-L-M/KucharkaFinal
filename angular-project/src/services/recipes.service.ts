@@ -50,6 +50,7 @@ export class RecipesService {
     sacharidy?:number;
     bielkoviny?:number;
     kalorie?:number;
+    gramaz?:number;
   }) {
     return this.http.post<createRecipe>(this.baseUrl + '/CreateRecipe', RecipesDTO)
   }

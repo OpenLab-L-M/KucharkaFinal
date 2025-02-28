@@ -179,13 +179,11 @@ export class CreateRecipeComponent {
   dSacharidy:number = 0;
   dBielkoviny:number = 0;
   dKalorie:number = 0;
-  getCalories(){
-    
-
-  }
+  dGramaz:number = 0;
 
 
   private createRecipe(value: Number) {
+    debugger
     this.recipesServíce.getCalories(this.vybrane.join().toString().replace(/,/g, ' '))
     .pipe(takeUntil(this.destroy$))
     .subscribe(result => {
@@ -203,17 +201,13 @@ export class CreateRecipeComponent {
                     this.dCukor += food.nf_sugars;
                     this.dSacharidy += food.nf_total_carbohydrate;
                     this.dBielkoviny += food.nf_protein;
-                    console.log(food.nf_sugars)
-                    console.log(food.nf_calories)
-                    console.log(food.nf_total_fat)
-                    console.log(food.nf_total_carbohydrate)
-                    
-                 
+                    this.dGramaz += food.serving_weight_grams;
             }
             else{
               console.log("error");
             }
         }
+        
         this.recipesServíce.CreateRecipe({
           name: this.profileForm.controls['name'].value,
           description: this.profileForm.controls['description'].value,
@@ -225,14 +219,15 @@ export class CreateRecipeComponent {
           vegetarianske: this.profileForm.controls['vegetarianske']?.value,
           nizkoKaloricke: this.profileForm.controls['nizkoKaloricke']?.value,
           postupicky: (this.postupForm.get('postupy') as FormArray).value,
-          imageId: value,
           tuky: Math.ceil(this.dTuky),
           cukor: Math.ceil(this.dCukor),
           sacharidy: Math.ceil(this.dSacharidy),
           bielkoviny: Math.ceil(this.dBielkoviny),
-          kalorie: Math.ceil(this.dKalorie)
-          
+          kalorie: Math.ceil(this.dKalorie),
+          gramaz: Math.ceil(this.dGramaz),
+          imageId: value,
         }).pipe(takeUntil(this.destroy$))
+        
         .subscribe(() => this.router.navigate(['/Recipes']));
         this.ingredientService.selectedIngredients = "";  
     }});

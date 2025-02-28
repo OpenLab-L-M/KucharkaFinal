@@ -1,17 +1,5 @@
-/* .background .black {
-position:fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 50%;
-  z-index: -1;
-} */
-/* * {
-  background-color: #ece9e9;
-} */
-
-body #backgroundos{
+/* Background Image */
+body #backgroundos {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -19,331 +7,195 @@ body #backgroundos{
   z-index: -2;
 }
 
+/* Main Container */
+.example-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Left Sidebar (Filters) */
+.example-sidenav {
+  width: 250px;
+  background-color: #2c3e50; /* Dark blue-gray */
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.filter-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.filter-title {
+  color: #ecf0f1; /* Light gray */
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.filter-subtitle {
+  color: #bdc3c7; /* Light gray */
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
 .cyberpunk-checkbox {
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  border: 2px solid darkgoldenrod;
-  border-radius: 5px;
-  background-color: transparent;
-  display: inline-block;
-  position: relative;
-  margin-right: 10px;
-  cursor: pointer;
+  color: #ecf0f1; /* Light gray */
 }
 
-.cyberpunk-checkbox:before {
-  content: "";
-  background-color: darkgoldenrod;
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  width: 10px;
-  height: 10px;
-  border-radius: 3px;
-  transition: all 0.3s ease-in-out;
+.clear-filter-button {
+  margin-top: 20px;
+  background-color: #e67e22; /* Orange */
+  color: white;
 }
 
-.cyberpunk-checkbox:checked:before {
-  transform: translate(-50%, -50%) scale(1);
+/* Main Content Area */
+.example-sidenav-content {
+  flex: 1;
+  padding: 20px;
+  background-color: #f5f5f5; /* Light gray */
 }
 
+.toggle-filter-button {
+  margin-bottom: 20px;
+  background-color: #3498db; /* Blue */
+  color: white;
+}
 
+/* Recipe Cards Container */
 .recipes-container {
-  margin: 20px auto;
   display: flex;
   flex-wrap: wrap;
-  z-index: 2;
-  overflow: hidden;
+  gap: 20px;
 }
 
 .recipes-items {
-  width: 350px;
-  background-image: linear-gradient(to right, rgb(245, 245, 220), rgb(255, 218, 185));
-  //background-size: cover;
-  background-repeat: no-repeat;
+  width: 300px;
+  background-color: white;
   border-radius: 10px;
-  border-width: 2px;
-  border-style: solid;
-  //border-color: transparent;
-  border-color: white;
-  color: #3E2723;
-  margin: 10px 10px;
-  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
-}
-
-.recipes-items mat-card-subtitle {
-  color: #3E2723;
-  margin-bottom: 2px;
-}
-
-.recipes-items mat-card-title {
-  color: #3E2723;
-  font-style: italic;
-  margin-bottom: 5px;
-}
-.recipes-name {
-  font-family: 'Poppins', sans-serif;
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.recipes-difficulty {
-  font-family: 'Poppins', sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-}
-
-#avatar {
-  /*border:3px solid rgb(190, 190, 190);*/
-  width: 50px;
-  height: 50px;
-  border: 3px solid #3d3d3d;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  overflow: hidden; /* Ensure content doesn't overflow */
+  display: flex;
+  flex-direction: column;
 }
 
 .recipes-items:hover {
-
-  box-shadow: 0 8px 15px rgb(129, 95, 8);
-    background-color: rgba(0, 26, 92, 0.8);
-    cursor: pointer;
-    transform: scale(1.05);
-    transform-origin: center;
-    border-width: 2px;
-    border-color: darkgoldenrod;
-
-    mat-card-title {
-      color: darkgoldenrod;
-    }
-
-    #avatar {
-      border-color: darkgoldenrod;
-    }
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.recipes-images {
-  width: 350px;
-  height:290px;
-  padding-top: 5px;
-  overflow: none;
-  padding: 5px;
+/* Recipe Name at the Top */
+.recipes-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #2c3e50; /* Dark blue-gray */
+  white-space: normal; /* Allow text to wrap */
+  word-wrap: break-word; /* Break long words */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Add ellipsis if text overflows */
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  -webkit-box-orient: vertical;
+  padding: 16px 16px 8px 16px; /* Add padding */
+  margin: 0; /* Remove default margin */
+  flex-shrink: 0; /* Prevent the name from pushing the image down */
+  min-height: 60px; /* Ensure consistent height for the name area */
 }
 
-/* .recipes-name, .recipes-difficulty {
-  color: black;
-} */
-
-.recipes-difficulty mat-icon {
-  font-size: 20px;
-  
+/* Recipe Details (Timer, Portions, Calories) */
+.recipe-details {
+  display: flex;
+  gap: 16px; /* Add spacing between items */
+  padding: 0 16px 8px 16px; /* Add padding */
+  flex-shrink: 0; /* Prevent the details from pushing the image down */
 }
 
 .recipes-difficulty {
-  font-family: 'Times New Roman', Times, serif;
-}
-
-.dropbtn {
-  background-color: black;
-  color: white;
-  padding: 16px;
-  padding-top: 10%;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-}
-
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: absolute;
-  margin-top: 15px;
-  margin-left: 15px;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-filter {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  z-index: 1;
-  cursor: pointer;
-}
-
-  /* Links inside the dropdown */
-  .dropdown-filter a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }
-
-    /* Change color of dropdown links on hover */
-    .dropdown-filter a:hover {
-      background-color: black;
-      color: #f1f1f1;
-    }
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-filter {
-  display: block;
-}
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
-    background: white;
-      color: #171A2B;
-}
-
-.create {
-  text-align: center;
+  color: #7f8c8d; /* Gray */
+  font-size: 14px;
+  display: flex;
   align-items: center;
+  gap: 4px; /* Add spacing between icon and text */
+}
+
+.recipes-difficulty mat-icon {
+  font-size: 16px; /* Adjust icon size */
+}
+
+/* Image Container */
+.image-container {
+  flex-grow: 1; /* Allow the image container to take up remaining space */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Ensure the image doesn't overflow */
+  min-height: 200px; /* Ensure consistent height */
+}
+
+.recipes-images {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
+
+/* Recipe Footer (Favorite Button) */
+mat-card-footer {
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0; /* Prevent the footer from pushing the image up */
+}
+
+/* Favorite Checkbox and Heart Icon */
+.favourite-checkbox {
+  display: none;
+}
+
+.favourite-label {
+  cursor: pointer;
+}
+
+#like {
+  color: gray; /* Default color */
+  transition: color 0.3s;
+}
+
+.favourite-checkbox:checked + .favourite-label #like {
+  color: red; /* Color when favorited */
+}
+
+/* Create Recipe Button */
+.create {
   position: fixed;
-  margin-bottom: 80px;
-  margin-right: 80px;
-  right: 0;
-  bottom: 0;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000; /* Ensure it's above other elements */
 }
 
 #create_link {
-
-  background: darkgoldenrod;
-  font-size: 17px;
-    width: 70px;
-    height: 70px;
-    color: white;
-    transition: .2s all ease-in-out;
-    border-radius: 35px;
+  background-color: #e67e22; /* Orange */
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
 }
 
 #create_link:hover {
-  background: #916b08;
-    /* color: black; */
-    animation: 1s pulse infinite;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-#create_link mat-icon {
-  font-size: 25px;
-  text-align: center;
-}
-
-#favourite {
-  position: relative;
-  z-index: 3;
-  width: 20px;
-  height: 20px;
-  margin-left: 10px;
-  opacity: 0;
-}
-
-
- #like {
-  position: absolute;
-  left: 0;
-  margin-left: 8px;
-  }
-
-#favourite:checked + #like {
-  color: darkgoldenrod;
-  transition: 0.2s;
-}
-
-.example-container {
-  overflow: hidden;
-  /* height: 40%; */
-}
-
-.example-sidenav-content {
-  background-color: rgb(15, 15, 15);
-  /* height: 40%; */
-}
-
-.example-sidenav-content button {
-  color: white;
-  overflow: hidden;
-}
-
-.example-sidenav {
-  background-color: rgb(15, 15, 15);
-  overflow: hidden;
-  /* height: 40%; */
-}
-
-.drawer-content {
-  /* height: 40%; */
-  overflow: hidden;
-}
-
-.example-sidenav label {
-  color: white;
-  overflow: hidden;
-}
-
-
-.mat-card-header {
-  display: flex;
-  justify-content: space-between;
-}
-
-.left-header {
-  display: flex;
-  align-items: center;
-}
-
-.left-header .text-content {
-  margin-left: 10px;
-}
-
-.right-header {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
-  padding-left: 40px;
-}
-
-
-@media screen and (max-width: 1300px) {
-  .example-container {
-    overflow: hidden;
-    /* height: 40%; */
-  }
-  
-  
-  
-  .example-sidenav-content button {
-    color: white;
-    overflow: hidden;
-  }
-  
-  .example-sidenav {
-    background-color: rgb(15, 15, 15);
-    overflow: hidden;
-    
-    /* height: 40%; */
-  }
-  
-  .drawer-content {
-    /* height: 40%; */
-    overflow: hidden;
-  }
-  
-  .example-sidenav label {
-    color: white;
-    overflow: hidden;
-  }
+  background-color: #d35400; /* Darker orange */
 }

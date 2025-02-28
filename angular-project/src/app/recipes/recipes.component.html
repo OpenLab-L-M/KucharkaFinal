@@ -1,77 +1,90 @@
 <body>
+  <!-- Background Image -->
   <img id="backgroundos" src="../../assets/kuchynaBackgroundos.png">
+
+  <!-- Main Container with Drawer -->
   <mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side">
-          <input class="cyberpunk-checkbox" id="diff" type="checkbox" value="Easy" [ngModel]="easyChecked" (ngModelChange)="easyChecked = $event" (click)="filterRecipesByDifficulty('Easy')">
+    <!-- Left Sidebar (Filters) -->
+    <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+      <div class="filter-section">
+        <h3 class="filter-title">Filters</h3>
+        <div class="filter-options">
+          <!-- Difficulty Filters -->
+          <div class="filter-group">
+            <h4 class="filter-subtitle">Difficulty</h4>
+            <mat-checkbox class="cyberpunk-checkbox" [(ngModel)]="easyChecked" (ngModelChange)="easyChecked = $event" (click)="filterRecipesByDifficulty('Easy')">Easy</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox" [(ngModel)]="mediumChecked" (ngModelChange)="mediumChecked = $event" (click)="filterRecipesByDifficulty('Medium')">Medium</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox" [(ngModel)]="hardChecked" (ngModelChange)="hardChecked = $event" (click)="filterRecipesByDifficulty('Hard')">Hard</mat-checkbox>
+          </div>
 
-          <label for="diff">Easy</label>
-          <input class="cyberpunk-checkbox" id="diff2" type="checkbox" value="Medium" [ngModel]="mediumChecked" (ngModelChange)="mediumChecked = $event" (click)="filterRecipesByDifficulty('Medium')">
+          <!-- Dietary Filters -->
+          <div class="filter-group">
+            <h4 class="filter-subtitle">Dietary</h4>
+            <mat-checkbox class="cyberpunk-checkbox" [(ngModel)]="veganChecked" (ngModelChange)="veganChecked = $event" (click)="filterRecipesByDifficulty('Vegan')">Vegan</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox" [(ngModel)]="vegetarianChecked" (ngModelChange)="vegetarianChecked = $event" (click)="filterRecipesByDifficulty('Vegetarian')">Vegetarian</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox" [(ngModel)]="lowCalorieChecked" (ngModelChange)="lowCalorieChecked = $event" (click)="filterRecipesByDifficulty('LowCalorie')">Low Calorie</mat-checkbox>
+          </div>
+        </div>
 
-          <label for="diff2">Medium</label>
-          <input class="cyberpunk-checkbox" id="diff3" type="checkbox" value="Hard" [ngModel]="hardChecked" (ngModelChange)="hardChecked = $event" (click)="filterRecipesByDifficulty('Hard')">
-
-          <label for="diff3">Hard</label>
-
-
-          <input class="cyberpunk-checkbox" id="diff4" type="checkbox" value="Vegan" [ngModel]="veganChecked" (ngModelChange)="veganChecked = $event" (click)="filterRecipesByDifficulty('Vegan')">
-          <label for="diff4">Vegan</label>
-          <input class="cyberpunk-checkbox" id="diff5" type="checkbox" value="Vegetarian" [ngModel]="vegetarianChecked" (ngModelChange)="vegetarianChecked = $event" (click)="filterRecipesByDifficulty('Vegetarian')">
-          <label for="diff5">Vegetarian</label>
-          <input class="cyberpunk-checkbox" id="diff6" type="checkbox" value="LowCalorie" [ngModel]="lowCalorieChecked" (ngModelChange)="lowCalorieChecked = $event" (click)="filterRecipesByDifficulty('LowCalorie')">
-          <label for="diff6">Low Calorie</label>
-
-
-          <button (click) = "call()">filter</button>
-          <button (click) = "clearFilter()">Clear</button>
+        <!-- Clear Filters Button -->
+        <button mat-button class="clear-filter-button" (click)="clearFilter()">Clear Filters</button>
+      </div>
     </mat-drawer>
 
+    <!-- Main Content Area -->
     <div class="example-sidenav-content">
-      <button type="button" mat-button (click)="drawer.toggle()">
-        -Filtration-
+      <!-- Toggle Button for Filters -->
+      <button type="button" mat-button class="toggle-filter-button" (click)="drawer.toggle()">
+        <mat-icon>filter_list</mat-icon> Filters
       </button>
 
-    </div>
+      <!-- Recipe Cards Container -->
+      <div class="recipes-container">
+        <mat-card class="recipes-items" *ngFor="let recipe of realRecipes() | filter : sSearchRecept">
+          <!-- Recipe Name at the Top -->
+          <mat-card-title class="recipes-name">
+            <span class="recipe-name-text">{{recipe.name}}</span>
+          </mat-card-title>
 
+          <!-- Recipe Details (Timer, Portions, Calories) -->
+          <div class="recipe-details">
+            <!-- Timer -->
+            <mat-card-subtitle class="recipes-difficulty">
+              <mat-icon>query_builder</mat-icon> {{recipe.cas}} min
+            </mat-card-subtitle>
+
+            <!-- Portions -->
+            <mat-card-subtitle class="recipes-difficulty">
+              <mat-icon>restaurant</mat-icon> {{ recipe.gramaz ? (recipe.gramaz / 250 | number : '1.0-0') : '1' }}
+            </mat-card-subtitle>
+
+            <!-- Calories -->
+            <mat-card-subtitle class="recipes-difficulty">
+              <mat-icon>local_fire_department</mat-icon> {{recipe.kalorie}} KCal
+            </mat-card-subtitle>
+          </div>
+
+          <!-- Recipe Image -->
+          <div class="image-container">
+            <img mat-card-image [src]="getImage(recipe.id)" class="recipes-images" matTooltip="Details of {{recipe.name}}" [routerLink]="['/RecipesDetails', recipe.id]">
+          </div>
+
+          <!-- Recipe Footer (Favorite Button) -->
+          <mat-card-footer>
+            <input type="checkbox" id="favourite-{{recipe.id}}" (change)="ktoryRecept(recipe.id)" class="favourite-checkbox">
+            <label for="favourite-{{recipe.id}}" class="favourite-label">
+              <mat-icon id="like">favorite</mat-icon>
+            </label>
+          </mat-card-footer>
+        </mat-card>
+      </div>
+    </div>
   </mat-drawer-container>
 
-
-
-
-
-    <div class="recipes-container" >
-      <mat-card class="recipes-items" *ngFor="let recipe of realRecipes() | filter : sSearchRecept" >
-        <mat-card-header>
-          <div class="left-header">
-            <img id="avatar" mat-card-avatar class="example-header-image" [src]="recipe.comprimedImage" matTooltip="Creator">
-<!--            <img *ngIf="!this.user().pictureURL" id="avatar" mat-card-avatar class="example-header-image" src="../../assets/Whithout_profile_picture.jpg" matTooltip="Creator">-->
-
-            <div class="text-content">
-              <mat-card-title class="recipes-name" style="font-family: 'Times New Roman', Times, serif; font-weight: bold; font-size: 25px;">{{recipe.name}}</mat-card-title>
-              <mat-card-subtitle class="recipes-difficulty">{{recipe.difficulty}}</mat-card-subtitle>
-              <mat-card-subtitle class="recipes-difficulty"><mat-icon>query_builder</mat-icon> {{recipe.cas}} min</mat-card-subtitle>
-            </div>
-          </div>
-          <div class="right-header">
-            <mat-card-subtitle *ngIf="recipe.veganske">Vegan</mat-card-subtitle>
-            <mat-card-subtitle *ngIf="recipe.vegetarianske">Vegetarian</mat-card-subtitle>
-            <mat-card-subtitle *ngIf="recipe.nizkoKaloricke">Low calorie</mat-card-subtitle>
-          </div>
-        </mat-card-header>
-
-          <img mat-card-image [src]="this.getImage(recipe.id)" class="recipes-images" matTooltip="Details of {{recipe.name}}" [routerLink]="['/RecipesDetails', recipe.id]" />
-
-
-        <mat-card-footer>
-          <input id="favourite" type="checkbox" (change)="ktoryRecept(recipe.id)" matTooltip="Add to favourite">
-          <mat-icon id="like" >favorite</mat-icon>
-        </mat-card-footer>
-
-
-      </mat-card>
-    </div>
-
-    <div class="create">
-      <button id="create_link" [routerLink]="['/CreateRecipe']" matTooltip="Create a new recipe"><mat-icon>add</mat-icon></button>
-    </div>
+  <!-- Create Recipe Button -->
+  <div class="create">
+    <button id="create_link" [routerLink]="['/CreateRecipe']" matTooltip="Create a new recipe">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
 </body>
-

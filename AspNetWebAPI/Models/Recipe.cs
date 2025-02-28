@@ -26,6 +26,7 @@ namespace AspNetCoreAPI.Models
         public int? Cukor {  get; set; }
         public int? Sacharidy { get; set; }
         public int? Bielkoviny { get; set; }
+        public int? Gramaz {  get; set; }
         public int? Kalorie {  get; set; }
         public string? userID { get; set; }
 
