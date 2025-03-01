@@ -19,9 +19,17 @@ export class FilterPipe implements PipeTransform {
     // Split the search string into an array of filters
     const filtersArray = sSearchRecept ? sSearchRecept.split(" ") : [];
 
+    // Debugging: Log the filters array
+    console.log('Filters Array:', filtersArray);
+
     // Filter recipes based on all selected categories
     return items.filter(item => {
       if (item) {
+        // Debugging: Log the item and its properties
+        console.log('Item:', item);
+        console.log('Ingredients:', item.ingrediencie);
+        console.log('Time:', item.cas);
+
         // Search Bar Filter (filter by recipe name)
         const searchBarMatches = searchBarQuery
           ? item.name.toLowerCase().includes(searchBarQuery)
@@ -49,15 +57,53 @@ export class FilterPipe implements PipeTransform {
         const sacharidyMatches = filtersArray.includes('sacharidy') ? item.sacharidy / (item.gramaz / 100) <= 10 : true;
         const kalorieMatches = filtersArray.includes('kalorie') ? item.kalorie <= 500 : true;
         const tukMatches = filtersArray.includes('tuk') ? item.tuky / (item.gramaz / 100) <= 3 : true;
-        const proteinovyPrasokMatches = filtersArray.includes('proteinovy prasok') ? item.ingrediencie.toLowerCase().includes('proteinový prášok') : true;
-        const do5SurovinMatches = filtersArray.includes('do 5 surovin') ? item.ingrediencie.split(",").length <= 5 : true;
+
+        // Proteinový Prášok Filter
+        const proteinovyPrasokMatches = filtersArray.includes('proteinovy') && filtersArray.includes('prasok')
+          ? (item.ingrediencie
+              ? item.ingrediencie.toLowerCase().includes('proteinový prášok')
+              : false)
+          : true;
+
+        // Do 5 Surovin Filter
+        const do5SurovinMatches = filtersArray.includes('do') && filtersArray.includes('5') && filtersArray.includes('surovin')
+          ? (item.ingrediencie
+              ? item.ingrediencie
+                  .split(",")
+                  .filter(ingredient => ingredient.trim() !== "") // Remove empty strings
+                  .length <= 5 // Check if the number of ingredients is <= 5
+              : false)
+          : true;
 
         // Time Filters
-        const do30MinutMatches = filtersArray.includes('do 30 minút') ? item.cas <= 30 : true;
-        const do60MinutMatches = filtersArray.includes('do 60 minút') ? item.cas <= 60 : true;
-        const do90MinutMatches = filtersArray.includes('do 90 minút') ? item.cas <= 90 : true;
-        const do120MinutMatches = filtersArray.includes('do 120 minút') ? item.cas <= 120 : true;
-        const vsetkyCasoveMatches = filtersArray.includes('vsetky casove') ? true : true; // No time filter applied
+        const do30MinutMatches = filtersArray.includes('do') && filtersArray.includes('30') && filtersArray.includes('minút')
+          ? (item.cas ? item.cas <= 30 : false)
+          : true;
+
+        const do60MinutMatches = filtersArray.includes('do') && filtersArray.includes('60') && filtersArray.includes('minút')
+          ? (item.cas ? item.cas <= 60 : false)
+          : true;
+
+        const do90MinutMatches = filtersArray.includes('do') && filtersArray.includes('90') && filtersArray.includes('minút')
+          ? (item.cas ? item.cas <= 90 : false)
+          : true;
+
+        const do120MinutMatches = filtersArray.includes('do') && filtersArray.includes('120') && filtersArray.includes('minút')
+          ? (item.cas ? item.cas <= 120 : false)
+          : true;
+
+        const vsetkyCasoveMatches = filtersArray.includes('vsetky') && filtersArray.includes('casove')
+          ? true
+          : true; // No time filter applied
+
+        // Debugging: Log the filter results
+        console.log('Search Bar Matches:', searchBarMatches);
+        console.log('Proteinový Prášok Matches:', proteinovyPrasokMatches);
+        console.log('Do 5 Surovin Matches:', do5SurovinMatches);
+        console.log('Do 30 Minút Matches:', do30MinutMatches);
+        console.log('Do 60 Minút Matches:', do60MinutMatches);
+        console.log('Do 90 Minút Matches:', do90MinutMatches);
+        console.log('Do 120 Minút Matches:', do120MinutMatches);
 
         // Combine all conditions with AND (&&)
         return (
