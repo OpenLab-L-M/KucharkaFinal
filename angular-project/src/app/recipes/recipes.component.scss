@@ -51,8 +51,8 @@ body #backgroundos {
 }
 
 /* Change the text color of checkboxes */
-.example-sidenav .mat-checkbox .mat-checkbox-layout .mat-checkbox-label {
-  background-color: white !important; /* Light gray color for checkbox text */
+.checkbox-label {
+  color: lightgray; /* Light gray color for checkbox text */
 }
 
 .clear-filter-button {
@@ -76,22 +76,6 @@ body #backgroundos {
   flex: 1;
   padding: 20px;
   background-color: #f5f5f5; /* Light gray */
-}
-
-.toggle-filter-button {
-  margin-bottom: 20px;
-  background-color: #3498db; /* Blue */
-  color: white;
-  font-size: 16px; /* Increase font size */
-  padding: 10px 20px; /* Add padding for better clickability */
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.toggle-filter-button:hover {
-  background-color: #2980b9; /* Darker blue on hover */
 }
 
 /* Recipe Cards Container */
@@ -221,4 +205,35 @@ mat-card-footer {
 
 #create_link:hover {
   background-color: #d35400; /* Darker orange */
+}
+
+.search-container {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center; /* Vertically align input and icon */
+  position: relative;  /* For positioning the icon */
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 30px 8px 10px; /* Add padding, including space for the icon */
+  border: 1px solid #435a70; /* Darker border */
+  background-color: #34495e; /* Slightly lighter background */
+  color: #ecf0f1; /* Text color */
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none; /* Remove default focus outline */
+}
+
+.search-input::placeholder {
+  color: #95a5a6; /* Placeholder text color */
+}
+
+.search-icon {
+  position: absolute;
+  right: 8px;          /* Position the icon to the right */
+  top: 50%;
+  transform: translateY(-50%); /* Center the icon vertically */
+  color: #ecf0f1;   /* Icon color */
+  pointer-events: none;  /* Make sure the icon doesn't interfere with clicks */
 }

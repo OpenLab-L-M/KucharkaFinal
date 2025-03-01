@@ -75,15 +75,53 @@ export class RecipesComponent {
   recipe = signal<RecipesDTO>(undefined);
 
 
+
+  searchBarQuery: string;
+
   useris: UserDTO;
   realRecipes = signal<RecipesDTO[]>([])
-
   easyChecked: boolean = false;
   mediumChecked: boolean = false;
   hardChecked: boolean = false;
+
+  // Dietary Filters
   veganChecked: boolean = false;
   vegetarianChecked: boolean = false;
-  lowCalorieChecked: boolean = false
+
+  // Course Filters
+  ranajkyChecked: boolean = false;
+  obedyAVecereChecked: boolean = false;
+  salatyChecked: boolean = false;
+  soupsChecked: boolean = false;
+  natierkyChecked: boolean = false;
+
+  // Preference Filters
+  sugarChecked: boolean = false;
+  proteinChecked: boolean = false;
+  fibresChecked: boolean = false;
+  carbohydratesChecked: boolean = false;
+  caloriesChecked: boolean = false;
+  fatsChecked: boolean = false;
+  proteinPowderChecked: boolean = false;
+  upTo5IngredientsChecked: boolean = false;
+  intoBoxChecked: boolean = false;
+
+  // Time Filters
+  halfHourChecked: boolean = false;       // do 30 minút
+  hourMinsChecked: boolean = false;      // do 60 minút
+  hourAndHalfChecked: boolean = false;   // do 90 minút
+  twoHoursChecked: boolean = false;      // do 120 minút
+  allMinsChecked: boolean = false;       // všetky časové kategórie
+
+
+
+
+
+
+
+
+
+
 
   sSearchRecept: string = '';
   constructor(private userService: UserService,) { }
@@ -130,6 +168,7 @@ export class RecipesComponent {
     } else {
       this.join += difficulty + " ";
     }
+    console.log(this.join);
   }
 
   call() {
@@ -146,7 +185,29 @@ export class RecipesComponent {
     this.hardChecked = false;
     this.veganChecked = false;
     this.vegetarianChecked = false;
-    this.lowCalorieChecked = false;
+    this.ranajkyChecked = false;
+    this.obedyAVecereChecked = false;
+    this.salatyChecked = false;
+    this.soupsChecked = false;
+    this.natierkyChecked = false;
+    this.sugarChecked = false;
+    this.proteinChecked = false;
+    this.fibresChecked = false;
+    this.carbohydratesChecked = false;
+    this.caloriesChecked = false;
+    this.fatsChecked = false;
+    this.proteinPowderChecked = false;
+    this.upTo5IngredientsChecked = false;
+    this.intoBoxChecked = false;
+    this.halfHourChecked = false;
+    this.hourMinsChecked = false;
+    this.hourAndHalfChecked = false;
+    this.twoHoursChecked = false;
+    this.allMinsChecked = false;
+
+    // Clear search input
+    this.sSearchRecept = '';
+    
   }
 
 

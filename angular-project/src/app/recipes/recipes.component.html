@@ -1,100 +1,114 @@
 <body>
-  <!-- Background Image -->
-  <img id="backgroundos" src="../../assets/kuchynaBackgroundos.png">
-
   <!-- Main Container with Drawer -->
   <mat-drawer-container class="example-container" autosize>
     <!-- Left Sidebar (Filters) -->
-    <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+    <mat-drawer class="example-sidenav" mode="side" opened>
       <div class="filter-section">
         <h3 class="filter-title">Filters</h3>
+
+        <div class="search-container">
+          <input
+            type="text"
+            class="search-input"
+            [(ngModel)]="searchBarQuery"
+            placeholder="Hľadať Recept"
+          />
+          <mat-icon class="search-icon">search</mat-icon>
+        </div>
+
         <div class="filter-options">
           <!-- Difficulty Filters -->
           <div class="filter-group">
-            <h4 class="filter-subtitle">Difficulty</h4>
-            <mat-checkbox class="cyberpunk-checkbox">Easy</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Medium</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Hard</mat-checkbox>
+            <h4 class="filter-subtitle">Náročnosť</h4>
+            <mat-checkbox class="cyberpunk-checkbox" value="lahke" [ngModel]="easyChecked" (ngModelChange)="easyChecked = $event" (click)="filterRecipesByDifficulty('lahke')" (click)="call()">
+              <span class="checkbox-label">ľahké</span>
+            </mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox" value="pokrocile" [ngModel]="mediumChecked" (ngModelChange)="mediumChecked = $event" (click)="filterRecipesByDifficulty('pokrocile')" (click)="call()">
+              <span class="checkbox-label">pokročilé</span>
+            </mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox" value="narocne" [ngModel]="hardChecked" (ngModelChange)="hardChecked = $event" (click)="filterRecipesByDifficulty('narocne')" (click)="call()">
+              <span class="checkbox-label">náročné</span>
+            </mat-checkbox>
           </div>
 
           <!-- Dietary Filters -->
           <div class="filter-group">
-            <h4 class="filter-subtitle">Dietary</h4>
-            <mat-checkbox class="cyberpunk-checkbox">Vegan</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Vegetarian</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Low Calorie</mat-checkbox>
+            <h4 class="filter-subtitle">Dietne</h4>
+            <mat-checkbox class="cyberpunk-checkbox" value="veganske" [ngModel]="veganChecked" (ngModelChange)="veganChecked = $event" (click)="filterRecipesByDifficulty('veganske')" (click)="call()">
+              <span class="checkbox-label">Veganské</span>
+            </mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox" value="vegetarianske" [ngModel]="vegetarianChecked" (ngModelChange)="vegetarianChecked = $event" (click)="filterRecipesByDifficulty('vegetarianske')" (click)="call()">
+              <span class="checkbox-label">Vegetarianske</span>
+            </mat-checkbox>
           </div>
 
           <!-- Course Filters -->
           <div class="filter-group">
-            <h4 class="filter-subtitle">Course</h4>
-            <mat-checkbox class="cyberpunk-checkbox">Rafajky</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Obedy a večere</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Šaláty</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Polievky</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Zdravé dezerty</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Snack</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Smoothies a nápoje</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Zdravé vianočné recepty</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Nátierky</mat-checkbox>
+            <h4 class="filter-subtitle">chod</h4>
+            <mat-checkbox class="cyberpunk-checkbox" value="ranajky" [ngModel]="ranajkyChecked" (ngModelChange)="ranajkyChecked = $event" (click)="filterRecipesByDifficulty('ranajky')" (click)="call()">
+              <span class="checkbox-label">Raňajky</span>
+            </mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox" value="obedy a vecere" [ngModel]="obedyAVecereChecked" (ngModelChange)="obedyAVecereChecked = $event" (click)="filterRecipesByDifficulty('obedy a vecere')" (click)="call()">
+              <span class="checkbox-label">Obedy a večere</span>
+            </mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox" value="salaty" [ngModel]="salatyChecked" (ngModelChange)="salatyChecked = $event" (click)="filterRecipesByDifficulty('salaty')" (click)="call()">
+              <span class="checkbox-label">Šaláty</span>
+            </mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox" value="polievky" [ngModel]="soupsChecked" (ngModelChange)="soupsChecked = $event" (click)="filterRecipesByDifficulty('polievky')" (click)="call()">
+              <span class="checkbox-label">Polievky</span>
+            </mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox" value="natierky" [ngModel]="natierkyChecked" (ngModelChange)="natierkyChecked = $event" (click)="filterRecipesByDifficulty('natierky')" (click)="call()">
+              <span class="checkbox-label">Nátierky</span>
+            </mat-checkbox>
           </div>
 
           <!-- Preference Filters -->
           <div class="filter-group">
             <h4 class="filter-subtitle">Preferencie</h4>
-            <mat-checkbox class="cyberpunk-checkbox">Bez cukru</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Vysoký obsah bielkovín</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Vysoký obsah vlákniny</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Nízky obsah sacharidov</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Nízkokalorické</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Nízkotučné</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Vegetariánske</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Vegánske</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Proteínový prášok</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Rýchle</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Do 5 surovin</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Do krabičky</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Lacné</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Pre deti</mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox" value="cukor" [ngModel]="sugarChecked" (ngModelChange)="sugarChecked = $event" (click)="filterRecipesByDifficulty('cukor')" (click)="call()">
+              <span class="checkbox-label">Bez cukru</span>
+            </mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox" value="bielkoviny" [ngModel]="proteinChecked" (ngModelChange)="proteinChecked = $event" (click)="filterRecipesByDifficulty('bielkoviny')" (click)="call()">
+              <span class="checkbox-label">Vysoký obsah bielkovín</span>
+            </mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox" value="vlaknina" [ngModel]="fibresChecked" (ngModelChange)="fibresChecked = $event" (click)="filterRecipesByDifficulty('vlaknina')">
+              <span class="checkbox-label">Vysoký obsah vlákniny</span>
+            </mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox" value="sacharidy" [ngModel]="carbohydratesChecked" (ngModelChange)="carbohydratesChecked = $event" (click)="filterRecipesByDifficulty('sacharidy')" (click)="call()">
+              <span class="checkbox-label">Nízky obsah sacharidov</span>
+            </mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox" value="kalorie" [ngModel]="caloriesChecked" (ngModelChange)="caloriesChecked = $event" (click)="filterRecipesByDifficulty('kalorie')" (click)="call()">
+              <span class="checkbox-label">Nízkokalorické</span>
+            </mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox" value="tuk" [ngModel]="fatsChecked" (ngModelChange)="fatsChecked = $event" (click)="filterRecipesByDifficulty('tuk')">
+              <span class="checkbox-label">Nízkotučné</span>
+            </mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox" value="proteinovy prasok" [ngModel]="proteinPowderChecked" (ngModelChange)="proteinPowderChecked = $event" (click)="filterRecipesByDifficulty('proteinovy prasok')" (click)="call()">
+              <span class="checkbox-label">Proteínový prášok</span>
+            </mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox" value="do 5 surovin" [ngModel]="upTo5IngredientsChecked" (ngModelChange)="upTo5IngredientsChecked = $event" (click)="filterRecipesByDifficulty('do 5 surovin')" (click)="call()">
+              <span class="checkbox-label">Do 5 surovin</span>
+            </mat-checkbox>
           </div>
 
           <!-- Allergen Filters -->
           <div class="filter-group">
-            <h4 class="filter-subtitle">Alergény</h4>
-            <mat-checkbox class="cyberpunk-checkbox">Bez lepku</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Bez laktózy</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Bez vajec</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Bez orechov</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Bez histamínu</mat-checkbox>
-          </div>
-
-          <!-- Ingredient Filters -->
-          <div class="filter-group">
-            <h4 class="filter-subtitle">Surovina</h4>
-            <mat-checkbox class="cyberpunk-checkbox">Cuketa</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Kuracie máso</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Hovádzie máso</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Tuniak</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Arašidové maslo</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Avokádo</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Chia semienka</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Kokos</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Ovsené vločky</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Sladké zemiaky</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Tekvica</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Ryža</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Quinoa</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Losos</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Tofu</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Kuskus</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Vajcia</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Zelenina</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Cestoviny</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Strukoviny</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Tvaroh</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Brokolica</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Banán</mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox">Špenát</mat-checkbox>
+            <h4 class="filter-subtitle">Časová náročnosť</h4>
+            <mat-checkbox class="cyberpunk-checkbox" value="do 30 minút" [ngModel]="halfHourChecked" (ngModelChange)="halfHourChecked = $event" (click)="filterRecipesByDifficulty('do 30 minút')" (click)="call()">
+              <span class="checkbox-label">do 30 minút</span>
+            </mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox" value="do 60 minút" [ngModel]="hourMinsChecked" (ngModelChange)="hourMinsChecked = $event" (click)="filterRecipesByDifficulty('do 60 minút')" (click)="call()">
+              <span class="checkbox-label">do 60 minút</span>
+            </mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox" value="do 90 minút" [ngModel]="hourAndHalfChecked" (ngModelChange)="hourAndHalfChecked = $event" (click)="filterRecipesByDifficulty('do 90 minút')" (click)="call()">
+              <span class="checkbox-label">do 90 minút</span>
+            </mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox" value="do 120 minút" [ngModel]="twoHoursChecked" (ngModelChange)="twoHoursChecked = $event" (click)="filterRecipesByDifficulty('do 120 minút')" (click)="call()">
+              <span class="checkbox-label">do 120 minút</span>
+            </mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox" value="vsetky casove" [ngModel]="allMinsChecked" (ngModelChange)="allMinsChecked = $event" (click)="filterRecipesByDifficulty('vsetky')" (click)="call()">
+              <span class="checkbox-label">všetky časové kategórie</span>
+            </mat-checkbox>
           </div>
         </div>
 
@@ -105,15 +119,9 @@
 
     <!-- Main Content Area -->
     <div class="example-sidenav-content">
-      <!-- Toggle Button for Filters -->
-      <button type="button" mat-button class="toggle-filter-button" (click)="drawer.toggle()">
-        <mat-icon>filter_list</mat-icon> Filters
-      </button>
-
-
       <!-- Recipe Cards Container -->
       <div class="recipes-container">
-        <mat-card class="recipes-items" *ngFor="let recipe of realRecipes() | filter : sSearchRecept">
+        <mat-card class="recipes-items" *ngFor="let recipe of realRecipes() | filter : sSearchRecept : searchBarQuery">
           <!-- Recipe Name at the Top -->
           <mat-card-title class="recipes-name">
             <span class="recipe-name-text">{{recipe.name}}</span>
@@ -144,7 +152,7 @@
 
           <!-- Recipe Footer (Favorite Button) -->
           <mat-card-footer>
-            <input type="checkbox" id="favourite-{{recipe.id}}" class="favourite-checkbox">
+            <input type="checkbox" id="favourite-{{recipe.id}}" class="favourite-checkbox" (click)="ktoryRecept(recipe.id)">
             <label for="favourite-{{recipe.id}}" class="favourite-label">
               <mat-icon id="like">favorite</mat-icon>
             </label>
