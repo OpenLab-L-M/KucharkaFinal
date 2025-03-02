@@ -1,4 +1,5 @@
 //using Microsoft.AspNetCore.Identity;
+using AspNetCoreAPI.Authentication;
 using AspNetCoreAPI.Data;
 using AspNetCoreAPI.Models;
 using AspNetCoreAPI.Registration;
@@ -38,6 +39,7 @@ builder.Services.AddScoped<JwtHandler>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<EmailService>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(

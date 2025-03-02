@@ -1,8 +1,10 @@
 import { inject, Inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { RegistrationResponse, UserLogin, UserLoginResponse, UserRegistration } from './user-registration';
+import { Observable, ReplaySubject } from 'rxjs';
+import { RegistrationResponse, UserLogin, UserLoginResponse, UserRegistration, confirmEmail } from './user-registration';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { User } from '@angular/fire/auth';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthenticationService {
   private httpClient = inject(HttpClient);
   private jwtHelper = inject(JwtHelperService);
-
+  private userSource = new ReplaySubject<User | null>(1);
+  user$ = this.userSource.asObservable();
   authenticated = signal(this.isAuthenticated());
 
   constructor(@Inject('BASE_URL') private baseUrl: string) {  }
@@ -37,5 +40,8 @@ export class AuthenticationService {
     const token = localStorage.getItem("token");
 
     return token && !this.jwtHelper.isTokenExpired(token);
+  }
+  confirmEmail(model: confirmEmail){
+    return this.httpClient.put(`${this.baseUrl}/confirm-email`, model);
   }
 }

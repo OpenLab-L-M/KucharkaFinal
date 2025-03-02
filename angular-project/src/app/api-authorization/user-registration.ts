@@ -19,3 +19,7 @@ export interface UserLoginResponse {
   errorMessage: string;
   token: string;
 }
+export interface confirmEmail{
+  token:string;
+  email:string;
+}
