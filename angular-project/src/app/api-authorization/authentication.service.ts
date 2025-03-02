@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, ReplaySubject } from 'rxjs';
 import { RegistrationResponse, UserLogin, UserLoginResponse, UserRegistration, confirmEmail } from './user-registration';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { User } from '@angular/fire/auth';
-
+import { User } from './user-registration';
+import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +15,12 @@ export class AuthenticationService {
   private userSource = new ReplaySubject<User | null>(1);
   user$ = this.userSource.asObservable();
   authenticated = signal(this.isAuthenticated());
+  bsModalRef?: BsModalRef;
+  displayingExpiringSessionModal = false;
+  constructor(@Inject('BASE_URL') private baseUrl: string,
 
-  constructor(@Inject('BASE_URL') private baseUrl: string) {  }
+
+) {  }
 
   registerUser(userData: UserRegistration): Observable<RegistrationResponse> {
     return this.httpClient.post<RegistrationResponse>(this.baseUrl + '/user/register', userData);
@@ -44,4 +48,16 @@ export class AuthenticationService {
   confirmEmail(model: confirmEmail){
     return this.httpClient.put(`${this.baseUrl}/confirm-email`, model);
   }
+
+
+  showNotification(isSuccess: boolean, title: string, message: string) {
+    const initalState: ModalOptions = {
+      initialState: {
+        isSuccess,
+        title,
+        message
+      }
+    };
+
+}
 }

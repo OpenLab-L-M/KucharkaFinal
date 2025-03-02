@@ -3,7 +3,7 @@ import { AuthenticationService } from '../../authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/services/user.service';
 import { confirmEmail } from '../../user-registration';
-import { User } from '@angular/fire/auth';
+import { User } from '../../user-registration';
 import { take } from 'rxjs';
 
 @Component({
@@ -19,28 +19,38 @@ export class ConfirmEmailComponent implements OnInit{
     private router: Router,
     private userService: UserService,
     private activatedRoute: ActivatedRoute) {}
+    success = true;
 
-  ngOnInit(): void {
-    this.accountService.user$.pipe(take(1)).subscribe({
-      next: (user: User | null) =>{
-        if (user) {
-          this.router.navigateByUrl('/');
-        } else {
-          this.activatedRoute.queryParamMap.subscribe({
-            next: (params: any) => {
-              const confirmEmail: confirmEmail  = {
-                token: params.get('token'),
-                email: params.get('email'),
+    ngOnInit(): void {
+      this.accountService.user$.pipe(take(1)).subscribe({
+        next: (user: User | null) =>{
+          if (user) {
+            this.router.navigateByUrl('/');
+          } else {
+            this.activatedRoute.queryParamMap.subscribe({
+              next: (params: any) => {
+                const confirmEmail: confirmEmail = {
+                  token: params.get('token'),
+                  email: params.get('email'),
+                }
+  
+                this.accountService.confirmEmail(confirmEmail).subscribe({
+                  next: (response: any) => {
+                    this.accountService.showNotification(true, response.value.title, response.value.message);
+                  }, error: error => {
+                    this.success = false;
+                    this.accountService.showNotification(false, "Failed", error.error);
+                  }
+                })
               }
-              this.accountService.confirmEmail(confirmEmail).subscribe();
-            }
-          })
+            })
+          }
         }
-      }
-    })
-  }
-
-  resendEmailConfirmationLink() {
-    this.router.navigateByUrl('/account/send-email/resend-email-confirmation-link');
-  }
+      })
+    }
+  
+    resendEmailConfirmationLink() {
+      this.router.navigateByUrl('/account/send-email/resend-email-confirmation-link');
+    }
+  
 }

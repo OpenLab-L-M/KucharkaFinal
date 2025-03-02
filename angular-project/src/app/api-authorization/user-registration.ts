@@ -23,3 +23,8 @@ export interface confirmEmail{
   token:string;
   email:string;
 }
+export interface User {
+  firstName: string;
+  lastName: string;
+  jwt: string;
+}

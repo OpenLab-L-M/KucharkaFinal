@@ -39,5 +39,6 @@ namespace AspNetCoreAPI.Registration
                 signingCredentials: signingCredentials);
             return tokenOptions;
         }
+
     }
 }
