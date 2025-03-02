@@ -1,7 +1,7 @@
 import {Component, computed, effect, signal, Inject, Output, inject} from '@angular/core';
 import { UserService } from 'src/services/user.service';
 import { UserDTO } from './UserDTO';
-import { NgIf } from '@angular/common';
+import { DecimalPipe, NgIf } from '@angular/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgFor } from '@angular/common';
@@ -38,7 +38,7 @@ export interface DialogData {
   selector: 'app-user-profile',
   standalone: true,
   imports: [NgFor,
-    NgIf, MatIconModule, MatIconAnchor, MatButtonModule, MatCardModule, RouterLink, MatDialogClose, MatFormField, MatTooltip, ReactiveFormsModule, MatLabel],
+    NgIf, MatIconModule, MatIconAnchor, MatButtonModule, MatCardModule, RouterLink, MatDialogClose, MatFormField, MatTooltip, ReactiveFormsModule, MatLabel, DecimalPipe],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss'
 })

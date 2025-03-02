@@ -1,194 +1,173 @@
-
 <body>
-
-  <!-- <img id="backgroundos" src="../../assets/kuchynaBackgroundos.png"> -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
   <div class="container">
-  <div class="inside_container" *ngIf="clicked == true; else noCourses">
-    <h1>EDIT</h1>
-    <form class="edit_form" [formGroup]="profileForm" style="color: aliceblue;">
-
-
-      <mat-form-field>
-        <mat-label for="name" >Name: </mat-label>
-      <input matInput id="name" type="text" formControlName="name" value="name">
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label for="ingrediencie">ingredients: </mat-label>
-      <input matInput id="ingrediencie" type="text" formControlName="ingrediencie" value="ingrediencie">
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label for="description">popis: </mat-label>
-      <input matInput id="description" type="text" formControlName="description" value="description">
-      </mat-form-field>
-      <!-- <mat-form-field>
-        <mat-label for="imgURL">image URL: </mat-label>
-      <input matInput id="imgURL" type="text" formControlName="imgURL" value="imgURL">
-      </mat-form-field> -->
-      <mat-form-field>
-        <mat-label for="cas">cas: </mat-label>
-      <input matInput id="cas" type="text" formControlName="cas" value="cas">
-      </mat-form-field>
-      <!-- <div formArrayName="postupicky" *ngFor="let postup of recipe().postupicky; let i = index">
-              <input type="text" [formControlName]="i" placeholder="Postup" value="i">
-            </div> -->
-
-      <div class="edit_btn">
-        <button (click)="submit()" style="width: 100px; height: 50px; font-size: 16px; font-weight: bold; font-family: system-ui; background-color: black; color: white; cursor: pointer;">Submit</button>
-        <button (click)="submit()" style="width: 100px; height: 50px; font-size: 16px; font-weight: bold; font-family: system-ui; cursor: pointer;" [routerLink]="['/RecipesDetails'] ">Cancel</button>
-      </div>
-    </form>
-
-  </div>
-  </div>
-
-  <ng-template #noCourses >
-    <p class="detail_title" style="font-family: 'Times New Roman', Times, serif; font-style: italic; margin-top: 10px;">
-      {{this.recipe().name}}
-    </p>
-  <div style="display: flex; justify-content: center; " class="recipeContainer">
-    <!-- <p class="detail_title">
-      {{this.recipeService.chRecipe.name}}
-    </p> -->
-    <!-- <p class="detail_difficulty">
-      Difficulty: {{this.recipeService.chRecipe.difficulty}}
-    </p> -->
-    <!-- [routerLink]="['/RecipesDetails', recipe.id]" -->
-    <mat-card>
-      <mat-card-header style="display: flex; align-items: center;">
-        <div>
-          <mat-card-subtitle style="color: #333333;">
-            <mat-icon>query_builder</mat-icon> {{this.recipe().cas}} min
-          </mat-card-subtitle>
+    <div class="inside_container" *ngIf="clicked == true; else noCourses">
+      <h1>Uprava receptu</h1>
+      <form class="edit_form" [formGroup]="profileForm">
+        <!-- Recipe Name -->
+        <mat-form-field>
+          <mat-label for="name">Názov:</mat-label>
+          <input matInput id="name" type="text" formControlName="name">
+        </mat-form-field>
+  
+        <!-- Ingredients -->
+        <mat-form-field>
+          <mat-label for="ingrediencie">Ingrediencie:</mat-label>
+          <input matInput id="ingrediencie" type="text" formControlName="ingrediencie">
+        </mat-form-field>
+  
+        <!-- Description -->
+        <mat-form-field>
+          <mat-label for="description">Popis:</mat-label>
+          <input matInput id="description" type="text" formControlName="description">
+        </mat-form-field>
+  
+        <!-- Time (cas) -->
+        <mat-form-field>
+          <mat-label for="cas">Čas:</mat-label>
+          <input matInput id="cas" type="text" formControlName="cas">
+        </mat-form-field>
+  
+        <!-- Submit and Cancel Buttons -->
+        <div class="edit_btn">
+          <button (click)="submit()">Uložiť</button>
+          <button (click)="submit()" [routerLink]="['/RecipesDetails']">Zrušiť</button>
         </div>
-        <span style="margin-left: auto; display: flex; align-items: center;">
-          <div *ngIf="recipeService.chRecipe.checkID == recipeService.chRecipe.userID">
-            <mat-icon (click)="edit()" style="cursor: pointer;">edit</mat-icon>
+      </form>
+    </div>
+  </div>
+
+  <ng-template #noCourses>
+    <div class="recipeContainer">
+      <mat-card>
+        <!-- Recipe Name Inside the Recipe Container -->
+        <p class="detail_title">{{this.recipe().name}}</p>
+
+        <mat-card-header style="display: flex; align-items: center;">
+          <div>
+            <mat-card-subtitle>
+              <mat-icon>query_builder</mat-icon> {{this.recipe().cas}} min
+            </mat-card-subtitle>
           </div>
-          <mat-icon style="cursor: pointer;" [routerLink]="['/PrintPage', recipe().id]">print</mat-icon>
-        </span>
-      </mat-card-header>
-      <mat-card-header>
-        <mat-card-subtitle style="color: #333333;">obtiažnosť: {{this.recipe().difficulty}}</mat-card-subtitle>
-        <!-- <mat-card-title>Rate this recipe</mat-card-title> -->
-      </mat-card-header>
+          <span style="margin-left: auto; display: flex; align-items: center;">
+            <div *ngIf="recipeService.chRecipe.checkID == recipeService.chRecipe.userID">
+              <mat-icon (click)="edit()" style="cursor: pointer;">edit</mat-icon>
+            </div>
+            <mat-icon style="cursor: pointer;" [routerLink]="['/PrintPage', recipe().id]">print</mat-icon>
+          </span>
+        </mat-card-header>
+        <mat-card-header>
+          <mat-card-subtitle>náročnosť: {{this.recipe().difficulty}}</mat-card-subtitle>
+        </mat-card-header>
 
-      <!-- <mat-card-actions>
-        <input type="radio" name="rating" value="1" id="radio_up">
-        <mat-icon id="thumb_up">thumb_up</mat-icon>
-        <input type="radio" name="rating" value="2" id="radio_down">
-        <mat-icon id="thumb_down">thumb_down</mat-icon>
-      </mat-card-actions> -->
-      <br>
+        <mat-card-content>
+          <img class="detail_image" [src]="this.showImage()" />
+        </mat-card-content>
 
-<!--     <img mat-card-image class="detail_image" [src]="this.recipeService.chRecipe.imageURL" />-->
-    <mat-card-content>
-      <img mat-card-image class="detail_image" [src]="this.showImage()" />
-    </mat-card-content>
+        <br>
+        <br>
 
-      <br>
-      <br>
+        <mat-card-content>
+          <p class="detail_description">
+            <mat-card-title>Ingrediencie:</mat-card-title>
+            {{this.recipe().ingrediencie}}
+          </p>
+        </mat-card-content>
+        <br>
+        <mat-card-content>
+          <p class="detail_description">
+            <mat-card-title>Popis:</mat-card-title>
+            {{this.recipe().description}}
+          </p>
+        </mat-card-content>
+        <br>
+        <mat-card-content>
+          <ul class="detail_description">
+            <mat-card-title>Postup:</mat-card-title>
+            <li *ngFor="let postup of recipe().postupicky">{{ postup }}</li>
+          </ul>
+        </mat-card-content>
 
-    <mat-card-content>
-      <p class="detail_description">
-        <mat-card-title>ingrediencie:</mat-card-title>
+        <!-- Nutrition Table at the Bottom -->
+        <mat-card-content>
+          <table class="nutrition-table">
+            <thead>
+              <tr>
+                <th>Obsah jedla</th>
+                <th>Hodnoty</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Tuky</td>
+                <td>{{this.recipe().tuky}} g</td>
+              </tr>
+              <tr>
+                <td>Cukor</td>
+                <td>{{this.recipe().cukor}} g</td>
+              </tr>
+              <tr>
+                <td>Sacharidy</td>
+                <td>{{this.recipe().sacharidy}} g</td>
+              </tr>
+              <tr>
+                <td>Bielkoviny</td>
+                <td>{{this.recipe().bielkoviny}} g</td>
+              </tr>
+              <tr>
+                <td>Kalorie</td>
+                <td>{{this.recipe().kalorie}} kCal</td>
+              </tr>
+              <tr>
+                <td>Gramáž</td>
+                <td>{{this.recipe().gramaz}} g</td>
+              </tr>
+            </tbody>
+          </table>
+        </mat-card-content>
 
-          {{this.recipe().ingrediencie}}
-      </p>
-      <p>
-        kalorická hodnota: {{this.recipe().kalorie}}
-      </p>
-    </mat-card-content>
-    <br>
-      <mat-card-content>
-        <p class="detail_description">
-          <mat-card-title>popis:</mat-card-title>
-
-           {{this.recipe().description}}
-        </p>
-      </mat-card-content>
-      <br>
-      <mat-card-content>
-        <ul class="detail_description">
-          <mat-card-title>Postup:</mat-card-title>
-          <li *ngFor="let postup of recipe().postupicky">{{ postup }}</li>
-        </ul>
-          
-
-      </mat-card-content>
-
-
-      <mat-card-footer>
-        <mat-card-actions>
-          <button mat-raised-button [routerLink]="['/Recipes']">Back</button>
-
-        </mat-card-actions>
-        <mat-card-actions>
-
-        <div *ngIf="recipeService.chRecipe.checkID == recipeService.chRecipe.userID">
-
-
-        <mat-icon style="cursor: pointer;" (click)="deleteBtn()">delete</mat-icon>
-      </div>
-        </mat-card-actions>
-
-
-
-
-      </mat-card-footer>
-    </mat-card>
-
-
-  </div>
-</ng-template>
-<div class="comment-section">
-  <h2>Comments</h2>
-</div>
-<div class="comment-box">
-<input type="text" id="koment" name="komentar"/>
-<button (click)="addComment()" >submit
-  <a href="#bottom"></a>
-</button>
-</div>
-<div *ngFor="let recension of recensions(); let i = index" class="comment">
-  <a [routerLink]="['/userProfile', recension.userName]"><h3 >{{recension.userName}}</h3></a>
-  
-  <span>{{recension.datetime}}</span>
-  <p style="color:#333333;">{{recension.content}}</p>
-  <!-- <div class="matCardContainer">
-    
-    <mat-card id="matBug" [attr.id]="'like-card-' + i">
-      <input id="liked" type="checkbox" (change)="likeRecension(recension.id)" matTooltip="Add to Favourite">
-      <mat-icon id="like" class="fa fa-thumbs-up" aria-hidden="false" ></mat-icon>
-      <p style="color: white" [textContent]="recension.amountOfLikes"></p>
-    </mat-card>
-    <mat-card [attr.id]="'dislike-card-' + i">
-      <input id="dissliked" type="checkbox" (change)="disslikeRecension(recension.id)" matTooltip="Add to Favourite">
-      <mat-icon id="dislike" class="fa fa-thumbs-down" aria-hidden="false" ></mat-icon>
-      <p style="color: white" [textContent]="recension.amountOfDisslikes"></p>
-    </mat-card>
-    
-  </div> -->
-  <div style="display: flex; align-items: center; justify-content: space-between;">
-    <div *ngIf="recension.userID == recension.checkID">
-      <mat-icon style="cursor: pointer;" (click)="Vymaz(recension.id)">delete</mat-icon>
+        <!-- Centered Delete and Back Buttons -->
+        <mat-card-footer>
+          <mat-card-actions style="display: flex; justify-content: center; gap: 10px;">
+            <button mat-raised-button [routerLink]="['/Recipes']">Back</button>
+            <div *ngIf="recipeService.chRecipe.checkID == recipeService.chRecipe.userID">
+              <mat-icon style="cursor: pointer;" (click)="deleteBtn()">delete</mat-icon>
+            </div>
+          </mat-card-actions>
+        </mat-card-footer>
+      </mat-card>
     </div>
-  
-    <div class="like-dislike-container" style="display: flex;">
-      <div class="like-button">
-        <mat-icon class="fa fa-thumbs-up" (click)="likeRecension(recension.id)" style="color:#333333;"></mat-icon>
-        <span class="like-count" [textContent]="recension.amountOfLikes" style="color:#333333;"></span>
+  </ng-template>
+
+  <!-- Comments Section -->
+  <div class="comment-section" *ngIf="clicked == false">
+    <h2>Comments</h2>
+    <div class="comment-box">
+      <textarea id="koment" name="komentar" placeholder="Add a comment..." rows="3"></textarea>
+      <button (click)="addComment()">Submit</button>
+    </div>
+    <div *ngFor="let recension of recensions(); let i = index" class="comment">
+      <div class="comment-header">
+        <a [routerLink]="['/userProfile', recension.userName]">
+          <h3>{{recension.userName}}</h3>
+        </a>
+        <span class="comment-id">ID: {{recension.id}}</span>
       </div>
-      <div class="dislike-button">
-        <mat-icon class="fa fa-thumbs-down" (click)="disslikeRecension(recension.id)" style="color: #333333;"></mat-icon>
-        <span class="dislike-count" [textContent]="recension.amountOfDisslikes" style="color: #333333;"></span>
+      <p>{{recension.content}}</p>
+      <div class="comment-actions">
+        <div *ngIf="recension.userID == recension.checkID">
+          <mat-icon (click)="Vymaz(recension.id)" class="delete-icon">delete</mat-icon>
+        </div>
+        <div class="like-dislike-container">
+          <div class="like-button">
+            <mat-icon (click)="likeRecension(recension.id)">thumb_up</mat-icon>
+            <span>{{recension.amountOfLikes}}</span>
+          </div>
+          <div class="dislike-button">
+            <mat-icon (click)="disslikeRecension(recension.id)">thumb_down</mat-icon>
+            <span>{{recension.amountOfDisslikes}}</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
-</div>
-<section  style="color: white;" id="bottom"></section>
 </body>
-

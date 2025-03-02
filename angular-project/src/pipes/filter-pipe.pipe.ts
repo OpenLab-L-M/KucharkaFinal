@@ -57,7 +57,10 @@ export class FilterPipe implements PipeTransform {
         const sacharidyMatches = filtersArray.includes('sacharidy') ? item.sacharidy / (item.gramaz / 100) <= 10 : true;
         const kalorieMatches = filtersArray.includes('kalorie') ? item.kalorie <= 500 : true;
         const tukMatches = filtersArray.includes('tuk') ? item.tuky / (item.gramaz / 100) <= 3 : true;
-
+        //raňajky obedy a večere filter
+        const obedyMatches = filtersArray.includes('obedy') ? item.obed : true 
+        const ranajkyMatches = filtersArray.includes('ranajky') ? item.ranajky : true 
+        const vecereMatches = filtersArray.includes('vecere') ? item.vecera : true 
         // Proteinový Prášok Filter
         const proteinovyPrasokMatches = filtersArray.includes('proteinovy') && filtersArray.includes('prasok')
           ? (item.ingrediencie
@@ -96,19 +99,12 @@ export class FilterPipe implements PipeTransform {
           ? true
           : true; // No time filter applied
 
-        // Debugging: Log the filter results
-        console.log('Search Bar Matches:', searchBarMatches);
-        console.log('Proteinový Prášok Matches:', proteinovyPrasokMatches);
-        console.log('Do 5 Surovin Matches:', do5SurovinMatches);
-        console.log('Do 30 Minút Matches:', do30MinutMatches);
-        console.log('Do 60 Minút Matches:', do60MinutMatches);
-        console.log('Do 90 Minút Matches:', do90MinutMatches);
-        console.log('Do 120 Minút Matches:', do120MinutMatches);
-
-        // Combine all conditions with AND (&&)
         return (
           searchBarMatches &&
           difficultyMatches &&
+          obedyMatches &&
+          ranajkyMatches &&
+          vecereMatches &&
           veganskeMatches &&
           vegetarianskeMatches &&
           salatyMatches &&

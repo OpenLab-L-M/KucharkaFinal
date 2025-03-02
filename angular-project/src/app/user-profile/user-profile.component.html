@@ -1,122 +1,130 @@
-
 <body>
-  
   <div *ngIf="clicked == true; else noCourses" class="same_as_background">
     <img id="backgroundos" src="../../assets/UserProfileBG.jpg">
-    <h1>ChangePassword</h1>
-    <form class="edit_form" [formGroup]="changePassword" style="color: #3E2723;">
-  
-  
+    <h1>Change Password</h1>
+    <form class="edit_form" [formGroup]="changePassword">
       <mat-form-field>
-        <label for="oldPassword" style="color: #3E2723;">Old Password: </label>
-        <input matInput id="oldPassword" type="text" formControlName="oldPassword" >
+        <mat-label>Old Password</mat-label>
+        <input matInput id="oldPassword" type="password" formControlName="oldPassword">
       </mat-form-field>
       <mat-form-field>
-        <label for="newPassword" style="color: #3E2723;">New Password: </label>
-      <input matInput id="newPassword" type="text" formControlName="newPassword" >
+        <mat-label>New Password</mat-label>
+        <input matInput id="newPassword" type="password" formControlName="newPassword">
       </mat-form-field>
       <mat-form-field>
-        <label for="confirm" style="color: #3E2723;">Confirm new password: </label>
-         <input matInput id="confirm" type="text" formControlName="confirm" >
+        <mat-label>Confirm New Password</mat-label>
+        <input matInput id="confirm" type="password" formControlName="confirm">
       </mat-form-field>
       <div class="edit_btn">
-        <button type="button" (click)="submit()" style="width: 100px; height: 50px; font-size: 16px; font-weight: bold; font-family: system-ui; background-color: black; color: white; cursor: pointer;">Submit</button>
-        <button type="button" (click)="cancel()" style="width: 100px; height: 50px; font-size: 16px; font-weight: bold; font-family: system-ui; cursor: pointer;">Cancel</button>
+        <button type="button" (click)="submit()" class="submit-btn">Submit</button>
+        <button type="button" (click)="cancel()" class="cancel-btn">Cancel</button>
       </div>
     </form>
   </div>
 
-<ng-template #noCourses>
-  <img id="backgroundos" src="../../assets/UserProfileBG.jpg">
-<div class="user_name">
-  <p>{{this.user.userName}}</p>
-</div>
-<br>
-<br>
-<br>
-<div class="obsah">
+  <ng-template #noCourses>
+    <img id="backgroundos" src="../../assets/UserProfileBG.jpg">
+    <div class="user_name">
+      <p>{{this.user.userName}}</p>
+    </div>
+    <div class="obsah">
+      <h1>Your Profile Picture</h1>
+      <img id="your_img" *ngIf="this.user.pictureURL" [src]="getImageSrc(this.user.pictureURL)" alt="User Picture" class="profile_img">
+      <img id="your_img" class="profile_img" *ngIf="!this.user.pictureURL" src="../../assets/Whithout_profile_picture.jpg">
+      <div *ngIf="user.userName == currentUserUsername" class="button_position">
+        <button mat-raised-button (click)="openDialog()"><mat-icon>create</mat-icon>Edit</button>
+        <button mat-raised-button (click)="chPasswordClicked()">Change Password</button>
+      </div>
+      <h1>Your Recipes</h1>
+      <div class="recipes-container">
+        <mat-card class="recipes-items" *ngFor="let recipe of ourListOfRecipes">
+          <!-- Recipe Name at the Top -->
+          <mat-card-title class="recipes-name">
+            <span class="recipe-name-text">{{recipe.name}}</span>
+          </mat-card-title>
 
+          <!-- Recipe Details (Timer, Portions, Calories) -->
+          <div class="recipe-details">
+            <!-- Timer -->
+            <mat-card-subtitle class="recipes-difficulty">
+              <mat-icon>query_builder</mat-icon> {{recipe.cas}} min
+            </mat-card-subtitle>
 
-<h1>Your profile picture</h1>
-<img id="your_img" *ngIf="this.user.pictureURL" [src]="getImageSrc(this.user.pictureURL)" alt="User Picture" class="profile_img" matTooltip="Your profile picture">
+            <!-- Portions -->
+            <mat-card-subtitle class="recipes-difficulty">
+              <mat-icon>restaurant</mat-icon> {{recipe.gramaz / 250 | number : '1.0-0'}}
+            </mat-card-subtitle>
 
-<img id="your_img" class="profile_img" *ngIf="!this.user.pictureURL" src="../../assets/Whithout_profile_picture.jpg" matTooltip="Your profile picture">
-<!-- <div>{{this.user().userProfilePicture}}</div> -->
+            <!-- Calories -->
+            <mat-card-subtitle class="recipes-difficulty">
+              <mat-icon>local_fire_department</mat-icon> {{recipe.kalorie}} KCal
+            </mat-card-subtitle>
+          </div>
 
-<!-- <input id="delete" *ngIf="this.user().pictureURL" type="button" value="Delete profile picture" (click)="deleteImage()"> -->
-<!-- <img [src]="this.liveDemo" class="profile_img"/> -->
+          <!-- Recipe Image -->
+          <div class="image-container">
+            <img mat-card-image [src]="getImage(recipe.id)" class="recipes-images" matTooltip="Details of {{recipe.name}}" [routerLink]="['/RecipesDetails', recipe.id]">
+          </div>
 
-<div *ngIf="user.userName == currentUserUsername" class="button_position">
-  <button  mat-raised-button (click)="openDialog()" matTooltip="Edit your profile"><mat-icon>create</mat-icon>Edit</button>
-  <button mat-raised-button (click)="chPasswordClicked()">Change Password</button>
-</div>
-<!-- *ngIf="!this.user().pictureURL && !imageUploaded" -->
-<br>
-<br>
-<br>
-<h1>Your recipes</h1>
-<div class="recipes-container">
-    <mat-card class="recipes-items" *ngFor="let ourRecipe of ourListOfRecipes">
-      <mat-card-header>
-        <img *ngIf="this.user.pictureURL" id="avatar" mat-card-avatar class="example-header-image" [src]="getImageSrc(this.user.pictureURL)" matTooltip="Creator">
-        <img *ngIf="!this.user.pictureURL" id="avatar" mat-card-avatar class="example-header-image" src="../../assets/Whithout_profile_picture.jpg" matTooltip="Creator">
-        <mat-card-title class="recipes-name">{{ourRecipe.name}}</mat-card-title>
-        <mat-card-subtitle class="recipes-difficulty">{{ourRecipe.difficulty}}</mat-card-subtitle>
-      </mat-card-header>
-
-        <img mat-card-image [src]="getImage(ourRecipe.id)" class="recipes-images" matTooltip="Details of {{ourRecipe.name}}" [routerLink]="['/RecipesDetails', ourRecipe.id]"/>
-
-        <mat-card-footer *ngIf="user.userName == currentUserUsername" >
-          <input id="favourite" (change)="ktoryRecept(ourRecipe.id)" type="checkbox">
-          <mat-icon id="like">favorite</mat-icon>
-        </mat-card-footer>
-
-    </mat-card>
-  </div>
-<div *ngIf="user.userName == currentUserUsername">
-<h1>My Favourite Recipes</h1>
-<div class="recipes-container">
-  <mat-card class="recipes-items" *ngFor="let oursFavRecipe of ourFavRecipes()">
-    <mat-card-header>
-      <img *ngIf="oursFavRecipe.comprimedImage" id="avatar" mat-card-avatar class="example-header-image" [src]="oursFavRecipe.comprimedImage" matTooltip="Creator">
-      <!-- <img *ngIf="!this.user.pictureURL" id="avatar" mat-card-avatar class="example-header-image" src="../../assets/Whithout_profile_picture.jpg" matTooltip="Creator"> -->
-      <mat-card-title class="recipes-name">{{oursFavRecipe.name}}</mat-card-title>
-      <mat-card-subtitle class="recipes-difficulty">{{oursFavRecipe.difficulty}}</mat-card-subtitle>
-    </mat-card-header>
-
-      <img mat-card-image [src]="getImage(oursFavRecipe.id)" class="recipes-images" [routerLink]="['/RecipesDetails', oursFavRecipe.id]"/>
-
-
-      <mat-card-footer>
-        <input id="favourite" type="checkbox" (change)="ktoryRecept(oursFavRecipe.id)" matTooltip="Add to favourite">
-        <mat-icon id="like_of_favourite" >favorite</mat-icon>
-      </mat-card-footer>
-
-  </mat-card>
-</div>
-</div>
-</div>
-<div class="comment-section">
-  <h2>My Comments</h2>
-
-<div *ngFor="let recension of recensions; let i = index" class="comment" [routerLink]="['/RecipesDetails', recension.recipesID]">
-  <h3 >{{recension.userName}}</h3>
+          <!-- Recipe Footer (Favorite Button) -->
+          <mat-card-footer>
+            <input type="checkbox" id="favourite-{{recipe.id}}" class="favourite-checkbox" (click)="ktoryRecept(recipe.id)">
+            <label for="favourite-{{recipe.id}}" class="favourite-label">
+              <mat-icon id="like">favorite</mat-icon>
+            </label>
+          </mat-card-footer>
+        </mat-card>
+    </div>
+      <div *ngIf="user.userName == currentUserUsername">
+        <h1>My Favourite Recipes</h1>
+        <div class="recipes-container">
+          <mat-card class="recipes-items" *ngFor="let recipe of ourFavRecipes()">
+            <!-- Recipe Name at the Top -->
+            <mat-card-title class="recipes-name">
+              <span class="recipe-name-text">{{recipe.name}}</span>
+            </mat-card-title>
   
-  <span>{{recension.datetime}}</span>
-  <p >{{recension.content}}</p>
-  <div class="matCardContainer">
-    
-    <!-- <mat-card id="matBug" [attr.id]="'like-card-' + i">
-      <mat-icon id="like" class="fa fa-thumbs-up" aria-hidden="false" ></mat-icon>
-      <p style="color: white" [textContent]="recension.amountOfLikes"></p>
-    </mat-card>
-    <mat-card [attr.id]="'dislike-card-' + i">
-      <mat-icon id="dislike" class="fa fa-thumbs-down" aria-hidden="false" ></mat-icon>
-      <p style="color: white" [textContent]="recension.amountOfDisslikes"></p>
-    </mat-card>
-     -->
-  </div>
-</div>
-</div>
-</ng-template>
+            <!-- Recipe Details (Timer, Portions, Calories) -->
+            <div class="recipe-details">
+              <!-- Timer -->
+              <mat-card-subtitle class="recipes-difficulty">
+                <mat-icon>query_builder</mat-icon> {{recipe.cas}} min
+              </mat-card-subtitle>
+  
+              <!-- Portions -->
+              <mat-card-subtitle class="recipes-difficulty">
+                <mat-icon>restaurant</mat-icon> {{recipe.gramaz / 250 | number : '1.0-0'}}
+              </mat-card-subtitle>
+  
+              <!-- Calories -->
+              <mat-card-subtitle class="recipes-difficulty">
+                <mat-icon>local_fire_department</mat-icon> {{recipe.kalorie}} KCal
+              </mat-card-subtitle>
+            </div>
+  
+            <!-- Recipe Image -->
+            <div class="image-container">
+              <img mat-card-image [src]="getImage(recipe.id)" class="recipes-images" matTooltip="Details of {{recipe.name}}" [routerLink]="['/RecipesDetails', recipe.id]">
+            </div>
+  
+            <!-- Recipe Footer (Favorite Button) -->
+            <mat-card-footer>
+              <input type="checkbox" id="favourite-{{recipe.id}}" class="favourite-checkbox" (click)="ktoryRecept(recipe.id)">
+              <label for="favourite-{{recipe.id}}" class="favourite-label">
+                <mat-icon id="like">favorite</mat-icon>
+              </label>
+            </mat-card-footer>
+          </mat-card>
+        </div>
+      </div>
+      <div class="comment-section">
+        <h2>My Comments</h2>
+        <div *ngFor="let recension of recensions; let i = index" class="comment" [routerLink]="['/RecipesDetails', recension.recipesID]">
+          <h3>{{recension.userName}}</h3>
+          <span>{{recension.datetime}}</span>
+          <p>{{recension.content}}</p>
+        </div>
+      </div>
+    </div>
+  </ng-template>
 </body>

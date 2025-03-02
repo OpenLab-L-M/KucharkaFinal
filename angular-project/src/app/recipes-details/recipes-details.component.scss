@@ -1,396 +1,292 @@
 body {
-  #backgroundos {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    z-index: -2;
-  }
+  background-color: #f4f4f4;
+  color: #333;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
-    
-  color: #333333;          /* Set default text color to dark gray */
+h1, h2, h3, h4, h5, h6 {
+  color: #2c3e50;
+}
 
-  /* stylelint-disable-next-line selector-max-specificity */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    color: #3E2723;        /* Set heading color to dark brown */
-  }
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+}
 
-  .comment-box {
+.inside_container {
+  width: 100%;
+  max-width: 800px;
+}
 
-    input {
-      background: #FFFDD0;
-      color: #3E2723;
-      
-      width: 75%;
-      height: 50px;
-      margin-left: 50px;
-      padding: 10px;
-      border: 1px solid #444;
-      border-radius: 8px;
-      font-size: 16px;
-      transition: all 0.3s ease-in-out;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+}
 
-      &:focus {
-        border-color: #3E2723;
-        outline: none;
-      }
+.inside_container {
+  width: 100%;
+  max-width: 800px;
+}
 
-      &:hover {
-        border-color: #3E2723;
-        transition: all 0.3s ease-in-out;
-      }
-    }
+.edit_form {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
 
-    button {
-      height: 50px;
-      width: 100px;
-      background-color: #3E2723;
-      border: none;
-      border-radius: 10%;
-      cursor: pointer;
-      color: white;
-      font-size: 18px;
-      padding-top: 5px;
-      transition: background-color 0.3s ease;
+.edit_form mat-form-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
 
-      &:hover {
-        background-color: #dda30f;
-      }
+.nutritional-properties {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns for nutritional properties */
+  gap: 15px; /* Spacing between fields */
+  margin-bottom: 20px;
+}
 
-      &:before {
-        content: '➤ ';  /* Modified content */
-      }
-    }
+.edit_btn {
+  display: flex;
+  justify-content: flex-end; /* Align buttons to the right */
+  gap: 10px; /* Spacing between buttons */
+}
 
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 20px;
-    justify-content: space-between;
-    align-items: center;
-    margin-left: 10px;
-    margin-bottom: 20px;
-  }
+.edit_btn button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
 
-  .comment-section {
-    margin-left: 50px;
-    margin-bottom: 40px;
-    margin-top: 50px;
+.edit_btn button:hover {
+  background-color: #2980b9;
+}
 
-    h2 {
-      font-size: 32px;
-      color: #3E2723;
-      text-align: left;
-      padding-left: 10px;
-      border-bottom: 2px solid darkgoldenrod;
-      padding-bottom: 10px;
-    }
-  }
+.edit_btn button[routerLink] {
+  background-color: #e74c3c;
+}
 
-  .comment {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 75%;
-    margin: 20px auto;
-    padding: 15px;
-    
-    background-color: #F5F5DC;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.edit_btn button[routerLink]:hover {
+  background-color: #c0392b;
+}
 
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 10px rgba(175, 123, 11, 0.568);
-    }
+.detail_title {
+  font-size: 2.5em;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-    h3 {
-      font-size: 18px;
-      color: #3E2723;
-      margin-bottom: 10px;
-    }
+.recipeContainer {
+  width: 70%; /* Set recipe container to 70% of screen width */
+  max-width: 70%; /* Ensure it doesn't exceed 70% */
+  margin: 0 auto; /* Center the recipe container */
+}
 
-    p {
-      padding-left: 10px;
-      font-size: 14px;
-    }
-  }
+mat-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+  padding: 20px;
+  width: 100%; /* Ensure mat-card fills the recipe container */
+}
 
-  .form-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.detail_image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
 
-  .edit_form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: #F5F5DC;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 0px 0px 10px 10px;
-    padding: 50px;
-  }
+.comment-section {
+  width: 70%; /* Match the recipe container width */
+  max-width: 70%; /* Ensure it doesn't exceed 70% */
+  margin: 20px auto; /* Center the comments section */
+  text-align: left; /* Align text to the left */
+}
 
-  .edit_btn {
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
+.comment-box {
+  display: flex;
+  flex-direction: column; /* Stack textarea and button vertically */
+  gap: 10px; /* Add spacing between textarea and button */
+  margin-bottom: 20px;
+}
 
-  .detail_title {
-    font-size: 50px;
-    text-align: center;
-    font-weight: bold;
-    padding-bottom: 20px;
-    color: #3E2723;
-  }
+.comment-box textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #3498db; /* Blue border for visibility */
+  border-radius: 5px;
+  font-size: 14px;
+  resize: vertical; /* Allow vertical resizing */
+  min-height: 100px; /* Increase height for better visibility */
+  background-color: #f9f9f9; /* Light background for contrast */
+  color: #333; /* Dark text for readability */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
 
-  mat-card-title {
-    font-size: 30px;
-    color: #3E2723;
-    font-family: 'Times New Roman', Times, serif;
-  }
+.comment-box textarea:focus {
+  border-color: #2980b9; /* Darker blue on focus */
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); /* Add a subtle glow */
+  outline: none; /* Remove default outline */
+}
 
-  mat-subtitle {
-    color: #333333;     /* Set subtitle color to dark gray */
-  }
+.comment-box button {
+  background-color: #27ae60; /* Green background for the submit button */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  align-self: flex-end; /* Align button to the right */
+  transition: background-color 0.3s ease;
+}
 
-  mat-card-actions {
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
+.comment-box button:hover {
+  background-color: #219653; /* Darker green on hover */
+}
 
-  mat-header mat-card-content {
-    color: #333333;    /* Set card content color to dark gray */
-  }
+.comment {
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  border: 1px solid #ddd; /* Add a border for better visibility */
+  transition: box-shadow 0.3s ease;
+}
 
-  mat-card-content {
-    color: #333333;
-  }
+.comment:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a hover effect */
+}
 
-  .detail_description {
-    font-size: 20px;
-    line-height: 1.5;
-    
-  }
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
 
-  .detail_difficulty {
-    font-size: 33px;
-    padding-bottom: 20px;
-    
-  }
+.comment-header h3 {
+  font-size: 16px;
+  color: #2c3e50; /* Dark blue for username */
+  margin: 0;
+}
 
-  #radio_up:checked+#thumb_up {
-    color: green;
-  }
+.comment-header .comment-id {
+  font-size: 12px;
+  color: #777; /* Light gray for ID */
+}
 
-  #radio_up {
-    position: absolute;
-    width: 22px;
-    height: 22px;
-    z-index: 2;
-    opacity: 0;
-  }
+.comment p {
+  font-size: 14px;
+  color: #333; /* Dark text for readability */
+  margin: 0;
+}
 
-  #thumb_up {
-    position: relative;
-  }
+.comment-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
 
-  #radio_down:checked+#thumb_down {
-    color: red;
-  }
+.delete-icon {
+  color: #e74c3c; /* Red color for delete icon */
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
 
-  #radio_down {
-    position: absolute;
-    width: 22px;
-    margin-left: 37px;
-    height: 22px;
-    z-index: 2;
-    opacity: 0;
-  }
+.delete-icon:hover {
+  color: #c0392b; /* Darker red on hover */
+}
 
-  #thumb_down {
-    position: absolute;
-    margin-left: 37px;
-  }
+.like-dislike-container {
+  display: flex;
+  gap: 10px; /* Add spacing between like and dislike buttons */
+}
 
-  .detail_image {
-    display: flex;
-    display: block;  /* Ensure it behaves as a block element */
-    margin: auto;
+.like-button, .dislike-button {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Add spacing between icon and count */
+}
 
-    max-width: 450px;
-    max-height: 310px;
-    min-width: 400px;
-    min-height: 260px;
-    width: auto;     /* Automatically adjust the width to maintain aspect ratio */
-    height: auto;
-  }
+.like-button mat-icon, .dislike-button mat-icon {
+  color: #3498db; /* Blue color for icons */
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
 
-  mat-card-footer #back {
-    background: #fff;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    width: 10%;
-    height: 60px;
-    transition: .2s all ease-in-out;
+.like-button mat-icon:hover, .dislike-button mat-icon:hover {
+  color: #2980b9; /* Darker blue on hover */
+}
 
-    &:hover {
-      background: #171A2B;
-      color: white;
-    }
-  }
+.delete-icon {
+  color: #e74c3c;
+  cursor: pointer;
+}
 
-  mat-card-footer #delete {
-    background: #807182;
-    border: 1px solid transparent;
-    width: 10%;
-    height: 60px;
-    color: #fff;
+.delete-icon:hover {
+  color: #c0392b;
+}
 
-    &:hover {
-      background: #171A2B;
-    }
-  }
+.like-dislike-container {
+  display: flex;
+  gap: 10px; /* Add spacing between like and dislike buttons */
+}
 
-  .edit_form {
-    justify-content: center;
-    align-items: center;
-  }
+.like-button, .dislike-button {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Add spacing between icon and count */
+}
 
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    /* height: 100%; */
-    min-height: 100%; /* Use min-height if you want it to cover the whole viewport */
-  }
+.like-button mat-icon, .dislike-button mat-icon {
+  color: #3498db;
+  cursor: pointer;
+}
 
-  h1 {
-    text-align: center;
-    padding: 5px 0 20px 0;
-    border-bottom: 1px solid silver;
-    background-color: #FFDAB9;
-    color: #3E2723;
-    padding-top: 15px;
-    border-radius: 10px 10px 0px 0px;
-    margin-bottom: unset;
-  }
+.like-button mat-icon:hover, .dislike-button mat-icon:hover {
+  color: #2980b9;
+}
 
-  mat-card {
-    min-width: 100%;
-    display: inline-block;
-    max-width: 100%;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    word-break: break-word;
-    margin: auto;
-    background-color: #F5F5DC;
-  }
+/* Modern Table Styling */
+.nutrition-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  text-align: left;
+}
 
-  .recipeContainer {
-    display: block;  /* Changed to display: block for better content flow */
-    max-width: 70%;
-    min-width: 70%;
-  }
+.nutrition-table th, .nutrition-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+}
 
-  /* RatingDesign */
-  .like-dislike-container {
-    display: flex;
-    justify-content: flex-end; /* Align to the right */
-    margin-top: 10px;  /* Add spacing from the comment */
-    
-  }
-  .fa fa-thumbs-up{
-    color: #000;
-  }
-  .like-button,
-  .dislike-button {
-    display: flex;
-    align-items: center;  /* Center icon and count vertically */
-    margin-left: 5px;  /* Add spacing between buttons */
-  }
+.nutrition-table th {
+  background-color: #3498db;
+  color: white;
+}
 
-  .like-button mat-icon,
-  .dislike-button mat-icon {
-    color: white;
-    font-size: 18px;
-  }
-
-  .like-count,
-  .dislike-count {
-    color: white;
-    margin-left: 2px;  /* Add spacing between icon and count */
-  }
-
-  #matBug p {
-    visibility: visible;
-    font-size: large;
-  }
-
-  #matBug {
-    display: flex;
-    align-items: center;
-    background-color: #333;
-    padding: 10px;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: #444;
-    }
-
-    p {
-      margin-left: 10px;
-      font-size: 18px;
-      color: #333333;
-    }
-  }
-
-  #liked:checked+#like {
-    color: darkgoldenrod
-  }
-
-  #dissliked:checked+#dislike {
-    color: red
-  }
-
-  .matCardContainer {
-    display: flex;  /* Flexbox pre lepšie rozloženie */
-    flex-direction: column;
-    justify-content: flex-start; /* Posunutie k ľavej strane */
-    align-items: center; /* Vertikálne centrovanie */
-    margin-top: 10px;  /* Pridanie medzery od vrchu */
-
-    mat-card {
-      background-color: transparent;
-      border: none;
-      box-shadow:5px 5px 5px black;
-    }
-  }
-
-  .delete-link {
-    color: red;
-    cursor: pointer;
-    text-decoration: underline;
-  }
-
-  @media screen and (max-width: 1300px) {
-    .detail_image {
-      display: flex;
-      display: block;  /* Ensure it behaves as a block element */
-      margin: auto;
-
-      max-width: 200px;
-      max-height: 150px;
-    }
-  }
+.nutrition-table tr:hover {
+  background-color: #f5f5f5;
 }

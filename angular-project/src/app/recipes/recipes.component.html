@@ -20,13 +20,13 @@
           <!-- Difficulty Filters -->
           <div class="filter-group">
             <h4 class="filter-subtitle">Náročnosť</h4>
-            <mat-checkbox class="cyberpunk-checkbox" value="lahke" [ngModel]="easyChecked" (ngModelChange)="easyChecked = $event" (click)="filterRecipesByDifficulty('lahke')" (click)="call()">
+            <mat-checkbox class="cyberpunk-checkbox" value="lahke" [ngModel]="easyChecked" (ngModelChange)="easyChecked = $event" (click)="filterRecipesByDifficulty('lahke')" (click)="call()" [disabled]="sSearchRecept.includes('pokrocile') || sSearchRecept.includes('narocne')"  >
               <span class="checkbox-label">ľahké</span>
             </mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox" value="pokrocile" [ngModel]="mediumChecked" (ngModelChange)="mediumChecked = $event" (click)="filterRecipesByDifficulty('pokrocile')" (click)="call()">
+            <mat-checkbox class="cyberpunk-checkbox" value="pokrocile" [ngModel]="mediumChecked" (ngModelChange)="mediumChecked = $event" (click)="filterRecipesByDifficulty('pokrocile')" (click)="call()" [disabled]="sSearchRecept.includes('lahke') || sSearchRecept.includes('narocne')">
               <span class="checkbox-label">pokročilé</span>
             </mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox" value="narocne" [ngModel]="hardChecked" (ngModelChange)="hardChecked = $event" (click)="filterRecipesByDifficulty('narocne')" (click)="call()">
+            <mat-checkbox class="cyberpunk-checkbox" value="narocne" [ngModel]="hardChecked" (ngModelChange)="hardChecked = $event" (click)="filterRecipesByDifficulty('narocne')" (click)="call()" [disabled]="sSearchRecept.includes('pokrocile') || sSearchRecept.includes('lahke')">
               <span class="checkbox-label">náročné</span>
             </mat-checkbox>
           </div>
@@ -48,8 +48,11 @@
             <mat-checkbox class="cyberpunk-checkbox" value="ranajky" [ngModel]="ranajkyChecked" (ngModelChange)="ranajkyChecked = $event" (click)="filterRecipesByDifficulty('ranajky')" (click)="call()">
               <span class="checkbox-label">Raňajky</span>
             </mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox" value="obedy a vecere" [ngModel]="obedyAVecereChecked" (ngModelChange)="obedyAVecereChecked = $event" (click)="filterRecipesByDifficulty('obedy a vecere')" (click)="call()">
-              <span class="checkbox-label">Obedy a večere</span>
+            <mat-checkbox class="cyberpunk-checkbox" value="obedy" [ngModel]="obedyChecked" (ngModelChange)="obedyChecked = $event" (click)="filterRecipesByDifficulty('obedy')" (click)="call()">
+              <span class="checkbox-label">Obedy</span>
+            </mat-checkbox>
+            <mat-checkbox class="cyberpunk-checkbox" value="vecere" [ngModel]="vecereChecked" (ngModelChange)="vecereChecked = $event" (click)="filterRecipesByDifficulty('vecere')" (click)="call()">
+              <span class="checkbox-label">Večere</span>
             </mat-checkbox>
             <mat-checkbox class="cyberpunk-checkbox" value="salaty" [ngModel]="salatyChecked" (ngModelChange)="salatyChecked = $event" (click)="filterRecipesByDifficulty('salaty')" (click)="call()">
               <span class="checkbox-label">Šaláty</span>
@@ -70,9 +73,6 @@
             </mat-checkbox>
             <mat-checkbox class="cyberpunk-checkbox" value="bielkoviny" [ngModel]="proteinChecked" (ngModelChange)="proteinChecked = $event" (click)="filterRecipesByDifficulty('bielkoviny')" (click)="call()">
               <span class="checkbox-label">Vysoký obsah bielkovín</span>
-            </mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox" value="vlaknina" [ngModel]="fibresChecked" (ngModelChange)="fibresChecked = $event" (click)="filterRecipesByDifficulty('vlaknina')">
-              <span class="checkbox-label">Vysoký obsah vlákniny</span>
             </mat-checkbox>
             <mat-checkbox class="cyberpunk-checkbox" value="sacharidy" [ngModel]="carbohydratesChecked" (ngModelChange)="carbohydratesChecked = $event" (click)="filterRecipesByDifficulty('sacharidy')" (click)="call()">
               <span class="checkbox-label">Nízky obsah sacharidov</span>

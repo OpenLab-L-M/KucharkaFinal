@@ -15,6 +15,9 @@ export class RecipesDTO{
     cas?: number;
     veganske?: boolean;
     vegetarianske?: boolean;
+    ranajky?:boolean;
+    obed?: boolean;
+    vecera?:boolean;
     nizkoKaloricke?: boolean;
     tuky?:number;
     cukor?:number;

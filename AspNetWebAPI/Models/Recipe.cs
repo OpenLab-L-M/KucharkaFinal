@@ -21,9 +21,11 @@ namespace AspNetCoreAPI.Models
         public ICollection<Postupy>? Postupies { get; set; }
         public bool? Veganske { get; set; }
         public bool? Vegetarianske { get; set; }
-        public bool? NizkoKaloricke { get; set; }
         public int? Tuky {  get; set; }
         public int? Cukor {  get; set; }
+        public bool? Ranajky { get; set; }
+        public bool? Obed { get; set; }
+        public bool? Vecera { get; set; }
         public int? Sacharidy { get; set; }
         public int? Bielkoviny { get; set; }
         public int? Gramaz {  get; set; }

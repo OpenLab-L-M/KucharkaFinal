@@ -13,14 +13,14 @@
 
         <form [formGroup]="profileForm">
           <header>
-            <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: bold;">Create your recipe</h1>
+            <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: bold;">Vytvor svoj recept</h1>
             <div class="form-container">
               <div class="column">
           <div class="set">
             <mat-form-field class="Name_rcp">
 
 
-                  <mat-label class="centered-label" for="name">Name of recipe: </mat-label>
+                  <mat-label class="centered-label" for="name">Názov receptu: </mat-label>
                   <input matInput id="name" formControlName="name" maxlength="75">
 
 
@@ -33,7 +33,7 @@
             <mat-form-field class="Description_rcp">
 
 
-                  <mat-label class="centered-label" for="description">Recipe description: </mat-label>
+                  <mat-label class="centered-label" for="description">Popis receptu: </mat-label>
                   <textarea matInput id="description" formControlName="description"></textarea>
 
 
@@ -56,7 +56,7 @@
           </div> -->
 
           <div class="example-container">
-            <h2 style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Chosen ingedients</h2>
+            <h2 style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">vybrané ingredience</h2>
           
             <div
               cdkDropList
@@ -78,7 +78,7 @@
               <mat-card-content>
 
                 <div class="example-label-container">
-                  <label for="cas" id="example-name-label" class="example-name-label">Time: </label>
+                  <label for="cas" id="example-name-label" class="example-name-label">čas: </label>
                   <label class="example-value-label">{{slider.value}}</label>
                   <label for="cas"> min</label>
                 </div>
@@ -102,7 +102,7 @@
 
 
           <div class="set">
-            <label id="ch_diff" style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Choose a difficulty:</label> 
+            <label id="ch_diff" style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Vyber obtiažnosť:</label> 
             <br>
             <br>
             <div class="diff_radio">
@@ -123,7 +123,7 @@
             <br>
             <br>
           <div class="set">
-            <label id="veganske" style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Special category</label> 
+            <label id="veganske" style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Špeciálna karegória</label> 
             <br>
             <br>
             <div class="diff_radio">
@@ -136,11 +136,29 @@
                   <label for="jVegetarianske">vegetarian</label>
                 </p>
             </div>
+            <div class="set">
+              <label id="veganske" style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Chod</label> 
+              <br>
+              <br>
+            <div class="diff_radio">
+              <p>
+
+                <input id="ranajky" type="checkbox" formControlName="ranajky" value="ranajky">
+                <label for="ranajky">ranajky</label>
+
+                <input id="obed" type="checkbox" formControlName="obed" value="obed">
+                <label for="obed">obed </label>
+
+                <input id="vecera" type="checkbox" formControlName="vecera" value="vecera">
+                <label for="vecera">vecera </label>
+              </p>
+            </div>
+            </div>
           </div>
          
             <br>
             <br>
-            <label for="img" class="beautyBtn">Add an image</label>
+            <label for="img" class="beautyBtn">Pridaj obrázok</label>
             <input
               id="img"
               class="form-control"
@@ -168,14 +186,14 @@
 
 
 
-              <button mat-raised-button id="make" type="submit" [disabled]="!profileForm.valid"  (click)="imageUploadAction()">Create</button>
+              <button mat-raised-button id="make" type="submit" [disabled]="!profileForm.valid"  (click)="imageUploadAction()">Vytvor</button>
               <button mat-raised-button id="back" [routerLink]="['/Recipes']">Back</button>
 
 
             <br>
         </form>
         <div class="example-container">
-          <h2 style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Ingredients:</h2>
+          <h2 style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">ingredience:</h2>
           
           <div
             cdkDropList
@@ -193,14 +211,17 @@
             } -->
           </div>
         </div>
-        <button class="beautyBtn" (click)="openDialogis()" (childEmitter)="getDataFromChild($event)">Add ingrediences</button>
         <br>
         <br>
         <div class="formaNaPostup">
           <h1>Napíš svoj postup</h1>
           <form [formGroup]="postupForm" class="postupForm">
             <div formArrayName="postupy" *ngFor="let postup of postupy.controls; let i = index">
-              <input type="text" [formControlName]="i" placeholder="Postup">
+              <textarea 
+              rows="3"
+               [formControlName]="i" 
+               placeholder="Postup"
+               ></textarea>
             </div>
             <button  class="beautyBtn" (click)="pridajPostup()">Pridať postup</button>
           </form>

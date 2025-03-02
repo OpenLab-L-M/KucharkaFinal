@@ -44,7 +44,9 @@ namespace AspNetCoreAPI.Controllers
                     Ingrediencie = dbRecipe.Ingrediencie,
                     Veganske = dbRecipe.Veganske,
                     Vegetarianske = dbRecipe.Vegetarianske,
-                    NizkoKaloricke = dbRecipe.NizkoKaloricke,
+                    Ranajky = dbRecipe.Ranajky,
+                    Obed = dbRecipe.Obed,
+                    Vecera = dbRecipe.Vecera,
                     Tuky = dbRecipe.Tuky,
                     Sacharidy = dbRecipe.Sacharidy,
                     Bielkoviny = dbRecipe.Bielkoviny,
@@ -81,12 +83,15 @@ namespace AspNetCoreAPI.Controllers
                 Bielkoviny = recipe.Bielkoviny,
                 Sacharidy = recipe.Sacharidy,
                 Cukor = recipe.Cukor,
+                Ranajky = recipe.Ranajky,
+                Obed = recipe.Obed,
+                Vecera = recipe.Vecera,
                 Kalorie = recipe.Kalorie,
                 Gramaz = recipe.Gramaz,
                 Ingrediencie = recipe.Ingrediencie,
                 Veganske = recipe.Veganske,
                 Vegetarianske = recipe.Vegetarianske,
-                NizkoKaloricke = recipe.NizkoKaloricke,
+
                 Cas = recipe.Cas,
                 imageId = recipe.ImageId
             };
@@ -150,7 +155,9 @@ namespace AspNetCoreAPI.Controllers
                 Ingrediencie = receptik.Ingrediencie,
                 Veganske = receptik.Veganske,
                 Vegetarianske = receptik.Vegetarianske,
-                NizkoKaloricke = receptik.NizkoKaloricke,
+                Ranajky = receptik.Ranajky,
+                Obed = receptik.Obed,
+                Vecera = receptik.Vecera,
                 Tuky =  receptik.Tuky,
                 Sacharidy = receptik.Sacharidy,
                 Cukor = receptik.Cukor,
@@ -391,7 +398,7 @@ namespace AspNetCoreAPI.Controllers
             };
             return pseudoSignaly;
         }
-        [HttpGet("/Homepage/returnRandomRecipe")]
+        /*[HttpGet("/Homepage/returnRandomRecipe")]
         public IEnumerable<RecipesDTO> ReturnRandomRecipe()
         {
             List<Recipe> filtrovany = new List<Recipe>();
@@ -444,7 +451,7 @@ namespace AspNetCoreAPI.Controllers
                    Ingrediencie = dbRecipe.Ingrediencie,
                    Veganske = dbRecipe.Veganske,
                    Vegetarianske = dbRecipe.Vegetarianske,
-                   NizkoKaloricke = dbRecipe.NizkoKaloricke,
+
                    Cas = dbRecipe.Cas,
                    imageId = dbRecipe.ImageId
                }).Reverse();
@@ -453,7 +460,7 @@ namespace AspNetCoreAPI.Controllers
                 return null;
                 }
 
-            }
+            }*/
         [HttpPost("disslikeRecension/{id:int}")]
         public RecensionDTO DisslikeRecension([FromBody] int RecensionId)
         {

@@ -90,7 +90,8 @@ export class RecipesComponent {
 
   // Course Filters
   ranajkyChecked: boolean = false;
-  obedyAVecereChecked: boolean = false;
+  obedyChecked: boolean = false;
+  vecereChecked: boolean = false;
   salatyChecked: boolean = false;
   soupsChecked: boolean = false;
   natierkyChecked: boolean = false;
@@ -98,7 +99,6 @@ export class RecipesComponent {
   // Preference Filters
   sugarChecked: boolean = false;
   proteinChecked: boolean = false;
-  fibresChecked: boolean = false;
   carbohydratesChecked: boolean = false;
   caloriesChecked: boolean = false;
   fatsChecked: boolean = false;
@@ -186,13 +186,13 @@ export class RecipesComponent {
     this.veganChecked = false;
     this.vegetarianChecked = false;
     this.ranajkyChecked = false;
-    this.obedyAVecereChecked = false;
+    this.obedyChecked = false;
+    this.vecereChecked = false;
     this.salatyChecked = false;
     this.soupsChecked = false;
     this.natierkyChecked = false;
     this.sugarChecked = false;
     this.proteinChecked = false;
-    this.fibresChecked = false;
     this.carbohydratesChecked = false;
     this.caloriesChecked = false;
     this.fatsChecked = false;

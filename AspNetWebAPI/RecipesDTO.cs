@@ -12,6 +12,9 @@ namespace AspNetCoreAPI
         public string? CheckID { get; set; }
         public string? Ingrediencie { get; set; }
         public int? Cas { get; set; }
+        public bool? Ranajky { get; set; }
+        public bool? Obed { get; set; }
+        public bool? Vecera { get; set; }
         public bool? Veganske { get; set; }
         public bool? Vegetarianske { get; set; }
         public int? Tuky { get; set; }

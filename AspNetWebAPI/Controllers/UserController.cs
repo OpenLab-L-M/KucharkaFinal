@@ -213,9 +213,14 @@ namespace AspNetCoreAPI.Controllers
                     CheckID = dbRecipe.CheckID,
                     userID = dbRecipe.userID,
                     Ingrediencie = dbRecipe.Ingrediencie,
-                    Veganske = dbRecipe.Veganske,
-                    Vegetarianske = dbRecipe.Vegetarianske,
-                    NizkoKaloricke = dbRecipe.NizkoKaloricke,
+                    Gramaz = dbRecipe.Gramaz,
+                    Cukor = dbRecipe.Cukor,
+                    Sacharidy = dbRecipe.Sacharidy,
+                    Bielkoviny = dbRecipe.Bielkoviny,
+                    Kalorie = dbRecipe.Kalorie,
+                    Tuky = dbRecipe.Tuky,
+
+
                     Cas = dbRecipe.Cas
                 };
         }

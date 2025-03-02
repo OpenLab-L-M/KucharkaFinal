@@ -140,6 +140,9 @@ export class CreateRecipeComponent {
     vegetarianske: new FormControl(null),
     nizkoKaloricke: new FormControl(null),
     img: new FormControl(''),
+    ranajky: new FormControl(null),
+    obed: new FormControl(null),
+    vecera: new FormControl(null)
   });
 
 
@@ -183,7 +186,7 @@ export class CreateRecipeComponent {
 
 
   private createRecipe(value: Number) {
-    debugger
+    
     this.recipesServíce.getCalories(this.vybrane.join().toString().replace(/,/g, ' '))
     .pipe(takeUntil(this.destroy$))
     .subscribe(result => {
@@ -192,7 +195,7 @@ export class CreateRecipeComponent {
         let vypocet = 0;
 
         if (this.data && Array.isArray(this.data.foods)) { // Check if this.data and foods are defined
-            debugger
+            
           for (let i = 0; i < this.data.foods.length; i++) {
                 const food = this.data.foods[i];
                 if (food && typeof food.nf_calories === 'number') {  // Check if food and nf_calories are defined and a number
@@ -217,7 +220,6 @@ export class CreateRecipeComponent {
           cas: this.profileForm.controls['cas'].value,
           veganske: this.profileForm.controls['veganske']?.value,
           vegetarianske: this.profileForm.controls['vegetarianske']?.value,
-          nizkoKaloricke: this.profileForm.controls['nizkoKaloricke']?.value,
           postupicky: (this.postupForm.get('postupy') as FormArray).value,
           tuky: Math.ceil(this.dTuky),
           cukor: Math.ceil(this.dCukor),
@@ -226,6 +228,9 @@ export class CreateRecipeComponent {
           kalorie: Math.ceil(this.dKalorie),
           gramaz: Math.ceil(this.dGramaz),
           imageId: value,
+          ranajky: this.profileForm.controls['ranajky']?.value,
+          obed: this.profileForm.controls['obed']?.value,
+          vecera: this.profileForm.controls['vecera']?.value,
         }).pipe(takeUntil(this.destroy$))
         
         .subscribe(() => this.router.navigate(['/Recipes']));

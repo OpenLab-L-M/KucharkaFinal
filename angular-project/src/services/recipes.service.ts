@@ -43,12 +43,14 @@ export class RecipesService {
     vegetarianske: any;
     imageURL: string;
     name: string;
-    nizkoKaloricke: any;
     description: string
     tuky?:number;
     cukor?:number;
     sacharidy?:number;
     bielkoviny?:number;
+    ranajky?:any;
+    obed?: any;
+    vecera?:any;
     kalorie?:number;
     gramaz?:number;
   }) {
