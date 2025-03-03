@@ -41,6 +41,7 @@ namespace AspNetCoreAPI.Controllers
             GetUserDTO userik = new GetUserDTO();
             {
                 userik.UserName = user.UserName;
+                userik.ProfileName = user.ProfileName;
                 userik.PictureURL = user.PictureURL;
 
             }
@@ -73,6 +74,7 @@ namespace AspNetCoreAPI.Controllers
                     RecipesID = x.RecipeId,
                     UserID = x.UserId,
                     UserName = x.UserName,
+                    ProfileName = x.ProfileName,
                     Content = x.Content,
                     UserImage = x.UserImage,
                 });
@@ -88,6 +90,7 @@ namespace AspNetCoreAPI.Controllers
                     Datetime = x.Datetime,
                     RecipesID = x.RecipeId,
                     UserID = x.UserId,
+                    ProfileName = x.ProfileName,
                     UserName = x.UserName,
                     Content = x.Content,
                     UserImage = x.UserImage,
@@ -105,6 +108,7 @@ namespace AspNetCoreAPI.Controllers
                 GetUserDTO tentoUserik = new GetUserDTO();
                 {
                     tentoUserik.UserName = tentoUser.UserName;
+                    tentoUserik.ProfileName = tentoUser.ProfileName;
                     tentoUserik.PictureURL = tentoUser.PictureURL;
                 }
                 return tentoUserik;
@@ -114,6 +118,7 @@ namespace AspNetCoreAPI.Controllers
                 GetUserDTO userik = new GetUserDTO();
                 {
                     userik.UserName = user.UserName;
+                    userik.ProfileName = user.ProfileName;
                     userik.PictureURL = user.PictureURL;
 
                 }
@@ -219,7 +224,7 @@ namespace AspNetCoreAPI.Controllers
                     Bielkoviny = dbRecipe.Bielkoviny,
                     Kalorie = dbRecipe.Kalorie,
                     Tuky = dbRecipe.Tuky,
-
+                    
 
                     Cas = dbRecipe.Cas
                 };
@@ -300,6 +305,7 @@ namespace AspNetCoreAPI.Controllers
                     AmountOfDisslikes = dbRecension.AmountOfDisslikes,
                     AmountOfLikes = dbRecension.AmountOfDisslikes,
                     Datetime = dbRecension.Datetime,
+                    ProfileName = dbRecension.ProfileName,
                     RecipesID = dbRecension.RecipeId,
                 };
         }

@@ -148,7 +148,7 @@
     <div *ngFor="let recension of recensions(); let i = index" class="comment">
       <div class="comment-header">
         <a [routerLink]="['/userProfile', recension.userName]">
-          <h3>{{recension.userName}}</h3>
+          <h3>{{recension.profileName}}</h3>
         </a>
         <span class="comment-id">ID: {{recension.id}}</span>
       </div>

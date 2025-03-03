@@ -1,6 +1,7 @@
 export interface UserRegistration {
   email: string,
   password: string,
+  profileName: string,
   confirmPassword: string
 }
 

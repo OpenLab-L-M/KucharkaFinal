@@ -308,6 +308,7 @@ namespace AspNetCoreAPI.Controllers
             recenzia.Datetime = nRecenzia.Datetime;
             recenzia.UserImage = nRecenzia.UserImage;
             recenzia.UserName = GetCurrentUser().UserName;
+            recenzia.ProfileName = GetCurrentUser().ProfileName;
             recenzia.UserId = GetCurrentUser().Id;
             _context.Add(recenzia);
             _context.SaveChanges();
@@ -317,6 +318,7 @@ namespace AspNetCoreAPI.Controllers
                 
                 RecipesID = nRecenzia.RecipesID,
                 Content = nRecenzia.Content,
+                ProfileName = GetCurrentUser().ProfileName,
                 UserName = GetCurrentUser().UserName,
                 
             };
@@ -338,6 +340,7 @@ namespace AspNetCoreAPI.Controllers
                     UserImage = dbRecension.UserImage,
                     UserID = dbRecension.UserId,
                     UserName = dbRecension.UserName,
+                    ProfileName = dbRecension.ProfileName,
                     AmountOfLikes = dbRecension.AmountOfLikes,
                     AmountOfDisslikes = dbRecension.AmountOfDisslikes,
                     CheckID = GetCurrentUser().Id

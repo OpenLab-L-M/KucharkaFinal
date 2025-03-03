@@ -37,7 +37,7 @@ namespace AspNetCoreAPI.Registration
             if (userRegistrationDto == null || !ModelState.IsValid)
                 return BadRequest();
 
-             var userToAdd = new ApplicationUser { UserName = userRegistrationDto.Email,  Email = userRegistrationDto.Email };
+             var userToAdd = new ApplicationUser { UserName = userRegistrationDto.Email,  Email = userRegistrationDto.Email, ProfileName = userRegistrationDto.ProfileName};
             var result = await _userManager.CreateAsync(userToAdd, userRegistrationDto.Password);
             if (!result.Succeeded)
             {

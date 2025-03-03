@@ -9,6 +9,7 @@
         public string? Content { get; set; }
         public string? UserName { get; set; }
         public bool? Liked { get; set; }
+        public string? ProfileName { get; set; }
         public int? AmountOfLikes { get; set; } = 0;
         public int? AmountOfDisslikes { get; set; } = 0;
         public string? Datetime { get; set; }
