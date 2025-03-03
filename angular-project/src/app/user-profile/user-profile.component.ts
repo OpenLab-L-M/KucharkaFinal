@@ -1,7 +1,7 @@
 import {Component, computed, effect, signal, Inject, Output, inject} from '@angular/core';
 import { UserService } from 'src/services/user.service';
 import { UserDTO } from './UserDTO';
-import { DecimalPipe, NgIf } from '@angular/common';
+import { CommonModule, DecimalPipe, NgIf } from '@angular/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgFor } from '@angular/common';
@@ -22,7 +22,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import {forkJoin, Subject, take, takeUntil} from 'rxjs';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldControl } from '@angular/material/form-field';
 import {ImageDTO} from "../recipes/ImageDTO";
 import {CreatorDTO} from "../recipes/CreatorDTO";
 import { RecensionsDTO } from '../recipes-details/recensions-dto';
@@ -38,7 +37,8 @@ export interface DialogData {
   selector: 'app-user-profile',
   standalone: true,
   imports: [NgFor,
-    NgIf, MatIconModule, MatIconAnchor, MatButtonModule, MatCardModule, RouterLink, MatDialogClose, MatFormField, MatTooltip, ReactiveFormsModule, MatLabel, DecimalPipe],
+    NgIf, MatIconModule, MatIconAnchor, MatButtonModule, MatCardModule, RouterLink, MatDialogClose, MatFormField, MatTooltip, ReactiveFormsModule, MatLabel, DecimalPipe,
+    RouterLink, CommonModule],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss'
 })
@@ -72,8 +72,12 @@ export class UserProfileComponent {
 
   name: string;
 
-  constructor(private userService: UserService, private recipesSevice: RecipesService, private httpClient: HttpClient, public dialog: MatDialog, private route: ActivatedRoute){}
-
+  constructor(private userService: UserService, private recipesSevice: RecipesService, private httpClient: HttpClient, public dialog: MatDialog, private route: ActivatedRoute
+    ,private router: Router
+  ){}
+  isActive(url: string): boolean {
+    return this.router.url === url;
+  }
   cancel(){
     this.clicked = false;
   }
