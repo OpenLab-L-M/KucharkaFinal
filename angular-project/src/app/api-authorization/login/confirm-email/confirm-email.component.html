@@ -1,1 +1,10 @@
-<p>confirm-email works!</p>
+<div class="container text-center" *ngIf="success">
+    <a class="btn btn-primary" routerLink="/login">
+        Login
+    </a>
+</div>
+<div class="container text-center" *ngIf="!success">
+    <a class="btn btn-link" (click)="resendEmailConfirmationLink()">
+        Click here to resend email confirmation link
+    </a>
+</div>

@@ -46,7 +46,7 @@ export class AuthenticationService {
     return token && !this.jwtHelper.isTokenExpired(token);
   }
   confirmEmail(model: confirmEmail){
-    return this.httpClient.put(`${this.baseUrl}/confirm-email`, model);
+    return this.httpClient.put(this.baseUrl + '/confirmEmail', model);
   }
 
 
