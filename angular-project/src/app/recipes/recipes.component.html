@@ -1,4 +1,5 @@
 <body>
+  
   <!-- Main Container with Drawer -->
   <mat-drawer-container class="example-container" autosize>
     <!-- Left Sidebar (Filters) -->
@@ -119,6 +120,12 @@
 
     <!-- Main Content Area -->
     <div class="example-sidenav-content">
+
+      <!-- <div class="banner">
+        <h2>Healthy Recipes, Happy You!</h2>
+        <p>Recipes Made for You!</p>
+        <button class="get-cooking-btn">GET COOKING!</button>
+      </div> -->
       <!-- Recipe Cards Container -->
       <div class="recipes-container">
         <mat-card class="recipes-items" *ngFor="let recipe of realRecipes() | filter : sSearchRecept : searchBarQuery">

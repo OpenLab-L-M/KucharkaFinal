@@ -237,3 +237,52 @@ mat-card-footer {
   color: #ecf0f1;   /* Icon color */
   pointer-events: none;  /* Make sure the icon doesn't interfere with clicks */
 }
+
+/* Main Content Area */
+.example-sidenav-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Ensure it takes full width */
+  padding: 20px; /* Add some padding */
+}
+
+.banner {
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text */
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+  margin-bottom: 20px; /* Space between banner and recipe cards */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  width: 100%; /* Make it span the full width */
+}
+
+.banner h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.banner p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.get-cooking-btn {
+  background-color: #FFC107; /* Yellow button */
+  color: #333; /* Dark text */
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.get-cooking-btn:hover {
+  background-color: #FFB300; /* Darker yellow on hover */
+}
+
+.get-cooking-btn:active {
+  background-color: #FFA000; /* Even darker on click */
+}

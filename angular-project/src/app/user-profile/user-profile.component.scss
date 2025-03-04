@@ -206,7 +206,9 @@ body {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
-  overflow: hidden;
+  overflow: hidden; /* Ensure content doesn't overflow */
+  display: flex;
+  flex-direction: column;
 }
 
 .recipes-items:hover {
@@ -214,44 +216,70 @@ body {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
+/* Recipe Name at the Top */
 .recipes-name {
   font-size: 18px;
   font-weight: bold;
-  color: #2c3e50;
-  padding: 16px;
-  margin: 0;
+  color: #2c3e50; /* Dark blue-gray */
+  white-space: normal; /* Allow text to wrap */
+  word-wrap: break-word; /* Break long words */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Add ellipsis if text overflows */
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  -webkit-box-orient: vertical;
+  padding: 16px 16px 8px 16px; /* Add padding */
+  margin: 0; /* Remove default margin */
+  flex-shrink: 0; /* Prevent the name from pushing the image down */
+  min-height: 60px; /* Ensure consistent height for the name area */
 }
 
+/* Recipe Details (Timer, Portions, Calories) */
 .recipe-details {
   display: flex;
-  gap: 16px;
-  padding: 0 16px 8px 16px;
+  gap: 16px; /* Add spacing between items */
+  padding: 0 16px 8px 16px; /* Add padding */
+  flex-shrink: 0; /* Prevent the details from pushing the image down */
 }
 
 .recipes-difficulty {
-  color: #7f8c8d;
+  color: #7f8c8d; /* Gray */
   font-size: 14px;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 4px; /* Add spacing between icon and text */
 }
 
 .recipes-difficulty mat-icon {
-  font-size: 16px;
+  font-size: 16px; /* Adjust icon size */
 }
 
+/* Image Container */
 .image-container {
-  width: 100%;
-  height: 200px;
-  overflow: hidden;
+  flex-grow: 1; /* Allow the image container to take up remaining space */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Ensure the image doesn't overflow */
+  min-height: 200px; /* Ensure consistent height */
 }
 
 .recipes-images {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 10px 10px 0 0;
 }
 
+/* Recipe Footer (Favorite Button) */
+mat-card-footer {
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0; /* Prevent the footer from pushing the image up */
+}
+
+/* Favorite Checkbox and Heart Icon */
 .favourite-checkbox {
   display: none;
 }
@@ -261,12 +289,12 @@ body {
 }
 
 #like {
-  color: gray;
+  color: gray; /* Default color */
   transition: color 0.3s;
 }
 
 .favourite-checkbox:checked + .favourite-label #like {
-  color: red;
+  color: red; /* Color when favorited */
 }
 
 /* Comment Section */
