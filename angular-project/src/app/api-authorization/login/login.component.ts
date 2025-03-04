@@ -6,6 +6,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthenticationService } from '../authentication.service';
 import { AsyncPipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ import { Router } from '@angular/router';
     MatInput,
     MatLabel,
     ReactiveFormsModule,
-    AsyncPipe
+    AsyncPipe,
+    MatIcon
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'

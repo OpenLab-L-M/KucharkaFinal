@@ -10,11 +10,6 @@ body {
   display: flex;               /* Use flexbox to center the form */
   justify-content: center;     /* Horizontally center */
   align-items: center;         /* Vertically center */
-  background-image: url("../../assets/taskListBackground.jpg"); /* Replace with your image path */
-  background-size: cover;       /* Cover the entire background area */
-  background-repeat: no-repeat; /* Prevent tiling */
-  background-position: center center; /* Center the image horizontally and vertically */
-  background-attachment: fixed; /* Optional: keep the image fixed while scrolling */
 }
 
 .form-group {

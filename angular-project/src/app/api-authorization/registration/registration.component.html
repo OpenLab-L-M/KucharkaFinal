@@ -1,29 +1,54 @@
 <body>
-  <img id="backgroundos" src="../../assets/neviem.png">
-@if (authService.authenticated()) {
-  <h1>You're currently logged in.</h1>
-} @else {
-  <form [formGroup]="registerForm" (ngSubmit)="register()">
-    <mat-form-field>
-      <mat-label>Email</mat-label>
-      <input matInput formControlName="email" required>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>UserName</mat-label>
-      <input matInput formControlName="profileName" required>
-    </mat-form-field>
+  @if (authService.authenticated()) {
+    <div class="logged-in-message">
+      <h1>You're currently logged in.</h1>
+    </div>
+  } @else {
+    <div class="register-container">
+      <h1 class="register-title">Register</h1>
+      <form [formGroup]="registerForm" (ngSubmit)="register()" class="register-form">
+        <!-- Email Field -->
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" required>
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Enter your password</mat-label>
-      <input matInput [type]="'password'" formControlName="password">
-    </mat-form-field>
+        <!-- Username Field -->
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="profileName" required>
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Enter your password</mat-label>
-      <input matInput [type]="'password'" formControlName="confirmPassword">
-    </mat-form-field>
+        <!-- Password Field -->
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Enter your password</mat-label>
+          <input matInput [type]="'password'" formControlName="password" required>
+          <mat-icon matSuffix>lock</mat-icon>
+          <mat-hint class="password-hint">
+             6 písmen,
+              1 veľké,
+              1 malé,
+              1 číslo,
+              1 špeciálny znak
 
-    <button mat-raised-button color="warn" type="submit">Register</button>
-  </form>
-}
+          </mat-hint>
+        </mat-form-field>
+
+        <!-- Confirm Password Field -->
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Confirm your password</mat-label>
+          <input matInput [type]="'password'" formControlName="confirmPassword" required>
+          <mat-icon matSuffix>lock</mat-icon>
+        </mat-form-field>
+
+        <!-- Submit Button -->
+        <button mat-raised-button color="primary" type="submit" class="submit-button">
+          Register
+        </button>
+      </form>
+    </div>
+
+  }
 </body>

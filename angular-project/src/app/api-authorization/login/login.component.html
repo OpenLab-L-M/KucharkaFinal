@@ -1,20 +1,31 @@
 <body>
-  <img id="backgroundos" src="../../assets/neviem.png">
-@if (authService.authenticated()) {
-  <h1>You're currently logged in.</h1>
-} @else {
-  <form [formGroup]="loginForm" (ngSubmit)="login()">
-    <mat-form-field>
-      <mat-label>Email</mat-label>
-      <input matInput formControlName="email" required>
-    </mat-form-field>
+  @if (authService.authenticated()) {
+    <div class="logged-in-message">
+      <h1>You're currently logged in.</h1>
+    </div>
+  } @else {
+    <div class="login-container">
+      <h1 class="login-title">Login</h1>
+      <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+        <!-- Email Field -->
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" required>
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Enter your password</mat-label>
-      <input matInput [type]="'password'" formControlName="password">
-    </mat-form-field>
+        <!-- Password Field -->
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Enter your password</mat-label>
+          <input matInput [type]="'password'" formControlName="password" required>
+          <mat-icon matSuffix>lock</mat-icon>
+        </mat-form-field>
 
-    <button mat-raised-button color="warn" type="submit">Login</button>
-  </form>
-}
+        <!-- Submit Button -->
+        <button mat-raised-button color="primary" type="submit" class="submit-button">
+          Login
+        </button>
+      </form>
+    </div>
+  }
 </body>

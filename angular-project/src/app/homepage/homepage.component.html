@@ -1,59 +1,31 @@
 <body>
-  <img id="backgroundos" src="../../assets/BG3.jpg">
-  <!-- <img id="backgroundos" src="../../assets/Hot-dog.png"> -->
-
-
-  <div class="center">
-    <div class="slogan">
-      <h2>"From Your Kitchen to the World"</h2>
-    </div>
-    <img id="food" src="../../assets/homepagePlate.png">
-  </div>
-  <div class="button-container">
-    <button id="check_btn" [routerLink]="['/Recipes']">Check some created recipes</button>
-  </div>
-  <div class="center">
-    <img id="food" src="../../assets/TaskImg.jpg">
-    <div class="slogan2">
-      <h2>"Plan your time effectively"</h2>
-    </div>
-    
-  </div>
-  <div class="button-container">
-    <button id="check_btn" [routerLink]="['/taskList']">Check some created Tasks</button>
-  </div>
-  
-  <!-- <div class="recipes-container">
-    <mat-card class="recipes-items" *ngFor="let recipe of realRecipes | filter : sSearchRecept">
-      <mat-card-header>
-        <div class="left-header">
-          <img id="avatar" mat-card-avatar class="example-header-image" [src]="recipe.comprimedImage" matTooltip="Creator">
-          <img *ngIf="!this.user().pictureURL" id="avatar" mat-card-avatar class="example-header-image" src="../../assets/Whithout_profile_picture.jpg" matTooltip="Creator">
-
-          <div class="text-content">
-            <mat-card-title class="recipes-name" style="font-family: 'Times New Roman', Times, serif; font-weight: bold; font-size: 25px;">{{recipe.name}}</mat-card-title>
-            <mat-card-subtitle class="recipes-difficulty">{{recipe.difficulty}}</mat-card-subtitle>
-            <mat-card-subtitle class="recipes-difficulty"><mat-icon>query_builder</mat-icon> {{recipe.cas}} min</mat-card-subtitle>
-          </div>
+  <div class="homepage">
+    <!-- First Section: Recipes -->
+    <div class="section">
+      <div class="content">
+        <div class="text">
+          <h2>"From Your Kitchen to the World"</h2>
+          <p>Discover and share delicious recipes with the community.</p>
         </div>
-        <div class="right-header">
-          <mat-card-subtitle *ngIf="recipe.veganske">Vegan</mat-card-subtitle>
-          <mat-card-subtitle *ngIf="recipe.vegetarianske">Vegetarian</mat-card-subtitle>
-          <mat-card-subtitle *ngIf="recipe.nizkoKaloricke">Low calorie</mat-card-subtitle>
+        <img src="../../assets/homepagePlate.png" alt="Recipe Image" class="image">
+      </div>
+      <div class="button-container">
+        <button class="cta-button" [routerLink]="['/Recipes']">Check Some Created Recipes</button>
+      </div>
+    </div>
+
+    <!-- Second Section: Tasks -->
+    <div class="section">
+      <div class="content">
+        <img src="../../assets/TaskImg.jpg" alt="Task Image" class="image">
+        <div class="text">
+          <h2>"Plan Your Time Effectively"</h2>
+          <p>Organize your tasks and stay on top of your schedule.</p>
         </div>
-      </mat-card-header>
-
-        <img mat-card-image [src]="this.getImage(recipe.id)" class="recipes-images" matTooltip="Details of {{recipe.name}}" [routerLink]="['/RecipesDetails', recipe.id]"/>
-
-
-      <mat-card-footer>
-        <input id="favourite" type="checkbox" (change)="ktoryRecept(recipe.id)" matTooltip="Add to favourite">
-        <mat-icon id="like" >favorite</mat-icon>
-      </mat-card-footer>
-
-
-    </mat-card>
-  </div> -->
-
-
+      </div>
+      <div class="button-container">
+        <button class="cta-button" [routerLink]="['/taskList']">Check Some Created Tasks</button>
+      </div>
+    </div>
+  </div>
 </body>

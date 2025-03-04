@@ -3,11 +3,6 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: url("../../assets/taskListBackground.jpg"); /* Replace with your image path */
-    background-size: cover;       /* Cover the entire background area */
-    background-repeat: no-repeat; /* Prevent tiling */
-    background-position: center center; /* Center the image horizontally and vertically */
-    background-attachment: fixed; /* Optional: keep the image fixed while scrolling */
   } 
   
   table {

@@ -27,6 +27,7 @@ namespace AspNetCoreAPI.Registration
         {
             new Claim(ClaimTypes.Name, user.Email)
         };
+
             return claims;
         }
         public JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)

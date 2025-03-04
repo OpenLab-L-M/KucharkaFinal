@@ -58,7 +58,7 @@
             <mat-checkbox class="cyberpunk-checkbox" value="salaty" [ngModel]="salatyChecked" (ngModelChange)="salatyChecked = $event" (click)="filterRecipesByDifficulty('salaty')" (click)="call()">
               <span class="checkbox-label">Šaláty</span>
             </mat-checkbox>
-            <mat-checkbox class="cyberpunk-checkbox" value="polievky" [ngModel]="soupsChecked" (ngModelChange)="soupsChecked = $event" (click)="filterRecipesByDifficulty('polievky')" (click)="call()">
+            <mat-checkbox class="cyberpunk-checkbox" value="polievky" [ngModel]="soupsChecked" (ngModelChange)="soupsChecked = $event" (click)="filterRecipesByDifficulty('polievky')" (click)="call()" [disabled]="sSearchRecept.includes('ranajky')">
               <span class="checkbox-label">Polievky</span>
             </mat-checkbox>
             <mat-checkbox class="cyberpunk-checkbox" value="natierky" [ngModel]="natierkyChecked" (ngModelChange)="natierkyChecked = $event" (click)="filterRecipesByDifficulty('natierky')" (click)="call()">
