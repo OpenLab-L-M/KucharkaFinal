@@ -6,7 +6,7 @@ import  { TaskDTO } from './TaskDTO'
 import { TaskService } from 'src/services/task.service';
 import { Subject, takeUntil } from 'rxjs';
 import { CommonModule, DatePipe } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,12 +20,16 @@ import {MatFormField, MatFormFieldModule, MatLabel} from '@angular/material/form
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [MatTableModule, MatSortModule, CommonModule, DatePipe,MatIconModule,RouterLink ],
+  imports: [MatTableModule, MatSortModule, CommonModule, DatePipe,MatIconModule,RouterLink,RouterModule  ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.css'
 })
 
 export class TaskListComponent {
+
+  isActive(url: string): boolean {
+    return this.router.url === url;
+  }
   constructor(){}
   router = inject(Router)
   dataSource = new MatTableDataSource<TaskDTO>();

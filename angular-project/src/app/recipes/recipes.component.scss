@@ -51,10 +51,46 @@ body #backgroundos {
 }
 
 /* Change the text color of checkboxes */
-.checkbox-label {
-  color: lightgray; /* Light gray color for checkbox text */
+.cyberpunk-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: lightgray; /* Light gray text */
 }
 
+.cyberpunk-checkbox input[type="checkbox"] {
+  appearance: none; /* Remove default checkbox styling */
+  width: 16px;
+  height: 16px;
+  border: 2px solid #e67e22; /* Orange border */
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+}
+
+.cyberpunk-checkbox input[type="checkbox"]:checked {
+  background-color: #e67e22; /* Orange background when checked */
+}
+
+.cyberpunk-checkbox input[type="checkbox"]:checked::after {
+  content: '✔'; /* Checkmark symbol */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  color: white; /* White checkmark */
+}
+
+.cyberpunk-checkbox input[type="checkbox"]:disabled {
+  opacity: 0.5; /* Dim the checkbox when disabled */
+  cursor: not-allowed;
+}
+
+.cyberpunk-checkbox input[type="checkbox"]:disabled + .checkbox-label {
+  color: gray; /* Gray text when disabled */
+}
 .clear-filter-button {
   margin-top: 20px;
   background-color: #e67e22; /* Orange */

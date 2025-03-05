@@ -26,9 +26,7 @@ export class FilterPipe implements PipeTransform {
     return items.filter(item => {
       if (item) {
         // Debugging: Log the item and its properties
-        console.log('Item:', item);
-        console.log('Ingredients:', item.ingrediencie);
-        console.log('Time:', item.cas);
+  
 
         // Search Bar Filter (filter by recipe name)
         const searchBarMatches = searchBarQuery

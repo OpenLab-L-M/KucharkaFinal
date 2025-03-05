@@ -7,17 +7,20 @@ import { MatIcon } from '@angular/material/icon';
 import { TaskService } from 'src/services/task.service';
 import { Subject, takeUntil } from 'rxjs';
 import { CommonModule, DatePipe } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-finished-tasks',
   standalone: true,
-  imports: [CommonModule, DatePipe, MatSortModule, MatTableModule, MatIcon],
+  imports: [CommonModule, DatePipe, MatSortModule, MatTableModule, MatIcon, RouterLink],
   templateUrl: './finished-tasks.component.html',
   styleUrl: './finished-tasks.component.css'
 })
 export class FinishedTasksComponent {
   constructor(){}
+  isActive(url: string): boolean {
+    return this.router.url === url;
+  }
   router = inject(Router)
   dataSource = new MatTableDataSource<TaskDTO>();
   getFinishedTasks(){
