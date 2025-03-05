@@ -69,7 +69,8 @@ extractedText: string = '';
       imageData
     )
       .then(({ data: { text } }) => {
-        this.extractedText = this.removeAngleBrackets(text); // Extracted text
+        this.extractedText = this.removeAngleBrackets(text);
+        this.taskCreateForm.controls['description'].setValue(this.extractedText); // Extracted text
         this.loading = false;
       })
       .catch((err) => {
