@@ -68,6 +68,34 @@ textarea {
   resize: vertical;
 }
 
+/* File Upload Styling */
+.file-upload-container {
+  margin-bottom: 16px;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #e67e22;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.custom-file-upload:hover {
+  background-color: #d35400;
+}
+
+.custom-file-upload mat-icon {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+#file-upload {
+  display: none;
+}
+
 /* Button Styles */
 button.button-73 {
   padding: 12px 20px;

@@ -23,7 +23,9 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "types": [ "jasmine" , "node" ],
+    "typeRoots": ["node_modules/@types"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

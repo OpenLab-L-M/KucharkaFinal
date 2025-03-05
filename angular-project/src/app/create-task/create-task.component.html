@@ -1,28 +1,28 @@
 <body>
-<div class="form-group">
-  <H1 style="text-align: center;">vytvor úlohu</H1>
-  <form [formGroup]="taskCreateForm">
+  <div class="form-group">
+    <h1 style="text-align: center;">vytvor úlohu</h1>
+    <form [formGroup]="taskCreateForm">
+      <label for="priority">Priority:</label>
+      <input type="number" id="priority" name="priority" formControlName="priority" min="1" />
 
-    <label for="priority">Priority:</label>
-    <input type="number" id="priority" name="priority" formControlName="priority" min="1" />
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" formControlName="name" />
 
-  
+      <label for="description">Description:</label>
+      <div class="file-upload-container">
+        <label for="file-upload" class="custom-file-upload">
+          <mat-icon>attach_file</mat-icon> Choose File
+        </label>
+        <input id="file-upload" type="file" (change)="onFileSelected($event)" />
+        @if(loading){
+        <div>Processing image...</div>
+        }
+      </div>
+      <textarea type="text" id="description" name="description" formControlName="description" [value]="extractedText"></textarea>
 
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" formControlName="name" />
-
-  
-
-    <label for="description">Description:</label>
-    <textarea type="text" id="description" name="description" formControlName="description"></textarea>
-
-  
-
-    <label for="deadLine">Deadline:</label>
-    <input type="date" id="deadLine" name="deadLine" formControlName="deadLine" min="2025-28-01"/>
-
-
-</form>
-<button class="button-73" (click)="submit()">create</button>
-</div>
+      <label for="deadLine">Deadline:</label>
+      <input type="date" id="deadLine" name="deadLine" formControlName="deadLine" min="2025-28-01" />
+    </form>
+    <button class="button-73" (click)="submit()">create</button>
+  </div>
 </body>
