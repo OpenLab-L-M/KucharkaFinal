@@ -290,7 +290,8 @@ submit(){
             userName: value.userName,
             amountOfDisslikes: value.amountOfDisslikes,
             userID: value.userID,
-            checkID: value.checkID } : recension))
+            checkID: value.checkID,
+          profileName: value.profileName } : recension))
         console.log(value);
       }
 
@@ -310,7 +311,8 @@ disslikeRecension(id: number){
         userName: value.userName,
         amountOfDisslikes: value.amountOfDisslikes,
         userID: value.userID,
-        checkID: value.checkID } : recension))
+        checkID: value.checkID
+      , profileName: value.profileName } : recension))
     console.log(value);
   }
 

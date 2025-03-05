@@ -315,7 +315,7 @@ namespace AspNetCoreAPI.Controllers
             var vraciam = new RecensionDTO()
             {
                 Id = recenzia.Id,
-                
+                Datetime = DateTime.Now.ToString(),
                 RecipesID = nRecenzia.RecipesID,
                 Content = nRecenzia.Content,
                 ProfileName = GetCurrentUser().ProfileName,
@@ -393,6 +393,7 @@ namespace AspNetCoreAPI.Controllers
                 UserName = dLike.UserName,
                 Content = dLike.Content,
                 Datetime = dLike.Datetime,
+                ProfileName = dLike.ProfileName,
                 Id = dLike.Id,
                 UserID = dLike.UserId,
                 CheckID = GetCurrentUser().Id,
@@ -514,6 +515,7 @@ namespace AspNetCoreAPI.Controllers
                 Id = dLike.Id,
                 UserID = dLike.UserId,
                 Datetime = dLike.Datetime,
+                ProfileName = dLike.ProfileName,
                 CheckID = GetCurrentUser().Id,
                 AmountOfLikes = dLike.AmountOfLikes,
                 AmountOfDisslikes = dLike.AmountOfDisslikes
