@@ -17,6 +17,7 @@ body {
 /* Section Styles */
 .section {
   display: flex;
+  margin-top: 5%;
   flex-direction: column;
   align-items: center;
   margin-bottom: 60px;
@@ -94,7 +95,9 @@ body {
     max-width: 80%;
     margin-top: 20px;
   }
-
+  .section{
+    margin-top: 13%;
+  }
   .text h2 {
     font-size: 28px;
   }

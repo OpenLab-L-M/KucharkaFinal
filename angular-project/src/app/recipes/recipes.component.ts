@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, HostListener, inject, signal } from '@angular/core';
 import {forkJoin, Subject, takeUntil} from 'rxjs';
 import { NgIf } from '@angular/common';
 import { NgFor } from '@angular/common';
@@ -11,7 +11,7 @@ import { MatCardModule } from '@angular/material/card';
 import { FilterPipe } from 'src/pipes/filter-pipe.pipe';
 import { MatIcon } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ElementRef, ViewChild } from '@angular/core';
 import { NgModule } from '@angular/core';
@@ -124,7 +124,9 @@ export class RecipesComponent {
 
 
   sSearchRecept: string = '';
-  constructor(private userService: UserService,) { }
+  constructor(private userService: UserService, ) {
+    this.checkScreenSize(); // Check screen size on initialization
+   }
   ngOnInit(): void {
 
     
@@ -215,5 +217,27 @@ export class RecipesComponent {
      return `data:image/jpeg;base64,${this.imageDTO.find(image => image.id === id).image}`;
   }
 
+  isSidebarOpen = true; // Sidebar is open by default
+  isMobile = false; // Track if the screen is mobile
+
+  @ViewChild('drawer') drawer!: MatDrawer; // Reference to the sidebar drawer
+
+
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+    this.drawer.toggle(); // Toggle the sidebar drawer
+  }
+
+  // Check screen size and update isMobile
+  @HostListener('window:resize', ['$event'])
+  checkScreenSize() {
+    this.isMobile = window.innerWidth <= 768; // Mobile breakpoint at 768px
+    if (this.isMobile) {
+      this.isSidebarOpen = false; // Close sidebar by default on mobile
+    } else {
+      this.isSidebarOpen = true; // Open sidebar by default on desktop
+    }
+  }
 
 }

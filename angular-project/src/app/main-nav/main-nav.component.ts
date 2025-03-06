@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatButton } from '@angular/material/button';
@@ -28,7 +28,19 @@ export class MainNavComponent {
   private router = inject(Router);
   private userService = inject(UserService);
   private route: ActivatedRoute;
+  isMobileMenuOpen = false; // Track if the mobile menu is open
   private destroy$ = new Subject<void>();
+
+
+  public innerWidth: any;
+  ngOnInit() {
+      this.innerWidth = window.innerWidth;
+  }
+  @HostListener('window:resize', ['$event'])
+onResize(event) {
+  this.innerWidth = window.innerWidth;
+}
+
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);
@@ -44,5 +56,11 @@ export class MainNavComponent {
   isActive(url: string): boolean {
     return this.router.url === url;
   }
+
+  toggleMobileMenu() {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+  
+
 
 }

@@ -10,6 +10,7 @@ table {
   width: 80%;
   align-items: center;
   position: relative;
+  margin-top: 5%;
     
   }
   
@@ -41,4 +42,9 @@ table {
     background: #916b08;
       /* color: black; */
       animation: 1s pulse infinite;
+  }
+  @media  screen and (max-width: 786px) {
+    table{
+      margin-top: 13%;
+    }
   }

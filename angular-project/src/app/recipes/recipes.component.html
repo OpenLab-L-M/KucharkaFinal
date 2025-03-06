@@ -2,9 +2,14 @@
   <!-- Main Container with Drawer -->
   <mat-drawer-container class="example-container" autosize>
     <!-- Left Sidebar (Filters) -->
-    <mat-drawer class="example-sidenav" mode="side" opened>
+    <mat-drawer #drawer class="example-sidenav" mode="side" [opened]="isSidebarOpen">
       <div class="filter-section">
-        <h3 class="filter-title">Filters  <mat-icon>filter_list</mat-icon></h3>
+        <!-- Close Button for Mobile -->
+        <button mat-icon-button class="close-sidebar-btn" (click)="toggleSidebar()" *ngIf="isMobile">
+          <mat-icon>close</mat-icon>
+        </button>
+
+        <h3 class="filter-title">Filters <mat-icon>filter_list</mat-icon></h3>
 
         <div class="search-container">
           <input
@@ -36,7 +41,7 @@
           <br>
           <!-- Dietary Filters -->
           <div class="filter-group">
-            <h4 class="filter-subtitle">Dietne <mat-icon> fastfood</mat-icon></h4>
+            <h4 class="filter-subtitle">Dietne <mat-icon>fastfood</mat-icon></h4>
             <label class="cyberpunk-checkbox">
               <input type="checkbox" value="veganske" [(ngModel)]="veganChecked" (ngModelChange)="veganChecked = $event" (click)="filterRecipesByDifficulty('veganske')" (click)="call()">
               <span class="checkbox-label">Veganské</span>
@@ -46,7 +51,6 @@
               <span class="checkbox-label">Vegetarianske</span>
             </label>
           </div>
-
           <br>
           <!-- Course Filters -->
           <div class="filter-group">
@@ -143,6 +147,11 @@
 
     <!-- Main Content Area -->
     <div class="example-sidenav-content">
+      <!-- Toggle Sidebar Button for Mobile -->
+      <button mat-icon-button class="open-sidebar-btn" (click)="toggleSidebar()" *ngIf="isMobile">
+        <mat-icon>filter_list</mat-icon>
+      </button>
+
       <!-- Recipe Cards Container -->
       <div class="recipes-container">
         <mat-card class="recipes-items" *ngFor="let recipe of realRecipes() | filter : sSearchRecept : searchBarQuery">

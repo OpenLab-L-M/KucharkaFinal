@@ -1,21 +1,28 @@
-
 div {
   z-index: 2;
   background-color: #FFCBA4;
+  width: 100%; /* Take up 100% of the screen width */
+  position: absolute; /* Change to absolute positioning */
+  top: 0; /* Position at the top of the screen */
+  left: 0; /* Align to the left edge */
 }
+
 mat-toolbar {
   background-color: transparent;
-  color: 3E2723;
+  color: #3E2723; /* Fixed color value */
   font-size: 30px;
-  font-family: Brush Script MT, Brush Script Std, cursive;
-
-  button {
-    margin-left: auto;
-  }
+  font-family: 'Brush Script MT', 'Brush Script Std', cursive;
+  position: relative; /* Ensure the toolbar is positioned correctly */
+  z-index: 1000; /* Ensure the toolbar is above other elements */
+  display: flex; /* Use flexbox for layout */
+  
+  align-items: center; /* Vertically center items */
+  justify-content: space-between; /* Space between items */
+  width: 100%; /* Ensure the toolbar takes full width */
 }
 
+
 span {
-  
   cursor: pointer;
 }
 
@@ -24,19 +31,13 @@ button {
 }
 
 .spacer {
-
-  flex: 2 2 auto;
+  flex: 1 1 auto; /* Push items to the right */
 }
 
 #white {
-  color: 3E2723;
+  color: #3E2723; /* Fixed color value */
   font-weight: bold;
 }
-
-/* #white:hover {
-  color: red;
-  text-decoration: underline;
-} */
 
 #white.active {
   color: darkgoldenrod;
@@ -54,6 +55,7 @@ button {
   transition: width 0.3s ease 0s, left 0.3s ease 0s;
   width: 0;
 }
+
 #white:hover:after {
   width: 100%;
   left: 0;
@@ -64,11 +66,11 @@ img {
   width: 85px;
   height: 64px;
   display: block;
-    margin: 0 auto;
-    justify-content: center;
-    align-items: center;
-    padding-right: 10px;
-    cursor: pointer;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  padding-right: 10px;
+  cursor: pointer;
 }
 
 .center {
@@ -76,54 +78,59 @@ img {
   justify-content: center;
 }
 
-.checkbtn {
-  visibility: visible;
- }
+/* Desktop Navigation Menu */
+.nav-desktop {
+  display: flex;
+  position: relative;
+  gap: 10px;
+  align-items: center;
+  margin-left: auto; /* Push the desktop menu to the right */
+  width: 30%;
+}
 
- #check {
-  visibility: hidden;
-  
- }
-
- 
-
- @media only screen and (max-width: 992px) {
-  .nav-mobile {
-    display: none;
-   }
-  
-   #check:checked ~ .nav-mobile {
-    display: flex;
+/* Mobile Navigation Menu */
+.nav-mobile {
+  display: none; /* Hidden by default */
   flex-direction: column;
-  padding-top: 200px;
-  margin-right: 20px;
-    background-color: #FFCBA4;
-    
-   }
+  position: absolute;
+  top: 60px; /* Adjust based on your toolbar height */
+  right: 0;
+  background-color: #FFCBA4; /* Match toolbar background */
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 999; /* Ensure it's below the toolbar */
+  width: 30%;
+}
 
-   .checkbtn {
-    font-size: 1.5rem;
-    color: white;
-    cursor: pointer;
-    visibility: visible;
-   }
+.nav-mobile.active {
+  display: flex; /* Show when active */
+}
 
-   #check {
-    visibility: visible;
-    position: fixed;
-    right: 0;
-    margin-right: 10px;
-   }
+/* Mobile Menu Button */
+.mobile-menu-btn {
+  display: none; /* Hidden by default on desktop */
+  background-color: #FFCBA4;
+  z-index: 1001; /* Ensure it's above other elements */
+  border: hidden;
+  color: black;
+  margin-left: auto; /* Push the button to the right */
+  width: 30px;
+  height: 40px;
+}
 
-   
-   img {
-    width: 45px;
-    height: 38px;
+/* Responsive Design */
+@media (max-width: 768px) {
+  /* Hide the desktop menu on mobile */
+  .nav-desktop {
+    display: none;
+  }
+  .nav-mobile{
+    margin-right: 0;
+    margin-left: auto;
+  }
+
+  /* Show the mobile menu button on mobile */
+  .mobile-menu-btn {
     display: block;
-      margin: 0 auto;
-      justify-content: center;
-      align-items: center;
-      padding-right: 10px;
-      cursor: pointer;
   }
 }
