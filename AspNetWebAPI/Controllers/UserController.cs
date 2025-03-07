@@ -165,6 +165,7 @@ namespace AspNetCoreAPI.Controllers
          public RecipesDTO addtofav([FromRoute] int id)
          {
              var novyOblubenec = _context.Recipes.Where(x => x.Id == id).FirstOrDefault();
+            
              var userik = GetCurrentUser();
             var nachadzaSa = _context.UserRecipes.Any(x => x.RecipeId == id);
             
@@ -183,6 +184,7 @@ namespace AspNetCoreAPI.Controllers
             }
             else
             {
+ 
                 var vymaz = _context.UserRecipes.Where(x => x.RecipeId == id).Single<ApplicationUserRecipe>();
                 _context.UserRecipes.Remove(vymaz);
                 _context.SaveChanges();
@@ -224,7 +226,6 @@ namespace AspNetCoreAPI.Controllers
                     Bielkoviny = dbRecipe.Bielkoviny,
                     Kalorie = dbRecipe.Kalorie,
                     Tuky = dbRecipe.Tuky,
-                    
 
                     Cas = dbRecipe.Cas
                 };

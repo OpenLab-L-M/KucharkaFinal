@@ -51,6 +51,9 @@ export class UserProfileComponent {
   });
  // ourListOfRecipes = signal<RecipesDTO[]>([]);
   ourListOfRecipes: RecipesDTO[] = [];
+  isFavourite(recipeId: number): boolean {
+    return this.ourFavRecipes().some(fav => fav.id === recipeId);
+  }
 
  // ourFavRecipes = signal<RecipesDTO[]>([]);
   ourFavRecipes = signal<RecipesDTO[]>([]);

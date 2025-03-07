@@ -185,7 +185,7 @@
 
           <!-- Recipe Footer (Favorite Button) -->
           <mat-card-footer>
-            <input type="checkbox" id="favourite-{{recipe.id}}" class="favourite-checkbox" (click)="ktoryRecept(recipe.id)">
+            <input type="checkbox" id="favourite-{{recipe.id}}" class="favourite-checkbox" (click)="ktoryRecept(recipe.id)" [checked]="isFavourite(recipe.id)">
             <label for="favourite-{{recipe.id}}" class="favourite-label">
               <mat-icon id="like">favorite</mat-icon>
             </label>

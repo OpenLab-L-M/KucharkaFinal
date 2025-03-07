@@ -58,15 +58,16 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 export class RecipesComponent {
   imageDTO: ImageDTO[] = [];
   userImages: CreatorDTO[] = [];
+  isFavourite(recipeId: number): boolean {
+    return this.favRecipes.some(fav => fav.id === recipeId);
+  }
   ktoryRecept(id: number){
     
     const checkbox = document.getElementById('favourite') as HTMLInputElement;
-    const isChecked = (event.target as HTMLInputElement).checked;
-    if(isChecked){
       this.recipeService.addToFav(id)
       .pipe(takeUntil(this.destroy$))
       .subscribe();
-    }
+    
     
     }
   portions = signal<number>(undefined);
@@ -75,7 +76,7 @@ export class RecipesComponent {
   recipe = signal<RecipesDTO>(undefined);
 
 
-
+  favRecipes: RecipesDTO[] = [];    
   searchBarQuery: string;
 
   useris: UserDTO;
@@ -132,6 +133,7 @@ export class RecipesComponent {
     
     forkJoin({
       recipes: this.recipeService.getRecipesList(),
+      favRecipes: this.userService.getFavourites(),
       currentUser: this.userService.getCurrentUser(),
       images: this.recipeService.getAllImages(),
       userCreators: this.userService.getAllCreatorImages()
@@ -140,6 +142,7 @@ export class RecipesComponent {
       .subscribe(result => {
         this.realRecipes.set(result.recipes);
         this.useris = result.currentUser;
+        this.favRecipes = result.favRecipes;
         this.imageDTO = result.images;
         this.userImages = result.userCreators;
         this.comprim();

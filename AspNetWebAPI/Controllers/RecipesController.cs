@@ -29,8 +29,9 @@ namespace AspNetCoreAPI.Controllers
         [HttpGet("/recipes/")]
         public IEnumerable<RecipesDTO> GetRecipesList()
         {
-            IEnumerable<Recipe> dbRecipes = _context.Recipes;
             
+
+            IEnumerable<Recipe> dbRecipes = _context.Recipes;
             return dbRecipes.Select(dbRecipe =>
                 new RecipesDTO
                 {
@@ -140,7 +141,7 @@ namespace AspNetCoreAPI.Controllers
             RecipesDTO recept = new RecipesDTO();
             recept = receptik;
 
-
+ 
 
 
             var nReceptik = new Recipe()
@@ -159,6 +160,7 @@ namespace AspNetCoreAPI.Controllers
                 Obed = receptik.Obed,
                 Vecera = receptik.Vecera,
                 Tuky =  receptik.Tuky,
+
                 Sacharidy = receptik.Sacharidy,
                 Cukor = receptik.Cukor,
                 Gramaz = receptik.Gramaz,
