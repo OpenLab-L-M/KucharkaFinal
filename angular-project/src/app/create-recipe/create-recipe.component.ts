@@ -43,6 +43,8 @@ import { DialogComponent } from './dialog/dialog.component';
 import { getBaseUrl } from 'src/main';
 import { AddGramsDialogComponent } from './add-grams-dialog/add-grams-dialog.component';
 import { trigger } from '@angular/animations';
+import * as translate from 'deepl'; // Import the deepl library (assuming it is from npm)
+
 
 @Component({
   selector: 'app-create-recipe',
@@ -70,7 +72,16 @@ export class CreateRecipeComponent {
   }
   ngOnInit() {
     this.setIngredients();
-    
+     
+    this.translate({
+      free_api: true,
+      text: "fungujem prosím ťa",
+      target_lang: 'EN',
+      auth_key: '923f8dba-d7c4-496b-b27f-231233ba7f29:fx',
+    })
+    .then(result => {
+      console.log();
+    })
   }
 
   setIngredients(){
@@ -184,61 +195,80 @@ export class CreateRecipeComponent {
   dKalorie:number = 0;
   dGramaz:number = 0;
 
+prelozene:string = "";
+translate = require("deepl");
 
-  private createRecipe(value: Number) {
-    
-    this.recipesServíce.getCalories(this.vybrane.join().toString().replace(/,/g, ' '))
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(result => {
-        this.data = result;
+private createRecipe(value: Number) {
 
-        let vypocet = 0;
+  this.translate({
+    free_api: true,
+    text: this.vybrane.join().toString(),
+    target_lang: 'EN',
+    auth_key: '923f8dba-d7c4-496b-b27f-231233ba7f29:fx',
+  })
+  .then(result => {
+      this.prelozene = result.data.translations[0].text;  
+      this.recipesServíce.getCalories(this.prelozene.replace(/,/g, ' '))
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+          this.data = result;
 
-        if (this.data && Array.isArray(this.data.foods)) { // Check if this.data and foods are defined
-            
-          for (let i = 0; i < this.data.foods.length; i++) {
-                const food = this.data.foods[i];
-                if (food && typeof food.nf_calories === 'number') {  // Check if food and nf_calories are defined and a number
-                    this.dKalorie += food.nf_calories;
-                    this.dTuky += food.nf_total_fat;
-                    this.dCukor += food.nf_sugars;
-                    this.dSacharidy += food.nf_total_carbohydrate;
-                    this.dBielkoviny += food.nf_protein;
-                    this.dGramaz += food.serving_weight_grams;
-            }
-            else{
-              console.log("error");
-            }
-        }
-        
-        this.recipesServíce.CreateRecipe({
-          name: this.profileForm.controls['name'].value,
-          description: this.profileForm.controls['description'].value,
-          difficulty: this.profileForm.controls['diff'].value,
-          imageURL: this.profileForm.controls['img'].value,
-          ingrediencie: this.vybrane.join(),
-          cas: this.profileForm.controls['cas'].value,
-          veganske: this.profileForm.controls['veganske']?.value,
-          vegetarianske: this.profileForm.controls['vegetarianske']?.value,
-          postupicky: (this.postupForm.get('postupy') as FormArray).value,
-          tuky: Math.ceil(this.dTuky),
-          cukor: Math.ceil(this.dCukor),
-          sacharidy: Math.ceil(this.dSacharidy),
-          bielkoviny: Math.ceil(this.dBielkoviny),
-          kalorie: Math.ceil(this.dKalorie),
-          gramaz: Math.ceil(this.dGramaz),
-          imageId: value,
-          ranajky: this.profileForm.controls['ranajky']?.value,
-          obed: this.profileForm.controls['obed']?.value,
-          vecera: this.profileForm.controls['vecera']?.value,
-        }).pipe(takeUntil(this.destroy$))
-        
-        .subscribe(() => this.router.navigate(['/Recipes']));
-        this.ingredientService.selectedIngredients = "";  
-    }});
-   
-      
-    }
+          let vypocet = 0;
+          this.dKalorie= 0;
+          this.dTuky= 0;
+          this.dCukor= 0;
+          this.dSacharidy= 0;
+          this.dBielkoviny= 0;
+          this.dGramaz= 0;
+
+          if (this.data && Array.isArray(this.data.foods)) { // Check if this.data and foods are defined
+
+            for (let i = 0; i < this.data.foods.length; i++) {
+                  const food = this.data.foods[i];
+                  if (food && typeof food.nf_calories === 'number') {  // Check if food and nf_calories are defined and a number
+                      this.dKalorie += food.nf_calories;
+                      this.dTuky += food.nf_total_fat;
+                      this.dCukor += food.nf_sugars;
+                      this.dSacharidy += food.nf_total_carbohydrate;
+                      this.dBielkoviny += food.nf_protein;
+                      this.dGramaz += food.serving_weight_grams;
+              }
+              else{
+                console.log("error");
+              }
+          }
+
+          this.recipesServíce.CreateRecipe({
+            name: this.profileForm.controls['name'].value,
+            description: this.profileForm.controls['description'].value,
+            difficulty: this.profileForm.controls['diff'].value,
+            imageURL: this.profileForm.controls['img'].value,
+            ingrediencie: this.vybrane.join(),
+            cas: this.profileForm.controls['cas'].value,
+            veganske: this.profileForm.controls['veganske']?.value,
+            vegetarianske: this.profileForm.controls['vegetarianske']?.value,
+            postupicky: (this.postupForm.get('postupy') as FormArray).value,
+            tuky: Math.ceil(this.dTuky),
+            cukor: Math.ceil(this.dCukor),
+            sacharidy: Math.ceil(this.dSacharidy),
+            bielkoviny: Math.ceil(this.dBielkoviny),
+            kalorie: Math.ceil(this.dKalorie),
+            gramaz: Math.ceil(this.dGramaz),
+            imageId: value,
+            ranajky: this.profileForm.controls['ranajky']?.value,
+            obed: this.profileForm.controls['obed']?.value,
+            vecera: this.profileForm.controls['vecera']?.value,
+          }).pipe(takeUntil(this.destroy$))
+
+          .subscribe(() => this.router.navigate(['/Recipes']));
+          this.ingredientService.selectedIngredients = "";
+      }});
+  })
+  .catch(error => {
+      console.error(error);
+  });
+
+}
     
 
 

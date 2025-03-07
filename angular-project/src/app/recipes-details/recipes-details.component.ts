@@ -21,6 +21,7 @@ import { RecensionsDTO } from './recensions-dto';
 import {CreatorDTO} from 'src/app/recipes/CreatorDTO';
 import { DataSource } from '@angular/cdk/collections';
 import { MatPseudoCheckbox } from '@angular/material/core';
+import * as translate from 'deepl'; 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-recipes-details',
@@ -197,67 +198,85 @@ export class RecipesDetailsComponent implements OnInit{
   this.clicked = true;
 
 }
-
+translate = require("deepl");
 submit(){
-  
+
   const id = parseInt(this.route.snapshot.paramMap.get('id'));
-  this.recipeService.getCalories(this.profileForm.controls['ingrediencie']?.value.replace(/,/g, ' '))
-  .pipe(takeUntil(this.destroy$))
-  .subscribe(
-    result => {
-      this.data = result;
-
-        let vypocet = 0;
-
-        if (this.data && Array.isArray(this.data.foods)) { // Check if this.data and foods are defined
-            this.dKalorie = 0;
-                    this.dTuky = 0;
-                    this.dCukor = 0;
-                    this.dSacharidy =  0;
-                    this.dBielkoviny = 0;
-                    this.dGramaz = 0;
-          for (let i = 0; i < this.data.foods.length; i++) {
-                const food = this.data.foods[i];
-                if (food && typeof food.nf_calories === 'number') {  // Check if food and nf_calories are defined and a number
-                    this.dKalorie += food.nf_calories;
-                    this.dTuky += food.nf_total_fat;
-                    this.dCukor += food.nf_sugars;
-                    this.dSacharidy += food.nf_total_carbohydrate;
-                    this.dBielkoviny += food.nf_protein;
-                    this.dGramaz += food.serving_weight_grams;
-            }
-            else{
-              console.log("error");
-            }
-        }
-    }
-    this.recipeService.edit({
-      id: parseInt(this.route.snapshot.paramMap.get('id')),
-      name: this.profileForm.controls['name']?.value,
-      ingrediencie: this.profileForm.controls['ingrediencie']?.value,
-      description: this.profileForm.controls['description']?.value,
-        imgURL: this.profileForm.controls['imgURL']?.value,
-        cas: this.profileForm.controls['cas']?.value,
-        postupicky: (this.profileForm.get('postupicky') as FormArray)?.value,
-        tuky: Math.ceil(this.dTuky),
-        cukor: Math.ceil(this.dCukor),
-        sacharidy: Math.ceil(this.dSacharidy),
-        bielkoviny: Math.ceil(this.dBielkoviny),
-        kalorie: Math.ceil(this.dKalorie),
-        gramaz: Math.ceil(this.dGramaz),
-
+  const ingrediencieValue = this.profileForm.controls['ingrediencie']?.value;  // Get the initial value
+  
+  if (ingrediencieValue) { 
+    this.translate({  
+      free_api: true,
+      text: this.profileForm.controls['ingrediencie']?.value,  
+      target_lang: 'EN',
+      auth_key: '923f8dba-d7c4-496b-b27f-231233ba7f29:fx',  
     })
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(result => {
-      this.recipe.set(result);
+    .then(result => {
+      const translatedIngredients = result.data.translations[0].text; 
   
+      this.recipeService.getCalories(translatedIngredients.replace(/,/g, ' '))  // Use translated ingredients for getCalories
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
+          result => {
+            this.data = result;
   
-  })
+            this.dKalorie = 0;  
+            this.dTuky = 0;
+            this.dCukor = 0;
+            this.dSacharidy = 0;
+            this.dBielkoviny = 0;
+            this.dGramaz = 0;
+  
+            if (this.data && Array.isArray(this.data.foods)) {
+              for (let i = 0; i < this.data.foods.length; i++) {
+                const food = this.data.foods[i];
+                if (food && typeof food.nf_calories === 'number') {
+                  this.dKalorie += food.nf_calories;
+                  this.dTuky += food.nf_total_fat;
+                  this.dCukor += food.nf_sugars;
+                  this.dSacharidy += food.nf_total_carbohydrate;
+                  this.dBielkoviny += food.nf_protein;
+                  this.dGramaz += food.serving_weight_grams;
+                } else {
+                  console.log("Error: Food item missing required data.");
+                }
+              }
+            }
+  
+            this.recipeService.edit({ 
+              id: parseInt(this.route.snapshot.paramMap.get('id')),
+              name: this.profileForm.controls['name']?.value,
+              ingrediencie: this.profileForm.controls['ingrediencie']?.value,
+              description: this.profileForm.controls['description']?.value,
+              imgURL: this.profileForm.controls['imgURL']?.value,
+              cas: this.profileForm.controls['cas']?.value,
+              postupicky: (this.profileForm.get('postupicky') as FormArray)?.value,
+              tuky: Math.ceil(this.dTuky),
+              cukor: Math.ceil(this.dCukor),
+              sacharidy: Math.ceil(this.dSacharidy),
+              bielkoviny: Math.ceil(this.dBielkoviny),
+              kalorie: Math.ceil(this.dKalorie),
+              gramaz: Math.ceil(this.dGramaz),
+            })
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(editResult => {
+              this.recipe.set(editResult);
+            });
+          },
+          error => {
+            console.error("Error getting calories:", error);
+          }
+        );
+    })
+    .catch(error => {
+      console.error("Error translating ingredients:", error);
+    });
+  } else {
+    console.warn("No ingredients provided. Skipping translation and calorie calculation.");
+    // Optionally, set default values or handle the case where no ingredients are provided.
   }
-  )
-
-  this.clicked=false;
   
+  this.clicked = false;
 }
  addComment(){
   
