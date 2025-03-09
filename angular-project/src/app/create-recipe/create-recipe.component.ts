@@ -73,15 +73,6 @@ export class CreateRecipeComponent {
   ngOnInit() {
     this.setIngredients();
      
-    this.translate({
-      free_api: true,
-      text: "fungujem prosím ťa",
-      target_lang: 'EN',
-      auth_key: '923f8dba-d7c4-496b-b27f-231233ba7f29:fx',
-    })
-    .then(result => {
-      console.log();
-    })
   }
 
   setIngredients(){
@@ -111,7 +102,7 @@ export class CreateRecipeComponent {
     
         dialogRef.afterClosed().subscribe(result => {
           console.log(result.grams)
-          this.vybrane[event.currentIndex] += " " + result.data;
+          this.vybrane[event.currentIndex] = result.data +  " " + this.vybrane[event.currentIndex];
     
         });
       }
@@ -197,17 +188,18 @@ export class CreateRecipeComponent {
 
 prelozene:string = "";
 translate = require("deepl");
-
+uprava: string[] = [];
 private createRecipe(value: Number) {
 
   this.translate({
     free_api: true,
-    text: this.vybrane.join().toString(),
+    text: this.vybrane.join(", ").toString(),
     target_lang: 'EN',
     auth_key: '923f8dba-d7c4-496b-b27f-231233ba7f29:fx',
   })
   .then(result => {
-      this.prelozene = result.data.translations[0].text;  
+
+      this.prelozene = result.data.translations[0].text;
       this.recipesServíce.getCalories(this.prelozene)
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
@@ -243,7 +235,7 @@ private createRecipe(value: Number) {
             description: this.profileForm.controls['description'].value,
             difficulty: this.profileForm.controls['diff'].value,
             imageURL: this.profileForm.controls['img'].value,
-            ingrediencie: this.vybrane.join(),
+            ingrediencie: this.vybrane.join(', '),
             cas: this.profileForm.controls['cas'].value,
             veganske: this.profileForm.controls['veganske']?.value,
             vegetarianske: this.profileForm.controls['vegetarianske']?.value,
