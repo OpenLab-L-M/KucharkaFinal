@@ -26,20 +26,23 @@ export class FilterPipe implements PipeTransform {
     return items.filter(item => {
       if (item) {
         // Debugging: Log the item and its properties
-  
 
         // Search Bar Filter (filter by recipe name)
         const searchBarMatches = searchBarQuery
           ? item.name.toLowerCase().includes(searchBarQuery)
           : true;
 
-        // Difficulty Filter (only applies if a difficulty is selected)
-        const difficultyMatches = filtersArray.some(filter =>
-          ['lahke', 'pokrocile', 'narocne'].includes(filter)
-        )
-          ? (item.difficulty ? filtersArray.includes(item.difficulty.toLowerCase()) : false)
-          : true;
+         const difficultyMatches = !filtersArray.some(filter =>
+              ['ľahké', 'pokročilé', 'náročné'].includes(filter)
+            )
+              ? true // No difficulty filter selected, so all match
+              : item.difficulty
+                ? filtersArray.includes(item.difficulty.toLowerCase()) //Difficulty in filter array and in recipe, check if recipe matches filter
+                : false; //Recipe has no difficulty, and a difficulty filter is applied
 
+                console.log("Filters Array:", filtersArray); // Double check array
+                console.log("item.difficulty:", item.difficulty); //Check recipe difficulty
+                console.log("difficultyMatches:", difficultyMatches); // Crucial!
         // Dietary Filters
         const veganskeMatches = filtersArray.includes('veganske') ? item.veganske : true;
         const vegetarianskeMatches = filtersArray.includes('vegetarianske') ? item.vegetarianske : true;
@@ -56,24 +59,24 @@ export class FilterPipe implements PipeTransform {
         const kalorieMatches = filtersArray.includes('kalorie') ? item.kalorie <= 500 : true;
         const tukMatches = filtersArray.includes('tuk') ? item.tuky / (item.gramaz / 100) <= 3 : true;
         //raňajky obedy a večere filter
-        const obedyMatches = filtersArray.includes('obedy') ? item.obed : true 
-        const ranajkyMatches = filtersArray.includes('ranajky') ? item.ranajky : true 
-        const vecereMatches = filtersArray.includes('vecere') ? item.vecera : true 
+        const obedyMatches = filtersArray.includes('obedy') ? item.obed : true
+        const ranajkyMatches = filtersArray.includes('ranajky') ? item.ranajky : true
+        const vecereMatches = filtersArray.includes('vecere') ? item.vecera : true
         // Proteinový Prášok Filter
         const proteinovyPrasokMatches = filtersArray.includes('proteinovy') && filtersArray.includes('prasok')
           ? (item.ingrediencie
-              ? item.ingrediencie.toLowerCase().includes('proteinový prášok')
-              : false)
+            ? item.ingrediencie.toLowerCase().includes('proteinový prášok')
+            : false)
           : true;
 
         // Do 5 Surovin Filter
         const do5SurovinMatches = filtersArray.includes('do') && filtersArray.includes('5') && filtersArray.includes('surovin')
           ? (item.ingrediencie
-              ? item.ingrediencie
-                  .split(",")
-                  .filter(ingredient => ingredient.trim() !== "") // Remove empty strings
-                  .length <= 5 // Check if the number of ingredients is <= 5
-              : false)
+            ? item.ingrediencie
+              .split(",")
+              .filter(ingredient => ingredient.trim() !== "") // Remove empty strings
+              .length <= 5 // Check if the number of ingredients is <= 5
+            : false)
           : true;
 
         // Time Filters

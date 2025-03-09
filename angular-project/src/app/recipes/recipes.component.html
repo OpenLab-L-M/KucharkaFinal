@@ -26,15 +26,15 @@
           <div class="filter-group">
             <h4 class="filter-subtitle">Náročnosť <mat-icon>timeline</mat-icon></h4>
             <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="lahke" [(ngModel)]="easyChecked" (ngModelChange)="easyChecked = $event" (click)="filterRecipesByDifficulty('lahke')" (click)="call()" [disabled]="sSearchRecept.includes('pokrocile') || sSearchRecept.includes('narocne')">
+              <input type="checkbox" value="ľahké" [(ngModel)]="easyChecked" (ngModelChange)="easyChecked = $event" (click)="filterRecipesByDifficulty('ľahké')" (click)="call()" [disabled]="sSearchRecept.includes('pokročilé') || sSearchRecept.includes('náročné')">
               <span class="checkbox-label">ľahké</span>
             </label>
             <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="pokrocile" [(ngModel)]="mediumChecked" (ngModelChange)="mediumChecked = $event" (click)="filterRecipesByDifficulty('pokrocile')" (click)="call()" [disabled]="sSearchRecept.includes('lahke') || sSearchRecept.includes('narocne')">
+              <input type="checkbox" value="pokročilé" [(ngModel)]="mediumChecked" (ngModelChange)="mediumChecked = $event" (click)="filterRecipesByDifficulty('pokročilé')" (click)="call()" [disabled]="sSearchRecept.includes('ľahké') || sSearchRecept.includes('náročné')">
               <span class="checkbox-label">pokročilé</span>
             </label>
             <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="narocne" [(ngModel)]="hardChecked" (ngModelChange)="hardChecked = $event" (click)="filterRecipesByDifficulty('narocne')" (click)="call()" [disabled]="sSearchRecept.includes('pokrocile') || sSearchRecept.includes('lahke')">
+              <input type="checkbox" value="náročné" [(ngModel)]="hardChecked" (ngModelChange)="hardChecked = $event" (click)="filterRecipesByDifficulty('náročné')" (click)="call()" [disabled]="sSearchRecept.includes('pokročilé') || sSearchRecept.includes('ľahké')">
               <span class="checkbox-label">náročné</span>
             </label>
           </div>

@@ -212,9 +212,9 @@ submit(){
       auth_key: '923f8dba-d7c4-496b-b27f-231233ba7f29:fx',  
     })
     .then(result => {
-      const translatedIngredients = result.data.translations[0].text; 
+      let translatedIngredients = result.data.translations[0].text; 
   
-      this.recipeService.getCalories(translatedIngredients.replace(/,/g, ' '))  // Use translated ingredients for getCalories
+      this.recipeService.getCalories(translatedIngredients)  // Use translated ingredients for getCalories
         .pipe(takeUntil(this.destroy$))
         .subscribe(
           result => {

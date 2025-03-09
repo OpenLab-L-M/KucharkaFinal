@@ -208,7 +208,7 @@ private createRecipe(value: Number) {
   })
   .then(result => {
       this.prelozene = result.data.translations[0].text;  
-      this.recipesServíce.getCalories(this.prelozene.replace(/,/g, ' '))
+      this.recipesServíce.getCalories(this.prelozene)
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
           this.data = result;
