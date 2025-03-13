@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { RecipesService } from 'src/services/recipes.service';
-import { RecipesDTO } from 'src/app/recipes/RecipesDTO';
+import { RecipesDTO } from 'src/app/DTOs/RecipesDTO';
 import { Subject, takeUntil } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -16,7 +16,7 @@ import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular
 import { MatInput, MatInputModule } from '@angular/material/input';
 
 
-import {CreatorDTO} from 'src/app/recipes/CreatorDTO';
+import {CreatorDTO} from 'src/app/DTOs/CreatorDTO';
 import { DataSource } from '@angular/cdk/collections';
 import { MatPseudoCheckbox } from '@angular/material/core';
 

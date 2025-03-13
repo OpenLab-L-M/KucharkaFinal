@@ -1,12 +1,12 @@
 import { HttpClient, HttpHeaders, HttpStatusCode } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { RecipesDTO } from 'src/app/recipes/RecipesDTO'
+import { RecipesDTO } from 'src/app/DTOs/RecipesDTO'
 import { createRecipe } from '../app/create-recipe/createRecipe';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { EditDTO } from 'src/app/recipes-details/recipes-details.component';
-import {ImageDTO} from "../app/recipes/ImageDTO";
-import { RecensionsDTO } from 'src/app/recipes-details/recensions-dto';
+import {ImageDTO} from "../app/DTOs/ImageDTO";
+import { RecensionsDTO } from 'src/app/DTOs/recensions-dto';
 import { FormArray } from '@angular/forms';
 
 @Injectable({

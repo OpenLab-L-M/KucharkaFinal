@@ -194,6 +194,31 @@ namespace AspNetCoreAPI.Controllers
 
 
         }
+        [HttpGet("/getList")]
+        public IEnumerable<nakupnyListDTO> ReturnOurList()
+        {
+            var zDb = _context.NakupnyLists;
+            return zDb.Select(Listvar =>
+            new nakupnyListDTO
+            {
+                Name = Listvar.Name,
+                isChecked = Listvar.isChecked,
+            });
+        }
+
+        [HttpPost("/addToList")]
+        public void AddToList(nakupnyListDTO newAdditionToCollection)
+        {
+            var nakupnyListek = new NakupnyList()
+            {
+                Name = newAdditionToCollection.Name,
+                isChecked = false,
+                UserId = GetCurrentUser().Id
+
+            };
+            _context.Add(nakupnyListek);
+            _context.SaveChanges();
+        }
 
         [HttpGet("/userprofile/usersfavrecipes")]
         public IEnumerable<RecipesDTO> userfavrecipes()
@@ -237,6 +262,7 @@ namespace AspNetCoreAPI.Controllers
 
             return _context.Users.SingleOrDefault(user => user.UserName == userName);
         }
+
         
         [Route("upload")]
         [HttpPost]

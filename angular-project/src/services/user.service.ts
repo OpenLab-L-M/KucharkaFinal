@@ -2,12 +2,13 @@ import { Inject, Injectable, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { UserDTO } from 'src/app/user-profile/UserDTO';
-import { RecipesDTO } from 'src/app/recipes/RecipesDTO';
-import {CreatorDTO} from "../app/recipes/CreatorDTO";
-import { RecensionsDTO } from 'src/app/recipes-details/recensions-dto';
-import { PasswordDTO } from 'src/app/user-profile/PasswordDTO';
+import { UserDTO } from 'src/app/DTOs/UserDTO';
+import { RecipesDTO } from 'src/app/DTOs/RecipesDTO';
+import {CreatorDTO} from "../app/DTOs/CreatorDTO";
+import { RecensionsDTO } from 'src/app/DTOs/recensions-dto';
+import { PasswordDTO } from 'src/app/DTOs/PasswordDTO';
 import { Action } from 'rxjs/internal/scheduler/Action';
+import { NakupnyZoznam } from 'src/app/DTOs/NakupnyZoznamDTO';
 
 
 @Injectable({
@@ -50,4 +51,14 @@ export class UserService {
   changePassword(newPassword: PasswordDTO){
     return this.httpClient.post<boolean>(this.userUrl + "/changePassword", newPassword)
   }
+
+
+
+  pridatDoNakupnehoZoznamu(novaIngrediencia: NakupnyZoznam){
+    return this.httpClient.post<boolean>(this.baseUrl + "/addToList", novaIngrediencia)
+  }
+  getList(){
+    return this.httpClient.get<NakupnyZoznam[]>(this.baseUrl + "/getList")
+  }
+
 }

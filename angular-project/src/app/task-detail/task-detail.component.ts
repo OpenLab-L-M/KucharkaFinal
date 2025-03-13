@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { TaskService } from 'src/services/task.service';
-import { TaskDTO } from '../task-list/TaskDTO';
+import { TaskDTO } from '../DTOs/TaskDTO';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
 import { resourceChangeTicket } from '@angular/compiler-cli/src/ngtsc/core';

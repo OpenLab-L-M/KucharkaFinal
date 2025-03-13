@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { RecipesService } from 'src/services/recipes.service';
-import { RecipesDTO } from '../recipes/RecipesDTO';
+import { RecipesDTO } from '../DTOs/RecipesDTO';
 import { Subject, takeUntil } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -16,9 +16,9 @@ import {MatFormField, MatFormFieldModule, MatLabel} from '@angular/material/form
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatInput, MatInputModule } from '@angular/material/input';
-import { RecensionsDTO } from './recensions-dto';
+import { RecensionsDTO } from '../DTOs/recensions-dto';
 
-import {CreatorDTO} from 'src/app/recipes/CreatorDTO';
+import {CreatorDTO} from 'src/app/DTOs/CreatorDTO';
 import { DataSource } from '@angular/cdk/collections';
 import { MatPseudoCheckbox } from '@angular/material/core';
 import * as translate from 'deepl'; 

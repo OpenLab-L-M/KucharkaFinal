@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { RecipesDTO } from 'src/app/recipes/RecipesDTO';
+import { RecipesDTO } from 'src/app/DTOs/RecipesDTO';
 
 @Pipe({
   standalone: true,
@@ -48,9 +48,9 @@ export class FilterPipe implements PipeTransform {
         const vegetarianskeMatches = filtersArray.includes('vegetarianske') ? item.vegetarianske : true;
 
         // Course Filters
-        const salatyMatches = filtersArray.includes('salaty') ? item.name.includes('šalát') : true;
-        const polievkyMatches = filtersArray.includes('polievky') ? item.name.includes('polievka') : true;
-        const natierkyMatches = filtersArray.includes('natierky') ? item.name.includes('nátierka') : true;
+        const salatyMatches = filtersArray.includes('salaty') ? item.name.toLowerCase().includes('šalát') : true;
+        const polievkyMatches = filtersArray.includes('polievky') ? item.name.toLowerCase().includes('polievka') : true;
+        const natierkyMatches = filtersArray.includes('natierky') ? item.name.toLowerCase().includes('nátierka') : true;
 
         // Preference Filters
         const cukorMatches = filtersArray.includes('cukor') ? item.cukor / (item.gramaz / 100) === 0 : true;

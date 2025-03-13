@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, inject, Inject, OnInit } from '@angular/core';
-import { IngredienceDTO } from '../IngredienceDTO';
+import { IngredienceDTO } from '../../DTOs/IngredienceDTO';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { DialogOverviewExampleDialog } from 'src/app/user-profile/user-profile.component';
-import { UserDTO } from 'src/app/user-profile/UserDTO';
+import { UserDTO } from 'src/app/DTOs/UserDTO';
 import { UserService } from 'src/services/user.service';
 import { HttpClient } from '@angular/common/http';
 import { IngredientService } from '../IngredientService';

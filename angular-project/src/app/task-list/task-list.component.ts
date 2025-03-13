@@ -2,7 +2,7 @@ import {LiveAnnouncer} from '@angular/cdk/a11y';
 import {AfterViewInit, Component, ViewChild, inject, numberAttribute, signal} from '@angular/core';
 import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import  { TaskDTO } from './TaskDTO'
+import  { TaskDTO } from '../DTOs/TaskDTO'
 import { TaskService } from 'src/services/task.service';
 import { Subject, takeUntil } from 'rxjs';
 import { CommonModule, DatePipe } from '@angular/common';

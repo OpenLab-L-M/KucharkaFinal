@@ -26,6 +26,7 @@ import { TaskDetailComponent } from './app/task-detail/task-detail.component';
 import { FinishedTasksComponent } from './app/finished-tasks/finished-tasks.component';
 import { PrintPageComponent } from './app/recipes-details/print-page/print-page.component';
 import { ConfirmEmailComponent } from './app/api-authorization/login/confirm-email/confirm-email.component';
+import { NakupnyZoznamComponent } from './app/nakupny-zoznam/nakupny-zoznam.component';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -77,6 +78,7 @@ bootstrapApplication(AppComponent, {
           path: 'PrintPage/:id', component: PrintPageComponent
         },
         { path: 'confirmEmail', component: ConfirmEmailComponent},
+        { path: 'nakupnyZoznam/:name', component: NakupnyZoznamComponent},
         
       ]),
       provideFirebaseApp(() => initializeApp({"projectId":"kucharka-f23d5","appId":"1:877324679360:web:88055d30f344841e0e9525","storageBucket":"kucharka-f23d5.firebasestorage.app","apiKey":"AIzaSyDizY3tqEbDJtkzWPiHD8-okoWu2RuMgbA","authDomain":"kucharka-f23d5.firebaseapp.com","messagingSenderId":"877324679360","measurementId":"G-F1FYEFP6YM"})), provideAnalytics(() => getAnalytics()), ScreenTrackingService, provideStorage(() => getStorage())

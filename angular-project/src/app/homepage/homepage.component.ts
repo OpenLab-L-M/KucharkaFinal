@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterLink } from '@angular/router';
-import { ImageDTO } from '../recipes/ImageDTO';
-import { CreatorDTO } from '../recipes/CreatorDTO';
+import { ImageDTO } from '../DTOs/ImageDTO';
+import { CreatorDTO } from '../DTOs/CreatorDTO';
 import { RecipesService } from 'src/services/recipes.service';
 import { forkJoin, Subject, takeUntil } from 'rxjs';
-import { RecipesDTO } from '../recipes/RecipesDTO';
+import { RecipesDTO } from '../DTOs/RecipesDTO';
 import { UserService } from 'src/services/user.service';
-import { UserDTO } from '../user-profile/UserDTO';
+import { UserDTO } from '../DTOs/UserDTO';
 import { NgFor, NgIf } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { FilterPipe } from 'src/pipes/filter-pipe.pipe';

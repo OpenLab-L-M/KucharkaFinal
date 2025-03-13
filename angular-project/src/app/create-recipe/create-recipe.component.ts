@@ -8,7 +8,7 @@ import {MatFormField, MatFormFieldModule, MatLabel} from '@angular/material/form
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { Router, RouterLink } from '@angular/router';
 import { RecipesService } from 'src/services/recipes.service';
-import { RecipesDTO } from '../recipes/RecipesDTO';
+import { RecipesDTO } from '../DTOs/RecipesDTO';
 import { signal } from '@angular/core';
 import { createRecipe } from './createRecipe';
 import {catchError, delay, Observable, Subject, takeUntil} from 'rxjs';
@@ -27,9 +27,9 @@ import {
   MatDialogTitle
 } from "@angular/material/dialog";
 import {CommonModule, NgFor, NgForOf, NgIf} from "@angular/common";
-import {UserDTO} from "../user-profile/UserDTO";
+import {UserDTO} from "../DTOs/UserDTO";
 import {UserService} from "../../services/user.service";
-import {IngredienceDTO} from "./IngredienceDTO";
+import {IngredienceDTO} from "../DTOs/IngredienceDTO";
 import {IngredientService} from "./IngredientService";
 import {
   CdkDragDrop,

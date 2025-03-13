@@ -1,4 +1,4 @@
-import { IngredienceDTO } from "../create-recipe/IngredienceDTO";
+import { IngredienceDTO } from "./IngredienceDTO";
 
 export class RecipesDTO{
     id: number;

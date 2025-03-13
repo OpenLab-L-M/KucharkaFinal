@@ -1,6 +1,6 @@
 import {Component, computed, effect, signal, Inject, Output, inject} from '@angular/core';
 import { UserService } from 'src/services/user.service';
-import { UserDTO } from './UserDTO';
+import { UserDTO } from '../DTOs/UserDTO';
 import { CommonModule, DecimalPipe, NgIf } from '@angular/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -17,16 +17,18 @@ import { MatDialogClose } from '@angular/material/dialog';
 import { MatIconAnchor } from '@angular/material/button';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { RecipesDTO } from '../recipes/RecipesDTO';
+import { RecipesDTO } from '../DTOs/RecipesDTO';
 import { MatTableDataSource } from '@angular/material/table';
 import {forkJoin, Subject, take, takeUntil} from 'rxjs';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatInputModule } from '@angular/material/input';
-import {ImageDTO} from "../recipes/ImageDTO";
-import {CreatorDTO} from "../recipes/CreatorDTO";
-import { RecensionsDTO } from '../recipes-details/recensions-dto';
+import {ImageDTO} from "../DTOs/ImageDTO";
+import {CreatorDTO} from "../DTOs/CreatorDTO";
+import { RecensionsDTO } from '../DTOs/recensions-dto';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { getBaseUrl } from 'src/main';
+
+import {CdkAccordionModule} from '@angular/cdk/accordion';
 
 export interface DialogData {
   animal: string;
@@ -38,7 +40,7 @@ export interface DialogData {
   standalone: true,
   imports: [NgFor,
     NgIf, MatIconModule, MatIconAnchor, MatButtonModule, MatCardModule, RouterLink, MatDialogClose, MatFormField, MatTooltip, ReactiveFormsModule, MatLabel, DecimalPipe,
-    RouterLink, CommonModule],
+    RouterLink, CommonModule,CdkAccordionModule],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss'
 })
@@ -84,6 +86,34 @@ export class UserProfileComponent {
   cancel(){
     this.clicked = false;
   }
+  chcemNakupnyZoznam: boolean;
+  zobrazNakupnyZoznamBtn(){
+    this.chcemNakupnyZoznam = true;
+    this.chcemRecepty = false;
+    this.chcemTasky = false;
+  }
+  chcemRecepty: boolean = true;
+  zobrazReceptyBtn(){
+    this.chcemNakupnyZoznam = false;
+    this.chcemRecepty = true;
+    this.chcemTasky = false;
+  }
+  chcemTasky: boolean;
+  zobrazTaskyBtn(){
+    this.chcemNakupnyZoznam = false;
+    this.chcemRecepty = false;
+    this.chcemTasky = true;
+  }
+  navigujInde(){
+    this.router.navigate(['Recipes']);
+  }
+  items = ['Pondelok', 'Utorok', 'Streda', 'Štvrtok', 'Piatok', 'Sobota', 'Nedeľa'];
+  expandedIndex = 0;
+
+
+
+
+
   submit(){
     
     this.newPassword = this.changePassword.controls["newPassword"].value;
@@ -187,6 +217,7 @@ export class UserProfileComponent {
   public getImage(id: number, ) {
     return `data:image/jpeg;base64,${this.imageDTO.find(image => image.id === id).image}`;
   }
+
 }
 
 @Component({

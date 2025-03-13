@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import {FormControl, FormGroup, FormsModule, NgModel, ReactiveFormsModule, Validators} from '@angular/forms';
-import { TaskDTO } from '../task-list/TaskDTO';
+import { TaskDTO } from '../DTOs/TaskDTO';
 import { TaskService } from 'src/services/task.service';
 import { buffer, min, Subject, takeUntil } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';

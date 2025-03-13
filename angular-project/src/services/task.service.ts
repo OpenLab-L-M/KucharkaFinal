@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { TaskDTO } from 'src/app/task-list/TaskDTO';
+import { TaskDTO } from 'src/app/DTOs/TaskDTO';
 
 @Injectable({
   providedIn: 'root'

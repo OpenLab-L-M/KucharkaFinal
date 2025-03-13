@@ -24,7 +24,8 @@ namespace AspNetCoreAPI.Data
     public DbSet<LikeRecensions> LikeRecensions { get; set; } = default!;
     public DbSet<Postupy> Postupiky { get; set; } = default!;
     public DbSet<TaskList> Tasks { get; set; }
-    
+    public DbSet<NakupnyList> NakupnyLists { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
