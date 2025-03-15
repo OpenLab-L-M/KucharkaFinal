@@ -57,8 +57,8 @@ export class UserService {
   pridatDoNakupnehoZoznamu(novaIngrediencia: NakupnyZoznam){
     return this.httpClient.post<NakupnyZoznam>(this.baseUrl + "/addToList", novaIngrediencia)
   }
-  getList(){
-    return this.httpClient.get<NakupnyZoznam[]>(this.baseUrl + "/getList")
+  getList(day: string){
+    return this.httpClient.get<NakupnyZoznam[]>(this.baseUrl + "/getList/" + day)
   }
   checkOwned(id: number){
     return this.httpClient.put<void>(this.baseUrl + '/checkOwned', id)

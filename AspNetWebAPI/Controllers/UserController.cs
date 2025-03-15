@@ -213,13 +213,14 @@ namespace AspNetCoreAPI.Controllers
 
 
         }
-        [HttpGet("/getList")]
-        public IEnumerable<nakupnyListDTO> ReturnOurList()
+        [HttpGet("/getList/{day}")]
+        public IEnumerable<nakupnyListDTO> ReturnOurList([FromRoute] string Day)
         {
-            var zDb = _context.NakupnyLists;
+            var zDb = _context.NakupnyLists.Where(x => x.Day == Day && GetCurrentUser().Id == x.UserId);
             return zDb.Select(Listvar =>
             new nakupnyListDTO
             {
+                Day = Listvar.Day,
                 Id = Listvar.Id,
                 Name = Listvar.Name,
                 isChecked = Listvar.isChecked,
@@ -231,6 +232,7 @@ namespace AspNetCoreAPI.Controllers
         {
             var nakupnyListek = new NakupnyList()
             {
+                Day = newAdditionToCollection.Day,
                 Name = newAdditionToCollection.Name,
                 isChecked = false,
                 UserId = GetCurrentUser().Id
@@ -242,6 +244,7 @@ namespace AspNetCoreAPI.Controllers
             return new nakupnyListDTO
             {
                 Id = nakupnyListek.Id,
+                Day = nakupnyListek.Day,
                 Name = nakupnyListek.Name,
                 isChecked = nakupnyListek.isChecked,
             };
