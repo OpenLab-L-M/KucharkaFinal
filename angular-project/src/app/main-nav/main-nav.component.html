@@ -16,7 +16,6 @@
         <button id="white" mat-button (click)="logout()">Logout</button>
         <button id="white" mat-button [routerLink]="['/Homepage']" [ngClass]="{'active': isActive('/Homepage')}">Domov</button>
         <button id="white" mat-button [routerLink]="['/Recipes']" [ngClass]="{'active': isActive('/Recipes')}">Recepty</button>
-        <button id="white" mat-button [routerLink]="['/nakupnyZoznam']" [ngClass]="{'active': isActive('/nakupnyZoznam')}">Nákupný zoznam</button>
         <button id="white" mat-button [routerLink]="['/taskList']" [ngClass]="{'active': isActive('/taskList')}">Úlohy</button>
         <button id="white" mat-button [routerLink]="['/finishedTasks']" [ngClass]="{'active': isActive('/finishedTasks')}">Hotové úlohy</button>
         <button (click)="getCurrentUserName()" id="white" mat-button [ngClass]="{'active': isActive('/userProfile')}">
@@ -36,7 +35,6 @@
         <button id="white" mat-button [routerLink]="['/Recipes']" [ngClass]="{'active': isActive('/Recipes')}">Recepty</button>
         <button id="white" mat-button [routerLink]="['/taskList']" [ngClass]="{'active': isActive('/taskList')}">Úlohy</button>
         <button id="white" mat-button [routerLink]="['/finishedTasks']" [ngClass]="{'active': isActive('/finishedTasks')}">Hotové úlohy</button>
-        <button id="white" mat-button [routerLink]="['/nakupnyZoznam']" [ngClass]="{'active': isActive('/nakupnyZoznam')}">Nákupný zoznam</button>
         <button (click)="getCurrentUserName()" id="white" mat-button [ngClass]="{'active': isActive('/userProfile')}">
           <mat-icon>account_circle</mat-icon>
         </button>

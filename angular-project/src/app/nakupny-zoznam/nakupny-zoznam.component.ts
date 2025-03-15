@@ -1,8 +1,8 @@
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserService } from 'src/services/user.service';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, take, takeUntil } from 'rxjs';
 import { NakupnyZoznam } from '../DTOs/NakupnyZoznamDTO';
 
 @Component({
@@ -13,7 +13,7 @@ import { NakupnyZoznam } from '../DTOs/NakupnyZoznamDTO';
   styleUrl: './nakupny-zoznam.component.css'
 })
 export class NakupnyZoznamComponent {
-  ingrediencie: NakupnyZoznam[] = [];
+  ingrediencie = signal<NakupnyZoznam[]>([]);
   nIngrediencie: string[] = [];
   
   userService = inject(UserService);
@@ -24,7 +24,7 @@ export class NakupnyZoznamComponent {
   ngOnInit(){
     this.userService.getList()
     .pipe(takeUntil(this.destroy$))
-    .subscribe(result => this.ingrediencie = result);
+    .subscribe(result => this.ingrediencie.set(result));
   }
 
   addIngredient(){
@@ -33,10 +33,16 @@ export class NakupnyZoznamComponent {
       name: this.addIngr.value,
       isChecked: this.pIsChecked.value,
     }).pipe(takeUntil(this.destroy$))
-    .subscribe()
+    .subscribe(result => this.ingrediencie.update(x => [...x, result]))
     this.addIngr.reset;
     
 
+  }
+
+  checkOwned(id: number){
+    this.userService.checkOwned(id)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe();
   }
 
 }

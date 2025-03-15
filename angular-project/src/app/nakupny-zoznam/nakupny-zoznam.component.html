@@ -1,22 +1,22 @@
 <body>
-    <div class="ingredient-container">
-      <!-- Add Ingredient Form -->
-      <div class="add-ingredient-form">
-        <label for="addIngr" class="form-label">Pridaj svoju ingredienciu:</label>
-        <div class="input-group">
-          <input id="addIngr" type="text" [formControl]="addIngr" class="form-input" placeholder="Zadaj názov ingrediencie">
-          <button (click)="addIngredient()" class="add-button">Pridať</button>
-        </div>
-      </div>
-  
-      <!-- List of Ingredients -->
-      <div class="ingredient-list">
-        <div *ngFor="let ingredient of ingrediencie" class="ingredient-item">
-          <label for="ingredient-{{ingredient}}" class="ingredient-label">
-            <input id="ingredient-{{ingredient}}" [formControl]="pIsChecked" type="checkbox" class="ingredient-checkbox">
-            <span class="ingredient-text">{{ingredient.name}}</span>
-          </label>
-        </div>
+  <div class="ingredient-container">
+    <!-- Add Ingredient Form -->
+    <div class="add-ingredient-form">
+      <label for="addIngr" class="form-label">Pridaj svoju ingredienciu:</label>
+      <div class="input-group">
+        <input id="addIngr" type="text" [formControl]="addIngr" class="form-input" placeholder="Zadaj názov ingrediencie">
+        <button (click)="addIngredient()" class="add-button">Pridať</button>
       </div>
     </div>
-  </body>
+
+    <!-- List of Ingredients -->
+    <div class="ingredient-list">
+      <div *ngFor="let ingredient of ingrediencie()" class="ingredient-item">
+        <label for="ingredient-{{ingredient}}" class="ingredient-label">
+          <input id="ingredient-{{ingredient}}" [formControl]="pIsChecked" type="checkbox" class="ingredient-checkbox" (click)="checkOwned(ingredient.id)">
+          <span class="ingredient-text">{{ingredient.name}}</span>
+        </label>
+      </div>
+    </div>
+  </div>
+</body>

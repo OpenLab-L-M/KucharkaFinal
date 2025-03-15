@@ -98,7 +98,26 @@ namespace AspNetCoreAPI.Controllers
             }
 
         }
-        
+
+        [HttpPut("/checkOwned")]
+        public void CheckOwned([FromBody] int id)
+        {
+            
+            var uprava = _context.NakupnyLists.FirstOrDefault(x => x.Id == id);
+            if(uprava.isChecked == false)
+            {
+                uprava.isChecked = true;
+                _context.SaveChanges();
+            }
+
+            else
+            {
+                uprava.isChecked = false;
+                _context.SaveChanges();
+            }
+
+        }
+
         [HttpGet("/clickedUserProfile/{userName}")]
         public GetUserDTO? returnClickedUser([FromRoute] string userName)
         {
@@ -201,13 +220,14 @@ namespace AspNetCoreAPI.Controllers
             return zDb.Select(Listvar =>
             new nakupnyListDTO
             {
+                Id = Listvar.Id,
                 Name = Listvar.Name,
                 isChecked = Listvar.isChecked,
             });
         }
 
         [HttpPost("/addToList")]
-        public void AddToList(nakupnyListDTO newAdditionToCollection)
+        public nakupnyListDTO AddToList(nakupnyListDTO newAdditionToCollection)
         {
             var nakupnyListek = new NakupnyList()
             {
@@ -218,6 +238,13 @@ namespace AspNetCoreAPI.Controllers
             };
             _context.Add(nakupnyListek);
             _context.SaveChanges();
+
+            return new nakupnyListDTO
+            {
+                Id = nakupnyListek.Id,
+                Name = nakupnyListek.Name,
+                isChecked = nakupnyListek.isChecked,
+            };
         }
 
         [HttpGet("/userprofile/usersfavrecipes")]
