@@ -9,6 +9,7 @@ import {ImageDTO} from "../app/DTOs/ImageDTO";
 import { RecensionsDTO } from 'src/app/DTOs/recensions-dto';
 import { FormArray } from '@angular/forms';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -32,7 +33,8 @@ export class RecipesService {
   getAllImages(): Observable<ImageDTO[]> {
     return this.http.get<ImageDTO[]>(this.baseUrl + "/getAllImages");
   }
-
+  //gemini api key: AIzaSyDsaNk1Gesqy1mFhA5Maj-w83uUClWzr-8
+  //chatbot API: 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
   CreateRecipe(RecipesDTO: {
     difficulty: string;
     ingrediencie: string;
