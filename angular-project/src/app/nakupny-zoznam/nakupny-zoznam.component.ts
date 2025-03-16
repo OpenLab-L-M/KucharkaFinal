@@ -24,6 +24,7 @@ export class NakupnyZoznamComponent {
   
   ngOnInit(){
     const day = this.route.snapshot.paramMap.get('name');
+    
     console.log(day);
     this.userService.getList(day)
     .pipe(takeUntil(this.destroy$))
