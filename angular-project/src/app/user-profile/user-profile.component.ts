@@ -217,7 +217,11 @@ export class UserProfileComponent {
   public getImage(id: number, ) {
     return `data:image/jpeg;base64,${this.imageDTO.find(image => image.id === id).image}`;
   }
-
+  DeleteWholeNakupnyZoznam(){
+    this.userService.deleteWhole()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe();
+  }
 }
 
 @Component({

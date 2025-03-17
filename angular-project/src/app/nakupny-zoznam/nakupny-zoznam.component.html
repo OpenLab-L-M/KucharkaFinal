@@ -9,21 +9,27 @@
       </div>
     </div>
 
-    <!-- List of Ingredients -->
-    <div class="ingredient-list">
-      <div *ngFor="let ingredient of ingrediencie()" class="ingredient-item">
-        <label for="ingredient-{{ingredient.id}}" class="ingredient-label">
-          <input id="ingredient-{{ingredient.id}}" type="checkbox" class="ingredient-checkbox" (click)="checkOwned(ingredient.id)">
-          <span class="ingredient-text">{{ingredient.name}}</span>
-        </label>
+    <!-- Two-column layout -->
+    <div class="two-column-layout">
+      <!-- List of Ingredients -->
+      <div class="ingredient-list">
+        <div *ngFor="let ingredient of ingrediencie()" class="ingredient-item">
+          <label for="ingredient-{{ingredient.id}}" class="ingredient-label">
+            <input id="ingredient-{{ingredient.id}}" type="checkbox" class="ingredient-checkbox" (click)="checkOwned(ingredient.id)">
+            <span class="ingredient-text">{{ingredient.name}}</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Price Display -->
+      <div class="price-display">
+        <div *ngFor="let cena of ceny; let last = last" class="price-item" [class.last-item]="last">
+          <span class="price-text">{{cena}}</span>
+        </div>
       </div>
     </div>
 
-    <!-- Price Display -->
-    <div class="price-display">
-      <div *ngFor="let cena of ceny; let last = last" class="price-item" [class.last-item]="last">
-        {{cena}}
-      </div>
-    </div>
+    <!-- Delete Button -->
+    <button (click)="DeleteSpecific()" class="delete-button">Delete saved list</button>
   </div>
 </body>

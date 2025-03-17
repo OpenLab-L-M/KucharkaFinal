@@ -46,7 +46,7 @@ export class NakupnyZoznamComponent {
  async TestGeminiPro() {
   // Model initialisation missing for brevity
 
-  const prompt = 'napíš mi orientačné ceny týchto potravín v slovenských obchodoch(názov potraviny vedľa nej cenu v eurách stačí ako odpoveď, text vypíš bez upozornení, stačí len potravina a cena,) + daj mi aj celkovú cenu orientačnú za všetky dokopy, výsledok vráť v tejto forme: {názov cena €,} ' + this.nIngrediencie;
+  const prompt = 'napíš mi orientačné ceny týchto potravín v slovenských obchodoch(názov potraviny vedľa nej cenu v eurách stačí ako odpoveď, text vypíš bez upozornení, stačí len potravina a cena) + daj mi aj celkovú cenu orientačnú za všetky dokopy, výsledok vráť v tejto forme: {názov (hmotnosť) cena €,} ' + this.nIngrediencie;
   const result = await this.model.generateContent(prompt);
   const response = await result.response;
   this.ceny = response.text().split(",");
@@ -94,6 +94,12 @@ export class NakupnyZoznamComponent {
 
   checkOwned(id: number){
     this.userService.checkOwned(id)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe();
+  }
+  DeleteSpecific(){
+    this.day = this.route.snapshot.paramMap.get('name');
+    this.userService.deleteSelected(this.day)
     .pipe(takeUntil(this.destroy$))
     .subscribe();
   }

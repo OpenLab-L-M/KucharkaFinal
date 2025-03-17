@@ -63,5 +63,11 @@ export class UserService {
   checkOwned(id: number){
     return this.httpClient.put<void>(this.baseUrl + '/checkOwned', id)
   }
+  deleteWhole(){
+    return this.httpClient.delete(this.baseUrl + "/deleteWhole");
+  }
+  deleteSelected(day: string){
+    return this.httpClient.delete(this.baseUrl + "/deleteSpecific/" + day)
+  }
 
 }

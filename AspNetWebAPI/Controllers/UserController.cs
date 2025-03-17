@@ -213,6 +213,24 @@ namespace AspNetCoreAPI.Controllers
 
 
         }
+        [HttpDelete("/deleteWhole")]
+        public void DeleteWholePlan()
+        {
+            var pocet = _context.NakupnyLists.ExecuteDelete();
+
+        }
+        [HttpDelete("/deleteSpecific/{day}")]
+        public void DeleteSelectedDay([FromRoute] string day)
+        {
+
+            var naVymaz = _context.NakupnyLists.Where(x => x.Day == day);
+            foreach (var vymaz in naVymaz)
+            {
+                _context.Remove(vymaz);
+            }
+
+            _context.SaveChanges();
+        }
         [HttpGet("/getList/{day}")]
         public IEnumerable<nakupnyListDTO> ReturnOurList([FromRoute] string Day)
         {
