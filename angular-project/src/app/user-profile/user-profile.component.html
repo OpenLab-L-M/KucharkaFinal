@@ -13,8 +13,8 @@
             <p>{{this.user.userName}}</p>
           </div>
           <div *ngIf="user.userName == currentUserUsername" class="button_position">
-            <button mat-raised-button (click)="openDialog()"><mat-icon>create</mat-icon>Edit</button>
-            <button mat-raised-button (click)="cancel()">Check Your Recipes</button>
+            <button mat-raised-button color="primary" (click)="openDialog()"><mat-icon>create</mat-icon>Edit</button>
+            <button mat-raised-button color="accent" (click)="cancel()">Check Your Recipes</button>
           </div>
         </div>
       </div>
@@ -58,9 +58,9 @@
       <p>{{this.user.profileName}}</p>
     </div>
     <div class="obsah">
-      <button (click)="zobrazNakupnyZoznamBtn()">Nákupný zoznam</button>
-      <button (click)="zobrazReceptyBtn()">Recepty</button>
-      <button (click)="zobrazTaskyBtn()">Tasky</button>
+      <button mat-raised-button color="primary" (click)="zobrazNakupnyZoznamBtn()">Nákupný zoznam</button>
+      <button mat-raised-button color="accent" (click)="zobrazReceptyBtn()">Recepty</button>
+      <button mat-raised-button color="warn" (click)="zobrazTaskyBtn()">Tasky</button>
       @if((ourFavRecipes().length > 0 || ourListOfRecipes.length > 0 || recensions.length > 0) && chcemRecepty == true ) {
         <div *ngIf="ourListOfRecipes.length > 0">
           <h1>Your Recipes</h1>
@@ -203,7 +203,7 @@
           </cdk-accordion-item>
           }
         </cdk-accordion>
-        <button (click)="DeleteWholeNakupnyZoznam()">Vymaz svoj nákupný zoznam a nahraj ďalší</button>
+        <button mat-raised-button color="warn" (click)="DeleteWholeNakupnyZoznam()">Vymaz svoj nákupný zoznam a nahraj ďalší</button>
       }
     </div>
   </ng-template>

@@ -46,7 +46,9 @@ export class NakupnyZoznamComponent {
  async TestGeminiPro() {
   // Model initialisation missing for brevity
 
-  const prompt = 'napíš mi orientačné ceny týchto potravín v slovenských obchodoch(názov potraviny vedľa nej cenu v eurách stačí ako odpoveď, text vypíš bez upozornení, stačí len potravina a cena) + daj mi aj celkovú cenu orientačnú za všetky dokopy, výsledok vráť v tejto forme: {názov (hmotnosť) cena €,} ' + this.nIngrediencie;
+  
+  const prompt = 'napíš mi orientačné ceny IBA PRILOŽENÝCH potravín v slovenských obchodoch(názov potraviny vedľa nej cenu v eurách stačí ako odpoveď, text vypíš bez upozornení, stačí len potravina a cena) + daj mi aj celkovú cenu orientačnú za všetky dokopy, výsledok vráť v tejto forme: {názov (hmotnosť) cena €,} ' + this.nIngrediencie;
+  
   const result = await this.model.generateContent(prompt);
   const response = await result.response;
   this.ceny = response.text().split(",");
@@ -71,7 +73,9 @@ export class NakupnyZoznamComponent {
     .subscribe(result => {
       this.ingrediencie.set(result);
       this.nIngrediencie = result.map(ingredient => ingredient.name);
+      if(this.ingrediencie().length > 0){
       this.TestGeminiPro();
+      }
     });
   }
   day: string = "";
@@ -85,7 +89,8 @@ export class NakupnyZoznamComponent {
     }).pipe(takeUntil(this.destroy$))
     .subscribe(result => {this.ingrediencie.update(x => [...x, result])
       this.nIngrediencie = this.ingrediencie().map(x => x.name)
-      this.TestGeminiPro();
+        this.TestGeminiPro();
+
     })
     this.addIngr.reset;
     
