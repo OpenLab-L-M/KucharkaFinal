@@ -106,7 +106,8 @@ export class NakupnyZoznamComponent {
     this.day = this.route.snapshot.paramMap.get('name');
     this.userService.deleteSelected(this.day)
     .pipe(takeUntil(this.destroy$))
-    .subscribe();
+    .subscribe(res => this.ingrediencie.set(null));
+    this.ceny = [];
   }
   
 

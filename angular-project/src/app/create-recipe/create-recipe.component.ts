@@ -44,8 +44,11 @@ import { getBaseUrl } from 'src/main';
 import { AddGramsDialogComponent } from './add-grams-dialog/add-grams-dialog.component';
 import { trigger } from '@angular/animations';
 import * as translate from 'deepl'; // Import the deepl library (assuming it is from npm)
+import { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from '@google/generative-ai';
 
-
+export const environment = {
+  API_KEY: "AIzaSyDsaNk1Gesqy1mFhA5Maj-w83uUClWzr-8",
+};
 @Component({
   selector: 'app-create-recipe',
   standalone: true,
@@ -103,6 +106,13 @@ export class CreateRecipeComponent {
         dialogRef.afterClosed().subscribe(result => {
           console.log(result.grams)
           this.vybrane[event.currentIndex] = result.data +  " " + this.vybrane[event.currentIndex];
+          if(this.profileForm.controls['name'].value != ""){
+            setTimeout(() => this.TestGeminiPro(), 4000)
+          }
+          else{
+            console.log("nezadal si názov receptu, prosím zadaj ho, lebo inak ti neviem napísať vhodné ingrediencie")
+          }
+
     
         });
       }
@@ -189,6 +199,8 @@ export class CreateRecipeComponent {
 prelozene:string = "";
 translate = require("deepl");
 uprava: string[] = [];
+
+
 private createRecipe(value: Number) {
 
   this.translate({
@@ -261,7 +273,36 @@ private createRecipe(value: Number) {
   });
 
 }
-    
+
+ genAI = new GoogleGenerativeAI(environment.API_KEY);
+  generationConfig = {
+   safetySettings: [
+     {
+       category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+       threshold: HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
+     },
+   ],
+   temperature: 0.9,
+   top_p: 1,
+   top_k: 32,
+   maxOutputTokens: 100, // limit output
+ };
+  model = this.genAI.getGenerativeModel({
+   model: 'gemini-2.0-flash', // or 'gemini-pro-vision'
+   ...this.generationConfig,
+ });
+suggestion: string[] = [];
+ async TestGeminiPro() {
+  // Model initialisation missing for brevity
+
+  
+  const prompt = 'Prikladám ti ingrediencie, ' +  this.vybrane + ' z ktorých chcem vytvoriť svoj recept, prosím, vymysli nejaké ďalšie 2 ingrediencie, ktoré by mohli byť chutné a zdravé do tohto receptu a názov receptu ' + this.profileForm.controls['name'].value;
+  
+  const result = await this.model.generateContent(prompt);
+  const response = await result.response;
+  this.suggestion = response.text().split(",");
+  console.log(this.suggestion);
+}
 
 
   openDialogis(): void {
