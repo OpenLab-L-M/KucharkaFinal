@@ -66,7 +66,7 @@ export class CreateRecipeComponent {
   ingredients: string[] = [];
   //ingredients: Array<string>;//= ["múka", "vajíčka", "mlieko", "cukor", "maslo", "soľ", "orechy", "ovocie", "zelenina", "ryža", "cesnak", "cibuľa", "paprika", "kura", "hovädzina", "bravčová", "losos", "tuniak", "olivový olej", "ocet", "korenie", "cestoviny", "zemiaky", "mrkva", "brokolica", "karfiol", "špenát", "jablká", "hrušky", "banány", "pomaranče", "citróny", "jahody", "čučoriedky", "maliny", "čerešne", "broskyne", "marhule", "ananás", "kiwi", "mango", "avokádo", "paradajky", "uhorky", "zeler", "cícer", "sója", "lentičky", "fazuľa", "hrach", "jogurt", "smotana", "syr", "káva", "čaj", "kakao"];
 
-  
+  rada: string = "";
  
   getDataFromChild(e){
     debugger;
@@ -291,7 +291,7 @@ private createRecipe(value: Number) {
    model: 'gemini-2.0-flash', // or 'gemini-pro-vision'
    ...this.generationConfig,
  });
-suggestion: string[] = [];
+suggestions: string[] = [];
  async TestGeminiPro() {
   // Model initialisation missing for brevity
 
@@ -300,8 +300,8 @@ suggestion: string[] = [];
   
   const result = await this.model.generateContent(prompt);
   const response = await result.response;
-  this.suggestion = response.text().split(",");
-  console.log(this.suggestion);
+  this.suggestions = response.text().split(",");
+  console.log(this.suggestions);
 }
 
 
