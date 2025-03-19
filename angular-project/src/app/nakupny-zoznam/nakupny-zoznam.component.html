@@ -15,7 +15,7 @@
       <div class="ingredient-list">
         <div *ngFor="let ingredient of ingrediencie()" class="ingredient-item">
           <label for="ingredient-{{ingredient.id}}" class="ingredient-label">
-            <input id="ingredient-{{ingredient.id}}" type="checkbox" class="ingredient-checkbox" (click)="checkOwned(ingredient.id)">
+            <input id="ingredient-{{ingredient.id}}" type="checkbox" class="ingredient-checkbox" (click)="checkOwned(ingredient.id)" [checked]="ingredient.isChecked">
             <span class="ingredient-text">{{ingredient.name}}</span>
           </label>
         </div>

@@ -25,8 +25,21 @@ body #backgroundos {
   color: #ecf0f1; /* Light gray text for better readability */
   font-family: 'Arial', sans-serif; /* Change font family */
   transition: transform 0.3s ease-in-out; /* Smooth slide animation */
+  overflow: hidden; /* Hide overflow */
 }
 
+/* Wrapper for sidebar content */
+.sidebar-content {
+  height: 100%; /* Take full height of the sidebar */
+  overflow-y: auto; /* Enable scrolling */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+}
+
+/* Hide scrollbar for Chrome, Safari, and Opera */
+.sidebar-content::-webkit-scrollbar {
+  display: none;
+}
 /* Close Button for Mobile */
 .close-sidebar-btn {
   display: none; /* Hidden by default */

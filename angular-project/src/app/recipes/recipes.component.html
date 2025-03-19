@@ -3,7 +3,7 @@
   <mat-drawer-container class="example-container" autosize>
     <!-- Left Sidebar (Filters) -->
     <mat-drawer #drawer class="example-sidenav" mode="side" [opened]="isSidebarOpen">
-      <div class="filter-section">
+      <div class="sidebar-content">
         <!-- Close Button for Mobile -->
         <button mat-icon-button class="close-sidebar-btn" (click)="toggleSidebar()" *ngIf="isMobile">
           <mat-icon>close</mat-icon>
@@ -11,6 +11,7 @@
 
         <h3 class="filter-title">Filters <mat-icon>filter_list</mat-icon></h3>
 
+        <!-- Search Bar -->
         <div class="search-container">
           <input
             type="text"
@@ -21,6 +22,7 @@
           <mat-icon class="search-icon">search</mat-icon>
         </div>
 
+        <!-- Filter Options -->
         <div class="filter-options">
           <!-- Difficulty Filters -->
           <div class="filter-group">
@@ -39,6 +41,7 @@
             </label>
           </div>
           <br>
+
           <!-- Dietary Filters -->
           <div class="filter-group">
             <h4 class="filter-subtitle">Dietne <mat-icon>fastfood</mat-icon></h4>
@@ -52,6 +55,7 @@
             </label>
           </div>
           <br>
+
           <!-- Course Filters -->
           <div class="filter-group">
             <h4 class="filter-subtitle">chod <mat-icon>access_alarm</mat-icon></h4>
@@ -81,6 +85,7 @@
             </label>
           </div>
           <br>
+
           <!-- Preference Filters -->
           <div class="filter-group">
             <h4 class="filter-subtitle">Preferencie <mat-icon>thumb_up</mat-icon></h4>
@@ -114,6 +119,7 @@
             </label>
           </div>
           <br>
+
           <!-- Allergen Filters -->
           <div class="filter-group">
             <h4 class="filter-subtitle">Časová náročnosť <mat-icon>av_timer</mat-icon></h4>
