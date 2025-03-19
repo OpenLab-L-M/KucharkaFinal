@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatLabel } from '@angular/material/form-field';
 import { getBaseUrl } from 'src/main';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-add-grams-dialog',
@@ -20,7 +21,8 @@ import { getBaseUrl } from 'src/main';
     MatDialogContent,
     NgForOf,
     MatButtonModule,
-    MatLabel],
+    MatLabel,
+  MatCheckbox],
   templateUrl: './add-grams-dialog.component.html',
   styleUrl: './add-grams-dialog.component.css'
 })
@@ -28,6 +30,12 @@ export class AddGramsDialogComponent {
   BASE_URL= getBaseUrl();
   ingredience: IngredienceDTO;
   inputString: string = '';
+  selectedUnits = {
+    ks: false,
+    g: false,
+    ml: false
+  };
+  unit: string;
   ingrediences: any = [];
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
@@ -36,10 +44,20 @@ export class AddGramsDialogComponent {
 
  
   selectedIngredients: string = '';
-
+  vyberJednotku(unit : string){
+    if(unit == "g"){
+      this.unit = " g"
+    }
+    else if(unit == "ml"){
+      this.unit = " ml";
+    }
+    else if (unit == "ks"){
+      this.unit = " kusy";
+    }
+  }
   addGrams(){
     this.ingredience = new IngredienceDTO();
-    this.ingredience.grams = this.inputString;
+    this.ingredience.grams = this.inputString + this.unit;
     this.ingrediences.push({ grams: this.ingredience.grams });
     this.dialogRef.close({ data: this.ingredience.grams })
 

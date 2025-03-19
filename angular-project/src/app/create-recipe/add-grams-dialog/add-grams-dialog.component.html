@@ -1,9 +1,13 @@
 <div style="align-items: center; text-align: center;">
-<div class="input-container">
-    <label for="inputString">zadaj množstvo a jednotku(ks/g/ml): </label>
+  <div class="input-container">
+    <label for="inputString">Zadaj množstvo a jednotku (ks/g/ml): </label>
     <input type="text" id="inputString" [(ngModel)]="inputString" name="inputString">
+    <div class="unit-checkboxes">
+      <mat-checkbox [(ngModel)]="selectedUnits.ks" name="ks" value="kusy" (click)="vyberJednotku('kusy')">ks</mat-checkbox>
+      <mat-checkbox [(ngModel)]="selectedUnits.g" name="g" value="g" (click)="vyberJednotku('g')">g</mat-checkbox>
+      <mat-checkbox [(ngModel)]="selectedUnits.ml" name="ml" value="ml" (click)="vyberJednotku('ml')">ml</mat-checkbox>
+    </div>
   </div>
-  <button mat-raised-button (click)="addGrams()" [disabled]="!(inputString.length > 0)" >ulož</button>
-  <button mat-raised-button (click)="onNoClick()" >Close</button>
-
+  <button mat-raised-button (click)="addGrams()" [disabled]="!(inputString.length > 0)">Ulož</button>
+  <button mat-raised-button (click)="onNoClick()">Close</button>
 </div>

@@ -1,0 +1,21 @@
+.input-container {
+    margin-bottom: 20px;
+  }
+
+  .unit-checkboxes {
+    margin-bottom: 20px;
+    text-align: left;
+    padding-left: 16px;
+  }
+
+  mat-checkbox {
+    margin-right: 16px;
+  }
+
+  mat-dialog-content {
+    padding: 16px;
+  }
+
+  mat-dialog-actions {
+    margin-top: 24px;
+  }
