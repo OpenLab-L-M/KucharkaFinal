@@ -8,8 +8,8 @@
             <img id="your_img" *ngIf="this.user.pictureURL" [src]="getImageSrc(this.user.pictureURL)" alt="User Picture" class="profile_img">
             <img id="your_img" class="profile_img" *ngIf="!this.user.pictureURL" src="../../assets/Whithout_profile_picture.jpg">
           </div>
-          <!-- Email Section -->
-          <div class="user-email">
+          <!-- Username Section -->
+          <div class="user-name">
             <p>{{this.user.userName}}</p>
           </div>
           <div *ngIf="user.userName == currentUserUsername" class="button_position">
@@ -46,21 +46,24 @@
   </div>
 
   <ng-template #noCourses class="UserAvaiableContainer">
+    <div class="settings-icon">
+      <mat-icon (click)="chPasswordClicked()" style="cursor: pointer;">settings</mat-icon>
+    </div>
     <div class="profile-picture">
       <img id="your_img" *ngIf="this.user.pictureURL" [src]="getImageSrc(this.user.pictureURL)" alt="User Picture" class="profile_img">
       <img id="your_img" class="profile_img" *ngIf="!this.user.pictureURL" src="../../assets/Whithout_profile_picture.jpg">
     </div>
-    <div *ngIf="user.userName == currentUserUsername">
-      <mat-icon (click)="chPasswordClicked()" style="cursor: pointer;">settings</mat-icon>
-    </div>
-    <!-- Email Section -->
-    <div class="user-email">
+
+    <!-- Username Section -->
+    <div class="user-name">
       <p>{{this.user.profileName}}</p>
     </div>
     <div class="obsah">
-      <button mat-raised-button color="primary" (click)="zobrazNakupnyZoznamBtn()">Nákupný zoznam</button>
-      <button mat-raised-button color="accent" (click)="zobrazReceptyBtn()">Recepty</button>
-      <button mat-raised-button color="warn" (click)="zobrazTaskyBtn()">Tasky</button>
+      <div class="button-container">
+        <button mat-raised-button color="primary" (click)="zobrazNakupnyZoznamBtn()">Nákupný zoznam</button>
+        <button mat-raised-button color="accent" (click)="zobrazReceptyBtn()">Recepty</button>
+      </div>
+
       @if((ourFavRecipes().length > 0 || ourListOfRecipes.length > 0 || recensions.length > 0) && chcemRecepty == true ) {
         <div *ngIf="ourListOfRecipes.length > 0">
           <h1>Your Recipes</h1>
@@ -159,7 +162,7 @@
       }
       @else if((ourFavRecipes().length == 0 || ourListOfRecipes.length == 0 || recensions.length == 0) && chcemRecepty == true ) {
         <ng-template #nicTuNieje>
-          <div *ngIf="user.userName == currentUserUsername">
+          <div class="settings-icon">
             <mat-icon (click)="chPasswordClicked()" style="cursor: pointer;">settings</mat-icon>
           </div>
           <div class="empty-state-container">
@@ -205,59 +208,7 @@
         </cdk-accordion>
         <button mat-raised-button color="warn" (click)="DeleteWholeNakupnyZoznam()">Vymaz svoj nákupný zoznam a nahraj ďalší</button>
       }
-      @else if(chcemTasky == true && tasks.length > 0){
-        <body >
-          <table  mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" 
-                 class="mat-elevation-z8">
-          
-            <!-- Position Column -->
-            <ng-container matColumnDef="priority">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by priority">
-                Priority
-              </th>
-              <td mat-cell *matCellDef="let task"> {{task.priority}} </td>
-            </ng-container>
-          
-            <!-- Name Column -->
-            <ng-container matColumnDef="name" >
-              <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name" >
-                Name
-              </th>
-              <td mat-cell *matCellDef="let task" (click)="navigateToTaskDetail(task.id)"> {{task.name }} </td>
-            </ng-container>
-          
-            <!-- Weight Column -->
-            <ng-container matColumnDef="startTime">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by weight">
-                startTime
-              </th>
-              <td mat-cell *matCellDef="let task" > {{task.startTime | date: 'short'}} </td>
-            </ng-container>
-          
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="deadLine">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by deadLine">
-                deadLine
-              </th>
-              <td mat-cell *matCellDef="let task"> {{task.deadLine | date: 'short'}} </td>
-            </ng-container>
-          
-            <ng-container matColumnDef="button">
-              <th mat-header-cell *matHeaderCellDef >
-                
-                <mat-icon mat-cell *matCellDef="let task" (click)="changeToFinishedOrUnfinished(task.id)" style="cursor: pointer;">done_outline</mat-icon>
-              </th>
-            </ng-container>
-            
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
-          <div class="create">
-            <button id="create_link" [routerLink]="['/createTask']" matTooltip="vytvor novú úlohu"><mat-icon>add</mat-icon></button>
-          </div>
-          </body>
-          
-      }
+    
     </div>
   </ng-template>
 </body>

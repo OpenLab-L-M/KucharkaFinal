@@ -1,4 +1,4 @@
-import {Component, computed, effect, signal, Inject, Output, inject, ViewChild} from '@angular/core';
+import {Component, computed, effect, signal, Inject, Output, inject, ViewChild, AfterViewInit} from '@angular/core';
 import { UserService } from 'src/services/user.service';
 import { UserDTO } from '../DTOs/UserDTO';
 import { CommonModule, DatePipe, DecimalPipe, NgIf } from '@angular/common';
@@ -34,6 +34,7 @@ import { TaskService } from 'src/services/task.service';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 
+
 export interface DialogData {
   animal: string;
   name: string;
@@ -44,7 +45,7 @@ export interface DialogData {
   standalone: true,
   imports: [NgFor,
     NgIf, MatIconModule, MatIconAnchor, MatButtonModule, MatCardModule, RouterLink, MatDialogClose, MatFormField, MatTooltip, ReactiveFormsModule, MatLabel, DecimalPipe,
-    RouterLink, CommonModule,CdkAccordionModule, MatSortModule, DatePipe, MatTableModule],
+    RouterLink, CommonModule,CdkAccordionModule, MatSortModule, DatePipe, MatTableModule, DatePipe],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss'
 })
@@ -94,19 +95,13 @@ export class UserProfileComponent {
   zobrazNakupnyZoznamBtn(){
     this.chcemNakupnyZoznam = true;
     this.chcemRecepty = false;
-    this.chcemTasky = false;
+
   }
   chcemRecepty: boolean = true;
   zobrazReceptyBtn(){
     this.chcemNakupnyZoznam = false;
     this.chcemRecepty = true;
-    this.chcemTasky = false;
-  }
-  chcemTasky: boolean;
-  zobrazTaskyBtn(){
-    this.chcemNakupnyZoznam = false;
-    this.chcemRecepty = false;
-    this.chcemTasky = true;
+
   }
   navigujInde(){
     this.router.navigate(['Recipes']);
@@ -181,7 +176,6 @@ export class UserProfileComponent {
 
   userImages: CreatorDTO[] = [];
   ngOnInit(): void{
-    this.getMeTasks();
     this.userService.getCurrentUser()
     .pipe(takeUntil(this.destroy$))
     .subscribe(result => this.currentUserUsername = result.userName);
@@ -241,70 +235,6 @@ export class UserProfileComponent {
 
 
 
-
- dataSource = new MatTableDataSource<TaskDTO>();
-  taskService = inject(TaskService)
-  getMeTasks(){
-    return this.taskService.getTasks()
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(result => {this.tasks = result;
-      this.dataSource.data = result;
-    });
-   }
-   changeToFinishedOrUnfinished(id: number){
-
-    this.taskService.changeToFinishedOrUnfinished(id)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(result => {
-      console.log('result.id:', result.id);
-      console.log('dataSource.data:', this.dataSource.data);
-      console.log(id);
-
-      // Ensure both values are numbers before comparison
-      const deleteAt = this.dataSource.data.findIndex(task => Number(task.id) === Number(result.id));
-
-      if (deleteAt === -1) {
-        console.warn(`Task with id ${result.id} not found in dataSource.`);
-        return; 
-      }
-
-      this.dataSource.data.splice(deleteAt, 1);
-      this.dataSource.data = [...this.dataSource.data]; 
-
-      console.log(deleteAt);
-    });
-   }
-
-  tasks: TaskDTO[];
-   
-
-
-navigateToTaskDetail(id: number){
-  this.router.navigate(['TaskDetail', id])
-}
-  private _liveAnnouncer = inject(LiveAnnouncer);
-
-  displayedColumns: string[] = ['priority', 'name', 'startTime', 'deadLine', 'button'];
-
-
-  @ViewChild(MatSort) sort: MatSort;
-
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-  }
-
-  /** Announce the change in sort state for assistive technology. */
-  announceSortChange(sortState: Sort) {
-    // This example uses English messages. If your application supports
-    // multiple language, you would internationalize these strings.
-    // Furthermore, you can customize the message to add additional
-    // details about the values being sorted.
-    if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    } else {
-      this._liveAnnouncer.announce('Sorting cleared');
-    }
-  }
 
 
 

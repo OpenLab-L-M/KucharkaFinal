@@ -3,6 +3,9 @@ body {
   background-color: #f5f5f5;
   margin: 0;
   padding: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 #backgroundos {
@@ -13,6 +16,61 @@ body {
   z-index: -2;
   opacity: 0.8;
 }
+
+/* Center the profile picture */
+.profile-picture {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Style the username with an aesthetic font and center it */
+.user-name {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.user-name p {
+  font-size: 24px;
+  font-weight: bold;
+  color: #3E2723;
+  margin: 0;
+  font-family: 'Pacifico', cursive; /* Aesthetic font */
+}
+
+
+
+.button-container {
+  display: flex;
+  justify-content: center; /* Center buttons horizontally */
+  gap: 10px; /* Space between buttons */
+  margin-top: 20px; /* Adjust as needed */
+}
+
+.button-container button {
+  padding: 10px 20px; /* Button padding */
+  font-size: 14px; /* Button font size */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.button-container button:hover {
+  opacity: 0.9; /* Hover effect */
+}
+.settings-icon {
+  position: absolute; /* Absolute positioning */
+  margin-top: 5%;
+  right: 20px; /* Distance from the right */
+  cursor: pointer; /* Pointer cursor on hover */
+  z-index: 10; /* Ensure it's above other elements */
+}
+
+.settings-icon mat-icon {
+  font-size: 24px; /* Icon size */
+  color: #3E2723; /* Icon color */
+}
+
 
 .profile-container {
   display: flex;
@@ -75,10 +133,12 @@ body {
   margin: 0;
 }
 
+/* Center the buttons */
 .button_position {
   display: flex;
-  gap: 10px;
   justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
 }
 
 .button_position button {
@@ -398,6 +458,9 @@ mat-card-footer {
   font-size: 14px;
   color: #ccc;
 }
+.UserAvaiableContainer{
+  position: relative;
+}
 
 .example-accordion-item-body {
   padding: 16px;
@@ -405,62 +468,10 @@ mat-card-footer {
   font-size: 16px;
   color: #333;
 }
-.obsah button{
-align-content: center;
 
+.obsah button {
+  align-content: center;
 }
-
-body {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-
-} 
-
-table {
-  width: 80%;
-  align-items: center;
-  position: relative;
-  margin-top: 3%;
-    
-  }
-  
-  th.mat-sort-header-sorted {
-    color: black;
-  }
-  .create {
-    text-align: center;
-    align-items: center;
-    position: fixed;
-    margin-bottom: 80px;
-    margin-right: 80px;
-    right: 0;
-    bottom: 0;
-  }
-  
-  #create_link {
-  
-    background: darkgoldenrod;
-    font-size: 17px;
-      width: 70px;
-      height: 70px;
-      color: white;
-      transition: .2s all ease-in-out;
-      border-radius: 35px;
-  }
-  
-  #create_link:hover {
-    background: #916b08;
-      /* color: black; */
-      animation: 1s pulse infinite;
-  }
-  @media  screen and (max-width: 786px) {
-    table{
-      margin-top: 13%;
-    }
-  }
-
-/* Button styling */
 
 /* Responsive Design */
 @media screen and (max-width: 1300px) {
@@ -473,7 +484,8 @@ table {
     font-size: 20px;
     text-align: center;
   }
-  .profile-container{
+
+  .profile-container {
     margin-top: 13%;
   }
 
@@ -485,20 +497,24 @@ table {
 
   .button_position {
     padding-top: 20px;
-    position: absolute;
-    left: 60%;
+    position: static; /* Adjust as needed */
+    left: auto;
+    right: auto;
+    justify-content: center;
   }
+
   .profile-right {
     margin-top: 13%;
   }
-  
+
   .profile-left {
     margin-top: 13%;
   }
+
   .profile-container {
     display: flex;
-    justify-content:center;
-    align-items:center;
+    justify-content: center;
+    align-items: center;
     padding: 40px;
     max-width: 100%;
     margin: 0 auto;

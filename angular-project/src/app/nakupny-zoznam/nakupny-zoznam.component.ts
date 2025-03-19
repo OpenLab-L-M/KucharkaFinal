@@ -47,11 +47,21 @@ export class NakupnyZoznamComponent {
   // Model initialisation missing for brevity
 
   
-  const prompt = 'napíš mi orientačné ceny IBA PRILOŽENÝCH potravín v slovenských obchodoch(názov potraviny vedľa nej cenu v eurách stačí ako odpoveď, text vypíš bez upozornení, stačí len potravina a cena) + daj mi aj celkovú cenu orientačnú za všetky dokopy, výsledok vráť v tejto forme: {názov (hmotnosť) cena €,} ' + this.nIngrediencie;
+  const prompt = `
+  Prosím, uveď orientačné ceny NÁSLEDUJÚCICH potravín v slovenských obchodoch. Chcem len cenu v eurách (€) vedľa názvu každej potraviny. Bez zbytočných úvodov alebo poznámok, prosím.
+  
+  Formát: Názov (Hmotnosť/Objem) Cena €
+  
+  Potraviny:
+  ${this.nIngrediencie}
+  
+  Nakoniec, uveď JEDNU RIADKU s odhadovanou CELKOVOU CENOU všetkých potravín DOKOPY.
+  `;
   
   const result = await this.model.generateContent(prompt);
   const response = await result.response;
-  this.ceny = response.text().split(",");
+
+  this.ceny = response.text().split("\n").filter(x => x != "");
   console.log(this.ceny);
 }
 
