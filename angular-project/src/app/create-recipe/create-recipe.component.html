@@ -1,140 +1,233 @@
 <body>
   <img id="backgroundos" src="../../assets/kuchynaBackgroundos.png">
 
+    <!-- <img src="https://media.istockphoto.com/id/1129153331/photo/food-for-the-family.jpg?s=612x612&w=0&k=20&c=Kf_Oz3ur1ECW3R9qclOYzUXYfyQQ1wzKwnQUA4ZXB-0=" alt=""/>
+    <div class="black">
+      <img src="https://th.bing.com/th/id/R.75b7633177977a276cd781b0e0520a92?rik=EpfN3HQQ7%2fOhcw&riu=http%3a%2f%2fwww.solidbackgrounds.com%2fimages%2f5120x2880%2f5120x2880-black-solid-color-background.jpg&ehk=AqB9SoEXUPu7BGaVH7M32l2%2b1UZ%2foIlkcd8MnplO62E%3d&risl=&pid=ImgRaw&r=0" alt=""/>
+    </div> -->
+
+
+
+
   <div class="container">
-    <form [formGroup]="profileForm">
-      <header>
-        <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: bold;">Vytvor svoj recept</h1>
-        <div class="form-container">
-          <div class="column">
-            <!-- Recipe Name -->
-            <div class="set">
-              <mat-form-field class="Name_rcp">
-                <mat-label class="centered-label" for="name">Názov receptu: </mat-label>
-                <input matInput id="name" formControlName="name" maxlength="75">
-              </mat-form-field>
+
+        <form [formGroup]="profileForm">
+          <header>
+            <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: bold;">Vytvor svoj recept</h1>
+            <div class="form-container">
+              <div class="column">
+          <div class="set">
+            <mat-form-field class="Name_rcp">
+
+
+                  <mat-label class="centered-label" for="name">Názov receptu: </mat-label>
+                  <input matInput id="name" formControlName="name" maxlength="75">
+
+
+
+            </mat-form-field>
+
+          </div>
+
+          <div class="set">
+            <mat-form-field class="Description_rcp">
+
+
+                  <mat-label class="centered-label" for="description">Popis receptu: </mat-label>
+                  <textarea matInput id="description" formControlName="description"></textarea>
+
+
+
+            </mat-form-field>
+
+          </div>
+          <!-- <button class="ingr_btn" (click)="openDialogis()">Add ingrediences</button>
+          <div class="set">
+            <mat-form-field class="Description_rcp">
+
+
+              <mat-label class="centered-label" for="ingr">Recipe Ingredients: </mat-label>
+              <textarea [(ngModel)]="ingredientService.selectedIngredients" matInput id="ingr" formControlName="ingr"></textarea>
+
+
+
+            </mat-form-field>
+
+          </div> -->
+
+          <div class="example-container">
+            <h2 style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">vybrané ingredience</h2>
+          
+            <div
+              cdkDropList
+              #doneList="cdkDropList"
+              [cdkDropListData]="vybrane"
+              [cdkDropListConnectedTo]="[todoList]"
+              class="example-list"
+              (cdkDropListDropped)="drop($event)">
+              @for (item of vybrane; track item) {
+                <div class="example-box" cdkDrag>{{item}}</div>
+              }
+            </div>
+          
             </div>
 
-            <!-- Recipe Description -->
-            <div class="set">
-              <mat-form-field class="Description_rcp">
-                <mat-label class="centered-label" for="description">Popis receptu: </mat-label>
-                <textarea matInput id="description" formControlName="description"></textarea>
-              </mat-form-field>
-            </div>
 
-            <!-- Selected Ingredients -->
-            <div class="example-container">
-              <h2 style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">vybrané ingredience</h2>
-              <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="vybrane" [cdkDropListConnectedTo]="[todoList]" class="example-list" (cdkDropListDropped)="drop($event)">
-                @for (item of vybrane; track item) {
-                  <div class="example-box" cdkDrag>{{item}}</div>
-                }
+          <div class="set">
+            <mat-card class="example-result-card">
+              <mat-card-content>
+
+                <div class="example-label-container">
+                  <label for="cas" id="example-name-label" class="example-name-label">čas: </label>
+                  <label class="example-value-label">{{slider.value}}</label>
+                  <label for="cas"> min</label>
+                </div>
+                <mat-slider
+                    class="example-margin"
+                    [disabled]="disabled"
+                    [max]="max"
+                    [min]="min"
+                    [step]="step"
+                    [discrete]="thumbLabel"
+                    [showTickMarks]="showTicks"
+                    >
+                  <input id="cas" formControlName="cas" matSliderThumb [(ngModel)]="value" #slider>
+                </mat-slider>
+              </mat-card-content>
+            </mat-card>
+
+          </div>
+        </div>
+        <div class="set">
+          <label id="ch_diff" style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Vyber obtiažnosť:</label> 
+          <br>
+          <br>
+          <div class="diff_radio">
+            <p>
+
+                <input id="diff" type="radio" formControlName="diff" value="ľahké" [checked]="true">
+
+                <label id="diff_1" for="diff">ľahké</label>
+                <input id="diff2" type="radio" formControlName="diff" value="pokročilé">
+
+                <label for="diff2">pokročilé</label>
+                <input id="diff3" type="radio" formControlName="diff" value="náročné">
+                <label for="diff3">náročné</label>
+              </p>
+            </div>
+          </div>
+            <br>
+            <br>
+            <div class="set">
+              <label id="veganske" style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Špeciálna karegória</label> 
+              <br>
+              <br>
+              <div class="diff_radio">
+                <p>
+  
+                    <input id="jVeganske" type="checkbox" formControlName="veganske" value="veganske">
+                    <label for="jVeganske">vegan</label>
+  
+                    <input id="jVegetarianske" type="checkbox" formControlName="vegetarianske" value="vegetarianske">
+                    <label for="jVegetarianske">vegetarian</label>
+                  </p>
+                </div>
+                <br>
+                <br>
+                <!-- Meal Type Dropdown -->
+                <div class="set">
+                  <label id="veganske" style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Chod</label> 
+                  <br>
+                  <br>
+                <div class="diff_radio">
+                  <p>
+    
+                    <input id="ranajky" type="checkbox" formControlName="ranajky" value="ranajky">
+                    <label for="ranajky">ranajky</label>
+    
+                    <input id="obed" type="checkbox" formControlName="obed" value="obed">
+                    <label for="obed">obed </label>
+    
+                    <input id="vecera" type="checkbox" formControlName="vecera" value="vecera">
+                    <label for="vecera">vecera </label>
+                  </p>
+                </div>
               </div>
+             
+                <br>
+                <br>
+                <!-- Image Upload -->
+                <label for="img" class="beautyBtn">Pridaj obrázok</label>
+                <input
+                  id="img"
+                  class="form-control"
+                  type="file"
+                  style="
+                    box-shadow: 7px 7px 17px;
+                    border-width: 0;
+                    margin-bottom: 43px;
+                    display: none;
+                  "
+                  (change)="onImageUpload($event)"
+                  accept="image/*"
+                  title = "Žiadne fotografie nie sú vložené"
+                />
+                 <br>
+                <br><br>
+    
+                <img [src]="this.liveDemo"  alt=""/>
             </div>
-
-            <!-- Time Slider -->
-            <div class="set">
-              <mat-card class="example-result-card">
-                <mat-card-content>
-                  <div class="example-label-container">
-                    <label for="cas" id="example-name-label" class="example-name-label">čas: </label>
-                    <label class="example-value-label">{{slider.value}}</label>
-                    <label for="cas"> min</label>
+ 
+          </div>
+ 
+ 
+        </header>
+  
+  
+  
+                <button mat-raised-button id="make" type="submit" [disabled]="!profileForm.valid"  (click)="imageUploadAction()">Vytvor</button>
+                <button mat-raised-button id="back" [routerLink]="['/Recipes']">Back</button>
+  
+  
+              <br>
+          </form>
+          <div class="example-container">
+            <h2 style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">ingredience:</h2>
+            
+            <div
+              cdkDropList
+              #todoList="cdkDropList"
+              [cdkDropListData]="ingredients"
+              [cdkDropListConnectedTo]="[doneList]"
+              class="example-list"
+              (cdkDropListDropped)="drop($event)">
+               <input type="text" [(ngModel)]="searchTerm" placeholder="Find an ingredience" class="findInput"/>
+                  <div *ngFor="let item of ingredients | ingredientsFilter : searchTerm">
+                    <div class="example-box" cdkDrag>{{item}}</div>
                   </div>
-                  <mat-slider class="example-margin" [disabled]="disabled" [max]="max" [min]="min" [step]="step" [discrete]="thumbLabel" [showTickMarks]="showTicks">
-                    <input id="cas" formControlName="cas" matSliderThumb [(ngModel)]="value" #slider>
-                  </mat-slider>
-                </mat-card-content>
-              </mat-card>
+              <!-- @for (item of ingredients; track item) {
+                <div class="example-box" cdkDrag>{{item}}</div>
+              } -->
             </div>
           </div>
-            <br>
-            <br>
-          <div class="column">
-            <!-- Difficulty Dropdown -->
-            <div class="set">
-              <label id="ch_diff" style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Vyber obtiažnosť:</label>
-              <mat-select id="difficulty" formControlName="diff">
-                <mat-option value="ľahké">Ľahké</mat-option>
-                <mat-option value="pokročilé">Pokročilé</mat-option>
-                <mat-option value="náročné">Náročné</mat-option>
-              </mat-select>
-            </div>
-            <br>
-            <br>
-            <!-- Special Category Dropdown -->
-            <div class="set">
-              <label id="veganske" style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Špeciálna kategória:</label>
-              <mat-select id="category" formControlName="category" multiple>
-                <mat-option value="veganske">Vegan</mat-option>
-                <mat-option value="vegetarianske">Vegetarián</mat-option>
-              </mat-select>
-            </div>
-            <br>
-            <br>
-            <!-- Meal Type Dropdown -->
-            <div class="set">
-              <label id="veganske" style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Chod:</label>
-              <mat-select id="mealType" formControlName="mealType" multiple>
-                <mat-option value="ranajky">Raňajky</mat-option>
-                <mat-option value="obed">Obed</mat-option>
-                <mat-option value="vecera">Večera</mat-option>
-              </mat-select>
-            </div>
-            <br>
-            <br>
-            <!-- Image Upload -->
-            <label for="img" class="beautyBtn">Pridaj obrázok</label>
-            <input id="img" class="form-control" type="file" style="box-shadow: 7px 7px 17px; border-width: 0; margin-bottom: 43px; display: none;" (change)="onImageUpload($event)" accept="image/*" title="Žiadne fotografie nie sú vložené" />
-            <br>
-            <br>
-            <img [src]="this.liveDemo" alt="" />
-          </div>
+          <button (click)="openDialogis()" >pridaj ingredienciu</button>
+          <br>
+          <br>
+          <div class="formaNaPostup">
+            <h1>Napíš svoj postup</h1>
+            <form [formGroup]="postupForm" class="postupForm">
+              <div formArrayName="postupy" *ngFor="let postup of postupy.controls; let i = index">
+                <textarea 
+                rows="3"
+                 [formControlName]="i" 
+                 placeholder="Postup"
+                 ></textarea>
+              </div>
+              <button  class="beautyBtn" (click)="pridajPostup()">Pridať postup</button>
+            </form>
+            
         </div>
-      </header>
-
-      <!-- Buttons -->
-      <button mat-raised-button id="make" type="submit" [disabled]="!profileForm.valid" (click)="imageUploadAction()">Vytvor</button>
-      <button mat-raised-button id="back" [routerLink]="['/Recipes']">Späť</button>
-    </form>
-
-    <!-- Ingredients List -->
-    <div class="example-container">
-      <h2 style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">ingredience:</h2>
-      <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="ingredients" [cdkDropListConnectedTo]="[doneList]" class="example-list" (cdkDropListDropped)="drop($event)">
-        <input type="text" [(ngModel)]="searchTerm" placeholder="Find an ingredience" class="findInput" />
-        <div *ngFor="let item of ingredients | ingredientsFilter : searchTerm">
-          <div class="example-box" cdkDrag>{{item}}</div>
-        </div>
+        <br>
       </div>
-    </div>
-    <button (click)="openDialogis()">pridaj ingredienciu</button>
-    <br>
-    <br>
-
-    <!-- Postup Section -->
-    <div class="formaNaPostup">
-      <h1>Napíš svoj postup</h1>
-      <form [formGroup]="postupForm" class="postupForm">
-        <div formArrayName="postupy" *ngFor="let postup of postupy.controls; let i = index">
-          <textarea rows="3" [formControlName]="i" placeholder="Postup"></textarea>
-        </div>
-        <button class="beautyBtn" (click)="pridajPostup()">Pridať postup</button>
-      </form>
-    </div>
-
-    <!-- Suggestions Section -->
-    <div class="suggestions-container">
-      <h2 style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Odporúčania:</h2>
-      <div *ngIf="suggestions.length > 0; else noSuggestions">
-        <div *ngFor="let suggestion of suggestions" class="suggestion-box">
-          <p>{{ suggestion }}</p>
-        </div>
-      </div>
-      <ng-template #noSuggestions>
-        <p>Musíš zadať názov receptu, inak ti nebudem môcť pomôcť.</p>
-      </ng-template>
-    </div>
-  </div>
-</body>
+   
+    </body>

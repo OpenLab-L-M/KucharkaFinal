@@ -273,6 +273,10 @@ private createRecipe(value: Number) {
   });
 
 }
+onSliderChange(event: any) {
+  const sliderValue = event.target.value; // Get the slider value
+  this.profileForm.controls['cas'].setValue(sliderValue); // Update the form control
+}
 
  genAI = new GoogleGenerativeAI(environment.API_KEY);
   generationConfig = {
@@ -296,11 +300,11 @@ suggestions: string[] = [];
   // Model initialisation missing for brevity
 
   
-  const prompt = 'Prikladám ti ingrediencie, ' +  this.vybrane + ' z ktorých chcem vytvoriť svoj recept, prosím, vymysli nejaké ďalšie 2 ingrediencie, ktoré by mohli byť chutné a zdravé do tohto receptu a názov receptu, odpoveď napíš bez hviezdičiek ' + this.profileForm.controls['name'].value;
+  const prompt = 'Prikladám ti názov receptu, ' +  this.profileForm.controls['name'].value + '+ moje ingrediencie ' + this.vybrane + 'prosím pridaj nejaké ďalšie ingrediencie ktoré by mohli byť zdravé a chutné do tohto receptu';
   
   const result = await this.model.generateContent(prompt);
   const response = await result.response;
-  this.suggestions = response.text().split(".");
+  this.suggestions = response.text().split("\n");
   console.log(this.suggestions);
 }
 

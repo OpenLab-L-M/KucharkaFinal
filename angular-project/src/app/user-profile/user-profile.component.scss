@@ -362,13 +362,15 @@ mat-card-footer {
 /* Comment Section */
 .comment-section {
   margin-left: 50px;
+  
   margin-bottom: 40px;
   margin-top: 50px;
 }
 
 .comment-section h2 {
-  font-size: 32px;
-  color: #3E2723;
+  font-size: 25px;
+  font-family: 'Roboto', sans-serif;
+  color: #2c3e50;
   text-align: left;
   padding-left: 10px;
   border-bottom: 2px solid darkgoldenrod;
