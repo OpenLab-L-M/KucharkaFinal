@@ -1,47 +1,88 @@
-<div>
-  <mat-toolbar>
-    <span [routerLink]="['/Homepage']">Vysokoškolský Pomocník</span>
+<div class="nav-container">
+  <mat-toolbar class="main-toolbar">
+    <span class="logo" [routerLink]="['/Homepage']">Vysokoškolský Pomocník</span>
 
-    <!-- Spacer to push the mobile menu icon to the right -->
     <span class="spacer"></span>
 
-    <!-- Mobile Menu Icon -->
+    <!-- Mobile Menu Button - Keep your existing functionality -->
     <button mat-icon-button class="mobile-menu-btn" (click)="toggleMobileMenu()" *ngIf="innerWidth <= 768">
       <mat-icon>menu</mat-icon>
     </button>
 
-    <!-- Desktop Navigation Menu -->
-    <div class="nav-desktop">
+    <!-- Desktop Navigation - Enhanced design -->
+    <div class="desktop-nav">
       @if (authService.authenticated()) {
-        <button id="white" mat-button (click)="logout()">Logout</button>
-        <button id="white" mat-button [routerLink]="['/Homepage']" [ngClass]="{'active': isActive('/Homepage')}">Domov</button>
-        <button id="white" mat-button [routerLink]="['/Recipes']" [ngClass]="{'active': isActive('/Recipes')}">Recepty</button>
-        <button id="white" mat-button [routerLink]="['/taskList']" [ngClass]="{'active': isActive('/taskList')}">Úlohy</button>
-        <button id="white" mat-button [routerLink]="['/finishedTasks']" [ngClass]="{'active': isActive('/finishedTasks')}">Hotové úlohy</button>
-        <button (click)="getCurrentUserName()" id="white" mat-button [ngClass]="{'active': isActive('/userProfile')}">
-          <mat-icon>account_circle</mat-icon>
-        </button>
+        <div class="nav-buttons">
+          <button mat-button class="nav-btn" [routerLink]="['/Homepage']" [ngClass]="{'active': isActive('/Homepage')}">
+            <mat-icon class="nav-icon">home</mat-icon>
+            <span class="nav-text">Domov</span>
+          </button>
+          <button mat-button class="nav-btn" [routerLink]="['/Recipes']" [ngClass]="{'active': isActive('/Recipes')}">
+            <mat-icon class="nav-icon">restaurant</mat-icon>
+            <span class="nav-text">Recepty</span>
+          </button>
+          <button mat-button class="nav-btn" [routerLink]="['/taskList']" [ngClass]="{'active': isActive('/taskList')}">
+            <mat-icon class="nav-icon">assignment</mat-icon>
+            <span class="nav-text">Úlohy</span>
+          </button>
+          <button mat-button class="nav-btn" [routerLink]="['/finishedTasks']" [ngClass]="{'active': isActive('/finishedTasks')}">
+            <mat-icon class="nav-icon">done_all</mat-icon>
+            <span class="nav-text">Hotové</span>
+          </button>
+          <button mat-button class="nav-btn profile-btn" (click)="getCurrentUserName()" [routerLink]="['/userProfile']" [ngClass]="{'active': isActive('/userProfile')}">
+            <mat-icon class="nav-icon">account_circle</mat-icon>
+          </button>
+          <button mat-button class="nav-btn logout-btn" (click)="logout()">
+            <mat-icon class="nav-icon">logout</mat-icon>
+          </button>
+        </div>
       } @else {
-        <button id="white" mat-button [routerLink]="['/login']">Login</button>
-        <button id="white" mat-button [routerLink]="['/register']">Registration</button>
-      }
-    </div>
-
-    <!-- Mobile Navigation Menu -->
-    <div class="nav-mobile" [class.active]="isMobileMenuOpen">
-      @if (authService.authenticated()) {
-        <button id="white" mat-button (click)="logout()">Logout</button>
-        <button id="white" mat-button [routerLink]="['/Homepage']" [ngClass]="{'active': isActive('/Homepage')}">Domov</button>
-        <button id="white" mat-button [routerLink]="['/Recipes']" [ngClass]="{'active': isActive('/Recipes')}">Recepty</button>
-        <button id="white" mat-button [routerLink]="['/taskList']" [ngClass]="{'active': isActive('/taskList')}">Úlohy</button>
-        <button id="white" mat-button [routerLink]="['/finishedTasks']" [ngClass]="{'active': isActive('/finishedTasks')}">Hotové úlohy</button>
-        <button (click)="getCurrentUserName()" id="white" mat-button [ngClass]="{'active': isActive('/userProfile')}">
-          <mat-icon>account_circle</mat-icon>
-        </button>
-      } @else {
-        <button id="white" mat-button [routerLink]="['/login']">Login</button>
-        <button id="white" mat-button [routerLink]="['/register']">Registration</button>
+        <div class="auth-buttons">
+          <button mat-stroked-button class="login-btn" [routerLink]="['/login']">
+            <span>Prihlásiť sa</span>
+          </button>
+          <button mat-flat-button color="primary" class="register-btn" [routerLink]="['/register']">
+            <span>Registrácia</span>
+          </button>
+        </div>
       }
     </div>
   </mat-toolbar>
+
+  <!-- Mobile Navigation - Keep your existing structure with enhanced styling -->
+  <div class="mobile-nav" [class.active]="isMobileMenuOpen">
+    @if (authService.authenticated()) {
+      <button mat-button class="mobile-nav-btn" [routerLink]="['/Homepage']">
+        <mat-icon>home</mat-icon>
+        <span>Domov</span>
+      </button>
+      <button mat-button class="mobile-nav-btn" [routerLink]="['/Recipes']">
+        <mat-icon>restaurant</mat-icon>
+        <span>Recepty</span>
+      </button>
+      <button mat-button class="mobile-nav-btn" [routerLink]="['/taskList']">
+        <mat-icon>assignment</mat-icon>
+        <span>Úlohy</span>
+      </button>
+      <button mat-button class="mobile-nav-btn" [routerLink]="['/finishedTasks']">
+        <mat-icon>done_all</mat-icon>
+        <span>Hotové úlohy</span>
+      </button>
+      <button mat-button class="mobile-nav-btn" [routerLink]="['/userProfile']">
+        <mat-icon>account_circle</mat-icon>
+        <span>Profil</span>
+      </button>
+      <button mat-button class="mobile-nav-btn logout-btn" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Odhlásiť sa</span>
+      </button>
+    } @else {
+      <button mat-flat-button color="primary" class="mobile-login-btn" [routerLink]="['/login']">
+        <span>Prihlásiť sa</span>
+      </button>
+      <button mat-stroked-button class="mobile-register-btn" [routerLink]="['/register']">
+        <span>Registrácia</span>
+      </button>
+    }
+  </div>
 </div>

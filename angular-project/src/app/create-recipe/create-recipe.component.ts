@@ -107,7 +107,7 @@ export class CreateRecipeComponent {
           console.log(result.grams)
           this.vybrane[event.currentIndex] = result.data +  " " + this.vybrane[event.currentIndex];
           if(this.profileForm.controls['name'].value != ""){
-            setTimeout(() => this.TestGeminiPro(), 4000)
+            setTimeout(() => this.TestGeminiPro())
           }
           else{
             console.log("nezadal si názov receptu, prosím zadaj ho, lebo inak ti neviem napísať vhodné ingrediencie")
@@ -297,9 +297,6 @@ onSliderChange(event: any) {
  });
 suggestions: string[] = [];
  async TestGeminiPro() {
-  // Model initialisation missing for brevity
-
-  
   const prompt = 'Prikladám ti názov receptu, ' +  this.profileForm.controls['name'].value + '+ moje ingrediencie ' + this.vybrane + 'prosím pridaj nejaké ďalšie ingrediencie ktoré by mohli byť zdravé a chutné do tohto receptu';
   
   const result = await this.model.generateContent(prompt);

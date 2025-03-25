@@ -1,136 +1,222 @@
-div {
-  z-index: 2;
-  background-color: #FFCBA4;
-  width: 100%; /* Take up 100% of the screen width */
-  position: absolute; /* Change to absolute positioning */
-  top: 0; /* Position at the top of the screen */
-  left: 0; /* Align to the left edge */
+/* Modern Navigation Styles */
+.nav-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-mat-toolbar {
-  background-color: transparent;
-  color: #3E2723; /* Fixed color value */
-  font-size: 30px;
-  font-family: 'Brush Script MT', 'Brush Script Std', cursive;
-  position: relative; /* Ensure the toolbar is positioned correctly */
-  z-index: 1000; /* Ensure the toolbar is above other elements */
-  display: flex; /* Use flexbox for layout */
-  
-  align-items: center; /* Vertically center items */
-  justify-content: space-between; /* Space between items */
-  width: 100%; /* Ensure the toolbar takes full width */
+.main-toolbar {
+  background: #ffffff;
+  color: #3E2723;
+  height: 70px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
 }
 
-
-span {
+.logo {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
   cursor: pointer;
-}
-
-button {
-  color: white;
+  color: #3E2723;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: #5D4037;
+  }
 }
 
 .spacer {
-  flex: 1 1 auto; /* Push items to the right */
+  flex: 1 1 auto;
 }
 
-#white {
-  color: #3E2723; /* Fixed color value */
-  font-weight: bold;
-}
-
-#white.active {
-  color: darkgoldenrod;
-}
-
-#white:after {
-  background: none repeat scroll 0 0 transparent;
-  bottom: 0;
-  content: "";
-  display: block;
-  height: 2px;
-  left: 50%;
-  position: absolute;
-  background: darkgoldenrod;
-  transition: width 0.3s ease 0s, left 0.3s ease 0s;
-  width: 0;
-}
-
-#white:hover:after {
-  width: 100%;
-  left: 0;
-  color: darkgoldenrod;
-}
-
-img {
-  width: 85px;
-  height: 64px;
-  display: block;
-  margin: 0 auto;
-  justify-content: center;
+/* Desktop Navigation */
+.desktop-nav {
+  display: flex;
   align-items: center;
-  padding-right: 10px;
-  cursor: pointer;
+  height: 100%;
 }
 
-.center {
+.nav-buttons {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  gap: 4px;
 }
 
-/* Desktop Navigation Menu */
-.nav-desktop {
+.nav-btn {
+  color: #3E2723;
+  font-weight: 500;
+  border-radius: 8px;
+  height: 40px;
   display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
   position: relative;
-  gap: 10px;
-  align-items: center;
-  margin-left: auto; /* Push the desktop menu to the right */
-  width: 30%;
+  
+  .nav-icon {
+    margin-right: 8px;
+    font-size: 20px;
+  }
+  
+  &:hover {
+    background-color: #f5f5f5;
+    color: #5D4037;
+    
+    &::after {
+      width: 100%;
+      left: 0;
+    }
+  }
+  
+  &.active {
+    color: #FF7043;
+    font-weight: 600;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50%;
+      height: 3px;
+      background-color: #FF7043;
+      border-radius: 3px;
+    }
+  }
 }
 
-/* Mobile Navigation Menu */
-.nav-mobile {
-  display: none; /* Hidden by default */
-  flex-direction: column;
-  position: absolute;
-  top: 60px; /* Adjust based on your toolbar height */
-  right: 0;
-  background-color: #FFCBA4; /* Match toolbar background */
-  padding: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 999; /* Ensure it's below the toolbar */
-  width: 30%;
+.profile-btn, .logout-btn {
+  min-width: 40px;
+  padding: 0;
+  width: 40px;
+  border-radius: 50%;
 }
 
-.nav-mobile.active {
-  display: flex; /* Show when active */
+.auth-buttons {
+  display: flex;
+  gap: 12px;
+  margin-left: 16px;
+}
+
+.login-btn, .register-btn {
+  border-radius: 20px;
+  padding: 0 20px;
+  height: 40px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.login-btn {
+  border: 1px solid #3E2723;
+  color: #3E2723;
+}
+
+.register-btn {
+  background-color: #3E2723;
+  color: white;
 }
 
 /* Mobile Menu Button */
 .mobile-menu-btn {
-  display: none; /* Hidden by default on desktop */
-  background-color: #FFCBA4;
-  z-index: 1001; /* Ensure it's above other elements */
-  border: hidden;
-  color: black;
-  margin-left: auto; /* Push the button to the right */
-  width: 30px;
-  height: 40px;
+  color: #3E2723;
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
-/* Responsive Design */
+/* Mobile Navigation */
+.mobile-nav {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  background: white;
+  z-index: 999;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  
+  &.active {
+    max-height: 500px;
+    border-top: 1px solid #f0f0f0;
+  }
+}
+
+.mobile-nav-btn {
+  width: 100%;
+  padding: 16px 24px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  color: #3E2723;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  
+  mat-icon {
+    margin-right: 16px;
+    color: #3E2723;
+  }
+  
+  &:hover {
+    background-color: #f5f5f5;
+  }
+  
+  &.logout-btn {
+    color: #D32F2F;
+    
+    mat-icon {
+      color: #D32F2F;
+    }
+  }
+}
+
+.mobile-login-btn, .mobile-register-btn {
+  width: calc(100% - 48px);
+  margin: 16px 24px;
+  height: 48px;
+  border-radius: 24px;
+  font-weight: 500;
+}
+
+.mobile-register-btn {
+  border: 1px solid #3E2723;
+  color: #3E2723;
+}
+
+/* Responsive Adjustments */
 @media (max-width: 768px) {
-  /* Hide the desktop menu on mobile */
-  .nav-desktop {
+  .main-toolbar {
+    padding: 0 16px;
+  }
+  
+  .logo {
+    font-size: 1.1rem;
+  }
+  
+  .desktop-nav {
     display: none;
   }
-  .nav-mobile{
-    margin-right: 0;
-    margin-left: auto;
-  }
+}
 
-  /* Show the mobile menu button on mobile */
-  .mobile-menu-btn {
-    display: block;
+@media (min-width: 769px) {
+  .mobile-menu-btn, .mobile-nav {
+    display: none;
   }
 }

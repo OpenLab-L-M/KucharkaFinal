@@ -17,14 +17,12 @@ body {
   opacity: 0.8;
 }
 
-/* Center the profile picture */
 .profile-picture {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* Style the username with an aesthetic font and center it */
 .user-name {
   text-align: center;
   margin-top: 15px;
@@ -35,42 +33,40 @@ body {
   font-weight: bold;
   color: #3E2723;
   margin: 0;
-  font-family: 'Pacifico', cursive; /* Aesthetic font */
+  font-family: 'Pacifico', cursive;
 }
-
-
 
 .button-container {
   display: flex;
-  justify-content: center; /* Center buttons horizontally */
-  gap: 10px; /* Space between buttons */
-  margin-top: 20px; /* Adjust as needed */
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
 }
 
 .button-container button {
-  padding: 10px 20px; /* Button padding */
-  font-size: 14px; /* Button font size */
-  border-radius: 5px; /* Rounded corners */
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Smooth hover effect */
+  transition: background-color 0.3s ease;
 }
 
 .button-container button:hover {
-  opacity: 0.9; /* Hover effect */
+  opacity: 0.9;
 }
+
 .settings-icon {
-  position: absolute; /* Absolute positioning */
+  position: absolute;
   margin-top: 5%;
-  right: 20px; /* Distance from the right */
-  cursor: pointer; /* Pointer cursor on hover */
-  z-index: 10; /* Ensure it's above other elements */
+  right: 20px;
+  cursor: pointer;
+  z-index: 10;
 }
 
 .settings-icon mat-icon {
-  font-size: 24px; /* Icon size */
-  color: #3E2723; /* Icon color */
+  font-size: 24px;
+  color: #3E2723;
 }
-
 
 .profile-container {
   display: flex;
@@ -133,7 +129,6 @@ body {
   margin: 0;
 }
 
-/* Center the buttons */
 .button_position {
   display: flex;
   justify-content: center;
@@ -260,11 +255,12 @@ body {
   background-color: #5D4037;
 }
 
-/* Recipes Section */
+/* Updated Recipes Section */
 .recipes-container {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  margin-top: 20px;
 }
 
 .recipes-items {
@@ -276,6 +272,7 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  height: 400px;
 }
 
 .recipes-items:hover {
@@ -325,7 +322,8 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  min-height: 200px;
+  height: 200px;
+  max-height: 200px;
 }
 
 .recipes-images {
@@ -333,6 +331,11 @@ body {
   height: 100%;
   object-fit: cover;
   border-radius: 10px 10px 0 0;
+  transition: transform 0.3s ease;
+}
+
+.recipes-images:hover {
+  transform: scale(1.05);
 }
 
 mat-card-footer {
@@ -359,10 +362,8 @@ mat-card-footer {
   color: red;
 }
 
-/* Comment Section */
 .comment-section {
   margin-left: 50px;
-  
   margin-bottom: 40px;
   margin-top: 50px;
 }
@@ -460,6 +461,7 @@ mat-card-footer {
   font-size: 14px;
   color: #ccc;
 }
+
 .UserAvaiableContainer{
   position: relative;
 }
@@ -475,7 +477,6 @@ mat-card-footer {
   align-content: center;
 }
 
-/* Responsive Design */
 @media screen and (max-width: 1300px) {
   .user_name {
     font-size: 40px;
@@ -489,6 +490,8 @@ mat-card-footer {
 
   .profile-container {
     margin-top: 13%;
+    flex-direction: column;
+    align-items: center;
   }
 
   .profile_img {
@@ -499,26 +502,57 @@ mat-card-footer {
 
   .button_position {
     padding-top: 20px;
-    position: static; /* Adjust as needed */
+    position: static;
     left: auto;
     right: auto;
     justify-content: center;
   }
 
   .profile-right {
-    margin-top: 13%;
+    margin-top: 20px;
+    max-width: 100%;
   }
 
   .profile-left {
     margin-top: 13%;
+    max-width: 100%;
   }
 
   .profile-container {
-    display: flex;
+    padding: 20px;
+  }
+
+  /* Responsive recipe cards */
+  .recipes-container {
     justify-content: center;
-    align-items: center;
-    padding: 40px;
-    max-width: 100%;
-    margin: 0 auto;
+  }
+  
+  .recipes-items {
+    width: 100%;
+    max-width: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 15px;
+  }
+  
+  .profile_img {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .user_name p {
+    font-size: 24px;
+  }
+  
+  .comment-section {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+  
+  .comment {
+    width: 90%;
   }
 }
