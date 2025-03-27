@@ -18,6 +18,7 @@ body #backgroundos {
 
 /* Left Sidebar (Filters) */
 .example-sidenav {
+  margin-top: 3%;
   width: 27%;
   background-color: #2c3e50;
   padding: 20px;
@@ -189,7 +190,7 @@ body #backgroundos {
   background-color: #f5f5f5;
 }
 
-/* Recipe Cards Container - Removed justify-content: center */
+/* Recipe Cards Container */
 .recipes-container {
   display: flex;
   margin-top: 5%;
@@ -234,49 +235,31 @@ body #backgroundos {
 .recipe-details {
   display: flex;
   gap: 16px;
-  padding: 0 16px 8px 16px;
+  padding: 0 16px 16px 16px;
   flex-shrink: 0;
+  flex-wrap: wrap;
 }
 
-.recipes-difficulty {
-  color: #7f8c8d;
-  font-size: 14px;
+.detail-item {
   display: flex;
   align-items: center;
   gap: 4px;
+  color: #7f8c8d;
+  font-size: 14px;
 }
 
-.recipes-difficulty mat-icon {
+.detail-icon {
   font-size: 16px;
+  color: #e67e22;
 }
 
-.image-container {
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  height: 200px;
-  max-height: 200px;
+.detail-text {
+  white-space: nowrap;
 }
 
-.recipes-images {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 10px 10px 0 0;
-  transition: transform 0.3s ease;
-}
-
-.recipes-images:hover {
-  transform: scale(1.05);
-}
-
-mat-card-footer {
-  padding: 8px 16px;
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
+.calories {
+  position: relative;
+  padding-right: 24px;
 }
 
 .favourite-checkbox {
@@ -284,16 +267,39 @@ mat-card-footer {
 }
 
 .favourite-label {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   cursor: pointer;
 }
 
-#like {
-  color: gray;
-  transition: color 0.3s;
+.heart-icon {
+  font-size: 18px;
+  color: #ccc;
+  transition: color 0.2s;
 }
 
-.favourite-checkbox:checked + .favourite-label #like {
-  color: red;
+.favourite-checkbox:checked + .favourite-label .heart-icon {
+  color: #ff6b6b;
+}
+
+.image-container {
+  flex-grow: 1;
+  display: flex;
+  overflow: hidden;
+  min-height: 200px;
+}
+
+.recipes-images {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.recipes-images:hover {
+  transform: scale(1.05);
 }
 
 .create {

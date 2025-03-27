@@ -169,33 +169,32 @@
           <!-- Recipe Details (Timer, Portions, Calories) -->
           <div class="recipe-details">
             <!-- Timer -->
-            <mat-card-subtitle class="recipes-difficulty">
-              <mat-icon>query_builder</mat-icon> {{recipe.cas}} min
-            </mat-card-subtitle>
+            <div class="detail-item">
+              <mat-icon class="detail-icon">query_builder</mat-icon>
+              <span class="detail-text">{{recipe.cas}} min</span>
+            </div>
 
             <!-- Portions -->
-            <mat-card-subtitle class="recipes-difficulty">
-              <mat-icon>restaurant</mat-icon> {{recipe.gramaz / 250 | number : '1.0-0'}}
-            </mat-card-subtitle>
+            <div class="detail-item">
+              <mat-icon class="detail-icon">restaurant</mat-icon>
+              <span class="detail-text">{{recipe.gramaz / 250 | number : '1.0-0'}}</span>
+            </div>
 
-            <!-- Calories -->
-            <mat-card-subtitle class="recipes-difficulty">
-              <mat-icon>local_fire_department</mat-icon> {{recipe.kalorie}} KCal
-            </mat-card-subtitle>
+            <!-- Calories with Favorite Heart -->
+            <div class="detail-item calories">
+              <mat-icon class="detail-icon">local_fire_department</mat-icon>
+              <span class="detail-text">{{recipe.kalorie}} KCal</span>
+              <input type="checkbox" id="favourite-{{recipe.id}}" class="favourite-checkbox" (click)="ktoryRecept(recipe.id)" [checked]="isFavourite(recipe.id)">
+              <label for="favourite-{{recipe.id}}" class="favourite-label">
+                <mat-icon class="heart-icon">favorite</mat-icon>
+              </label>
+            </div>
           </div>
 
-          <!-- Recipe Image -->
+          <!-- Recipe Image - Fills remaining space -->
           <div class="image-container">
             <img mat-card-image [src]="getImage(recipe.id)" class="recipes-images" matTooltip="Details of {{recipe.name}}" [routerLink]="['/RecipesDetails', recipe.id]">
           </div>
-
-          <!-- Recipe Footer (Favorite Button) -->
-          <mat-card-footer>
-            <input type="checkbox" id="favourite-{{recipe.id}}" class="favourite-checkbox" (click)="ktoryRecept(recipe.id)" [checked]="isFavourite(recipe.id)">
-            <label for="favourite-{{recipe.id}}" class="favourite-label">
-              <mat-icon id="like">favorite</mat-icon>
-            </label>
-          </mat-card-footer>
         </mat-card>
       </div>
     </div>
