@@ -9,6 +9,8 @@ import { RecensionsDTO } from 'src/app/DTOs/recensions-dto';
 import { PasswordDTO } from 'src/app/DTOs/PasswordDTO';
 import { Action } from 'rxjs/internal/scheduler/Action';
 import { NakupnyZoznam } from 'src/app/DTOs/NakupnyZoznamDTO';
+import { User } from 'firebase/auth';
+import { user } from '@angular/fire/auth';
 
 
 @Injectable({
@@ -69,5 +71,10 @@ export class UserService {
   deleteSelected(day: string){
     return this.httpClient.delete(this.baseUrl + "/deleteSpecific/" + day)
   }
-
+  getUsers(){
+    return this.httpClient.get<UserDTO[]>(this.baseUrl + "/getAllUsers")
+  }
+  deleteUser(userName: string){
+    return this.httpClient.delete<UserDTO>(this.baseUrl + "/deleteUser/" + userName);
+  }
 }

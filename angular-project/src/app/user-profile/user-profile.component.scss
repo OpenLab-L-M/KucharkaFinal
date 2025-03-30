@@ -517,6 +517,104 @@ button[mat-raised-button][color="warn"] {
   transition: all 0.3s ease;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
+.user-management-container {
+  font-family: 'Poppins', sans-serif;
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+
+  h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .table-container {
+    overflow-x: auto;
+  }
+
+  .user-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+
+    thead {
+      background: linear-gradient(135deg, #6e8efb, #a777e3);
+      color: white;
+
+      th {
+        padding: 1rem;
+        text-align: left;
+        font-weight: 500;
+      }
+    }
+
+    tbody {
+      tr {
+        transition: all 0.2s ease;
+
+        &:nth-child(even) {
+          background-color: #f9f9f9;
+        }
+
+        &:hover {
+          background-color: #f1f3ff;
+          transform: translateY(-1px);
+        }
+
+        td {
+          padding: 1rem;
+          border-bottom: 1px solid #eee;
+          color: #555;
+
+          &:first-child {
+            font-weight: 500;
+            color: #6e8efb;
+          }
+        }
+      }
+    }
+  }
+
+  .delete-btn {
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+
+    &:hover {
+      background: #ff5252;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    i {
+      font-size: 0.8rem;
+    }
+  }
+}
+
 /* Animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }

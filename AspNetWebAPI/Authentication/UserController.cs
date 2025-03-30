@@ -129,10 +129,10 @@ namespace AspNetCoreAPI.Registration
             token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
             var url = $"{_config["JWTSettings:validAudience"]}/{_config["Email:ConfirmEmailPath"]}?token={token}&email={user.Email}";
 
-            var body = $"<p>Hello: {user.UserName}</p>" +
-                "<p>Please confirm your email address by clicking on the following link.</p>" +
-                $"<p><a href=\"{url}\">Click here</a></p>" +
-                "<p>Thank you,</p>" +
+            var body = $"<p>Dobrý deň: {user.UserName}</p>" +
+                "<p>Prosím potvrďte svoju emailovú adresu kliknutím na nasledujúci link.</p>" +
+                $"<p><a href=\"{url}\">kliknite sem</a></p>" +
+                "<p>Ďakujem,</p>" +
                 $"<br>{_config["Email:ApplicationName"]}";
 
             var emailSend = new EmailSendDto(user.Email, "Confirm your email", body);

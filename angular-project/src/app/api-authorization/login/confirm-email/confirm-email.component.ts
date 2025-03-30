@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../authentication.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { UserService } from 'src/services/user.service';
 import { confirmEmail } from '../../user-registration'; // Ensure this is the correct import (type or class)
 import { User } from '../../user-registration';
 import { take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-confirm-email',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './confirm-email.component.html',
   styleUrls: ['./confirm-email.component.css'] // Fixed this from `styleUrl` to `styleUrls`
 })
@@ -39,6 +40,7 @@ export class ConfirmEmailComponent implements OnInit {
       this.accountService.confirmEmail(confirmEmailData).subscribe({
         next: (response: any) => {
           this.accountService.showNotification(true, response.value.title, response.value.message);
+          this.success = true;
         },
         error: (error) => {
           this.success = false;

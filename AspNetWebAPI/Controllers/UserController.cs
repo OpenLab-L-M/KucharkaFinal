@@ -1,5 +1,4 @@
-﻿
-using AspNetCoreAPI.Data;
+﻿using AspNetCoreAPI.Data;
 using AspNetCoreAPI.Models;
 using AspNetCoreAPI.Registration.dto;
 using Microsoft.AspNetCore.Authorization;
@@ -41,6 +40,7 @@ namespace AspNetCoreAPI.Controllers
             GetUserDTO userik = new GetUserDTO();
             {
                 userik.UserName = user.UserName;
+                userik.Admin = GetCurrentUser().Admin;
                 userik.ProfileName = user.ProfileName;
                 userik.PictureURL = user.PictureURL;
 
@@ -69,6 +69,7 @@ namespace AspNetCoreAPI.Controllers
                 return komentariky.Select(x => new RecensionDTO
                 {
                     AmountOfDisslikes = x.AmountOfDisslikes,
+                    Admin = GetCurrentUser().Admin,
                     AmountOfLikes = x.AmountOfLikes,
                     Datetime = x.Datetime,
                     RecipesID = x.RecipeId,
@@ -126,6 +127,7 @@ namespace AspNetCoreAPI.Controllers
                 var tentoUser = GetCurrentUser();
                 GetUserDTO tentoUserik = new GetUserDTO();
                 {
+                    tentoUserik.Admin = tentoUser.Admin;
                     tentoUserik.UserName = tentoUser.UserName;
                     tentoUserik.ProfileName = tentoUser.ProfileName;
                     tentoUserik.PictureURL = tentoUser.PictureURL;
@@ -136,6 +138,7 @@ namespace AspNetCoreAPI.Controllers
                 var user = _context.Userik.Where(x => x.UserName == userName).Single();
                 GetUserDTO userik = new GetUserDTO();
                 {
+                    userik.Admin = user.Admin;
                     userik.UserName = user.UserName;
                     userik.ProfileName = user.ProfileName;
                     userik.PictureURL = user.PictureURL;
@@ -147,8 +150,28 @@ namespace AspNetCoreAPI.Controllers
 
         }
 
+        [HttpGet("/getAllUsers")]
+        public IEnumerable<GetUserDTO> GetAllUsers()
+        {
+            var dbUsers = _context.Users.Where(x => x.UserName != GetCurrentUser().UserName);
+           return dbUsers.Select(x =>
+            new GetUserDTO
+            {
+                UserName = x.UserName,
+                ProfileName = x.ProfileName,
+
+            });
+        }
 
 
+        [HttpDelete("/deleteUser/{userName}")]
+        public GetUserDTO DeleteUser([FromRoute] string userName)
+        {
+            var userForDeletion = _context.Users.FirstOrDefault(x => x.UserName == userName);
+            _context.Remove(userForDeletion);
+            _context.SaveChanges();
+            return null;
+        }
         [HttpGet("/getUserCreators")]
         public ActionResult<List<GetUserDTO>> GetAllUserCreators()
         {

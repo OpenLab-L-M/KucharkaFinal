@@ -62,7 +62,11 @@
       <div class="button-container">
         <button mat-raised-button color="primary" (click)="zobrazNakupnyZoznamBtn()">Nákupný zoznam</button>
         <button mat-raised-button color="accent" (click)="zobrazReceptyBtn()">Recepty</button>
+        @if(this.user.admin == true){
+          <button mat-raised-button style="background-color: purple; color: white;" (click)="zobrazUserov()">Používatelia</button>
+        }
       </div>
+      
 
       @if((ourFavRecipes().length > 0 || ourListOfRecipes.length > 0 || recensions.length > 0) && chcemRecepty == true ) {
         <div *ngIf="ourListOfRecipes.length > 0">
@@ -205,6 +209,34 @@
           }
         </cdk-accordion>
         <button mat-raised-button color="warn" (click)="DeleteWholeNakupnyZoznam()">Vymaz svoj nákupný zoznam a nahraj ďalší</button>
+      }
+      @else if(vZobrazUserov == true){
+        <div class="user-management-container">
+          <h2>User Management</h2>
+          
+          <div class="table-container">
+            <table class="user-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>User Name</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let user of users(); let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ user.userName }}</td>
+                  <td>
+                    <button class="delete-btn" (click)="deleteUser(user.userName)">
+                      <i class="fas fa-trash-alt"></i> Delete
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       }
     
     </div>

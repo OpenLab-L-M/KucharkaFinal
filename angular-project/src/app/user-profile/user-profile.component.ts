@@ -32,6 +32,7 @@ import {CdkAccordionModule} from '@angular/cdk/accordion';
 import { TaskDTO } from '../DTOs/TaskDTO';
 import { TaskService } from 'src/services/task.service';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 
 
 
@@ -95,13 +96,20 @@ export class UserProfileComponent {
   zobrazNakupnyZoznamBtn(){
     this.chcemNakupnyZoznam = true;
     this.chcemRecepty = false;
-
+    this.vZobrazUserov = false;
   }
   chcemRecepty: boolean = true;
   zobrazReceptyBtn(){
     this.chcemNakupnyZoznam = false;
     this.chcemRecepty = true;
+    this.vZobrazUserov = false;
 
+  }
+  vZobrazUserov: boolean = false;
+  zobrazUserov(){
+    this.vZobrazUserov = true;
+    this.chcemNakupnyZoznam = false;
+    this.chcemRecepty = false;
   }
   navigujInde(){
     this.router.navigate(['Recipes']);
@@ -110,7 +118,12 @@ export class UserProfileComponent {
   expandedIndex = 0;
 
 
+  deleteUser(userName: string){
+    this.userService.deleteUser(userName)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => this.users.update(res => [...res, result]));
 
+  }
 
 
   submit(){
@@ -173,7 +186,7 @@ export class UserProfileComponent {
   }
   recipeService = inject(RecipesService);
   imageDTO: ImageDTO[] = [];
-
+  users = signal<UserDTO[]>([]);
   userImages: CreatorDTO[] = [];
   ngOnInit(): void{
     this.userService.getCurrentUser()
@@ -181,6 +194,7 @@ export class UserProfileComponent {
     .subscribe(result => this.currentUserUsername = result.userName);
     forkJoin({
       currentUser: this.userService.userProfile(this.userName),
+      users: this.userService.getUsers(),
       myComments: this.userService.getUsersRecensions(this.userName),
       usersRecipes: this.userService.usersRecipes(this.userName).pipe(takeUntil(this.destroy$)),
       favourites: this.userService.getFavourites().pipe(takeUntil(this.destroy$)),
@@ -190,6 +204,7 @@ export class UserProfileComponent {
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
         this.user = result.currentUser;
+        this.users.set(result.users);
         this.recensions = result.myComments;
         if(this.recensions)
         {

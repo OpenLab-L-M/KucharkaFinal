@@ -1,10 +1,18 @@
-<div class="container text-center" *ngIf="success">
-    <a class="btn btn-primary" routerLink="/login">
-        Login
-    </a>
-</div>
-<div class="container text-center" *ngIf="!success">
-    <a class="btn btn-link" (click)="resendEmailConfirmationLink()">
-        Click here to resend email confirmation link
-    </a>
-</div>
+<div class="email-confirmation-container">
+    <div class="confirmation-card">
+      <div class="confirmation-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#4361ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      </div>
+      <h2 class="confirmation-title">Email Confirmed Successfully!</h2>
+      <p class="confirmation-message">Your account is now active. You can log in to access your account.</p>
+      <a class="confirmation-button"  [routerLink]="['/login']">
+        Continue to Login
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+  </div>

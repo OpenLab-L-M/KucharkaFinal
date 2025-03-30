@@ -48,6 +48,9 @@ export class AuthenticationService {
   confirmEmail(model: confirmEmail){
     return this.httpClient.put(this.baseUrl + '/confirmEmail', model);
   }
+  resendEmail(model: confirmEmail){
+    return this.httpClient.post(this.baseUrl + '/resend-email-confirmation-link/' + model, model)
+  }
 
 
   showNotification(isSuccess: boolean, title: string, message: string) {
