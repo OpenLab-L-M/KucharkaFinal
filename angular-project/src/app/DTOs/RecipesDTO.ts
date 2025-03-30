@@ -28,4 +28,5 @@ export class RecipesDTO{
     image: number;
     favourite?: boolean;
     comprimedImage: any;
+
   }

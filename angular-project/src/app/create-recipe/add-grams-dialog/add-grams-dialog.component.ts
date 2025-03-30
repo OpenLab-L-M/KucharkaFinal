@@ -52,7 +52,7 @@ export class AddGramsDialogComponent {
       this.unit = " ml";
     }
     else if (unit == "ks"){
-      this.unit = " kusy";
+      this.unit = " ks";
     }
   }
   addGrams(){

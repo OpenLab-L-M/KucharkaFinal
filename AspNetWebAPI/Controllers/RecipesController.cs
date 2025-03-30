@@ -9,6 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Expressions;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using DeepL;
+using System.Net.Http;
+using Nutritionix;
 
 namespace AspNetCoreAPI.Controllers
 {
@@ -131,8 +134,7 @@ namespace AspNetCoreAPI.Controllers
             return Ok(imagesDTO);
 
         }
-
-
+      
 
         [HttpPost("/CreateRecipe")]
         public RecipesDTO CreateRecipe( RecipesDTO receptik)
@@ -140,9 +142,6 @@ namespace AspNetCoreAPI.Controllers
             var user = GetCurrentUser();
             RecipesDTO recept = new RecipesDTO();
             recept = receptik;
-
- 
-
 
             var nReceptik = new Recipe()
             {

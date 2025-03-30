@@ -258,7 +258,6 @@ body {
 /* Updated Recipes Section */
 .recipes-container {
   display: flex;
-  margin-top: 5%;
   flex-wrap: wrap;
   gap: 20px;
 }
@@ -423,33 +422,43 @@ body {
   color: #333;
 }
 
+/* Accordion Container */
 .accordion-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 100vh;
-  padding: 20px;
+  min-height: 100vh;
+  padding: 40px 20px;
   background-color: #f5f5f5;
 }
 
+/* Main Accordion */
 .example-accordion {
-  width: 80%;
+  width: 90%;
   max-width: 800px;
+  margin-bottom: 30px;
 }
 
+/* Accordion Item */
 .example-accordion-item {
-  margin-bottom: 10px;
+  margin-bottom: 16px;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
   background-color: white;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+.example-accordion-item:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+}
+
+/* Accordion Header */
 .example-accordion-item-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px;
+  padding: 18px 24px;
   background-color: #3E2723;
   color: white;
   border: none;
@@ -457,34 +466,80 @@ body {
   text-align: left;
   cursor: pointer;
   font-size: 18px;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
+  font-weight: 500;
+  transition: all 0.3s ease;
 }
 
 .example-accordion-item-header:hover {
   background-color: #5D4037;
 }
 
+.example-accordion-item-header[aria-expanded="true"] {
+  background-color: #5D4037;
+}
+
+/* Description Text */
 .example-accordion-item-description {
   font-size: 14px;
-  color: #ccc;
+  color: #e0e0e0;
+  font-style: italic;
+  margin-left: 12px;
 }
 
-.UserAvaiableContainer{
-  position: relative;
-}
-
+/* Accordion Body */
 .example-accordion-item-body {
-  padding: 16px;
-  background-color: #f9f9f9;
+  padding: 20px;
+  background-color: white;
+  border-top: 1px solid #f0f0f0;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Adjust Button */
+#white {
+  background-color: #f5f5f5;
+  color: #3E2723;
+  border-radius: 4px;
+  padding: 8px 16px;
+  transition: all 0.2s ease;
+}
+
+#white:hover {
+  background-color: #e67e22;
+  color: white;
+}
+
+/* Delete Button */
+button[mat-raised-button][color="warn"] {
+  margin-top: 20px;
+  padding: 10px 24px;
   font-size: 16px;
-  color: #333;
+  border-radius: 8px;
+  transition: all 0.3s ease;
 }
 
-.obsah button {
-  align-content: center;
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .example-accordion {
+    width: 100%;
+  }
+  
+  .example-accordion-item-header {
+    padding: 16px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .example-accordion-item-description {
+    margin-left: 0;
+    margin-top: 8px;
+  }
+}
 @media screen and (max-width: 1300px) {
   .user_name {
     font-size: 40px;

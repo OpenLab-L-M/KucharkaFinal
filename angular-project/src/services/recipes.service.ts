@@ -110,5 +110,8 @@ const body = {
 
 return this.http.post(apiUrl, body, httpOptions);
 }
+returnTranslation(ingr: string){
+  return this.http.post<string>(this.baseUrl + "/translate/" + ingr, ingr)
+}
 
 }

@@ -199,78 +199,131 @@ export class CreateRecipeComponent {
 prelozene:string = "";
 translate = require("deepl");
 uprava: string[] = [];
+ingr = "";
 
+private async createRecipe(value: Number) {
+  await this.translateingr();
+    this.recipesServíce.getCalories(this.prelozene)
+    .subscribe(result => {
+        this.data = result;
 
-private createRecipe(value: Number) {
+        let vypocet = 0;
+        this.dKalorie= 0;
+        this.dTuky= 0;
+        this.dCukor= 0;
+        this.dSacharidy= 0;
+        this.dBielkoviny= 0;
+        this.dGramaz= 0;
 
-  this.translate({
-    free_api: true,
-    text: this.vybrane.join(", ").toString(),
-    target_lang: 'EN',
-    auth_key: '923f8dba-d7c4-496b-b27f-231233ba7f29:fx',
-  })
-  .then(result => {
+        if (this.data && Array.isArray(this.data.foods)) { // Check if this.data and foods are defined
 
-      this.prelozene = result.data.translations[0].text;
-      this.recipesServíce.getCalories(this.prelozene)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(result => {
-          this.data = result;
+          for (let i = 0; i < this.data.foods.length; i++) {
+                const food = this.data.foods[i];
+                if (food && typeof food.nf_calories === 'number') {  // Check if food and nf_calories are defined and a number
+                    this.dKalorie += food.nf_calories;
+                    this.dTuky += food.nf_total_fat;
+                    this.dCukor += food.nf_sugars;
+                    this.dSacharidy += food.nf_total_carbohydrate;
+                    this.dBielkoviny += food.nf_protein;
+                    this.dGramaz += food.serving_weight_grams;
+            }
+            else{
+              console.log("error");
+            }
+        }
 
-          let vypocet = 0;
-          this.dKalorie= 0;
-          this.dTuky= 0;
-          this.dCukor= 0;
-          this.dSacharidy= 0;
-          this.dBielkoviny= 0;
-          this.dGramaz= 0;
+        this.recipesServíce.CreateRecipe({
+          name: this.profileForm.controls['name'].value,
+          description: this.profileForm.controls['description'].value,
+          difficulty: this.profileForm.controls['diff'].value,
+          imageURL: this.profileForm.controls['img'].value,
+          ingrediencie: this.vybrane.join(', '),
+          cas: this.profileForm.controls['cas'].value,
+          veganske: this.profileForm.controls['veganske']?.value,
+          vegetarianske: this.profileForm.controls['vegetarianske']?.value,
+          postupicky: (this.postupForm.get('postupy') as FormArray).value,
+          tuky: Math.ceil(this.dTuky),
+          cukor: Math.ceil(this.dCukor),
+          sacharidy: Math.ceil(this.dSacharidy),
+          bielkoviny: Math.ceil(this.dBielkoviny),
+          kalorie: Math.ceil(this.dKalorie),
+          gramaz: Math.ceil(this.dGramaz),
+          imageId: value,
+          ranajky: this.profileForm.controls['ranajky']?.value,
+          obed: this.profileForm.controls['obed']?.value,
+          vecera: this.profileForm.controls['vecera']?.value,
+        }).pipe(takeUntil(this.destroy$))
 
-          if (this.data && Array.isArray(this.data.foods)) { // Check if this.data and foods are defined
+        .subscribe(() => this.router.navigate(['/Recipes']));
+        this.ingredientService.selectedIngredients = "";
+    }})
+  // this.translate({
+  //   free_api: true,
+  //   text: this.vybrane.join(", ").toString(),
+  //   target_lang: 'EN',
+  //   auth_key: '68a1f6a1-cd34-47dd-bbda-2c958feb60aa:fx',
+  // }).then(result => {
 
-            for (let i = 0; i < this.data.foods.length; i++) {
-                  const food = this.data.foods[i];
-                  if (food && typeof food.nf_calories === 'number') {  // Check if food and nf_calories are defined and a number
-                      this.dKalorie += food.nf_calories;
-                      this.dTuky += food.nf_total_fat;
-                      this.dCukor += food.nf_sugars;
-                      this.dSacharidy += food.nf_total_carbohydrate;
-                      this.dBielkoviny += food.nf_protein;
-                      this.dGramaz += food.serving_weight_grams;
-              }
-              else{
-                console.log("error");
-              }
-          }
+  //     this.prelozene = result.data.translations[0].text;
+  //     this.recipesServíce.getCalories(this.prelozene)
+  //     .pipe(takeUntil(this.destroy$))
+  //     .subscribe(result => {
+  //         this.data = result;
 
-          this.recipesServíce.CreateRecipe({
-            name: this.profileForm.controls['name'].value,
-            description: this.profileForm.controls['description'].value,
-            difficulty: this.profileForm.controls['diff'].value,
-            imageURL: this.profileForm.controls['img'].value,
-            ingrediencie: this.vybrane.join(', '),
-            cas: this.profileForm.controls['cas'].value,
-            veganske: this.profileForm.controls['veganske']?.value,
-            vegetarianske: this.profileForm.controls['vegetarianske']?.value,
-            postupicky: (this.postupForm.get('postupy') as FormArray).value,
-            tuky: Math.ceil(this.dTuky),
-            cukor: Math.ceil(this.dCukor),
-            sacharidy: Math.ceil(this.dSacharidy),
-            bielkoviny: Math.ceil(this.dBielkoviny),
-            kalorie: Math.ceil(this.dKalorie),
-            gramaz: Math.ceil(this.dGramaz),
-            imageId: value,
-            ranajky: this.profileForm.controls['ranajky']?.value,
-            obed: this.profileForm.controls['obed']?.value,
-            vecera: this.profileForm.controls['vecera']?.value,
-          }).pipe(takeUntil(this.destroy$))
+  //         let vypocet = 0;
+  //         this.dKalorie= 0;
+  //         this.dTuky= 0;
+  //         this.dCukor= 0;
+  //         this.dSacharidy= 0;
+  //         this.dBielkoviny= 0;
+  //         this.dGramaz= 0;
 
-          .subscribe(() => this.router.navigate(['/Recipes']));
-          this.ingredientService.selectedIngredients = "";
-      }});
-  })
-  .catch(error => {
-      console.error(error);
-  });
+  //         if (this.data && Array.isArray(this.data.foods)) { // Check if this.data and foods are defined
+
+  //           for (let i = 0; i < this.data.foods.length; i++) {
+  //                 const food = this.data.foods[i];
+  //                 if (food && typeof food.nf_calories === 'number') {  // Check if food and nf_calories are defined and a number
+  //                     this.dKalorie += food.nf_calories;
+  //                     this.dTuky += food.nf_total_fat;
+  //                     this.dCukor += food.nf_sugars;
+  //                     this.dSacharidy += food.nf_total_carbohydrate;
+  //                     this.dBielkoviny += food.nf_protein;
+  //                     this.dGramaz += food.serving_weight_grams;
+  //             }
+  //             else{
+  //               console.log("error");
+  //             }
+  //         }
+
+  //         this.recipesServíce.CreateRecipe({
+  //           name: this.profileForm.controls['name'].value,
+  //           description: this.profileForm.controls['description'].value,
+  //           difficulty: this.profileForm.controls['diff'].value,
+  //           imageURL: this.profileForm.controls['img'].value,
+  //           ingrediencie: this.vybrane.join(', '),
+  //           cas: this.profileForm.controls['cas'].value,
+  //           veganske: this.profileForm.controls['veganske']?.value,
+  //           vegetarianske: this.profileForm.controls['vegetarianske']?.value,
+  //           postupicky: (this.postupForm.get('postupy') as FormArray).value,
+  //           tuky: Math.ceil(this.dTuky),
+  //           cukor: Math.ceil(this.dCukor),
+  //           sacharidy: Math.ceil(this.dSacharidy),
+  //           bielkoviny: Math.ceil(this.dBielkoviny),
+  //           kalorie: Math.ceil(this.dKalorie),
+  //           gramaz: Math.ceil(this.dGramaz),
+  //           imageId: value,
+  //           ranajky: this.profileForm.controls['ranajky']?.value,
+  //           obed: this.profileForm.controls['obed']?.value,
+  //           vecera: this.profileForm.controls['vecera']?.value,
+  //         }).pipe(takeUntil(this.destroy$))
+
+  //         .subscribe(() => this.router.navigate(['/Recipes']));
+  //         this.ingredientService.selectedIngredients = "";
+  //     }});
+  // })
+  // .catch(error => {
+  //     console.error(error);
+  // });
 
 }
 onSliderChange(event: any) {
@@ -302,6 +355,14 @@ suggestions: string[] = [];
   const result = await this.model.generateContent(prompt);
   const response = await result.response;
   this.suggestions = response.text().split("\n").filter(v => v!='');
+  console.log(this.suggestions);
+}
+async translateingr() {
+  const prompt = 'prelož do angličtiny priložené ingrediencie, ' +  this.vybrane + 'vráť iba to čo si preložil, ako 1 string oddelený čiarkami';
+  
+  const result = await this.model.generateContent(prompt);
+  const response = await result.response;
+  this.prelozene = response.text();
   console.log(this.suggestions);
 }
 

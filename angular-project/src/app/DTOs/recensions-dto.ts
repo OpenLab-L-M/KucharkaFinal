@@ -10,4 +10,5 @@ export class RecensionsDTO {
     datetime?: string;
     profileName?: string;
     userImage?: string;
+
 }
