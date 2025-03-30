@@ -6,5 +6,5 @@ export class TaskDTO{
     deadLine?: Date;
     startTime?: Date;
     isCompleted?: boolean;
-
+    admin?: boolean;
   }

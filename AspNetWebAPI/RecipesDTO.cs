@@ -27,7 +27,7 @@ namespace AspNetCoreAPI
         public bool? NizkoKaloricke { get; set; }
         public string? userID {  get; set; }
         public List<string>? Postupicky { get; set; }
-
+        public bool? Admin { get; set; }
         public int? imageId { get; set; }   
 
 }

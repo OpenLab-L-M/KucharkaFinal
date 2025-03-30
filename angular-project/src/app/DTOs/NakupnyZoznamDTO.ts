@@ -4,4 +4,5 @@ export interface NakupnyZoznam {
     isChecked?: boolean;
     price?: number;
     day?: string;
+    admin?: boolean;
 }

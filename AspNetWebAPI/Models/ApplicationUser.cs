@@ -6,6 +6,7 @@ namespace AspNetCoreAPI.Models
     {
         public byte[]? PictureURL { get; set; }
         public string? ProfileName { get; set; }
+        public bool? Admin {  get; set; }
 
     
     }

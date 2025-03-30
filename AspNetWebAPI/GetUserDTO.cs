@@ -7,6 +7,7 @@
         public string? ProfileName { get; set;}
         public string? PasswordHash {  get; set; }
         public byte[]? PictureURL { get; set;}
+        public bool? Admin { get; set; }
         IEnumerable<RecipesDTO>? oblubeneReceptiky { get; set;}
         
     }

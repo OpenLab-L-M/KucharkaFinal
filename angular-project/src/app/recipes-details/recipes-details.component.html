@@ -129,7 +129,7 @@
         <mat-card-footer>
           <mat-card-actions style="display: flex; justify-content: center; gap: 10px;">
             <button mat-raised-button [routerLink]="['/Recipes']">Back</button>
-            <div *ngIf="recipeService.chRecipe.checkID == recipeService.chRecipe.userID">
+            <div *ngIf="recipeService.chRecipe.checkID == recipeService.chRecipe.userID ||recipeService.chRecipe.admin == true">
               <mat-icon style="cursor: pointer;" (click)="deleteBtn()">delete</mat-icon>
             </div>
           </mat-card-actions>

@@ -26,6 +26,7 @@ export class RecipesDTO{
     kalorie?:number;
     gramaz?:number;
     image: number;
+    admin?: boolean;
     favourite?: boolean;
     comprimedImage: any;
 

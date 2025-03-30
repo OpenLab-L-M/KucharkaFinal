@@ -29,6 +29,8 @@ namespace AspNetCoreAPI.Controllers
         {
             _context = context;
         }
+
+
         [HttpGet("/recipes/")]
         public IEnumerable<RecipesDTO> GetRecipesList()
         {
@@ -95,7 +97,7 @@ namespace AspNetCoreAPI.Controllers
                 Ingrediencie = recipe.Ingrediencie,
                 Veganske = recipe.Veganske,
                 Vegetarianske = recipe.Vegetarianske,
-
+                Admin = GetCurrentUser().Admin,
                 Cas = recipe.Cas,
                 imageId = recipe.ImageId
             };
@@ -341,6 +343,7 @@ namespace AspNetCoreAPI.Controllers
                     UserImage = dbRecension.UserImage,
                     UserID = dbRecension.UserId,
                     UserName = dbRecension.UserName,
+                    Admin = GetCurrentUser().Admin,
                     ProfileName = dbRecension.ProfileName,
                     AmountOfLikes = dbRecension.AmountOfLikes,
                     AmountOfDisslikes = dbRecension.AmountOfDisslikes,

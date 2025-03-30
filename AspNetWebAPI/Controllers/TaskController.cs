@@ -1,21 +1,34 @@
 ﻿using AspNetCoreAPI.Data;
 using AspNetCoreAPI.Migrations;
 using AspNetCoreAPI.Models;
+using Mailjet.Client.Resources;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace AspNetCoreAPI.Controllers
 {
     [ApiController]
     [Authorize]
     [Route("[controller]")]
-    public class TaskController
+    public class TaskController : ControllerBase  
     {
         private readonly ApplicationDbContext _context;
         public TaskController(ApplicationDbContext context)
         {
             _context = context;
         }
+        protected ApplicationUser? GetCurrentUser()
+        {
+            // Get the username from the current User's claims
+            var userName = User?.FindFirstValue(ClaimTypes.Name);
+
+            // Find the user in the database
+            return _context.Users.SingleOrDefault(user => user.UserName == userName);
+        }
+
+
         [HttpGet("/taskList")]
         public IEnumerable<TaskDTO> GetTasks()
         {
@@ -23,6 +36,7 @@ namespace AspNetCoreAPI.Controllers
             return dbTasks.Select(t => new TaskDTO
             {
                 Id = t.Id,
+                
                 Name = t.Name,
                 DeadLine = t.DeadLine,
                 Description = t.Description,
@@ -57,6 +71,7 @@ namespace AspNetCoreAPI.Controllers
             return new TaskDTO()
             {
                 Id = task.Id,
+                Admin = GetCurrentUser().Admin,
                 Priority = task.Priority,
                 StartTime = task.StartTime,
                 DeadLine = task.DeadLine, 
