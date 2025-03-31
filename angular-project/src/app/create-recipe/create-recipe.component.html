@@ -122,6 +122,19 @@
               <img [src]="this.liveDemo" alt=""/>
             </div>
           </div>
+
+          @if(suggestions.length > 0) {
+            <div class="column suggestions-column">
+              <div class="suggestions-container">
+                <h2>Suggestions</h2>
+                <div class="suggestions-scroller">
+                  <ul>
+                    <li *ngFor="let suggestion of suggestions">{{ suggestion }}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          }
         </div>
       </header>
 
@@ -162,16 +175,5 @@
         <button class="beautyBtn" (click)="pridajPostup()">Pridať postup</button>
       </form>
     </div>
-
-    @if(suggestions.length > 0) {
-      <div class="suggestions-container">
-        <h2>Suggestions</h2>
-        <div class="suggestions-scroller">
-          <ul>
-            <li *ngFor="let suggestion of suggestions">{{ suggestion }}</li>
-          </ul>
-        </div>
-      </div>
-    }
   </div>
 </body>

@@ -47,14 +47,18 @@ header h1 {
 .form-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 40px;
+  gap: 20px;
   justify-content: space-between;
   margin-bottom: 50px;
 }
 
 .column {
   flex: 1;
-  min-width: 300px;
+  min-width: 250px;
+}
+
+.suggestions-column {
+  flex: 0 0 300px;
 }
 
 /* Input Styling */
@@ -225,11 +229,11 @@ textarea {
 
 /* Suggestions Section */
 .suggestions-container {
-  margin-top: 5%;
-  padding: 20px;
   background: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  height: 100%;
 }
 
 .suggestions-container h2 {
@@ -242,27 +246,28 @@ textarea {
 }
 
 .suggestions-scroller {
-  overflow-x: auto;
-  white-space: nowrap;
-  padding-bottom: 10px;
+  overflow-y: auto;
+  max-height: 400px;
+  padding-right: 10px;
 }
 
 .suggestions-scroller ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
-  display: inline-flex;
-  gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .suggestions-scroller li {
-  display: inline-block;
   background: #FFF8E1;
   padding: 10px 15px;
   border-radius: 20px;
   font-size: 16px;
   color: #5D4037;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  white-space: normal;
 }
 
 /* Checkbox and Radio Button Styles */
@@ -343,6 +348,13 @@ label {
 }
 
 /* Responsive Design */
+@media screen and (max-width: 1024px) {
+  .suggestions-column {
+    flex: 1 0 100%;
+    margin-top: 20px;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .form-container {
     flex-direction: column;
@@ -351,10 +363,6 @@ label {
 
   #make, #back {
     width: 100%;
-  }
-
-  .suggestions-scroller ul {
-    padding-bottom: 15px;
   }
 }
 
