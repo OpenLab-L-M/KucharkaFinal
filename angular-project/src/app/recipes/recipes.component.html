@@ -180,10 +180,14 @@
               <span class="detail-text">{{recipe.gramaz / 250 | number : '1.0-0'}}</span>
             </div>
 
-            <!-- Calories with Favorite Heart -->
-            <div class="detail-item calories">
+            <!-- Calories -->
+            <div class="detail-item">
               <mat-icon class="detail-icon">local_fire_department</mat-icon>
               <span class="detail-text">{{recipe.kalorie}} KCal</span>
+            </div>
+
+            <!-- Favorite Heart -->
+            <div class="favourite-container">
               <input type="checkbox" id="favourite-{{recipe.id}}" class="favourite-checkbox" (click)="ktoryRecept(recipe.id)" [checked]="isFavourite(recipe.id)">
               <label for="favourite-{{recipe.id}}" class="favourite-label">
                 <mat-icon class="heart-icon">favorite</mat-icon>

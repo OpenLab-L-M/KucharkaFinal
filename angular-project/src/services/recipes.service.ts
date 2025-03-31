@@ -113,5 +113,8 @@ return this.http.post(apiUrl, body, httpOptions);
 returnTranslation(ingr: string){
   return this.http.post<string>(this.baseUrl + "/translate/" + ingr, ingr)
 }
+deleteIngredient(ingr: string){
+  return this.http.delete(this.baseUrl + '/deleteIngredient/' + ingr);
+}
 
 }

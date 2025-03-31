@@ -36,9 +36,10 @@ body {
 /* Header Styling */
 header h1 {
   text-align: center;
-  font-family: 'Pacifico', cursive;
+  font-family: 'Times New Roman', Times, serif;
   color: #3E2723;
-  font-size: 32px;
+  font-size: 30px;
+  font-weight: bold;
   margin-bottom: 20px;
 }
 
@@ -48,7 +49,7 @@ header h1 {
   flex-wrap: wrap;
   gap: 40px;
   justify-content: space-between;
-  margin-bottom: 50px; /* Add spacing beneath the form */
+  margin-bottom: 50px;
 }
 
 .column {
@@ -76,12 +77,11 @@ textarea:focus, input[type="text"]:focus {
 
 /* Section Titles */
 h2 {
-  font-family: 'Roboto', sans-serif;
-  font-size: 22px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 25px;
   color: #3E2723;
   margin-bottom: 10px;
-  border-bottom: 2px solid #D7CCC8;
-  padding-bottom: 5px;
+  font-weight: bold;
 }
 
 /* Button Styles */
@@ -109,27 +109,96 @@ button:hover {
   color: #3E2723;
 }
 
-/* Drag-and-Drop Styling */
+/* Container styling */
 .example-container {
-  margin-top: 20px;
-  max-height: 300px; /* Limit the height of the drag-and-drop area */
-  overflow-y: auto; /* Enable vertical scrolling */
-  border: 1px solid #ddd; /* Optional: Adds a border for distinction */
-  padding: 10px; /* Optional: Padding inside the drag-and-drop area */
-  background-color: #FAFAFA; /* Subtle background for better visibility */
+  margin: 20px 0;
 }
 
-.example-box {
-  padding: 10px;
-  margin: 5px 0;
-  background-color: #FBE9E7;
-  color: #3E2723;
+/* List styling */
+.example-list {
+  border: 1px solid #ddd;
   border-radius: 5px;
-  cursor: grab;
+  padding: 15px;
+  min-height: 100px;
+  max-height: 300px;
+  overflow-y: auto;
+  background: #f9f9f9;
 }
 
-.example-box:active {
-  cursor: grabbing;
+/* Search input */
+.findInput {
+  width: 100%;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* Draggable item */
+.example-box {
+  background: white;
+  padding: 8px 12px;
+  margin: 5px 0;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  cursor: move;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.example-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
+/* Ingredient name */
+.ingredient-name {
+  flex-grow: 1;
+  padding-right: 10px;
+}
+
+/* Delete button */
+.delete-button {
+  color: #f44336;
+  margin-left: auto;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.delete-button:hover {
+  opacity: 1;
+  background-color: rgba(244, 67, 54, 0.1);
+}
+
+/* Drag preview styling */
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  background: white;
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+}
+
+.cdk-drag-preview .delete-button {
+  display: none;
+}
+
+/* Drag placeholder styling */
+.cdk-drag-placeholder {
+  opacity: 0.3;
+}
+
+/* Animation when moving items */
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 /* Image Upload */
@@ -156,7 +225,7 @@ textarea {
 
 /* Suggestions Section */
 .suggestions-container {
-  margin-top: 5%; /* Adds clear space from the form */
+  margin-top: 5%;
   padding: 20px;
   background: #f9f9f9;
   border-radius: 8px;
@@ -172,64 +241,88 @@ textarea {
   padding-bottom: 5px;
 }
 
-.suggestions-container ul {
-  list-style-type: disc;
-  padding-left: 20px;
+.suggestions-scroller {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 10px;
 }
 
-.suggestions-container li {
+.suggestions-scroller ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  gap: 15px;
+}
+
+.suggestions-scroller li {
+  display: inline-block;
+  background: #FFF8E1;
+  padding: 10px 15px;
+  border-radius: 20px;
   font-size: 16px;
-  color: #555;
-  margin-bottom: 5px;
+  color: #5D4037;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 /* Checkbox and Radio Button Styles */
+.diff_radio {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.radio-option, .checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 input[type="checkbox"], input[type="radio"] {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  display: inline-block;
-  width: 24px; /* Adjust for size */
-  height: 24px;
-  margin-right: 10px;
-  border: 2px solid #007BFF; /* Blue border */
+  width: 20px;
+  height: 20px;
+  border: 2px solid #3E2723;
   background-color: #fff;
-  border-radius: 4px; /* Rounded corners for checkboxes */
   position: relative;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
+input[type="checkbox"] {
+  border-radius: 4px;
+}
+
+input[type="radio"] {
+  border-radius: 50%;
+}
+
 input[type="checkbox"]:checked {
-  background-color: #007BFF; /* Blue fill */
-  border-color: #007BFF;
+  background-color: #3E2723;
 }
 
 input[type="checkbox"]:checked::after {
   content: "✔";
   color: white;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 12px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-input[type="radio"] {
-  border-radius: 50%; /* Circular shape for radio buttons */
-}
-
 input[type="radio"]:checked {
-  background-color: #007BFF;
-  border-color: #007BFF;
+  background-color: #3E2723;
 }
 
 input[type="radio"]:checked::after {
   content: "";
   position: absolute;
-  width: 12px;
-  height: 12px;
+  width: 8px;
+  height: 8px;
   background-color: white;
   border-radius: 50%;
   top: 50%;
@@ -237,35 +330,16 @@ input[type="radio"]:checked::after {
   transform: translate(-50%, -50%);
 }
 
-input[type="checkbox"]:hover, input[type="radio"]:hover {
-  border-color: #0056b3; /* Darker blue on hover */
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
 label {
   font-size: 16px;
   color: #333;
   cursor: pointer;
-  font-weight: 500;
-  margin-left: 5px;
-  transition: color 0.3s ease;
-}
-
-label:hover {
-  color: #0056b3;
 }
 
 .set {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px; /* Space between sections */
-}
-
-.diff_radio {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px; /* Spacing between inputs and labels */
-  align-items: center;
+  margin-bottom: 20px;
 }
 
 /* Responsive Design */
@@ -275,7 +349,31 @@ label:hover {
     gap: 20px;
   }
 
-  button {
+  #make, #back {
     width: 100%;
   }
+
+  .suggestions-scroller ul {
+    padding-bottom: 15px;
+  }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
 }

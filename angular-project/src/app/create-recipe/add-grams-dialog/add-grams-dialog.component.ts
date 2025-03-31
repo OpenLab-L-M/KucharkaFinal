@@ -9,9 +9,11 @@ import { IngredientService } from '../IngredientService';
 import { CommonModule, NgForOf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatLabel } from '@angular/material/form-field';
+import { MatFormField, MatHint, MatLabel } from '@angular/material/form-field';
 import { getBaseUrl } from 'src/main';
 import { MatCheckbox } from '@angular/material/checkbox';
+import { MatIcon } from '@angular/material/icon';
+import { MatRadioButton } from '@angular/material/radio';
 
 @Component({
   selector: 'app-add-grams-dialog',
@@ -22,7 +24,11 @@ import { MatCheckbox } from '@angular/material/checkbox';
     NgForOf,
     MatButtonModule,
     MatLabel,
-  MatCheckbox],
+    MatIcon,
+    MatFormField,
+    MatHint,
+  MatCheckbox,
+MatRadioButton],
   templateUrl: './add-grams-dialog.component.html',
   styleUrl: './add-grams-dialog.component.css'
 })
@@ -35,6 +41,9 @@ export class AddGramsDialogComponent {
     g: false,
     ml: false
   };
+  ks:boolean;
+g:boolean;
+ml:boolean;
   unit: string;
   ingrediences: any = [];
   constructor(
@@ -47,12 +56,15 @@ export class AddGramsDialogComponent {
   vyberJednotku(unit : string){
     if(unit == "g"){
       this.unit = " g"
+      this.g = true;
     }
     else if(unit == "ml"){
       this.unit = " ml";
+      this.ml= true;
     }
     else if (unit == "ks"){
       this.unit = " ks";
+      this.ks = true;
     }
   }
   addGrams(){

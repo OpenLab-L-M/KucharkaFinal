@@ -71,6 +71,15 @@ namespace AspNetCoreAPI.Controllers
             return postupyContext;
 
         }
+
+        [HttpDelete("/deleteIngredient/{ingr}")]
+        public void deleteIngredient([FromRoute] string ingr)
+        {
+            var vymazIngr = _context.Ingredience.FirstOrDefault(x => x.Name == ingr);
+            _context.Remove(vymazIngr);
+            _context.SaveChanges();
+        }
+
         [HttpGet("{id:int}")]
         public RecipesDTO GetRecipes(int id)
         {

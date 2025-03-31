@@ -63,7 +63,9 @@ export class CreateRecipeComponent {
   private cdr = Inject(ChangeDetectorRef);
   ingredience: IngredienceDTO = {Name: ''};
   inputString: string = '';
+  userService = inject(UserService)
   ingredients: string[] = [];
+  currentUser: UserDTO;
   //ingredients: Array<string>;//= ["múka", "vajíčka", "mlieko", "cukor", "maslo", "soľ", "orechy", "ovocie", "zelenina", "ryža", "cesnak", "cibuľa", "paprika", "kura", "hovädzina", "bravčová", "losos", "tuniak", "olivový olej", "ocet", "korenie", "cestoviny", "zemiaky", "mrkva", "brokolica", "karfiol", "špenát", "jablká", "hrušky", "banány", "pomaranče", "citróny", "jahody", "čučoriedky", "maliny", "čerešne", "broskyne", "marhule", "ananás", "kiwi", "mango", "avokádo", "paradajky", "uhorky", "zeler", "cícer", "sója", "lentičky", "fazuľa", "hrach", "jogurt", "smotana", "syr", "káva", "čaj", "kakao"];
 
   rada: string = "";
@@ -75,7 +77,9 @@ export class CreateRecipeComponent {
   }
   ngOnInit() {
     this.setIngredients();
-     
+     this.userService.getCurrentUser()
+     .pipe(takeUntil(this.destroy$))
+     .subscribe(result => this.currentUser = result)
   }
 
   setIngredients(){
@@ -380,7 +384,11 @@ async translateingr() {
 
   }
 
-
+  deleteIngredient(ingr: string){
+    this.recipesServíce.deleteIngredient(ingr)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(() => this.ingredients = this.ingredients.filter(x => x != ingr));
+  }
 
   uploadedImage: File;
   dbImage: any;
