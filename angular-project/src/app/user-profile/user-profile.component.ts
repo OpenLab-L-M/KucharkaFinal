@@ -63,6 +63,9 @@ export class UserProfileComponent {
     return this.ourFavRecipes().some(fav => fav.id === recipeId);
   }
 
+  toggleAccordion(index: number){
+
+  }
  // ourFavRecipes = signal<RecipesDTO[]>([]);
   ourFavRecipes = signal<RecipesDTO[]>([]);
 

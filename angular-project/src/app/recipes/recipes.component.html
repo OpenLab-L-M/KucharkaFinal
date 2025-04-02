@@ -22,126 +22,102 @@
           <mat-icon class="search-icon">search</mat-icon>
         </div>
 
-        <!-- Filter Options -->
-        <div class="filter-options">
-          <!-- Difficulty Filters -->
-          <div class="filter-group">
+        <!-- Filter Sections -->
+        <div class="filter-sections">
+          <!-- Difficulty Section -->
+          <div class="filter-section">
             <h4 class="filter-subtitle">Náročnosť <mat-icon>timeline</mat-icon></h4>
             <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="ľahké" [(ngModel)]="easyChecked" (ngModelChange)="easyChecked = $event" (click)="filterRecipesByDifficulty('ľahké')" (click)="call()" [disabled]="sSearchRecept.includes('pokročilé') || sSearchRecept.includes('náročné')">
+              <input type="checkbox" value="ľahké" [(ngModel)]="easyChecked">
               <span class="checkbox-label">ľahké</span>
             </label>
             <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="pokročilé" [(ngModel)]="mediumChecked" (ngModelChange)="mediumChecked = $event" (click)="filterRecipesByDifficulty('pokročilé')" (click)="call()" [disabled]="sSearchRecept.includes('ľahké') || sSearchRecept.includes('náročné')">
+              <input type="checkbox" value="pokročilé" [(ngModel)]="mediumChecked">
               <span class="checkbox-label">pokročilé</span>
             </label>
             <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="náročné" [(ngModel)]="hardChecked" (ngModelChange)="hardChecked = $event" (click)="filterRecipesByDifficulty('náročné')" (click)="call()" [disabled]="sSearchRecept.includes('pokročilé') || sSearchRecept.includes('ľahké')">
+              <input type="checkbox" value="náročné" [(ngModel)]="hardChecked">
               <span class="checkbox-label">náročné</span>
             </label>
           </div>
-          <br>
 
-          <!-- Dietary Filters -->
-          <div class="filter-group">
+          <!-- Dietary Section -->
+          <div class="filter-section">
             <h4 class="filter-subtitle">Dietne <mat-icon>fastfood</mat-icon></h4>
             <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="veganske" [(ngModel)]="veganChecked" (ngModelChange)="veganChecked = $event" (click)="filterRecipesByDifficulty('veganske')" (click)="call()">
+              <input type="checkbox" value="veganske" [(ngModel)]="veganChecked">
               <span class="checkbox-label">Veganské</span>
             </label>
             <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="vegetarianske" [(ngModel)]="vegetarianChecked" (ngModelChange)="vegetarianChecked = $event" (click)="filterRecipesByDifficulty('vegetarianske')" (click)="call()">
+              <input type="checkbox" value="vegetarianske" [(ngModel)]="vegetarianChecked">
               <span class="checkbox-label">Vegetarianske</span>
             </label>
           </div>
-          <br>
 
-          <!-- Course Filters -->
-          <div class="filter-group">
+          <!-- Course Section -->
+          <div class="filter-section">
             <h4 class="filter-subtitle">chod <mat-icon>access_alarm</mat-icon></h4>
             <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="ranajky" [(ngModel)]="ranajkyChecked" (ngModelChange)="ranajkyChecked = $event" (click)="filterRecipesByDifficulty('ranajky')" (click)="call()" [disabled]="sSearchRecept.includes('polievky')">
+              <input type="checkbox" value="ranajky" [(ngModel)]="ranajkyChecked">
               <span class="checkbox-label">Raňajky</span>
             </label>
             <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="obedy" [(ngModel)]="obedyChecked" (ngModelChange)="obedyChecked = $event" (click)="filterRecipesByDifficulty('obedy')" (click)="call()">
+              <input type="checkbox" value="obedy" [(ngModel)]="obedyChecked">
               <span class="checkbox-label">Obedy</span>
             </label>
             <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="vecere" [(ngModel)]="vecereChecked" (ngModelChange)="vecereChecked = $event" (click)="filterRecipesByDifficulty('vecere')" (click)="call()">
+              <input type="checkbox" value="vecere" [(ngModel)]="vecereChecked">
               <span class="checkbox-label">Večere</span>
             </label>
             <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="salaty" [(ngModel)]="salatyChecked" (ngModelChange)="salatyChecked = $event" (click)="filterRecipesByDifficulty('salaty')" (click)="call()" [disabled]="sSearchRecept.includes('polievky') || sSearchRecept.includes('natierky')">
+              <input type="checkbox" value="salaty" [(ngModel)]="salatyChecked">
               <span class="checkbox-label">Šaláty</span>
             </label>
             <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="polievky" [(ngModel)]="soupsChecked" (ngModelChange)="soupsChecked = $event" (click)="filterRecipesByDifficulty('polievky')" (click)="call()" [disabled]="sSearchRecept.includes('ranajky') || sSearchRecept.includes('natierky') || sSearchRecept.includes('salaty')">
+              <input type="checkbox" value="polievky" [(ngModel)]="soupsChecked">
               <span class="checkbox-label">Polievky</span>
             </label>
             <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="natierky" [(ngModel)]="natierkyChecked" (ngModelChange)="natierkyChecked = $event" (click)="filterRecipesByDifficulty('natierky')" (click)="call()" [disabled]="sSearchRecept.includes('salaty') || sSearchRecept.includes('polievky')">
+              <input type="checkbox" value="natierky" [(ngModel)]="natierkyChecked">
               <span class="checkbox-label">Nátierky</span>
             </label>
           </div>
-          <br>
 
-          <!-- Preference Filters -->
-          <div class="filter-group">
-            <h4 class="filter-subtitle">Preferencie <mat-icon>thumb_up</mat-icon></h4>
-            <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="cukor" [(ngModel)]="sugarChecked" (ngModelChange)="sugarChecked = $event" (click)="filterRecipesByDifficulty('cukor')" (click)="call()">
-              <span class="checkbox-label">Bez cukru</span>
-            </label>
-            <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="bielkoviny" [(ngModel)]="proteinChecked" (ngModelChange)="proteinChecked = $event" (click)="filterRecipesByDifficulty('bielkoviny')" (click)="call()">
-              <span class="checkbox-label">Vysoký obsah bielkovín</span>
-            </label>
-            <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="sacharidy" [(ngModel)]="carbohydratesChecked" (ngModelChange)="carbohydratesChecked = $event" (click)="filterRecipesByDifficulty('sacharidy')" (click)="call()">
-              <span class="checkbox-label">Nízky obsah sacharidov</span>
-            </label>
-            <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="kalorie" [(ngModel)]="caloriesChecked" (ngModelChange)="caloriesChecked = $event" (click)="filterRecipesByDifficulty('kalorie')" (click)="call()">
-              <span class="checkbox-label">Nízkokalorické</span>
-            </label>
-            <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="tuk" [(ngModel)]="fatsChecked" (ngModelChange)="fatsChecked = $event" (click)="filterRecipesByDifficulty('tuk')">
-              <span class="checkbox-label">Nízkotučné</span>
-            </label>
-            <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="proteinovy prasok" [(ngModel)]="proteinPowderChecked" (ngModelChange)="proteinPowderChecked = $event" (click)="filterRecipesByDifficulty('proteinovy prasok')" (click)="call()">
-              <span class="checkbox-label">Proteínový prášok</span>
-            </label>
-            <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="do 5 surovin" [(ngModel)]="upTo5IngredientsChecked" (ngModelChange)="upTo5IngredientsChecked = $event" (click)="filterRecipesByDifficulty('do 5 surovin')" (click)="call()">
-              <span class="checkbox-label">Do 5 surovin</span>
-            </label>
-          </div>
-          <br>
-
-          <!-- Allergen Filters -->
-          <div class="filter-group">
+          <!-- Time Section -->
+          <div class="filter-section">
             <h4 class="filter-subtitle">Časová náročnosť <mat-icon>av_timer</mat-icon></h4>
             <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="do 30 minút" [(ngModel)]="halfHourChecked" (ngModelChange)="halfHourChecked = $event" (click)="filterRecipesByDifficulty('do 30 minút')" (click)="call()">
+              <input type="checkbox" value="do 30 minút" [(ngModel)]="halfHourChecked">
               <span class="checkbox-label">do 30 minút</span>
             </label>
             <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="do 60 minút" [(ngModel)]="hourMinsChecked" (ngModelChange)="hourMinsChecked = $event" (click)="filterRecipesByDifficulty('do 60 minút')" (click)="call()">
+              <input type="checkbox" value="do 60 minút" [(ngModel)]="hourMinsChecked">
               <span class="checkbox-label">do 60 minút</span>
             </label>
             <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="do 90 minút" [(ngModel)]="hourAndHalfChecked" (ngModelChange)="hourAndHalfChecked = $event" (click)="filterRecipesByDifficulty('do 90 minút')" (click)="call()">
+              <input type="checkbox" value="do 90 minút" [(ngModel)]="hourAndHalfChecked">
               <span class="checkbox-label">do 90 minút</span>
             </label>
             <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="do 120 minút" [(ngModel)]="twoHoursChecked" (ngModelChange)="twoHoursChecked = $event" (click)="filterRecipesByDifficulty('do 120 minút')" (click)="call()">
+              <input type="checkbox" value="do 120 minút" [(ngModel)]="twoHoursChecked">
               <span class="checkbox-label">do 120 minút</span>
             </label>
             <label class="cyberpunk-checkbox">
-              <input type="checkbox" value="vsetky casove" [(ngModel)]="allMinsChecked" (ngModelChange)="allMinsChecked = $event" (click)="filterRecipesByDifficulty('vsetky')" (click)="call()">
+              <input type="checkbox" value="vsetky casove" [(ngModel)]="allMinsChecked">
               <span class="checkbox-label">všetky časové kategórie</span>
+            </label>
+          </div>
+
+          <!-- Preferences Section -->
+          <div class="filter-section">
+            <h4 class="filter-subtitle">Preferencie <mat-icon>thumb_up</mat-icon></h4>
+            <label class="cyberpunk-checkbox">
+              <input type="checkbox" value="cukor" [(ngModel)]="sugarChecked">
+              <span class="checkbox-label">Bez cukru</span>
+            </label>
+            <label class="cyberpunk-checkbox">
+              <input type="checkbox" value="bielkoviny" [(ngModel)]="proteinChecked">
+              <span class="checkbox-label">Vysoký obsah bielkovín</span>
             </label>
           </div>
         </div>

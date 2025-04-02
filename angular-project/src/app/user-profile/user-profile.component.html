@@ -178,37 +178,44 @@
         </ng-template>
       }
       @else if(chcemNakupnyZoznam == true) {
-        
-        <cdk-accordion class="example-accordion">
-          @for (item of items; track item; let index = $index) {
-          <cdk-accordion-item #accordionItem="cdkAccordionItem" class="example-accordion-item">
-            <button
-              class="example-accordion-item-header"
-              (click)="accordionItem.toggle()"
-              tabindex="0"
-              [attr.id]="'accordion-header-' + index"
-              [attr.aria-expanded]="accordionItem.expanded"
-              [attr.aria-controls]="'accordion-body-' + index">
-              {{ item }}
-              <span class="example-accordion-item-description">
-                Click to {{ accordionItem.expanded ? 'close' : 'open' }}
-              </span>
-            </button>
-            @if(accordionItem.expanded) {
-            <div
-              class="example-accordion-item-body"
-              role="region"
-              [style.display]="accordionItem.expanded ? '' : 'none'"
-              [attr.id]="'accordion-body-' + index"
-              [attr.aria-labelledby]="'accordion-header-' + index"
-            >
-            <button id="white" mat-button [routerLink]="['/nakupnyZoznam', item]" [ngClass]="{'active': isActive('/nakupnyZoznam')}">Adjust</button>
-            </div>
+        <div class="accordion-container">
+          <h1>Nákupný zoznam</h1>
+          
+          <cdk-accordion class="example-accordion">
+            @for (item of items; track item; let index = $index) {
+            <cdk-accordion-item #accordionItem="cdkAccordionItem" class="example-accordion-item">
+              <button
+                class="example-accordion-item-header"
+                (click)="accordionItem.toggle()"
+                tabindex="0"
+                [attr.id]="'accordion-header-' + index"
+                [attr.aria-expanded]="accordionItem.expanded"
+                [attr.aria-controls]="'accordion-body-' + index">
+                {{ item }}
+                <span class="example-accordion-item-description">
+                  {{ accordionItem.expanded ? '▼' : '▶' }}
+                </span>
+              </button>
+              @if(accordionItem.expanded) {
+              <div
+                class="example-accordion-item-body"
+                role="region"
+                [style.display]="accordionItem.expanded ? '' : 'none'"
+                [attr.id]="'accordion-body-' + index"
+                [attr.aria-labelledby]="'accordion-header-' + index"
+              >
+                
+                <div class="accordion-actions">
+                  <button id="white" mat-button [routerLink]="['/nakupnyZoznam', item]" [ngClass]="{'active': isActive('/nakupnyZoznam')}">Adjust</button>
+                </div>
+              </div>
+              }
+            </cdk-accordion-item>
             }
-          </cdk-accordion-item>
-          }
-        </cdk-accordion>
-        <button mat-raised-button color="warn" (click)="DeleteWholeNakupnyZoznam()">Vymaz svoj nákupný zoznam a nahraj ďalší</button>
+          </cdk-accordion>
+          
+          <button mat-raised-button color="warn" (click)="DeleteWholeNakupnyZoznam()">Vymazte celý zoznam</button>
+        </div>
       }
       @else if(vZobrazUserov == true){
         <div class="user-management-container">
@@ -238,7 +245,6 @@
           </div>
         </div>
       }
-    
     </div>
   </ng-template>
 </body>

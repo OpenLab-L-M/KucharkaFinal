@@ -24,15 +24,19 @@ import { NgArrayPipesModule } from 'ngx-pipes';
 import { MatListItem, MatNavList } from '@angular/material/list';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatFormField } from '@angular/material/input';
+import {MatExpansionModule} from '@angular/material/expansion';
 import { MatLabel } from '@angular/material/input';
 import { DecimalPipe } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { CdkAccordion } from '@angular/cdk/accordion';
 
 
 @Component({
   selector: 'app-recipes',
   standalone: true,
   imports: [
+    CdkAccordion,
+    MatExpansionModule,
     RouterLink,
     NgFor,
     MatIcon,

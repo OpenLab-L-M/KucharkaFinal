@@ -66,65 +66,38 @@ body #backgroundos {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-@media (max-width: 768px) {
-  .example-sidenav {
-    margin-top: 12%;
-    width: 100%;
-    position: fixed;
-    height: 100vh;
-    z-index: 1000;
-    transform: translateX(-100%);
-    overflow: hidden;
-    margin-bottom: 5%;
-  }
-  .recipes-container {
-      padding-left: 10%;
-      margin-top: 15%;
-  }
-  .example-sidenav[style*="visibility: visible"] {
-    transform: translateX(0);
-  }
-  .close-sidebar-btn {
-    display: block;
-  }
-  .open-sidebar-btn {
-    display: block;
-  }
-  .example-sidenav-content {
-    padding-top: 60px;
-  }
-  .recipes-items {
-    width: 100%;
-  }
-  .clear-filter-button{
-    margin-bottom: 40px;
-  }
-}
-
-.filter-section {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
 .filter-title {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
   color: #ecf0f1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .filter-subtitle {
   font-size: 18px;
   font-weight: 500;
-  margin-bottom: 10px;
-  color: white;
+  margin-bottom: 12px;
+  color: #ecf0f1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.filter-group {
+.filter-sections {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
+}
+
+.filter-section {
+  margin-bottom: 15px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border-left: 3px solid #e67e22;
 }
 
 .cyberpunk-checkbox {
@@ -132,13 +105,21 @@ body #backgroundos {
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  color: lightgray;
+  color: #ecf0f1;
+  padding: 6px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  margin-bottom: 8px;
+}
+
+.cyberpunk-checkbox:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .cyberpunk-checkbox input[type="checkbox"] {
   appearance: none;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   border: 2px solid #e67e22;
   border-radius: 4px;
   position: relative;
@@ -165,7 +146,11 @@ body #backgroundos {
 }
 
 .cyberpunk-checkbox input[type="checkbox"]:disabled + .checkbox-label {
-  color: gray;
+  color: #95a5a6;
+}
+
+.checkbox-label {
+  font-size: 16px;
 }
 
 .clear-filter-button {
@@ -178,19 +163,53 @@ body #backgroundos {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+  width: 100%;
 }
 
 .clear-filter-button:hover {
   background-color: #d35400;
 }
 
+.search-container {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 8px 12px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 30px 8px 10px;
+  border: none;
+  background: transparent;
+  color: #ecf0f1;
+  font-size: 16px;
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: #95a5a6;
+}
+
+.search-icon {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ecf0f1;
+  pointer-events: none;
+}
+
+/* Main Content Area */
 .example-sidenav-content {
   flex: 1;
   padding: 20px;
   background-color: #f5f5f5;
 }
 
-/* Recipe Cards Container */
 .recipes-container {
   display: flex;
   margin-top: 5%;
@@ -232,7 +251,6 @@ body #backgroundos {
   min-height: 60px;
 }
 
-/* Recipe Details Container */
 .recipe-details {
   display: flex;
   justify-content: space-between;
@@ -266,7 +284,6 @@ body #backgroundos {
   text-overflow: ellipsis;
 }
 
-/* Favorite Container */
 .favourite-container {
   margin-left: auto;
   padding-left: 8px;
@@ -335,33 +352,45 @@ body #backgroundos {
   background-color: #d35400;
 }
 
-.search-container {
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
-.search-input {
-  width: 100%;
-  padding: 8px 30px 8px 10px;
-  border: 1px solid #435a70;
-  background-color: #34495e;
-  color: #ecf0f1;
-  border-radius: 5px;
-  font-size: 16px;
-  outline: none;
-}
-
-.search-input::placeholder {
-  color: #95a5a6;
-}
-
-.search-icon {
-  position: absolute;
-  right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #ecf0f1;
-  pointer-events: none;
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .example-sidenav {
+    margin-top: 12%;
+    width: 100%;
+    position: fixed;
+    height: 100vh;
+    z-index: 1000;
+    transform: translateX(-100%);
+    overflow: hidden;
+    margin-bottom: 5%;
+  }
+  
+  .recipes-container {
+      padding-left: 10%;
+      margin-top: 15%;
+  }
+  
+  .example-sidenav[style*="visibility: visible"] {
+    transform: translateX(0);
+  }
+  
+  .close-sidebar-btn {
+    display: block;
+  }
+  
+  .open-sidebar-btn {
+    display: block;
+  }
+  
+  .example-sidenav-content {
+    padding-top: 60px;
+  }
+  
+  .recipes-items {
+    width: 100%;
+  }
+  
+  .clear-filter-button{
+    margin-bottom: 40px;
+  }
 }
