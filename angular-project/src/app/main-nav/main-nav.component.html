@@ -68,7 +68,7 @@
         <mat-icon>done_all</mat-icon>
         <span>Hotové úlohy</span>
       </button>
-      <button mat-button class="mobile-nav-btn" [routerLink]="['/userProfile']">
+      <button mat-button class="mobile-nav-btn" (click)="getCurrentUserName()" [routerLink]="['/userProfile']" [ngClass]="{'active': isActive('/userProfile')}">
         <mat-icon>account_circle</mat-icon>
         <span>Profil</span>
       </button>

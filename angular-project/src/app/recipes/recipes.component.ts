@@ -29,6 +29,8 @@ import { MatLabel } from '@angular/material/input';
 import { DecimalPipe } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CdkAccordion } from '@angular/cdk/accordion';
+import { MatDialog } from '@angular/material/dialog';
+import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 
 
 @Component({
@@ -73,6 +75,7 @@ export class RecipesComponent {
       .subscribe();
     
     
+      
     }
   portions = signal<number>(undefined);
   recipeService = inject(RecipesService);
@@ -124,12 +127,32 @@ export class RecipesComponent {
 
 
 
+  selectedIngredients: string[] = [];
 
+    filterWindow(){
+    const dialogRef = this.dialog.open(FilterDialogComponent, {
+      width: '500px',
+      
+    });
+    dialogRef.afterClosed().subscribe(result => {
+       
+      console.log(result.data)
+      console.log(this.join)
+       this.userService.getList(result.data)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(res => {
+        for(let i = 0; i < res.length; i++){
+          this.selectedIngredients.push(res[i].name);
+          this.join += " " + res[i].name;
+          console.log(this.join)
+        }
+      });
+      console.log(this.selectedIngredients)
+    });
 
-
-
+  }
   sSearchRecept: string = '';
-  constructor(private userService: UserService, ) {
+  constructor(private userService: UserService, private dialog: MatDialog) {
     this.checkScreenSize(); // Check screen size on initialization
    }
   ngOnInit(): void {
@@ -187,6 +210,7 @@ export class RecipesComponent {
 
   clearFilter(): void {
     this.sSearchRecept = '';
+    this.selectedIngredients = [];
     this.join = '';
 
     this.easyChecked = false;

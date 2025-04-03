@@ -23,6 +23,8 @@ import { DataSource } from '@angular/cdk/collections';
 import { MatPseudoCheckbox } from '@angular/material/core';
 import * as translate from 'deepl'; 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from '@google/generative-ai';
+import { environment } from '../create-recipe/create-recipe.component';
 @Component({
   selector: 'app-recipes-details',
   standalone: true,
@@ -55,42 +57,35 @@ export class RecipesDetailsComponent implements OnInit{
   });
   
   constructor(private route: ActivatedRoute, private router: Router, private datePipe: DatePipe) { }
-
-
-  extractAllNumbersFromString(str: string): number[] {
-    const matches = str.matchAll(/(\d+)(?:g)?/g); // Note the 'g' flag for global match
-    const numbers: number[] = [];
-  
-    if (matches) {
-      for (const match of matches) {
-        const numberString = match[1];
-        const number = parseInt(numberString, 10);
-  
-        if (!isNaN(number)) {
-          numbers.push(number);
-        }
-      }
-    }
-  
-    return numbers;
-  }
-
-
-  extractIngredientNames(ingredientsString: string): string {
-    //1. Split the string by the commas into array by item and remove whitespace.
-    return ingredientsString
-      .split(',')
-      .map(item => item.trim())
-  
-       //Extract the name from the strings, test with upper or lowercase.
-      .map(item => item.replace(/[^A-Za-z\s]/g, ''))
-  
-      .join(', '); //Join with "," and space in between
+  genAI = new GoogleGenerativeAI(environment.API_KEY);
+    generationConfig = {
+     safetySettings: [
+       {
+         category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+         threshold: HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
+       },
+     ],
+     temperature: 0.9,
+     top_p: 1,
+     top_k: 32,
+     maxOutputTokens: 100, // limit output
+   };
+    model = this.genAI.getGenerativeModel({
+     model: 'gemini-2.0-flash', // or 'gemini-pro-vision'
+     ...this.generationConfig,
+   });
+  async translateingr() {
+    const prompt = 'prelož do angličtiny priložené ingrediencie, ' +  this.recipeService.chRecipe.ingrediencie + this.profileForm.controls['ingrediencie'].value+ 'vráť iba to čo si preložil, ako 1 string oddelený čiarkami';
+    
+    const result = await this.model.generateContent(prompt);
+    const response = await result.response;
+    this.prelozene = response.text();
   }
   
-  calorieCounter(){
 
-  }
+  prelozene: string;
+  
+
 
 
   dTuky:number = 0;
@@ -104,7 +99,6 @@ export class RecipesDetailsComponent implements OnInit{
   ngOnInit(): void {
     
     
-    this.translation();
     const id = parseInt(this.route.snapshot.paramMap.get('id'));
     this.recipeService.getClickedRecipes(id)
        .subscribe(result => {
@@ -164,23 +158,7 @@ export class RecipesDetailsComponent implements OnInit{
   }*/
 
 
-  translation(){
-    const res =  fetch("https://libretranslate.com/translate", {
-      method: "POST",
-      body: JSON.stringify({
-        q: "",
-        source: "auto",
-        target: "en",
-        format: "text",
-        alternatives: 3,
-        api_key: ""
-      }),
-      headers: { "Content-Type": "application/json" }
-    });
-    
-    console.log(res);
-  }
-
+ 
    showImage() {
      return `data:image/jpeg;base64,${this.image}`
    }
@@ -198,23 +176,12 @@ export class RecipesDetailsComponent implements OnInit{
   this.clicked = true;
 
 }
-translate = require("deepl");
-submit(){
 
+async submit (){
   const id = parseInt(this.route.snapshot.paramMap.get('id'));
   const ingrediencieValue = this.profileForm.controls['ingrediencie']?.value;  // Get the initial value
-  
-  if (ingrediencieValue) { 
-    this.translate({  
-      free_api: true,
-      text: this.profileForm.controls['ingrediencie']?.value,  
-      target_lang: 'EN',
-      auth_key: '923f8dba-d7c4-496b-b27f-231233ba7f29:fx',  
-    })
-    .then(result => {
-      let translatedIngredients = result.data.translations[0].text; 
-  
-      this.recipeService.getCalories(translatedIngredients)  // Use translated ingredients for getCalories
+    await this.translateingr();
+      this.recipeService.getCalories(this.prelozene)  // Use translated ingredients for getCalories
         .pipe(takeUntil(this.destroy$))
         .subscribe(
           result => {
@@ -267,17 +234,9 @@ submit(){
             console.error("Error getting calories:", error);
           }
         );
-    })
-    .catch(error => {
-      console.error("Error translating ingredients:", error);
-    });
-  } else {
-    console.warn("No ingredients provided. Skipping translation and calorie calculation.");
-    // Optionally, set default values or handle the case where no ingredients are provided.
-  }
-  
+            
   this.clicked = false;
-}
+    }
  addComment(){
   
   var inputBox = (<HTMLInputElement>document.getElementById("koment"));

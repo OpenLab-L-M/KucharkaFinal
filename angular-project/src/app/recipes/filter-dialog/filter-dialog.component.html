@@ -1,0 +1,19 @@
+<!-- dialog-options.component.html -->
+<mat-dialog-content>
+    <h2 mat-dialog-title>Menu Options</h2>
+    
+    <mat-nav-list>
+      <mat-list-item 
+        *ngFor="let option of options" 
+        (click)="selectOption(option.text)"
+        class="option-item"
+      >
+        <mat-icon mat-list-icon>{{option.icon}}</mat-icon>
+        <span mat-line >{{option.text}}</span>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-dialog-content>
+  
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close (click)="cancelDialog()">Cancel</button>
+  </mat-dialog-actions>

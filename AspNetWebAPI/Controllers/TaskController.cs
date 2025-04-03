@@ -32,11 +32,12 @@ namespace AspNetCoreAPI.Controllers
         [HttpGet("/taskList")]
         public IEnumerable<TaskDTO> GetTasks()
         {
-            IEnumerable<TaskList> dbTasks = _context.Tasks.Where(x=> x.IsCompleted == false);
+            IEnumerable<TaskList> dbTasks = _context.Tasks.Where(x=> x.IsCompleted == false && x.UserId == GetCurrentUser().Id);
             return dbTasks.Select(t => new TaskDTO
             {
                 Id = t.Id,
-                
+                //CheckId = GetCurrentUser().Id,
+                //UserId = t.UserId,
                 Name = t.Name,
                 DeadLine = t.DeadLine,
                 Description = t.Description,
@@ -56,6 +57,7 @@ namespace AspNetCoreAPI.Controllers
                 Priority = taskToCreate.Priority,
                 Name = taskToCreate.Name,
                 IsCompleted = false,
+                UserId = GetCurrentUser().Id
             };
             _context.Add(nTask);
             _context.SaveChanges();
@@ -119,7 +121,7 @@ namespace AspNetCoreAPI.Controllers
         [HttpGet("/finishedTasks")]
         public IEnumerable<TaskDTO> getFinishedTasks()
         {
-            var finishedTasks =  _context.Tasks.Where(x => x.IsCompleted == true);
+            var finishedTasks =  _context.Tasks.Where(x => x.IsCompleted == true && x.UserId == GetCurrentUser().Id);
             return finishedTasks.Select(x => new TaskDTO
             {
                 DeadLine = x.DeadLine,
