@@ -86,14 +86,21 @@ body #backgroundos {
   gap: 8px;
 }
 
-.filter-sections {
+/* Two Column Layout for Filters */
+.filter-sections.two-column-layout {
+  display: flex;
+  gap: 15px;
+}
+
+.filter-column {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
 .filter-section {
-  margin-bottom: 15px;
+  margin-bottom: 0;
   padding: 15px;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
@@ -351,6 +358,38 @@ body #backgroundos {
 #create_link:hover {
   background-color: #d35400;
 }
+.shopping-list-filter-button {
+  margin-top: 10px;
+  background-color: #3498db;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.shopping-list-filter-button:hover {
+  background-color: #2980b9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.shopping-list-filter-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.shopping-list-filter-button mat-icon {
+  font-size: 18px;
+}
 
 /* Mobile Styles */
 @media (max-width: 768px) {
@@ -363,6 +402,10 @@ body #backgroundos {
     transform: translateX(-100%);
     overflow: hidden;
     margin-bottom: 5%;
+  }
+  
+  .filter-sections.two-column-layout {
+    flex-direction: column;
   }
   
   .recipes-container {

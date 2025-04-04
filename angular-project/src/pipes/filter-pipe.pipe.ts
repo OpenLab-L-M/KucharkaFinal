@@ -1,6 +1,23 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { RecipesDTO } from 'src/app/DTOs/RecipesDTO';
+import { RecipesDTO } from 'src/app/DTOs/RecipesDTO'; // Make sure this path is correct
 
+// --- Helper Functions (Unchanged) ---
+function normalizeString(str: string): string {
+  if (!str) return '';
+  return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+function cleanRecipeIngredient(str: string): string {
+   if (!str) return '';
+   let cleaned = str
+     .replace(/^[\d\s._-]+(ks|g|kg|ml|l|dkg|pl|hrst|štipka|balenie|konzerva|strúčik|lyžica|lyžička)?\s*/i, '')
+     .replace(/\s*[\d\s._-]+(ks|g|kg|ml|l|dkg|pl|hrst|štipka|balenie|konzerva|strúčik|lyžica|lyžička)?\s*$/i, '')
+     .replace(/^[^a-zA-ZáäčďéíľĺňóôŕšťúýžÁÄČĎÉÍĽĹŇÓÔŔŠŤÚÝŽ]+/, '')
+     .replace(/[.,;:]?$/, '')
+     .trim();
+   return cleaned;
+}
+
+// --- The Pipe ---
 @Pipe({
   standalone: true,
   pure: false,
@@ -8,14 +25,6 @@ import { RecipesDTO } from 'src/app/DTOs/RecipesDTO';
 })
 export class FilterPipe implements PipeTransform {
 
-  /**
-   * Filters an array of RecipesDTO based on various criteria.
-   * @param items The array of recipes to filter.
-   * @param otherFiltersString A space-separated string of general filter keywords (difficulty, dietary, course, time, preferences excluding specific ingredients).
-   * @param ingredientFilters An array of strings, where each string is an ingredient to filter by.
-   * @param searchBarQuery Optional string to filter recipes by name.
-   * @returns The filtered array of recipes.
-   */
   transform(
     items: RecipesDTO[],
     otherFiltersString: string,
@@ -23,143 +32,152 @@ export class FilterPipe implements PipeTransform {
     searchBarQuery?: string
   ): RecipesDTO[] {
 
-    // 1. Initial Checks
-    if (!items) { return []; }
-
-    // Prepare filters - convert to lowercase and handle empty/null values
+    // --- Basic Setup (Unchanged) ---
+    if (!items) return [];
     const cleanSearchQuery = searchBarQuery ? searchBarQuery.trim().toLowerCase() : '';
     const cleanOtherFiltersString = otherFiltersString ? otherFiltersString.trim().toLowerCase() : '';
-    // Ensure ingredientFilters is an array and clean its contents
-    const cleanIngredientFilters = Array.isArray(ingredientFilters)
-        ? ingredientFilters.map(ing => ing.trim().toLowerCase()).filter(ing => ing !== '') // Trim, lowercase, remove empty
+    // Use this array for the user's provided logic snippets
+    const otherFiltersArray = cleanOtherFiltersString ? cleanOtherFiltersString.split(" ").filter(f => f) : [];
+    const normalizedShoppingList = Array.isArray(ingredientFilters)
+        ? ingredientFilters.map(ing => normalizeString(ing.trim())).filter(ing => ing !== '')
         : [];
+    const noFiltersApplied = !cleanSearchQuery && otherFiltersArray.length === 0 && normalizedShoppingList.length === 0;
+    if (noFiltersApplied) return items;
 
-    // Split the general filter string into an array
-    const otherFiltersArray = cleanOtherFiltersString ? cleanOtherFiltersString.split(" ") : [];
+    // Normalize the filters array once for checks that need it (like difficulty)
+    const normalizedOtherFiltersArray = otherFiltersArray.map(normalizeString);
 
-    // If no filters are applied at all, return original items
-    if (!cleanSearchQuery && otherFiltersArray.length === 0 && cleanIngredientFilters.length === 0) {
-      return items;
-    }
 
-    // 2. Filtering Logic
+    // --- Filtering Logic ---
     return items.filter(item => {
-      // Skip if item is somehow null/undefined
-      if (!item) {
-        return false;
+      if (!item) return false;
+
+      // --- Filter Checks ---
+
+      // A. Search Bar
+      const searchBarMatches = !cleanSearchQuery || normalizeString(item.name ?? '').includes(normalizeString(cleanSearchQuery));
+
+      // B. Difficulty
+      const difficultyTerms = ['ľahké', 'pokročilé', 'náročné'].map(normalizeString);
+      const selectedDifficulty = normalizedOtherFiltersArray.find(f => difficultyTerms.includes(f));
+      const difficultyMatches = !selectedDifficulty || normalizeString(item.difficulty ?? '') === selectedDifficulty;
+
+      // C. Dietary
+      const veganskeMatches = !otherFiltersArray.includes('veganske') || !!item.veganske; // Use original case-sensitive array if keywords are exact
+      const vegetarianskeMatches = !otherFiltersArray.includes('vegetarianske') || !!item.vegetarianske;
+
+      // D. Course
+      const normalizedItemName = normalizeString(item.name ?? '');
+      const salatyMatches = !otherFiltersArray.includes('salaty') || normalizedItemName.includes('salat');
+      const polievkyMatches = !otherFiltersArray.includes('polievky') || normalizedItemName.includes('polievka');
+      const natierkyMatches = !otherFiltersArray.includes('natierky') || normalizedItemName.includes('natierka');
+
+      // E. Meal Type
+      const obedyMatches = !otherFiltersArray.includes('obedy') || !!item.obed;
+      const ranajkyMatches = !otherFiltersArray.includes('ranajky') || !!item.ranajky;
+      const vecereMatches = !otherFiltersArray.includes('vecere') || !!item.vecera;
+
+      // F. Preferences (Macros, Calories, etc.)
+      const gramsPer100 = item.gramaz && item.gramaz > 0 ? (item.gramaz / 100) : 1;
+      const cukorMatches = !otherFiltersArray.includes('cukor') || (item.cukor != null && (item.cukor / gramsPer100) === 0);
+      const bielkovinyMatches = !otherFiltersArray.includes('bielkoviny') || (item.bielkoviny != null && (item.bielkoviny / gramsPer100 >= 10));
+      const sacharidyMatches = !otherFiltersArray.includes('sacharidy') || (item.sacharidy != null && (item.sacharidy / gramsPer100) <= 10);
+      // Low Calorie - using robust check from previous attempts
+      const hasKalorieFilter = otherFiltersArray.includes('kalorie');
+      let kalorieMatches = true;
+      if (hasKalorieFilter) {
+        const itemCaloriesNumber = Number(item.kalorie);
+        kalorieMatches = !isNaN(itemCaloriesNumber) && itemCaloriesNumber <= 500;
       }
-
-      // --- Filter Calculations ---
-
-      // A. Search Bar Filter (by recipe name)
-      const searchBarMatches = cleanSearchQuery
-        ? item.name?.toLowerCase().includes(cleanSearchQuery) // Add safe navigation for name
-        : true; // No search query means it matches
-
-      // B. Difficulty Filter
-      const difficultyTerms = ['ľahké', 'pokročilé', 'náročné'];
-      const selectedDifficulty = otherFiltersArray.find(f => difficultyTerms.includes(f));
-      const difficultyMatches = !selectedDifficulty // No difficulty filter selected
-        ? true
-        : item.difficulty // Recipe has difficulty
-          ? item.difficulty.toLowerCase() === selectedDifficulty
-          : false; // Difficulty filter selected, but recipe has no difficulty
-
-      // C. Dietary Filters
-      const veganskeMatches = otherFiltersArray.includes('veganske') ? !!item.veganske : true; // Use !! to ensure boolean
-      const vegetarianskeMatches = otherFiltersArray.includes('vegetarianske') ? !!item.vegetarianske : true;
-
-      // D. Course Filters (Based on keywords in name)
-      const salatyMatches = otherFiltersArray.includes('salaty') ? item.name?.toLowerCase().includes('šalát') : true;
-      const polievkyMatches = otherFiltersArray.includes('polievky') ? item.name?.toLowerCase().includes('polievka') : true;
-      const natierkyMatches = otherFiltersArray.includes('natierky') ? item.name?.toLowerCase().includes('nátierka') : true;
-
-       // E. Meal Type Filters (Based on boolean flags)
-       const obedyMatches = otherFiltersArray.includes('obedy') ? !!item.obed : true;
-       const ranajkyMatches = otherFiltersArray.includes('ranajky') ? !!item.ranajky : true;
-       const vecereMatches = otherFiltersArray.includes('vecere') ? !!item.vecera : true;
+      const tukMatches = !otherFiltersArray.includes('tuk') || (item.tuky != null && (item.tuky / gramsPer100) <= 3);
 
 
-      // F. Preference Filters (Macros, Calories, etc.)
-      // Ensure gramaz is not zero to avoid division by zero errors
-      const gramsPer100 = item.gramaz && item.gramaz > 0 ? (item.gramaz / 100) : 1; // Default to 1 if gramaz is invalid/zero
-      const cukorMatches = otherFiltersArray.includes('cukor') ? (item.cukor != null ? (item.cukor / gramsPer100) === 0 : false) : true;
-      const bielkovinyMatches = otherFiltersArray.includes('bielkoviny') ? (item.bielkoviny != null ? (item.bielkoviny / gramsPer100 >= 10 || item.bielkoviny >= 30) : false) : true;
-      const sacharidyMatches = otherFiltersArray.includes('sacharidy') ? (item.sacharidy != null ? (item.sacharidy / gramsPer100) <= 10 : false) : true;
-      const kalorieMatches = otherFiltersArray.includes('kalorie') ? (item.kalorie != null ? item.kalorie <= 500 : false) : true;
-      const tukMatches = otherFiltersArray.includes('tuk') ? (item.tuky != null ? (item.tuky / gramsPer100) <= 3 : false) : true;
+      // --- G. Special Preferences (USING USER'S PROVIDED SNIPPETS) ---
+      // Ensure item.ingrediencie is treated safely (check for null/undefined)
+      const ingredientsLower = (item.ingrediencie ?? '').toLowerCase();
+      const ingredientsArray = (item.ingrediencie ?? '').split(","); // For length check
 
-      // G. Special Preference Filters (Check based on keyword presence)
-      // Assumes "proteinovy prasok" is a single term in otherFiltersArray if selected
-      const proteinovyPrasokMatches = otherFiltersArray.includes('proteinovy prasok')
-        ? (item.ingrediencie ? item.ingrediencie.toLowerCase().includes('proteinový prášok') : false)
+      const proteinovyPrasokMatches = otherFiltersArray.includes('proteinovy') && otherFiltersArray.includes('prasok')
+        ? ingredientsLower.includes('proteinový prášok') // Check specific accented version
         : true;
 
-      // Assumes "do 5 surovin" is a single term in otherFiltersArray if selected
-      const do5SurovinMatches = otherFiltersArray.includes('do 5 surovin')
-        ? (item.ingrediencie
-          ? item.ingrediencie.split(",").filter(ingredient => ingredient.trim() !== "").length <= 5
-          : false)
-        : true;
-
-      // H. Time Filters (Based on keywords)
-      // Needs careful handling if multiple time filters can be selected. Assuming only one.
-      const timeFilterSelected = otherFiltersArray.some(f => ['do 30 minút', 'do 60 minút', 'do 90 minút', 'do 120 minút', 'vsetky casove'].includes(f));
-      let timeMatches = true; // Default to true if no time filter or 'vsetky casove' is selected
-
-      if (timeFilterSelected && !otherFiltersArray.includes('vsetky casove')) {
-           if (item.cas == null) { // If time filter selected, but recipe has no time
-               timeMatches = false;
-           } else {
-               timeMatches =
-                   (otherFiltersArray.includes('do 30 minút') && item.cas <= 30) ||
-                   (otherFiltersArray.includes('do 60 minút') && item.cas <= 60) ||
-                   (otherFiltersArray.includes('do 90 minút') && item.cas <= 90) ||
-                   (otherFiltersArray.includes('do 120 minút') && item.cas <= 120);
-               // This logic might need adjustment if multiple time ranges can be selected simultaneously.
-               // Currently, it passes if *any* selected time range matches.
-               // If only ONE time checkbox can be active, this is simpler: find the active one and check item.cas.
-           }
+      // Refined 'do 5 surovin' check
+      const has5SurovinFilter = otherFiltersArray.includes('do') && otherFiltersArray.includes('5') && otherFiltersArray.includes('surovin');
+      let do5SurovinMatches = true;
+      if (has5SurovinFilter) {
+        // Count only non-empty ingredients after trimming
+        const ingredientCount = ingredientsArray.map(i => i.trim()).filter(i => i !== '').length;
+        do5SurovinMatches = ingredientCount <= 5;
       }
 
 
-      // I. Ingredient Filter (Uses the separate ingredientFilters array)
-      const ingredientsMatch = cleanIngredientFilters.length === 0
-        ? true // No ingredient filters applied, so it's a match
-        : item.ingrediencie // Check if recipe HAS ingredients listed
-          ? cleanIngredientFilters.every(filterIng => // Check if EVERY filter ingredient...
-              item.ingrediencie
-                .toLowerCase() // Lowercase recipe ingredients once for efficiency
-                .split(',')
-                .some(recipeIng => // ...is found (as substring) in ANY of the recipe's ingredients
-                  recipeIng.trim().includes(filterIng) // filterIng is already lowercase and trimmed
-                )
-            )
-          : false; // Ingredient filters applied, but recipe has no ingredients listed
+      // --- H. Time Filters (USING USER'S PROVIDED SNIPPETS) ---
+      // Note: This logic assumes 'do', '30', 'minút' are separate words in otherFiltersArray
+      // Also, it makes multiple limits potentially active simultaneously.
+      const timeFilterIsActive = otherFiltersArray.includes('do') && otherFiltersArray.some(f => ['30', '60', '90', '120'].includes(f)) && otherFiltersArray.includes('minút');
+      const allTimesIsActive = otherFiltersArray.includes('vsetky') && otherFiltersArray.includes('casove');
+
+      let timeMatches = true; // Default pass
+
+      if (allTimesIsActive) {
+          timeMatches = true; // 'vsetky casove' overrides specific limits
+      } else if (timeFilterIsActive) {
+          // If any specific time limit is active, check if the item matches AT LEAST ONE active limit
+          const itemTimeNumber = Number(item.cas); // Ensure item time is a number
+          if (isNaN(itemTimeNumber)) {
+             timeMatches = false; // Item has invalid time, cannot match specific limit
+          } else {
+             let meetsAnyLimit = false;
+             if (otherFiltersArray.includes('30') && itemTimeNumber <= 30) meetsAnyLimit = true;
+             if (otherFiltersArray.includes('60') && itemTimeNumber <= 60) meetsAnyLimit = true;
+             if (otherFiltersArray.includes('90') && itemTimeNumber <= 90) meetsAnyLimit = true;
+             if (otherFiltersArray.includes('120') && itemTimeNumber <= 120) meetsAnyLimit = true;
+             timeMatches = meetsAnyLimit; // Passes if it met any active limit
+          }
+      }
+      // If no time filters active, timeMatches remains true
 
 
-      // 3. Combine all filter results
+      // --- I. Ingredients (Shopping List Check - Assumed Correct) ---
+      let ingredientsMatch = true; // Default match
+      if (normalizedShoppingList.length > 0) { // Only apply if shopping list filter IS active
+          if (!item.ingrediencie || item.ingrediencie.trim() === '') {
+              ingredientsMatch = false; // Recipe has no ingredients listed
+          } else {
+              const recipeIngredientsRaw = item.ingrediencie.split(',');
+              const requiredIngredientNamesNormalized = recipeIngredientsRaw
+                  .map(ing => cleanRecipeIngredient(ing)) // Clean e.g., " 100 ks mlieko " -> "mlieko"
+                  .map(name => normalizeString(name))     // Normalize e.g., "mlieko" -> "mlieko", "šunka" -> "sunka"
+                  .filter(name => name !== '');           // Remove any empty strings resulting from cleaning
+
+              if (requiredIngredientNamesNormalized.length === 0) {
+                  ingredientsMatch = false; // No valid ingredients after cleaning
+              } else {
+                  // Check if EVERY normalized required ingredient name...
+                  ingredientsMatch = requiredIngredientNamesNormalized.every(normRequiredName => {
+                      // ...is contained within AT LEAST ONE normalized shopping list item name.
+                      return normalizedShoppingList.some(normAvailableName =>
+                          normAvailableName.includes(normRequiredName)
+                      );
+                  });
+              }
+          }
+      }
+
+
+      // --- Final Decision: Combine all filter results ---
       return (
-        searchBarMatches &&
-        difficultyMatches &&
-        veganskeMatches &&
-        vegetarianskeMatches &&
-        salatyMatches &&
-        polievkyMatches &&
-        natierkyMatches &&
-        obedyMatches &&       // Added meal types
-        ranajkyMatches &&
-        vecereMatches &&
-        cukorMatches &&
-        bielkovinyMatches &&
+        searchBarMatches && difficultyMatches && veganskeMatches && vegetarianskeMatches &&
+        salatyMatches && polievkyMatches && natierkyMatches && obedyMatches &&
+        ranajkyMatches && vecereMatches && cukorMatches && bielkovinyMatches &&
         sacharidyMatches &&
-        kalorieMatches &&
+        kalorieMatches && // Use F logic
         tukMatches &&
-        proteinovyPrasokMatches &&
-        do5SurovinMatches &&
-        timeMatches &&      // Use the combined timeMatches variable
-        ingredientsMatch   // Use the new ingredientsMatch variable
+        proteinovyPrasokMatches && // Use G snippet logic
+        do5SurovinMatches && // Use G snippet logic (refined)
+        timeMatches && // Use H snippet logic (refined)
+        ingredientsMatch // Use I logic
       );
-    });
-  }
-}
+    }); // End items.filter
+  } // End transform
+} // End class

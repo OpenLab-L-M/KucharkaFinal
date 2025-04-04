@@ -141,11 +141,12 @@ export class RecipesComponent {
        this.userService.getList(result.data)
       .pipe(takeUntil(this.destroy$))
       .subscribe(res => {
-        for(let i = 0; i < res.length; i++){
-          this.selectedIngredients.push(res[i].name);
-          this.join += " " + res[i].name;
-          console.log(this.join)
-        }
+
+         for(let i = 0; i < res.length; i++){
+           this.selectedIngredients.push(res[i].name);
+           this.join += " " + res[i].name;
+           console.log(this.join)
+         }
       });
       console.log(this.selectedIngredients)
     });

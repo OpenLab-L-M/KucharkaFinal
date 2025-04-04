@@ -192,6 +192,7 @@ export class CreateRecipeComponent {
       ingrControl.setValue(updatedValue);
     }
   }
+  
   data: any;
   dTuky:number = 0;
   dCukor:number = 0;
