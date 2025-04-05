@@ -1,3 +1,4 @@
+/* Global Styles */
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #f5f5f5;
@@ -17,6 +18,7 @@ body {
   opacity: 0.8;
 }
 
+/* Profile Styles */
 .profile-picture {
   display: flex;
   justify-content: center;
@@ -255,7 +257,7 @@ body {
   background-color: #5D4037;
 }
 
-/* Updated Recipes Section */
+/* Recipes Section */
 .recipes-container {
   display: flex;
   flex-wrap: wrap;
@@ -424,94 +426,109 @@ body {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f5f5f5;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .accordion-container h1 {
   font-size: 24px;
   color: #3E2723;
   text-align: center;
-  margin-bottom: 20px;
-  font-family: 'Pacifico', cursive;
+  margin-bottom: 25px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
 }
 
 .example-accordion {
   width: 100%;
   margin-bottom: 20px;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .example-accordion-item {
   margin-bottom: 10px;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
 }
 
-.example-accordion-item-header {
+.example-accordion-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.accordion-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
-  background-color: #3E2723;
-  color: white;
-  border: none;
-  width: 100%;
-  text-align: left;
+  padding: 16px 20px;
+  background-color: #f5f5f5;
+  color: #3E2723;
   cursor: pointer;
-  font-size: 18px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-.example-accordion-item-header:hover {
-  background-color: #5D4037;
+.accordion-header:hover {
+  background-color: #eeeeee;
 }
 
-.example-accordion-item-description {
-  font-size: 16px;
-  margin-left: 10px;
+.accordion-header.expanded {
+  background-color: #e67e22;
+  color: white;
 }
 
-.example-accordion-item-body {
+.accordion-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+}
+
+.accordion-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.accordion-arrow {
+  transition: transform 0.3s ease;
+  font-size: 20px;
+}
+
+.accordion-content {
   padding: 20px;
   background-color: white;
-  border-top: 1px solid #eee;
-}
-
-.shopping-list-items {
-  list-style-type: none;
-  padding: 0;
-  margin: 0 0 15px 0;
-}
-
-.shopping-list-items li {
-  padding: 8px 0;
-  border-bottom: 1px solid #eee;
-  font-size: 16px;
-}
-
-.shopping-list-items li:last-child {
-  border-bottom: none;
+  border-top: 1px solid #f0f0f0;
 }
 
 .accordion-actions {
   display: flex;
   justify-content: flex-end;
-  margin-top: 15px;
 }
 
-button[mat-raised-button][color="warn"] {
-  display: block;
-  margin: 20px auto 0;
+.accordion-actions button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.delete-all-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 30px auto 0;
   padding: 10px 24px;
   font-size: 16px;
   border-radius: 8px;
-  background-color: #f44336;
-  color: white;
   transition: all 0.3s ease;
 }
 
-button[mat-raised-button][color="warn"]:hover {
-  background-color: #d32f2f;
+.delete-all-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #white {
@@ -527,9 +544,7 @@ button[mat-raised-button][color="warn"]:hover {
   color: white;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
-
+/* User Management */
 .user-management-container {
   font-family: 'Poppins', sans-serif;
   max-width: 900px;
@@ -623,30 +638,7 @@ button[mat-raised-button][color="warn"]:hover {
   font-size: 0.8rem;
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
 /* Responsive Adjustments */
-@media (max-width: 768px) {
-  .example-accordion {
-    width: 100%;
-  }
-  
-  .example-accordion-item-header {
-    padding: 16px 20px;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .example-accordion-item-description {
-    margin-left: 0;
-    margin-top: 8px;
-  }
-}
-
 @media screen and (max-width: 1300px) {
   .user_name {
     font-size: 40px;
@@ -724,5 +716,22 @@ button[mat-raised-button][color="warn"]:hover {
   
   .comment {
     width: 90%;
+  }
+
+  /* Responsive accordion */
+  .accordion-container {
+    padding: 15px;
+  }
+  
+  .accordion-header {
+    padding: 14px 16px;
+  }
+  
+  .accordion-content {
+    padding: 16px;
+  }
+  
+  .delete-all-button {
+    width: 100%;
   }
 }
