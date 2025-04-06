@@ -1,5 +1,6 @@
 export class RecensionsDTO {
     id?: number;
+    recipesName?: string;
     recipesID: number;
     userName?: string;
     content: string;

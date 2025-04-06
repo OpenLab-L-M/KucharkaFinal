@@ -33,6 +33,9 @@ namespace AspNetCoreAPI.Controllers
             _userManager = userManager;
         }
 
+
+
+
         [HttpGet("/userProfile")]
         public GetUserDTO? ReturnUserInfo()
         {
@@ -40,7 +43,7 @@ namespace AspNetCoreAPI.Controllers
             GetUserDTO userik = new GetUserDTO();
             {
                 userik.UserName = user.UserName;
-                userik.Admin = GetCurrentUser().Admin;
+                userik.Admin = user.Admin;
                 userik.ProfileName = user.ProfileName;
                 userik.PictureURL = user.PictureURL;
 
@@ -59,19 +62,38 @@ namespace AspNetCoreAPI.Controllers
 
              
         }
+        [HttpPut("/zmenaMena")]
+        public changeNameDTO ZmenMeno([FromBody] changeNameDTO noveMeno)
+        {
+            var current = GetCurrentUser();
+            current.ProfileName = noveMeno.NoveMeno;
+            _context.SaveChanges();
+            return noveMeno;
+        }
+
+        [HttpDelete("/deleteSingleItem/{id:int}")]
+        public RecensionDTO deleteSingle([FromRoute] int id)
+        {
+            var vymaz = _context.NakupnyLists.FirstOrDefault(x => x.Id == id);
+            _context.NakupnyLists.Remove(vymaz);
+            _context.SaveChanges();
+            return null;
+        }
         [HttpGet("/clickedUserProfile/myRecensions/{userName}")]
         public IEnumerable<RecensionDTO> MyWrittenRecensions([FromRoute] string userName)
         {
             if (userName == "undefined")
             {
-                 var moje = GetCurrentUser();
+                var moje = GetCurrentUser();
                 var komentariky = _context.Recensions.Where(x => x.UserName == GetCurrentUser().UserName);
                 return komentariky.Select(x => new RecensionDTO
                 {
                     AmountOfDisslikes = x.AmountOfDisslikes,
+                    
                     Admin = GetCurrentUser().Admin,
                     AmountOfLikes = x.AmountOfLikes,
                     Datetime = x.Datetime,
+                    RecipesName = x.RecipesName,
                     RecipesID = x.RecipeId,
                     UserID = x.UserId,
                     UserName = x.UserName,
@@ -89,6 +111,7 @@ namespace AspNetCoreAPI.Controllers
                     AmountOfDisslikes = x.AmountOfDisslikes,
                     AmountOfLikes = x.AmountOfLikes,
                     Datetime = x.Datetime,
+                    RecipesName = x.RecipesName,
                     RecipesID = x.RecipeId,
                     UserID = x.UserId,
                     ProfileName = x.ProfileName,

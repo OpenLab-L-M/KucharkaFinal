@@ -11,6 +11,7 @@ import { Action } from 'rxjs/internal/scheduler/Action';
 import { NakupnyZoznam } from 'src/app/DTOs/NakupnyZoznamDTO';
 import { User } from 'firebase/auth';
 import { user } from '@angular/fire/auth';
+import { changeNameDTO } from 'src/app/DTOs/ChangeNameDTO';
 
 
 @Injectable({
@@ -76,5 +77,11 @@ export class UserService {
   }
   deleteUser(userName: string){
     return this.httpClient.delete<UserDTO>(this.baseUrl + "/deleteUser/" + userName);
+  }
+  deleteItemInsideShoppingList(id: number){
+    return this.httpClient.delete(this.baseUrl + '/deleteSingleItem/' + id)
+  }
+  changeName(noveMeno: changeNameDTO){
+    return this.httpClient.put<changeNameDTO>(this.baseUrl + '/zmenaMena', noveMeno)
   }
 }

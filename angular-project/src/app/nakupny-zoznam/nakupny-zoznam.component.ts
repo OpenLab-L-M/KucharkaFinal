@@ -8,6 +8,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
   GoogleGenerativeAI, HarmBlockThreshold, HarmCategory 
 } from '@google/generative-ai';
+import { MatIcon } from '@angular/material/icon';
 
 export const environment = {
   API_KEY: "AIzaSyDsaNk1Gesqy1mFhA5Maj-w83uUClWzr-8",
@@ -16,7 +17,7 @@ export const environment = {
 @Component({
   selector: 'app-nakupny-zoznam',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, MatIcon],
   templateUrl: './nakupny-zoznam.component.html',
   styleUrl: './nakupny-zoznam.component.css'
 })
@@ -119,6 +120,14 @@ export class NakupnyZoznamComponent {
     .subscribe(res => this.ingrediencie.set(null));
     this.ceny = [];
   }
+  deleteItem(id: number){
+    this.userService.deleteItemInsideShoppingList(id)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(res => this.ingrediencie.update(items => items.filter(item => item.id !== id)));
+    this.nIngrediencie = this.ingrediencie().filter(x => x.id != id).map(ingredient => ingredient.name);
+    this.TestGeminiPro();
+  }
+  
   
 
 }

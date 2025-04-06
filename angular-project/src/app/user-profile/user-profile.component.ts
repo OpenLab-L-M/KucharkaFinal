@@ -5,7 +5,7 @@ import { CommonModule, DatePipe, DecimalPipe, NgIf } from '@angular/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgFor } from '@angular/common';
-import { NgModel, RequiredValidator, Validators } from '@angular/forms';
+import { FormsModule, NgModel, RequiredValidator, Validators } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RecipesService } from 'src/services/recipes.service';
 import { MatIconModule } from '@angular/material/icon';
@@ -33,6 +33,8 @@ import { TaskDTO } from '../DTOs/TaskDTO';
 import { TaskService } from 'src/services/task.service';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { sign } from 'crypto';
+import { changeNameDTO } from '../DTOs/ChangeNameDTO';
 
 
 
@@ -46,7 +48,7 @@ export interface DialogData {
   standalone: true,
   imports: [NgFor,
     NgIf, MatIconModule, MatIconAnchor, MatButtonModule, MatCardModule, RouterLink, MatDialogClose, MatFormField, MatTooltip, ReactiveFormsModule, MatLabel, DecimalPipe,
-    RouterLink, CommonModule,CdkAccordionModule, MatSortModule, DatePipe, MatTableModule, DatePipe],
+    RouterLink, CommonModule,CdkAccordionModule, MatSortModule, DatePipe, MatTableModule, DatePipe, FormsModule],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss'
 })
@@ -68,9 +70,9 @@ export class UserProfileComponent {
   }
  // ourFavRecipes = signal<RecipesDTO[]>([]);
   ourFavRecipes = signal<RecipesDTO[]>([]);
-
+  noveMeno: string = "";
 //  user = signal<UserDTO>(undefined);
-  user: UserDTO;
+user = signal<UserDTO>(undefined)
 // mine Written Comments
   clicked = false;
   public recensions: RecensionsDTO[] = [];
@@ -83,7 +85,7 @@ export class UserProfileComponent {
   public userName = this.route.snapshot.paramMap.get('userName');
   zobrazKomenty: boolean;
   zobrazRecepty: boolean;
-
+  zmeneneMeno: changeNameDTO;
   name: string;
 
   constructor(private userService: UserService, private recipesSevice: RecipesService, private httpClient: HttpClient, public dialog: MatDialog, private route: ActivatedRoute
@@ -94,6 +96,13 @@ export class UserProfileComponent {
   }
   cancel(){
     this.clicked = false;
+  }
+  done(){
+    console.log(this.noveMeno)
+    this.userService.changeName({noveMeno: this.noveMeno})
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(res => this.user().profileName = res.noveMeno)
+    this.editName = false;
   }
   chcemNakupnyZoznam: boolean;
   zobrazNakupnyZoznamBtn(){
@@ -184,7 +193,7 @@ export class UserProfileComponent {
 
     dialogRef.componentInstance.imageDeleted.subscribe(() => {
       //this.user.update(user => ({...user, pictureURL: undefined}));
-      this.user.pictureURL = undefined;
+      this.user().pictureURL = undefined;
     });
   }
   recipeService = inject(RecipesService);
@@ -206,7 +215,7 @@ export class UserProfileComponent {
     })
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
-        this.user = result.currentUser;
+        this.user.set(result.currentUser);
         this.users.set(result.users);
         this.recensions = result.myComments;
         if(this.recensions)
@@ -219,7 +228,7 @@ export class UserProfileComponent {
         this.imageDTO = result.allImages;
         this.userImages = result.userCreators;
         this.comprim();
-        this.getImageSrc(this.user.pictureURL); // Assuming this is a method that sets the image source
+        this.getImageSrc(this.user().pictureURL); // Assuming this is a method that sets the image source
       });
   }
 
@@ -240,7 +249,11 @@ export class UserProfileComponent {
     .subscribe();
   }
 
-  
+  editName: boolean = false;
+
+  editujMeno(){
+    this.editName = true;
+  }
 
 
 
@@ -323,6 +336,7 @@ export class DialogOverviewExampleDialog {
   postResponse: any;
   successResponse: string;
   image: any;
+
 
   public onImageUpload(event) {
     this.uploadedImage = event.target.files[0];

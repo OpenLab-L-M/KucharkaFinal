@@ -1,35 +1,58 @@
-<body>
-  <div class="ingredient-container">
-    <!-- Add Ingredient Form -->
-    <div class="add-ingredient-form">
-      <label for="addIngr" class="form-label">Pridaj svoju ingredienciu:</label>
-      <div class="input-group">
-        <input id="addIngr" type="text" [formControl]="addIngr" class="form-input" placeholder="Zadaj názov ingrediencie">
-        <button (click)="addIngredient()" class="add-button">Pridať</button>
-      </div>
+<!-- ingredient.component.html -->
+<div class="ingredient-container">
+  <!-- Add Ingredient Form -->
+  <div class="add-ingredient-form">
+    <h2 class="form-title">Ingrediencie</h2>
+    <div class="input-group">
+      <input id="addIngr" type="text" [formControl]="addIngr" class="form-input" placeholder="Zadaj názov ingrediencie">
+      <button (click)="addIngredient()" class="add-button">
+        <span>Pridať</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+      </button>
     </div>
-
-    <!-- Two-column layout -->
-    <div class="two-column-layout">
-      <!-- List of Ingredients -->
-      <div class="ingredient-list">
-        <div *ngFor="let ingredient of ingrediencie()" class="ingredient-item">
-          <label for="ingredient-{{ingredient.id}}" class="ingredient-label">
-            <input id="ingredient-{{ingredient.id}}" type="checkbox" class="ingredient-checkbox" (click)="checkOwned(ingredient.id)" [checked]="ingredient.isChecked">
-            <span class="ingredient-text">{{ingredient.name}}</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- Price Display -->
-      <div class="price-display">
-        <div *ngFor="let cena of ceny; let last = last" class="price-item" [class.last-item]="last">
-          <span class="price-text">{{cena}}</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Delete Button -->
-    <button (click)="DeleteSpecific()" class="delete-button">Delete saved list</button>
   </div>
-</body>
+
+  <!-- Two-column layout -->
+  <div class="two-column-layout">
+    <!-- List of Ingredients -->
+    <div class="ingredient-list">
+      <h3 class="column-title">Tvoj zoznam</h3>
+      <div *ngFor="let ingredient of ingrediencie()" class="ingredient-item">
+        <label for="ingredient-{{ingredient.id}}" class="ingredient-label">
+          <input id="ingredient-{{ingredient.id}}" type="checkbox" class="ingredient-checkbox" 
+                 (click)="checkOwned(ingredient.id)" [checked]="ingredient.isChecked">
+          <span class="custom-checkbox"></span>
+          <span class="ingredient-text">{{ingredient.name}}</span>
+          <button class="delete-icon" (click)="deleteItem(ingredient.id); $event.stopPropagation()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              <line x1="10" y1="11" x2="10" y2="17"></line>
+              <line x1="14" y1="11" x2="14" y2="17"></line>
+            </svg>
+          </button>
+        </label>
+      </div>
+    </div>
+
+    <!-- Price Display -->
+    <div class="price-display">
+      <h3 class="column-title">Ceny</h3>
+      <div *ngFor="let cena of ceny; let last = last" class="price-item" [class.last-item]="last">
+        <span class="price-text">{{cena}}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Button -->
+  <button (click)="DeleteSpecific()" class="delete-button">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="3 6 5 6 21 6"></polyline>
+      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+    </svg>
+    <span>Vymazať uložený zoznam</span>
+  </button>
+</div>

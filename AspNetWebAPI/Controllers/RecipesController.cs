@@ -170,7 +170,7 @@ namespace AspNetCoreAPI.Controllers
                 Obed = receptik.Obed,
                 Vecera = receptik.Vecera,
                 Tuky =  receptik.Tuky,
-
+                
                 Sacharidy = receptik.Sacharidy,
                 Cukor = receptik.Cukor,
                 Gramaz = receptik.Gramaz,
@@ -316,6 +316,8 @@ namespace AspNetCoreAPI.Controllers
             Recensions recenzia = new Recensions();
             //var recenzia = _context.Recensions.FirstOrDefault(x => x.UserId == GetCurrentUser().Id && x.RecipeId == nRecenzia.RecipesID);
             recenzia.RecipeId = nRecenzia.RecipesID;
+            var receptik = _context.Recipes.FirstOrDefault(x => x.Id == nRecenzia.RecipesID);
+            recenzia.RecipesName = receptik.Name;
             recenzia.Content = nRecenzia.Content;
             recenzia.Datetime = nRecenzia.Datetime;
             recenzia.UserImage = nRecenzia.UserImage;
@@ -359,61 +361,95 @@ namespace AspNetCoreAPI.Controllers
                     CheckID = GetCurrentUser().Id
                 }); 
         }
-        [HttpPost("likeRecension/{id:int}")]
-        public RecensionDTO LikeRecension([FromBody] int RecensionId)
-          {
-            var dLike = _context.Recensions.Where(x => x.Id == RecensionId).Single<Recensions>();
-            var existuje = _context.LikeRecensions.Any(x => x.RecenziaId == RecensionId && x.UserId == GetCurrentUser().Id && x.IsLiked == true);
-            var jeDisslikenuty = _context.LikeRecensions.Any(x => x.RecenziaId == RecensionId && x.UserId == GetCurrentUser().Id && x.IsLiked == false);
+        [HttpPost("likeRecension/{recensionId:int}")] 
+        public async Task<ActionResult<RecensionDTO>> LikeRecension([FromRoute] int recensionId) 
+        {
+
+            var currentUser = GetCurrentUser();
+            if (currentUser == null)
+            {
+                return Unauthorized("User not authenticated."); 
+            }
+            var currentUserId = currentUser.Id; 
 
 
-            if (existuje)
+            var recension = await _context.Recensions
+                                          .FirstOrDefaultAsync(r => r.Id == recensionId);
+            if (recension == null)
             {
-                var jeLiknuty = _context.LikeRecensions.Where(x => x.RecenziaId == RecensionId && x.UserId == GetCurrentUser().Id && x.IsLiked == true).Single<LikeRecensions>();
-                _context.LikeRecensions.Remove(jeLiknuty);
-                dLike.AmountOfLikes -= 1;
-                _context.SaveChanges();
-                
+                return NotFound($"Recension with ID {recensionId} not found.");
             }
-            else if (jeDisslikenuty)
+
+
+            var existingLike = await _context.LikeRecensions
+                                             .FirstOrDefaultAsync(lr => lr.RecenziaId == recensionId && lr.UserId == currentUserId);
+
+
+            if (existingLike != null)
             {
-                var jeDissLiknuty = _context.LikeRecensions.Where(x => x.RecenziaId == RecensionId && x.UserId == GetCurrentUser().Id && x.IsLiked == false).Single<LikeRecensions>();
-                jeDissLiknuty.IsLiked = true;
-                dLike.AmountOfLikes += 1; 
-                dLike.AmountOfDisslikes -= 1;
-                _context.SaveChanges();
-            }
-            else if (!existuje)
-            {
-                LikeRecensions nLike = new LikeRecensions()
+
+                if (existingLike.IsLiked == true)
                 {
-                    User = GetCurrentUser(),
-                    Recenzia = dLike,
-                    IsLiked = true,
-                    
-                    RecenziaId = RecensionId,
-                    UserId = GetCurrentUser().Id
-                };
-                dLike.AmountOfLikes += 1;
 
-                _context.LikeRecensions.Add(nLike);
-                _context.SaveChanges();
+                    _context.LikeRecensions.Remove(existingLike);
+                    recension.AmountOfLikes = recension.AmountOfLikes > 0 ? recension.AmountOfLikes - 1 : 0; // Prevent negative counts
+                }
+                else
+                {
 
+                    existingLike.IsLiked = true;
+                    recension.AmountOfLikes++;
+                    recension.AmountOfDisslikes = recension.AmountOfDisslikes > 0 ? recension.AmountOfDisslikes - 1 : 0; // Prevent negative counts
+                }
             }
-            var pseudoSignaly = new RecensionDTO()
+            else
             {
-                RecipesID = dLike.RecipeId,
-                UserName = dLike.UserName,
-                Content = dLike.Content,
-                Datetime = dLike.Datetime,
-                ProfileName = dLike.ProfileName,
-                Id = dLike.Id,
-                UserID = dLike.UserId,
-                CheckID = GetCurrentUser().Id,
-                AmountOfLikes = dLike.AmountOfLikes,
-                AmountOfDisslikes = dLike.AmountOfDisslikes
+
+                var newLike = new LikeRecensions()
+                {
+
+                    UserId = currentUserId,
+                    RecenziaId = recensionId,
+                    IsLiked = true,
+
+                };
+                _context.LikeRecensions.Add(newLike);
+                recension.AmountOfLikes++;
+            }
+
+            try
+            {
+
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Failed to update like status due to a database error.");
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+            }
+
+
+
+            var resultDto = new RecensionDTO()
+            {
+                RecipesID = recension.RecipeId,
+                UserName = recension.UserName,
+                Content = recension.Content,
+                Datetime = recension.Datetime,
+                ProfileName = recension.ProfileName,
+                Id = recension.Id,
+                UserID = recension.UserId, 
+                CheckID = currentUserId,   
+                AmountOfLikes = recension.AmountOfLikes,
+                AmountOfDisslikes = recension.AmountOfDisslikes
             };
-            return pseudoSignaly;
+
+            return Ok(resultDto); 
         }
         /*[HttpGet("/Homepage/returnRandomRecipe")]
         public IEnumerable<RecipesDTO> ReturnRandomRecipe()
@@ -479,47 +515,47 @@ namespace AspNetCoreAPI.Controllers
 
             }*/
         [HttpPost("disslikeRecension/{id:int}")]
-        public RecensionDTO DisslikeRecension([FromBody] int RecensionId)
+        public async Task<ActionResult<RecensionDTO>> DisslikeRecension([FromBody] int RecensionId)
         {
-            var dLike = _context.Recensions.Where(x => x.Id == RecensionId).Single<Recensions>();
-            var existuje = _context.LikeRecensions.Any(x => x.RecenziaId == RecensionId && x.UserId == GetCurrentUser().Id && x.IsLiked == false);
-            var jeLikenuty = _context.LikeRecensions.Any(x => x.RecenziaId == RecensionId && x.UserId == GetCurrentUser().Id && x.IsLiked == true);
+            var User =  GetCurrentUser();
+            var dLike = await _context.Recensions
+                .FirstOrDefaultAsync(x => x.Id == RecensionId);
+            var existuje = await _context.LikeRecensions.FirstOrDefaultAsync(x => x.RecenziaId == RecensionId && x.UserId == User.Id);
 
-            if (existuje)
+            if (existuje != null)
             {
-                var jeLiknuty = _context.LikeRecensions.Where(x => x.RecenziaId == RecensionId && x.UserId == GetCurrentUser().Id && x.IsLiked == false).Single<LikeRecensions>();
-                _context.LikeRecensions.Remove(jeLiknuty);
-                dLike.AmountOfDisslikes -= 1;
+                if(existuje.IsLiked == false)
+                {
+                    _context.LikeRecensions.Remove(existuje);
+                    dLike.AmountOfDisslikes -= 1;
+                }
+                else
+                {
+                    existuje.IsLiked = false;
+                    dLike.AmountOfLikes -= 1;
+                    dLike.AmountOfDisslikes += 1;
 
-                _context.SaveChanges();
-
+                }
             }
-            else if (jeLikenuty)
-            {
 
-                var jeDissLiknuty = _context.LikeRecensions.Where(x => x.RecenziaId == RecensionId && x.UserId == GetCurrentUser().Id && x.IsLiked == true).Single<LikeRecensions>();
-                jeDissLiknuty.IsLiked = false;
-                dLike.AmountOfLikes -= 1;
-                dLike.AmountOfDisslikes += 1;
-                _context.SaveChanges();
-            }
-            else if (!existuje)
+            else if (existuje == null)
             {
                 LikeRecensions nLike = new LikeRecensions()
                 {
-                    User = GetCurrentUser(),
+                    User = User,
                     Recenzia = dLike,
                     IsLiked = false,
 
                     RecenziaId = RecensionId,
-                    UserId = GetCurrentUser().Id
+                    UserId = User.Id
                 };
                 dLike.AmountOfDisslikes += 1;
 
                 _context.LikeRecensions.Add(nLike);
-                _context.SaveChanges();
+
 
             }
+            await _context.SaveChangesAsync();
             var pseudoSignaly = new RecensionDTO()
             {
                 RecipesID = dLike.RecipeId,
@@ -529,11 +565,11 @@ namespace AspNetCoreAPI.Controllers
                 UserID = dLike.UserId,
                 Datetime = dLike.Datetime,
                 ProfileName = dLike.ProfileName,
-                CheckID = GetCurrentUser().Id,
+                CheckID = User.Id,
                 AmountOfLikes = dLike.AmountOfLikes,
                 AmountOfDisslikes = dLike.AmountOfDisslikes
             };
-            return pseudoSignaly;
+            return Ok(pseudoSignaly);
         }
         [HttpDelete("removeRecension/{id:int}")]
         public RecensionDTO RemoveRecension([FromRoute]int id)

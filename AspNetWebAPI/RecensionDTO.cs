@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public int RecipesID { get; set; }
+        public string? RecipesName { get; set; }
         public string? UserID { get; set; }
         public string? CheckID { get; set; }
         public string? Content { get; set; }
