@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import {Component, EventEmitter, inject, Inject, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, HostListener, inject, Inject, OnInit, Output} from '@angular/core';
 import {FormGroup, FormControl, ReactiveFormsModule, Validators, FormsModule, FormArray} from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -45,6 +45,7 @@ import { AddGramsDialogComponent } from './add-grams-dialog/add-grams-dialog.com
 import { trigger } from '@angular/animations';
 import * as translate from 'deepl'; // Import the deepl library (assuming it is from npm)
 import { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from '@google/generative-ai';
+import { MatRadioButton } from '@angular/material/radio';
 
 export const environment = {
   API_KEY: "AIzaSyDsaNk1Gesqy1mFhA5Maj-w83uUClWzr-8",
@@ -54,7 +55,7 @@ export const environment = {
   standalone: true,
   imports: [RouterLink, ReactiveFormsModule, MatCard,
      MatSelectModule, MatInputModule, MatFormFieldModule, MatCardModule, MatButtonModule,
-      MatSliderModule, FormsModule, MatIcon, MatTooltip, MatDialogClose, NgIf,CdkDrag,CdkDropList, NgFor, IngredientsFilterPipe, CommonModule
+      MatSliderModule, FormsModule, MatIcon, MatTooltip, MatDialogClose, NgIf,CdkDrag,CdkDropList, NgFor, IngredientsFilterPipe, CommonModule, MatRadioButton
   ],
   templateUrl:'./create-recipe.component.html',
   styleUrl: './create-recipe.component.scss'
@@ -75,8 +76,14 @@ export class CreateRecipeComponent {
     this.inputString = e;
     this.ingredients.push(this.inputString);
   }
+  innerWidth: any;
+  @HostListener('window:resize', ['$event'])
+onResize(event) {
+  this.innerWidth = window.innerWidth;
+}
   ngOnInit() {
     this.setIngredients();
+    this.innerWidth = window.innerWidth;
      this.userService.getCurrentUser()
      .pipe(takeUntil(this.destroy$))
      .subscribe(result => this.currentUser = result)

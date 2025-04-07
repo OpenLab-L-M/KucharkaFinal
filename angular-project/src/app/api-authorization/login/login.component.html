@@ -1,11 +1,11 @@
 <body>
   @if (authService.authenticated()) {
     <div class="logged-in-message">
-      <h1>You're currently logged in.</h1>
+      <h1>Prihláste sa znova</h1>
     </div>
   } @else {
     <div class="login-container">
-      <h1 class="login-title">Login</h1>
+      <h1 class="login-title">Prihlásenie</h1>
       <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
         <!-- Email Field -->
         <mat-form-field appearance="outline" class="form-field">
@@ -16,7 +16,7 @@
 
         <!-- Password Field -->
         <mat-form-field appearance="outline" class="form-field">
-          <mat-label>Enter your password</mat-label>
+          <mat-label>heslo</mat-label>
           <input matInput [type]="'password'" formControlName="password" required>
           <mat-icon matSuffix>lock</mat-icon>
         </mat-form-field>

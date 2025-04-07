@@ -5,7 +5,7 @@
     </div>
   } @else {
     <div class="register-container">
-      <h1 class="register-title">Register</h1>
+      <h1 class="register-title">Registrácia</h1>
       <form [formGroup]="registerForm" (ngSubmit)="register()" class="register-form">
         <!-- Email Field -->
         <mat-form-field appearance="outline" class="form-field">
@@ -16,14 +16,14 @@
 
         <!-- Username Field -->
         <mat-form-field appearance="outline" class="form-field">
-          <mat-label>Username</mat-label>
+          <mat-label>Užívateľské meno</mat-label>
           <input matInput formControlName="profileName" required>
           <mat-icon matSuffix>person</mat-icon>
         </mat-form-field>
 
         <!-- Password Field -->
         <mat-form-field appearance="outline" class="form-field">
-          <mat-label>Enter your password</mat-label>
+          <mat-label>Zadaj heslo</mat-label>
           <input matInput [type]="'password'" formControlName="password" required>
           <mat-icon matSuffix>lock</mat-icon>
           <mat-hint class="password-hint">
@@ -38,14 +38,14 @@
 
         <!-- Confirm Password Field -->
         <mat-form-field appearance="outline" class="form-field">
-          <mat-label>Confirm your password</mat-label>
+          <mat-label>Potvrď svoje heslo</mat-label>
           <input matInput [type]="'password'" formControlName="confirmPassword" required>
           <mat-icon matSuffix>lock</mat-icon>
         </mat-form-field>
 
         <!-- Submit Button -->
         <button mat-raised-button color="primary" type="submit" class="submit-button">
-          Register
+          Zaregistrovať
         </button>
       </form>
     </div>
