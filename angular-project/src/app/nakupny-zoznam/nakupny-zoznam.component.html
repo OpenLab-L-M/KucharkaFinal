@@ -6,11 +6,13 @@
     <div class="input-group">
       <input id="addIngr" type="text" [formControl]="addIngr" class="form-input" placeholder="Zadaj názov ingrediencie">
       <button (click)="addIngredient()" class="add-button">
-        <span>Pridať</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="12" y1="5" x2="12" y2="19"></line>
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
+        <span class="button-text">Pridať</span>
+        <span class="button-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+        </span>
       </button>
     </div>
   </div>
@@ -26,7 +28,7 @@
                  (click)="checkOwned(ingredient.id)" [checked]="ingredient.isChecked">
           <span class="custom-checkbox"></span>
           <span class="ingredient-text">{{ingredient.name}}</span>
-          <button class="delete-icon" (click)="deleteItem(ingredient.id); $event.stopPropagation()">
+          <button class="delete-icon" (click)="deleteItem(ingredient.id); $event.stopPropagation()" aria-label="Delete ingredient">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="3 6 5 6 21 6"></polyline>
               <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
@@ -48,11 +50,13 @@
   </div>
 
   <!-- Delete Button -->
-  <button (click)="DeleteSpecific()" class="delete-button">
-    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="3 6 5 6 21 6"></polyline>
-      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-    </svg>
-    <span>Vymazať uložený zoznam</span>
+  <button (click)="DeleteSpecific()" class="delete-button" aria-label="Delete saved list">
+    <span class="button-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="3 6 5 6 21 6"></polyline>
+        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+      </svg>
+    </span>
+    <span class="button-text">Vymazať uložený zoznam</span>
   </button>
 </div>

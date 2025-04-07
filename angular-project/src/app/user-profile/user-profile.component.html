@@ -166,10 +166,12 @@
         <div class="comment-section" *ngIf="recensions.length > 0">
           <h2>My Comments</h2>
           <div *ngFor="let recension of recensions; let i = index" class="comment" [routerLink]="['/RecipesDetails', recension.recipesID]">
-            <h3>{{recension.profileName}}</h3>
-            <span>{{recension.datetime}}</span>
-            <p>{{recension.recipesName}}</p>
-            <p>{{recension.content}}</p>
+            <div class="comment-header">
+              <h3>{{recension.profileName}}</h3>
+              <span>{{recension.datetime}}</span>
+            </div>
+            <p class="comment-recipe">{{recension.recipesName}}</p>
+            <p class="comment-content">{{recension.content}}</p>
           </div>
         </div>
       }
