@@ -1,5 +1,5 @@
 import { Component, HostListener, inject, signal } from '@angular/core';
-import {forkJoin, Subject, takeUntil} from 'rxjs';
+import {forkJoin, Subject, Subscription, takeUntil} from 'rxjs';
 import { NgIf } from '@angular/common';
 import { NgFor } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
@@ -31,7 +31,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CdkAccordion } from '@angular/cdk/accordion';
 import { MatDialog } from '@angular/material/dialog';
 import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-recipes',
@@ -55,7 +55,8 @@ import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
     MatLabel,
      MatNavList,
      DecimalPipe,
-     MatCheckboxModule
+     MatCheckboxModule,
+     MatProgressSpinnerModule
   ],
 
   templateUrl: './recipes.component.html',
@@ -153,13 +154,14 @@ export class RecipesComponent {
 
   }
   sSearchRecept: string = '';
+  isDataLoaded$: Subscription;
   constructor(private userService: UserService, private dialog: MatDialog) {
     this.checkScreenSize(); // Check screen size on initialization
    }
   ngOnInit(): void {
-
     
-    forkJoin({
+    
+    this.isDataLoaded$ = forkJoin({
       recipes: this.recipeService.getRecipesList(),
       favRecipes: this.userService.getFavourites(),
       currentUser: this.userService.getCurrentUser(),

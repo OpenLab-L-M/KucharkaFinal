@@ -39,11 +39,23 @@ export class AddGramsDialogComponent {
   selectedUnits = {
     ks: false,
     g: false,
-    ml: false
+    ml: false,
+    lyz:false,
+    PL : false,
+    hrn : false,
+    stip : false,
+    kg:false,
+    l: false,
   };
   ks:boolean;
 g:boolean;
 ml:boolean;
+lyz: boolean;
+PL:boolean;
+hrn: boolean;
+stip: boolean;
+kg: boolean;
+l: boolean;
   unit: string;
   ingrediences: any = [];
   constructor(
@@ -54,18 +66,147 @@ ml:boolean;
  
   selectedIngredients: string = '';
   vyberJednotku(unit : string){
-    if(unit == "g"){
-      this.unit = " g"
+    this.ks = false;
+    this.g = false;
+    this.ml = false;
+    this.lyz = false;
+    this.PL = false;
+    
+    this.hrn = false;
+    this.stip = false;
+    this.kg = false;
+    this.l = false;
+    this.unit = "";
+    if (unit == "g" && this.selectedUnits.g == true) {
+      this.unit = " g"; // Grams
       this.g = true;
+      this.ks = false;
+      this.ml = false;
+      this.lyz = false;
+      this.PL = false;
+      
+      this.hrn = false;
+      this.stip = false;
+      this.kg = false;
+      this.l = false;
+
+
     }
-    else if(unit == "ml"){
-      this.unit = " ml";
-      this.ml= true;
+    else if (unit == "ml" &&  this.selectedUnits.ml == true) {
+      this.unit = " ml"; // Milliliters
+      this.g = false;
+      this.ks = false;
+      this.ml = true;
+      this.lyz = false;
+      this.PL = false;
+      
+      this.hrn = false;
+      this.stip = false;
+      this.kg = false;
+      this.l = false;
     }
-    else if (unit == "ks"){
-      this.unit = " ks";
+    else if (unit == "ks" && this.selectedUnits.ks == true) {
+      this.unit = " ks"; // Pieces
+      this.g = false;
       this.ks = true;
+      this.ml = false;
+      this.lyz = false;
+      this.PL = false;
+      
+      this.hrn = false;
+      this.stip = false;
+      this.kg = false;
+      this.l = false;
+      
     }
+    else if (unit == "lyz" && this.selectedUnits.lyz == true) { // Corresponds to ČL (Teaspoon) checkbox
+      this.unit = " ČL"; // Teaspoon (Čajová lyžička)
+      this.g = false;
+      this.ks = false;
+      this.ml = false;
+      this.lyz = true;
+      this.PL = false;
+      
+      this.hrn = false;
+      this.stip = false;
+      this.kg = false;
+      this.l = false;
+    }
+    else if (unit == "PL" &&  this.selectedUnits.PL == true) { // Corresponds to PL (Tablespoon) checkbox
+      this.unit = " PL"; // Tablespoon (Polievková lyžica)
+      this.g = false;
+      this.ks = false;
+      this.ml = false;
+      this.lyz = false;
+      this.PL = true;
+      
+      this.hrn = false;
+      this.stip = false;
+      this.kg = false;
+      this.l = false;
+    }
+    else if (unit == "hrn" && this.selectedUnits.hrn == true) { // Corresponds to hrn (Cup) checkbox
+      this.unit = " hrn"; // Cup (Hrnček)
+      this.g = false;
+      this.ks = false;
+      this.ml = false;
+      this.lyz = false;
+      this.PL = false;
+      
+      this.hrn = true;
+      this.stip = false;
+      this.kg = false;
+      this.l = false;
+      
+    }
+    else if (unit == "stip" && this.selectedUnits.stip == true) { // Corresponds to štip (Pinch) checkbox
+      this.unit = " štip"; // Pinch (Štipka)
+      this.g = false;
+      this.ks = false;
+      this.ml = false;
+      this.lyz = false;
+      this.PL = false;
+      
+      this.hrn = false;
+      this.stip = true;
+      this.kg = false;
+      this.l = false;
+    }
+    else if (unit == "kg" &&  this.selectedUnits.kg == true) { // Corresponds to kg (Kilogram) checkbox
+      this.unit = " kg"; // Kilogram
+      this.g = false;
+      this.ks = false;
+      this.ml = false;
+      this.lyz = false;
+      this.PL = false;
+      
+      this.hrn = false;
+      this.stip = false;
+      this.kg = true;
+      this.l = false;
+
+    }
+     else if (unit == "l" &&      this.selectedUnits.l == true) { // Corresponds to l (Liter) checkbox
+      this.unit = " l"; // Liter
+      this.g = false;
+      this.ks = false;
+      this.ml = false;
+      this.lyz = false;
+      this.PL = false;
+      
+      this.hrn = false;
+      this.stip = false;
+      this.kg = false;
+      this.l = true;
+    }
+  
+
+  }
+  isAnyUnitSelected(){
+    if(this.unit != "")
+      return true
+    else
+      return false
   }
   addGrams(){
     this.ingredience = new IngredienceDTO();

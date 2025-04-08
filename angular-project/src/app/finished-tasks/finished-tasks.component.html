@@ -1,51 +1,66 @@
-<body>
-<table  mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
-       class="mat-elevation-z8">
-
-  <!-- Position Column -->
-  <ng-container matColumnDef="priority">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by priority">
-      Priority
-    </th>
-    <td mat-cell *matCellDef="let task"> {{task.priority}} </td>
-  </ng-container>
-
-  <!-- Name Column -->
-  <ng-container matColumnDef="name" >
-    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name" >
-      Name
-    </th>
-    <td mat-cell *matCellDef="let task" (click)="navigateToTaskDetail(task.id)"> {{task.name }} </td>
-  </ng-container>
-
-  <!-- Weight Column -->
-  <ng-container matColumnDef="startTime">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by weight">
-      startTime
-    </th>
-    <td mat-cell *matCellDef="let task" > {{task.startTime | date: 'short'}} </td>
-  </ng-container>
-
-  <!-- Symbol Column -->
-  <ng-container matColumnDef="deadLine">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by deadLine">
-      deadLine
-      
-    </th>
-    <td mat-cell *matCellDef="let task"> {{task.deadLine | date: 'short'}} </td>
-    
-  </ng-container>
-  <ng-container matColumnDef="button">
-    <th mat-header-cell *matHeaderCellDef >
-
-      <mat-icon mat-cell *matCellDef="let task" (click)="changeToFinishedOrUnfinished(task.id)" style="cursor: pointer;">close</mat-icon>
-    </th>
-  </ng-container>
+<body class="task-manager-body">
+  @if(tasks.length > 0) {
+    @if(isDataLoaded$ && isDataLoaded$.closed) {
+      <div class="table-wrapper">
+        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" 
+               class="tasks-table mat-elevation-z8">
   
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
-
+          <!-- Priority Column -->
+          <ng-container matColumnDef="priority">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by priority">
+              Priorita
+            </th>
+            <td mat-cell *matCellDef="let task"> {{task.priority}} </td>
+          </ng-container>
+        
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
+              Názov
+            </th>
+            <td mat-cell *matCellDef="let task" (click)="navigateToTaskDetail(task.id)"> {{task.name}} </td>
+          </ng-container>
+        
+          <!-- Start Time Column -->
+          <ng-container matColumnDef="startTime">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by start time">
+              Čas vytvorenia
+            </th>
+            <td mat-cell *matCellDef="let task"> {{task.startTime | date: 'short'}} </td>
+          </ng-container>
+        
+          <!-- Deadline Column -->
+          <ng-container matColumnDef="deadLine">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by deadline">
+              Konečný termín
+            </th>
+            <td mat-cell *matCellDef="let task"> {{task.deadLine | date: 'short'}} </td>
+          </ng-container>
+        
+          <!-- Action Column -->
+          <ng-container matColumnDef="button">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-icon>close</mat-icon>
+            </th>
+            <td mat-cell *matCellDef="let task">
+              <mat-icon (click)="changeToFinishedOrUnfinished(task.id)" class="action-icon">close</mat-icon>
+            </td>
+          </ng-container>
+          
+          <tr mat-header-row *matHeaderRowDef="displayedColumns" class="table-header"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+        </table>
+      </div>
+    }
+    @else {
+      <div class="spinner-container">
+        <mat-spinner></mat-spinner>
+      </div>
+    }
+  }
+  @else if(tasks.length == 0) {
+    <div class="empty-message">
+      <h1>Nemáte žiadne hotové úlohy</h1>
+    </div>
+  }
 </body>
-

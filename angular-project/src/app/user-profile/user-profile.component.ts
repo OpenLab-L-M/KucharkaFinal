@@ -18,7 +18,7 @@ import { MatIconAnchor } from '@angular/material/button';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { RecipesDTO } from '../DTOs/RecipesDTO';
-import {forkJoin, Subject, take, takeUntil} from 'rxjs';
+import {forkJoin, Subject, Subscription, take, takeUntil} from 'rxjs';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatInputModule } from '@angular/material/input';
 import {ImageDTO} from "../DTOs/ImageDTO";
@@ -35,6 +35,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { sign } from 'crypto';
 import { changeNameDTO } from '../DTOs/ChangeNameDTO';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 
@@ -48,7 +49,7 @@ export interface DialogData {
   standalone: true,
   imports: [NgFor,
     NgIf, MatIconModule, MatIconAnchor, MatButtonModule, MatCardModule, RouterLink, MatDialogClose, MatFormField, MatTooltip, ReactiveFormsModule, MatLabel, DecimalPipe,
-    RouterLink, CommonModule,CdkAccordionModule, MatSortModule, DatePipe, MatTableModule, DatePipe, FormsModule],
+    RouterLink, CommonModule,CdkAccordionModule, MatSortModule, DatePipe, MatTableModule, DatePipe, FormsModule, MatProgressSpinnerModule],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss'
 })
@@ -196,16 +197,15 @@ user = signal<UserDTO>(undefined)
       this.user().pictureURL = undefined;
     });
   }
+    isDataLoaded$: Subscription;
   recipeService = inject(RecipesService);
   imageDTO: ImageDTO[] = [];
   users = signal<UserDTO[]>([]);
   userImages: CreatorDTO[] = [];
   ngOnInit(): void{
-    this.userService.getCurrentUser()
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(result => this.currentUserUsername = result.userName);
-    forkJoin({
+    this.isDataLoaded$ = forkJoin({
       currentUser: this.userService.userProfile(this.userName),
+      currentUserxd: this.userService.getCurrentUser(),
       users: this.userService.getUsers(),
       myComments: this.userService.getUsersRecensions(this.userName),
       usersRecipes: this.userService.usersRecipes(this.userName).pipe(takeUntil(this.destroy$)),
@@ -218,6 +218,7 @@ user = signal<UserDTO>(undefined)
         this.user.set(result.currentUser);
         this.users.set(result.users);
         this.recensions = result.myComments;
+        this.currentUserUsername = result.currentUserxd.userName;
         if(this.recensions)
         {
           this.zobrazKomenty = true;

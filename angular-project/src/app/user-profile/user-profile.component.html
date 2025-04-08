@@ -60,6 +60,7 @@
     <div class="settings-icon">
       <mat-icon (click)="chPasswordClicked()" style="cursor: pointer;">settings</mat-icon>
     </div>
+    @if(isDataLoaded$ && isDataLoaded$.closed){
     <div class="profile-picture">
       <img id="your_img" *ngIf="this.user().pictureURL" [src]="getImageSrc(this.user().pictureURL)" alt="User Picture" class="profile_img">
       <img id="your_img" class="profile_img" *ngIf="!this.user().pictureURL" src="../../assets/Whithout_profile_picture.jpg">
@@ -253,6 +254,9 @@
           </div>
         </div>
       }
-    </div>
+    </div>}
+    @else if(isDataLoaded$ && !isDataLoaded$.closed){
+      <mat-spinner style="margin: auto; margin-top: 25%;"></mat-spinner>
+    }
   </ng-template>
 </body>

@@ -5,14 +5,15 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { TaskDTO } from '../DTOs/TaskDTO';
 import { MatIcon } from '@angular/material/icon';
 import { TaskService } from 'src/services/task.service';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-finished-tasks',
   standalone: true,
-  imports: [CommonModule, DatePipe, MatSortModule, MatTableModule, MatIcon, RouterLink],
+  imports: [CommonModule, DatePipe, MatSortModule, MatTableModule, MatIcon, RouterLink, MatProgressSpinnerModule],
   templateUrl: './finished-tasks.component.html',
   styleUrl: './finished-tasks.component.css'
 })
@@ -21,6 +22,7 @@ export class FinishedTasksComponent {
   isActive(url: string): boolean {
     return this.router.url === url;
   }
+    isDataLoaded$: Subscription;
   router = inject(Router)
   dataSource = new MatTableDataSource<TaskDTO>();
   getFinishedTasks(){
@@ -37,7 +39,7 @@ export class FinishedTasksComponent {
     private destroy$ = new Subject<void>();
   taskService = inject(TaskService);
  ngOnInit(){
-this.getFinishedTasks();
+  this.isDataLoaded$ = this.getFinishedTasks();
 
  }
  changeToFinishedOrUnfinished(id: number){

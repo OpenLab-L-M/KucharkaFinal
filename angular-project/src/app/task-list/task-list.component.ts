@@ -4,7 +4,7 @@ import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import  { TaskDTO } from '../DTOs/TaskDTO'
 import { TaskService } from 'src/services/task.service';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { CommonModule, DatePipe } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 
@@ -15,19 +15,20 @@ import { MatIconAnchor } from '@angular/material/button';
 
 import {MatCardModule} from '@angular/material/card';
 import {MatFormField, MatFormFieldModule, MatLabel} from '@angular/material/form-field';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [MatTableModule, MatSortModule, CommonModule, DatePipe,MatIconModule,RouterLink,RouterModule  ],
+  imports: [MatTableModule, MatSortModule, CommonModule, DatePipe,MatIconModule,RouterLink,RouterModule,MatProgressSpinnerModule  ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.css'
 })
 
 export class TaskListComponent {
-
+  isDataLoaded$: Subscription;
   isActive(url: string): boolean {
     return this.router.url === url;
   }
@@ -71,7 +72,7 @@ export class TaskListComponent {
     private destroy$ = new Subject<void>();
   taskService = inject(TaskService);
  ngOnInit(){
-this.getMeTasks();
+  this.isDataLoaded$ = this.getMeTasks();
 
  }
 

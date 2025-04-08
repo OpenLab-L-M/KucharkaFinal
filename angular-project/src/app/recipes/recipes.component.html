@@ -140,7 +140,7 @@
 
       </div>
     </mat-drawer>
-
+    @if(isDataLoaded$ && isDataLoaded$.closed){
     <!-- Main Content Area -->
     <div class="example-sidenav-content">
       <!-- Toggle Sidebar Button for Mobile -->
@@ -149,6 +149,7 @@
       </button>
 
       <!-- Recipe Cards Container -->
+       
       <div class="recipes-container">
         <mat-card class="recipes-items" *ngFor="let recipe of realRecipes() | filter : sSearchRecept : selectedIngredients : searchBarQuery">
           <!-- Recipe Name at the Top -->
@@ -191,8 +192,13 @@
           </div>
         </mat-card>
       </div>
-    </div>
+    </div>}
+    @else if(isDataLoaded$ && !isDataLoaded$.closed){
+      <mat-spinner style="margin: auto; margin-top: 30%;"></mat-spinner>
+    }
   </mat-drawer-container>
+
+
 
   <!-- Create Recipe Button -->
   <div class="create">

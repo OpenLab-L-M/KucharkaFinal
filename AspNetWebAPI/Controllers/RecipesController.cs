@@ -32,13 +32,13 @@ namespace AspNetCoreAPI.Controllers
 
 
         [HttpGet("/recipes/")]
-        public IEnumerable<RecipesDTO> GetRecipesList()
+        public async  Task<IEnumerable<RecipesDTO>> GetRecipesList()
         {
             
 
-            IEnumerable<Recipe> dbRecipes = _context.Recipes;
+            List<Recipe> dbRecipes =  await _context.Recipes.ToListAsync();
             return dbRecipes.Select(dbRecipe =>
-                new RecipesDTO
+                 new RecipesDTO
                 {
                     Id = dbRecipe.Id,
                     Name = dbRecipe.Name,
@@ -64,9 +64,9 @@ namespace AspNetCoreAPI.Controllers
                     
         }); 
         }
-        public IEnumerable<string> mapToPostupyStrings( int recipesID)
+        public async Task<List<string>> mapToPostupyStrings( int recipesID)
         {
-            var dbPostupy = _context.Postupiky.Where(x => x.RecipesId == recipesID).ToList();
+            List<Postupy> dbPostupy = await _context.Postupiky.Where(x => x.RecipesId == recipesID).ToListAsync();
             List<string> postupyContext = dbPostupy.Select(x => x.postupy).ToList();
             return postupyContext;
 
@@ -81,8 +81,9 @@ namespace AspNetCoreAPI.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public RecipesDTO GetRecipes(int id)
+        public async Task<RecipesDTO>GetRecipes(int id)
         {
+ 
             var recipe = _context.Recipes.Single(savedId => savedId.Id == id);
             return new RecipesDTO
             {
@@ -93,7 +94,7 @@ namespace AspNetCoreAPI.Controllers
                 ImageURL = recipe.ImageURL,
                 CheckID = recipe.CheckID,
                 userID = GetCurrentUser().Id,
-                Postupicky = mapToPostupyStrings(recipe.Id).ToList(),
+                Postupicky = await mapToPostupyStrings(recipe.Id),
                 Tuky = recipe.Tuky,
                 Bielkoviny = recipe.Bielkoviny,
                 Sacharidy = recipe.Sacharidy,
@@ -270,7 +271,7 @@ namespace AspNetCoreAPI.Controllers
            }
            */
         [HttpPut("Editujem")]
-        public RecipesDTO Edit(EditDTO receptik)
+        public async Task<RecipesDTO> Edit(EditDTO receptik)
         {
             var nReceptik = _context.Recipes.FirstOrDefault(x => x.Id == receptik.Id);
             var postupicky = _context.Postupiky.Where(x=> x.RecipesId == receptik.Id).ToList();
@@ -304,7 +305,7 @@ namespace AspNetCoreAPI.Controllers
                 Ingrediencie = nReceptik.Ingrediencie,
                 Description = nReceptik.Description,
                 ImageURL = nReceptik.ImageURL,
-                Postupicky = mapToPostupyStrings(nReceptik.Id).ToList(),
+                Postupicky = await mapToPostupyStrings(nReceptik.Id),
                 Cas = nReceptik.Cas
             };
             _context.SaveChanges();
@@ -340,9 +341,9 @@ namespace AspNetCoreAPI.Controllers
             
         }
         [HttpGet("recenzie/{id:int}")]
-        public IEnumerable<RecensionDTO> GetRecensions([FromRoute] int id)
+        public async Task<IEnumerable<RecensionDTO>> GetRecensions([FromRoute] int id)
         {
-            IEnumerable<Recensions> dbRecensions = _context.Recensions.Where(x => x.RecipeId == id).ToArray();
+            IEnumerable<Recensions> dbRecensions = await _context.Recensions.Where(x => x.RecipeId == id).ToArrayAsync();
 
 
             return dbRecensions.Select(dbRecension =>

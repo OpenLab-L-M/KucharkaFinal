@@ -1,13 +1,34 @@
-<div style="align-items: center; text-align: center;">
-  <div class="input-container">
-    <label for="inputString">Zadaj množstvo a jednotku (ks/g/ml): </label>
-    <input type="text" id="inputString" [(ngModel)]="inputString" name="inputString">
-    <div class="unit-checkboxes">
-      <mat-checkbox [(ngModel)]="selectedUnits.ks" name="ks" value="kusy" (click)="vyberJednotku('ks')">ks</mat-checkbox>
-      <mat-checkbox [(ngModel)]="selectedUnits.g" name="g" value="g" (click)="vyberJednotku('g')">g</mat-checkbox>
-      <mat-checkbox [(ngModel)]="selectedUnits.ml" name="ml" value="ml" (click)="vyberJednotku('ml')">ml</mat-checkbox>
+<div style="align-items: center; text-align: center; padding: 20px;"> <!-- Added some padding for better spacing -->
+
+  <div class="input-container" style="margin-bottom: 15px;"> <!-- Added margin -->
+    <label for="inputString" style="display: block; margin-bottom: 8px; font-weight: 500;">Zadaj množstvo:</label>
+    <!-- Removed unit text from label as checkboxes are now primary -->
+    <input type="text" id="inputString" [(ngModel)]="inputString" name="inputString" placeholder="napr. 100 alebo 1.5">
+  </div>
+
+  <div class="unit-selection-container" style="margin-bottom: 20px;">
+     <label style="display: block; margin-bottom: 8px; font-weight: 500;">Vyber jednotku:</label>
+     <div class="unit-checkboxes" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;">
+      <!-- Existing Units -->
+      <mat-checkbox [(ngModel)]="selectedUnits.ks" name="ks" value="kusy" (click)="vyberJednotku('ks')" [checked]="ks == true">ks</mat-checkbox>
+      <mat-checkbox [(ngModel)]="selectedUnits.g" name="g" value="gramy" (click)="vyberJednotku('g')" [checked]="g == true">g</mat-checkbox>
+      <mat-checkbox [(ngModel)]="selectedUnits.ml" name="ml" value="mililitre" (click)="vyberJednotku('ml')" [checked]="ml == true">ml</mat-checkbox>
+
+      <!-- New Units -->
+      <mat-checkbox [(ngModel)]="selectedUnits.lyz" name="lyz" value="lyžička" (click)="vyberJednotku('lyz')" [checked]="lyz == true">ČL</mat-checkbox> <!-- Čajová lyžička (Teaspoon) -->
+      <mat-checkbox [(ngModel)]="selectedUnits.PL" name="PL" value="lyžica" (click)="vyberJednotku('PL')" [checked]="PL == true">PL</mat-checkbox> <!-- Polievková lyžica (Tablespoon) -->
+      <mat-checkbox [(ngModel)]="selectedUnits.hrn" name="hrn" value="hrnček" (click)="vyberJednotku('hrn')" [checked]="hrn == true">hrn</mat-checkbox> <!-- Hrnček (Cup) -->
+      <mat-checkbox [(ngModel)]="selectedUnits.stip" name="stip" value="štipka" (click)="vyberJednotku('stip')" [checked]="stip == true">štip</mat-checkbox> <!-- Štipka (Pinch) -->
+       <mat-checkbox [(ngModel)]="selectedUnits.l" name="l" value="liter" (click)="vyberJednotku('l')" [checked]="l == true">l</mat-checkbox> <!-- Liter -->
+       <mat-checkbox [(ngModel)]="selectedUnits.kg" name="kg" value="kilogram" (click)="vyberJednotku('kg')" [checked]="kg == true">kg</mat-checkbox> <!-- Kilogram -->
+
     </div>
   </div>
-  <button mat-raised-button (click)="addGrams()" [disabled]="!(inputString.length > 0)">Ulož</button>
-  <button mat-raised-button (click)="onNoClick()">Close</button>
+
+  <div class="action-buttons" style="display: flex; justify-content: center; gap: 10px;">
+     <!-- Disabled logic might need adjustment based on how units are validated -->
+    <button mat-raised-button color="primary" (click)="addGrams()" [disabled]="!(inputString.length > 0 && isAnyUnitSelected())">Ulož</button>
+    <button mat-raised-button (click)="onNoClick()">Zrušiť</button> <!-- Changed label to be more descriptive -->
+  </div>
+
 </div>
