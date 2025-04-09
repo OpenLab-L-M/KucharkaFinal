@@ -268,14 +268,14 @@ namespace AspNetCoreAPI.Controllers
         [HttpDelete("/deleteWhole")]
         public void DeleteWholePlan()
         {
-            var pocet = _context.NakupnyLists.ExecuteDelete();
+            var pocet = _context.NakupnyLists.Where(x => x.UserId == GetCurrentUser().Id).ExecuteDelete();
 
         }
         [HttpDelete("/deleteSpecific/{day}")]
         public void DeleteSelectedDay([FromRoute] string day)
         {
 
-            var naVymaz = _context.NakupnyLists.Where(x => x.Day == day);
+            var naVymaz = _context.NakupnyLists.Where(x => x.Day == day && GetCurrentUser().Id == x.UserId);
             foreach (var vymaz in naVymaz)
             {
                 _context.Remove(vymaz);

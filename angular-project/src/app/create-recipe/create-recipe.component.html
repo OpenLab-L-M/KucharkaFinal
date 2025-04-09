@@ -131,6 +131,9 @@
                 </div>
               </div>
             }
+            @else{
+              <mat-spinner></mat-spinner>
+            }
             <!-- ========= COLUMN 2: Selected Ingredients (Moved from Col 1) & Suggestions ========= -->
             <div class="column">
                <!-- Selected Ingredients (Moved from original Column 1) -->
@@ -332,18 +335,26 @@
               </div>
             </div>
   
-            @if(suggestions.length > 0) {
+           
               <div class="column suggestions-column">
                 <div class="suggestions-container">
                   <h2>Suggestions</h2>
+                  @if(suggestions.length > 0) {
                   <div class="suggestions-scroller">
+                    
                     <ul>
                       <li *ngFor="let suggestion of suggestions">{{ suggestion }}</li>
                     </ul>
+                  
                   </div>
+                }
+                  @else{
+                    <mat-spinner style="margin: auto; margin-top: 30%;"></mat-spinner>
+                  }
                 </div>
               </div>
-            }
+            
+            
           </div>
         </header>
   

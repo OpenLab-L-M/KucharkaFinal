@@ -46,7 +46,7 @@ import { trigger } from '@angular/animations';
 import * as translate from 'deepl'; // Import the deepl library (assuming it is from npm)
 import { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from '@google/generative-ai';
 import { MatRadioButton } from '@angular/material/radio';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 export const environment = {
   API_KEY: "AIzaSyDsaNk1Gesqy1mFhA5Maj-w83uUClWzr-8",
 };
@@ -55,7 +55,7 @@ export const environment = {
   standalone: true,
   imports: [RouterLink, ReactiveFormsModule, MatCard,
      MatSelectModule, MatInputModule, MatFormFieldModule, MatCardModule, MatButtonModule,
-      MatSliderModule, FormsModule, MatIcon, MatTooltip, MatDialogClose, NgIf,CdkDrag,CdkDropList, NgFor, IngredientsFilterPipe, CommonModule, MatRadioButton
+      MatSliderModule, FormsModule, MatIcon, MatTooltip, MatDialogClose, NgIf,CdkDrag,CdkDropList, NgFor, IngredientsFilterPipe, CommonModule, MatRadioButton, MatProgressSpinnerModule
   ],
   templateUrl:'./create-recipe.component.html',
   styleUrl: './create-recipe.component.scss'

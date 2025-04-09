@@ -89,7 +89,9 @@ export class RecipesDetailsComponent implements OnInit{
 
   prelozene: string;
   
-
+  CancelEdit(){
+    this.clicked = false;
+  }
 
 
   dTuky:number = 0;
