@@ -5,7 +5,7 @@
         <header>
           <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: bold;">Vytvor svoj recept</h1>
           <div class="form-container">
-  
+
             <!-- ========= COLUMN 1: Recipe Details, Options, Slider, Image ========= -->
             <div class="column">
               <!-- Recipe Name -->
@@ -15,7 +15,7 @@
                   <input matInput id="name" formControlName="name" maxlength="75">
                 </mat-form-field>
               </div>
-  
+
               <!-- Recipe Description -->
               <div class="set">
                 <mat-form-field class="Description_rcp">
@@ -23,8 +23,8 @@
                   <textarea matInput id="description" formControlName="description"></textarea>
                 </mat-form-field>
               </div>
-  
-               <!-- Difficulty (Moved from original Column 2) -->
+
+               <!-- Difficulty -->
               <div class="set">
                 <label id="ch_diff" style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Vyber obtiažnosť:</label>
                 <div class="diff_radio">
@@ -42,8 +42,8 @@
                   </div>
                 </div>
               </div>
-  
-              <!-- Special Category (Moved from original Column 2) -->
+
+              <!-- Special Category -->
               <div class="set">
                 <label id="veganske" style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Špeciálna karegória</label>
                 <div class="diff_radio">
@@ -57,10 +57,9 @@
                   </div>
                 </div>
               </div>
-  
-              <!-- Meal Type (Moved from original Column 2) -->
+
+              <!-- Meal Type -->
               <div class="set">
-                <!-- NOTE: Original code had duplicate ID "veganske" here, using a more distinct one for label -->
                 <label id="chodLabel" style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Chod</label>
                 <div class="diff_radio">
                   <div class="checkbox-option">
@@ -77,8 +76,8 @@
                   </div>
                 </div>
               </div>
-  
-               <!-- Time Slider (Kept in Column 1) -->
+
+               <!-- Time Slider -->
               <div class="set">
                 <mat-card class="example-result-card">
                   <mat-card-content>
@@ -95,14 +94,13 @@
                         [step]="step"
                         [discrete]="thumbLabel"
                         [showTickMarks]="showTicks">
-                      <!-- Note: Original had [(ngModel)] and formControlName on the input, which is unusual. Keeping as was. -->
                       <input id="cas" formControlName="cas" matSliderThumb [(ngModel)]="value" #slider>
                     </mat-slider>
                   </mat-card-content>
                 </mat-card>
               </div>
-  
-              <!-- Image Upload (Moved from original Column 2) -->
+
+              <!-- Image Upload -->
               <div class="set">
                  <label for="img" class="beautyBtn">Pridaj obrázok</label>
                 <input
@@ -118,32 +116,40 @@
               </div>
             </div>
             <!-- ========= END COLUMN 1 ========= -->
-  
-  
-            <!-- ========= COLUMN 2: Selected Ingredients (Moved from Col 1) & Suggestions ========= -->
+
+
+            <!-- ========= COLUMN 2: Selected Ingredients & Suggestions ========= -->
             <div class="column">
-               <!-- Selected Ingredients (Moved from original Column 1) -->
+               <!-- Selected Ingredients -->
               <div class="example-container">
                 <h2 style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">vybrané ingredience</h2>
+                <!-- **** Ensuring this opening tag is complete **** -->
                 <div
                   cdkDropList
                   #doneList="cdkDropList"
+                  id="doneList"
                   [cdkDropListData]="vybrane"
                   [cdkDropListConnectedTo]="[todoList]"
                   class="example-list"
                   (cdkDropListDropped)="drop($event)">
                   @for (item of vybrane; track item) {
-                    <div class="example-box" cdkDrag>{{item}}</div>
+                    <!-- **** Button is REMOVED here **** -->
+                    <div class="example-box" cdkDrag [cdkDragData]="item">
+                      {{item}}
+                    </div>
+                  }
+                  @if (vybrane.length === 0) {
+                    <div class="empty-list-placeholder">
+                      Sem presuňte ingrediencie zo zoznamu nižšie
+                    </div>
                   }
                 </div>
               </div>
-  
-               <!-- Suggestions (Kept in Column 2 - was implicitly there based on layout) -->
+
+               <!-- Suggestions -->
               @if(suggestions.length > 0) {
-                <!-- Original didn't show suggestions structure, adding basic wrapper -->
                 <div class="suggestions-container column-internal">
                   <h2>Suggestions</h2>
-                   <!-- Assuming suggestions rendering logic was similar -->
                   <div class="suggestions-scroller">
                     <ul>
                       <li *ngFor="let suggestion of suggestions">{{ suggestion }}</li>
@@ -153,29 +159,31 @@
               }
             </div>
              <!-- ========= END COLUMN 2 ========= -->
-  
+
           </div> <!-- End form-container -->
         </header>
-  
-        <!-- Action Buttons (Original Structure) -->
+
+        <!-- Action Buttons -->
         <button mat-raised-button id="make" type="submit" [disabled]="!profileForm.valid" (click)="imageUploadAction()">Vytvor</button>
         <button mat-raised-button id="back" [routerLink]="['/Recipes']">Back</button>
-  
+
       </form> <!-- End profileForm -->
-  
-      <!-- ========= AVAILABLE INGREDIENTS (Original Position) ========= -->
+
+      <!-- ========= AVAILABLE INGREDIENTS ========= -->
       <div class="example-container">
         <h2 style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">ingredience:</h2>
+        <!-- **** Ensuring this opening tag is complete **** -->
         <div
           cdkDropList
           #todoList="cdkDropList"
-          [cdkDropListData]="ingredients"
+          id="todoList"
+          [cdkDropListData]="ingredients | ingredientsFilter : searchTerm"
           [cdkDropListConnectedTo]="[doneList]"
           class="example-list"
           (cdkDropListDropped)="drop($event)">
           <input type="text" [(ngModel)]="searchTerm" placeholder="Find an ingredience" class="findInput"/>
           <div *ngFor="let item of ingredients | ingredientsFilter : searchTerm">
-            <div class="example-box" cdkDrag>
+            <div class="example-box" cdkDrag [cdkDragData]="item">
               <span class="ingredient-name">{{item}}</span>
               @if(currentUser.admin == true){
               <button mat-icon-button class="delete-button" (click)="deleteIngredient(item)">
@@ -184,14 +192,18 @@
               }
             </div>
           </div>
+          @if ((ingredients | ingredientsFilter : searchTerm).length === 0) {
+            <div class="empty-list-placeholder">
+            {{ searchTerm ? 'Žiadne zhody.' : 'Žiadne ingrediencie na zobrazenie.' }}
+            </div>
+          }
         </div>
-         <!-- Original had button here -->
          <button (click)="openDialogis()">pridaj ingredienciu</button>
       </div>
       <!-- ========= END AVAILABLE INGREDIENTS ========= -->
-  
-  
-      <!-- ========= PROCEDURE SECTION (Original Position) ========= -->
+
+
+      <!-- ========= PROCEDURE SECTION ========= -->
       <div class="formaNaPostup">
         <h1>Napíš svoj postup</h1>
         <form [formGroup]="postupForm" class="postupForm">
@@ -202,7 +214,7 @@
         </form>
       </div>
        <!-- ========= END PROCEDURE SECTION ========= -->
-  
+
     </div> <!-- End container -->
   </body>
 }
@@ -213,6 +225,7 @@
         <header>
           <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: bold;">Vytvor svoj recept</h1>
           <div class="form-container">
+            <!-- Original Desktop Layout - Column 1 -->
             <div class="column">
               <div class="set">
                 <mat-form-field class="Name_rcp">
@@ -220,29 +233,39 @@
                   <input matInput id="name" formControlName="name" maxlength="75">
                 </mat-form-field>
               </div>
-  
+
               <div class="set">
                 <mat-form-field class="Description_rcp">
                   <mat-label class="centered-label" for="description">Popis receptu: </mat-label>
                   <textarea matInput id="description" formControlName="description"></textarea>
                 </mat-form-field>
               </div>
-  
+
               <div class="example-container">
                 <h2 style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">vybrané ingredience</h2>
+                 <!-- **** Ensuring this opening tag is complete **** -->
                 <div
                   cdkDropList
                   #doneList="cdkDropList"
+                  id="doneList"
                   [cdkDropListData]="vybrane"
                   [cdkDropListConnectedTo]="[todoList]"
                   class="example-list"
                   (cdkDropListDropped)="drop($event)">
                   @for (item of vybrane; track item) {
-                    <div class="example-box" cdkDrag>{{item}}</div>
+                    <!-- **** Button is REMOVED here **** -->
+                    <div class="example-box" cdkDrag [cdkDragData]="item">
+                        {{item}}
+                    </div>
+                  }
+                  @if (vybrane.length === 0) {
+                    <div class="empty-list-placeholder">
+                      Sem presuňte ingrediencie zo zoznamu nižšie
+                    </div>
                   }
                 </div>
               </div>
-  
+
               <div class="set">
                 <mat-card class="example-result-card">
                   <mat-card-content>
@@ -265,10 +288,11 @@
                 </mat-card>
               </div>
             </div>
-  
+
+            <!-- Original Desktop Layout - Column 2 -->
             <div class="column">
               <div class="set">
-                <label id="ch_diff" style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Vyber obtiažnosť:</label> 
+                <label id="ch_diff" style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Vyber obtiažnosť:</label>
                 <div class="diff_radio">
                   <div class="radio-option">
                     <input id="diff" type="radio" formControlName="diff" value="ľahké" [checked]="true">
@@ -284,9 +308,9 @@
                   </div>
                 </div>
               </div>
-  
+
               <div class="set">
-                <label id="veganske" style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Špeciálna karegória</label> 
+                <label id="veganske" style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Špeciálna karegória</label>
                 <div class="diff_radio">
                   <div class="checkbox-option">
                     <input id="jVeganske" type="checkbox" formControlName="veganske" value="veganske">
@@ -298,9 +322,10 @@
                   </div>
                 </div>
               </div>
-  
+
               <div class="set">
-                <label id="veganske" style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Chod</label> 
+                 <!-- Using distinct ID here -->
+                <label id="chodLabelDesktop" style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Chod</label>
                 <div class="diff_radio">
                   <div class="checkbox-option">
                     <input id="ranajky" type="checkbox" formControlName="ranajky" value="ranajky">
@@ -316,7 +341,7 @@
                   </div>
                 </div>
               </div>
-  
+
               <div class="set">
                 <label for="img" class="beautyBtn">Pridaj obrázok</label>
                 <input
@@ -331,7 +356,8 @@
                 <img [src]="this.liveDemo" alt=""/>
               </div>
             </div>
-  
+
+            <!-- Original Desktop Layout - Suggestions Column -->
             @if(suggestions.length > 0) {
               <div class="column suggestions-column">
                 <div class="suggestions-container">
@@ -346,23 +372,27 @@
             }
           </div>
         </header>
-  
+
+        <!-- Action Buttons (Original Structure) -->
         <button mat-raised-button id="make" type="submit" [disabled]="!profileForm.valid" (click)="imageUploadAction()">Vytvor</button>
         <button mat-raised-button id="back" [routerLink]="['/Recipes']">Back</button>
       </form>
-  
+
+      <!-- AVAILABLE INGREDIENTS (Original Position) -->
       <div class="example-container">
         <h2 style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">ingredience:</h2>
+        <!-- **** Ensuring this opening tag is complete **** -->
         <div
           cdkDropList
           #todoList="cdkDropList"
-          [cdkDropListData]="ingredients"
+          id="todoList"
+          [cdkDropListData]="ingredients | ingredientsFilter : searchTerm"
           [cdkDropListConnectedTo]="[doneList]"
           class="example-list"
           (cdkDropListDropped)="drop($event)">
           <input type="text" [(ngModel)]="searchTerm" placeholder="Find an ingredience" class="findInput"/>
           <div *ngFor="let item of ingredients | ingredientsFilter : searchTerm">
-            <div class="example-box" cdkDrag>
+            <div class="example-box" cdkDrag [cdkDragData]="item">
               <span class="ingredient-name">{{item}}</span>
               @if(currentUser.admin == true){
               <button mat-icon-button class="delete-button" (click)="deleteIngredient(item)">
@@ -371,10 +401,18 @@
             }
             </div>
           </div>
+           @if ((ingredients | ingredientsFilter : searchTerm).length === 0) {
+            <div class="empty-list-placeholder">
+              {{ searchTerm ? 'Žiadne zhody.' : 'Žiadne ingrediencie na zobrazenie.' }}
+           </div>
+          }
         </div>
+        <button (click)="openDialogis()">pridaj ingredienciu</button>
       </div>
-      <button (click)="openDialogis()">pridaj ingredienciu</button>
-  
+      <!-- END AVAILABLE INGREDIENTS -->
+
+
+      <!-- PROCEDURE SECTION (Original Position) -->
       <div class="formaNaPostup">
         <h1>Napíš svoj postup</h1>
         <form [formGroup]="postupForm" class="postupForm">
@@ -384,8 +422,8 @@
           <button class="beautyBtn" (click)="pridajPostup()">Pridať postup</button>
         </form>
       </div>
-    </div>
+      <!-- END PROCEDURE SECTION -->
+
+    </div> <!-- End container -->
   </body>
-  
-  
 }

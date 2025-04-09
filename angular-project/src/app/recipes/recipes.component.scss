@@ -218,14 +218,13 @@ body #backgroundos {
 }
 
 .recipes-container {
-  display: flex;
+  display: grid;
   margin-top: 5%;
-  flex-wrap: wrap;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 20px;
 }
 
 .recipes-items {
-  width: 300px;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -411,6 +410,7 @@ body #backgroundos {
   .recipes-container {
       padding-left: 10%;
       margin-top: 15%;
+      grid-template-columns: 1fr;
   }
   
   .example-sidenav[style*="visibility: visible"] {
