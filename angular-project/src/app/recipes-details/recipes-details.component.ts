@@ -25,11 +25,15 @@ import * as translate from 'deepl';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from '@google/generative-ai';
 import { environment } from '../create-recipe/create-recipe.component';
+import { MatTable } from '@angular/material/table';
+import {MatTabsModule} from '@angular/material/tabs';
+import {Nl2BrPipe, Nl2BrPipeModule} from 'nl2br-pipe';
+
 @Component({
   selector: 'app-recipes-details',
   standalone: true,
   imports: [CommonModule, RouterLink, MatIconModule, MatIconAnchor, MatButtonModule, MatIcon,
-    MatRadioModule, MatCardModule, ReactiveFormsModule, MatFormField, MatFormFieldModule, MatLabel, MatInput, MatInputModule, DatePipe, MatPseudoCheckbox],
+    MatRadioModule, MatCardModule, ReactiveFormsModule, MatFormField, MatFormFieldModule, MatLabel, MatInput, MatInputModule, DatePipe, MatPseudoCheckbox, MatTabsModule ],
   providers: [DatePipe],
   templateUrl: './recipes-details.component.html',
   styleUrl: './recipes-details.component.scss'

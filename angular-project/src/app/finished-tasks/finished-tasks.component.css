@@ -144,6 +144,7 @@ td[mat-cell]:nth-child(2) {
 @media (max-width: 768px) {
   .task-manager-body {
     padding: 16px;
+    margin-top: 12%;
   }
   
   .table-header th,

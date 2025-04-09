@@ -63,10 +63,16 @@ namespace AspNetCoreAPI.Controllers
              
         }
         [HttpPut("/zmenaMena")]
-        public changeNameDTO ZmenMeno([FromBody] changeNameDTO noveMeno)
+        public async Task<changeNameDTO> ZmenMeno([FromBody] changeNameDTO noveMeno)
         {
             var current = GetCurrentUser();
+
             current.ProfileName = noveMeno.NoveMeno;
+            var mojeKomentare = await _context.Recensions.Where(x => x.UserId == current.Id).ToListAsync();
+            for(int i = 0;i < mojeKomentare.Count; i++ )
+            {
+                mojeKomentare[i].ProfileName = current.ProfileName;
+            }
             _context.SaveChanges();
             return noveMeno;
         }

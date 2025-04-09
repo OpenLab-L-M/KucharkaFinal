@@ -1,65 +1,73 @@
+<body>
 
+<div class="task-container">
   <div class="form-group" *ngIf="editing == true; else noCourses">
-    <form [formGroup]="taskEditForm">
-  
-      <label for="priority">Priority:</label>
-      <input type="number" id="priority" name="priority" formControlName="priority" value="priority" min="0"/>
-  
-    
-  
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" formControlName="name" value="name"/>
-  
-    
-  
-      <label for="description">Description:</label>
-      <textarea type="text" id="description" name="description" formControlName="description" value="description"></textarea>
-  
-    
-  
-      <label for="deadLine">Deadline:</label>
-      <input type="date" id="deadLine" name="deadLine" formControlName="deadLine" value="deadLine" />
-  
-  
-  </form>
-  <button class="button-73" (click)="submit()">submit</button>
+    <form [formGroup]="taskEditForm" class="edit-form">
+      <h2 class="form-title">Edit Task</h2>
+      
+      <div class="form-field">
+        <label for="priority">Priority</label>
+        <input type="number" id="priority" name="priority" formControlName="priority" min="0" class="form-input"/>
+      </div>
+      
+      <div class="form-field">
+        <label for="name">Task Name</label>
+        <input type="text" id="name" name="name" formControlName="name" class="form-input"/>
+      </div>
+      
+      <div class="form-field">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" formControlName="description" class="form-textarea"></textarea>
+      </div>
+      
+      <div class="form-field">
+        <label for="deadLine">Deadline</label>
+        <input type="date" id="deadLine" name="deadLine" formControlName="deadLine" class="form-input"/>
+      </div>
+      
+      <div class="form-actions">
+        <button class="btn submit-btn" (click)="submit()">Save Changes</button>
+        <button class="btn cancel-btn" (click)="editing = false">Cancel</button>
+      </div>
+    </form>
   </div>
 
-
-<ng-template #noCourses>
-<div class="task-detail-container">
-    <div class="task-card">
-      <div class="task-header">
-        <h1 class="task-title">{{ task().name }}</h1>
-        <span class="task-priority">Priority: {{ task().priority }}</span>
-      </div>
-  
-      <div class="task-info">
-        <div class="task-info-item">
-          <label for="description">Description:</label>
-          <p class="task-description">{{ task().description }}</p>
+  <ng-template #noCourses>
+    <div class="task-detail-container">
+      <div class="task-card">
+        <div class="task-header">
+          <div>
+            <span class="task-priority">Priority: {{ task().priority }}</span>
+            <h1 class="task-title">{{ task().name }}</h1>
+          </div>
+          <div class="task-id">#{{ task().id }}</div>
         </div>
-  
-        <div class="task-info-item">
-          <label for="startTime">Start Time:</label>
-          <p>{{ task().startTime | date: 'short' }}</p>
+        
+        <div class="task-body">
+          <div class="task-section">
+            <h3 class="section-title">Description</h3>
+            <p class="task-description">{{ task().description }}</p>
+          </div>
+          
+          <div class="task-meta">
+            <div class="meta-item">
+              <span class="meta-label">Start Time</span>
+              <span class="meta-value">{{ task().startTime | date: 'medium' }}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Deadline</span>
+              <span class="meta-value">{{ task().deadLine | date: 'medium' }}</span>
+            </div>
+          </div>
         </div>
-  
-        <div class="task-info-item">
-          <label for="deadLine">Deadline:</label>
-          <p>{{ task().deadLine | date: 'short' }}</p>
+        
+        <div class="task-footer">
+          <button class="btn edit-btn" (click)="editTask()">Edit</button>
+          <button class="btn delete-btn" (click)="deleteTask()">Delete</button>
         </div>
-  
-        <div class="task-info-item">
-          <label for="taskId">Task ID:</label>
-          <p>{{ task().id }}</p>
-        </div>
-      </div>
-  
-      <div class="task-actions">
-        <button class="btn-edit" (click)="editTask()">Edit</button>
-        <button class="btn-delete" (click)="deleteTask()">Delete</button>
       </div>
     </div>
-  </div>
-</ng-template>
+  </ng-template>
+</div>
+  
+</body>

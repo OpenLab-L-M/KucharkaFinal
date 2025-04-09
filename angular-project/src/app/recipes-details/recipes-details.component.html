@@ -1,173 +1,214 @@
-<body>
-  <div class="container">
-    <div class="inside_container" *ngIf="clicked == true; else noCourses">
-      <h1>Uprava receptu</h1>
+<!-- Overall Page Container -->
+<div class="container">
+
+  <!-- Edit Form View (Conditional) -->
+  <ng-container *ngIf="clicked == true; else noCourses">
+    <div class="inside_container">
+      <h1 class="form-title">Uprava receptu</h1>
       <form class="edit_form" [formGroup]="profileForm">
         <!-- Recipe Name -->
-        <mat-form-field>
-          <mat-label for="name">Názov:</mat-label>
+        <mat-form-field appearance="outline">
+          <mat-label>Názov</mat-label>
           <input matInput id="name" type="text" formControlName="name">
         </mat-form-field>
-  
+
         <!-- Ingredients -->
-        <mat-form-field>
-          <mat-label for="ingrediencie">Ingrediencie:</mat-label>
-          <input matInput id="ingrediencie" type="text" formControlName="ingrediencie">
+        <mat-form-field appearance="outline">
+          <mat-label>Ingrediencie</mat-label>
+          <textarea matInput id="ingrediencie" formControlName="ingrediencie" rows="3"></textarea>
         </mat-form-field>
-  
-        <!-- Description -->
-        <mat-form-field>
-          <mat-label for="description">Popis:</mat-label>
-          <input matInput id="description" type="text" formControlName="description">
+
+        <!-- Description/Instructions (Postup) -->
+        <mat-form-field appearance="outline">
+          <mat-label>Postup</mat-label>
+          <textarea matInput id="postup" formControlName="postupicky" rows="5"></textarea>
         </mat-form-field>
-  
+
         <!-- Time (cas) -->
-        <mat-form-field>
-          <mat-label for="cas">Čas:</mat-label>
-          <input matInput id="cas" type="text" formControlName="cas">
+        <mat-form-field appearance="outline">
+          <mat-label>Čas (min)</mat-label>
+          <input matInput id="cas" type="number" formControlName="cas">
         </mat-form-field>
-  
+
+        <!-- Nutrition Fields -->
+        <mat-form-field appearance="outline"> <mat-label>Tuky (g)</mat-label> <input matInput type="number" formControlName="tuky"> </mat-form-field>
+        <mat-form-field appearance="outline"> <mat-label>Cukor (g)</mat-label> <input matInput type="number" formControlName="cukor"> </mat-form-field>
+        <mat-form-field appearance="outline"> <mat-label>Sacharidy (g)</mat-label> <input matInput type="number" formControlName="sacharidy"> </mat-form-field>
+        <mat-form-field appearance="outline"> <mat-label>Bielkoviny (g)</mat-label> <input matInput type="number" formControlName="bielkoviny"> </mat-form-field>
+        <mat-form-field appearance="outline"> <mat-label>Kalórie (kCal)</mat-label> <input matInput type="number" formControlName="kalorie"> </mat-form-field>
+        <mat-form-field appearance="outline"> <mat-label>Gramáž (g)</mat-label> <input matInput type="number" formControlName="gramaz"> </mat-form-field>
+
         <!-- Submit and Cancel Buttons -->
-        <div class="edit_btn">
-          <button (click)="submit()">Uložiť</button>
-          <button (click)="submit()" [routerLink]="['/RecipesDetails']">Zrušiť</button>
+        <div class="form-actions">
+          <button mat-raised-button color="primary" (click)="submit()">Uložiť</button>
+          <button mat-stroked-button color="warn" [routerLink]="['/RecipesDetails']">Zrušiť</button> <!-- Adjust route if needed -->
         </div>
       </form>
     </div>
-  </div>
+  </ng-container>
 
+  <!-- Recipe Details View (Conditional) -->
   <ng-template #noCourses>
-    <div class="recipeContainer">
-      <mat-card>
-        <!-- Recipe Name Inside the Recipe Container -->
-        <p class="detail_title">{{this.recipe().name}}</p>
 
-        <mat-card-header style="display: flex; align-items: center;">
-          <div>
-            <mat-card-subtitle>
-              <mat-icon>query_builder</mat-icon> {{this.recipe().cas}} min
-            </mat-card-subtitle>
-          </div>
-          <span style="margin-left: auto; display: flex; align-items: center;">
-            <div *ngIf="recipeService.chRecipe.checkID == recipeService.chRecipe.userID">
-              <mat-icon (click)="edit()" style="cursor: pointer;">edit</mat-icon>
+    <!-- Recipe Details Wrapper (Gets the shadow) -->
+    <div class="recipe-details-wrapper">
+      <div class="recipe-container"> <!-- Content Centering/Layout -->
+        <mat-card class="recipe-card"> <!-- Angular Material Card Structure -->
+          <!-- Recipe Header -->
+          <div class="recipe-header">
+            <h1 class="recipe-title">{{this.recipe()?.name}}</h1> <!-- Added safe navigation operator -->
+            <div class="recipe-meta">
+              <div class="time-difficulty">
+                <span class="time"><mat-icon>query_builder</mat-icon> {{this.recipe()?.cas}} min</span> <!-- Added safe navigation operator -->
+                <span class="difficulty">Náročnosť: {{this.recipe()?.difficulty}}</span> <!-- Added safe navigation operator -->
+              </div>
+              <div class="recipe-actions">
+                <div *ngIf="recipeService?.chRecipe?.checkID == recipeService?.chRecipe?.userID"> <!-- Added safe navigation operator -->
+                  <button mat-icon-button (click)="edit()" matTooltip="Upraviť">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                </div>
+                <button mat-icon-button [routerLink]="['/PrintPage', recipe()?.id]" matTooltip="Tlačiť"> <!-- Added safe navigation operator -->
+                  <mat-icon>print</mat-icon>
+                </button>
+              </div>
             </div>
-            <mat-icon style="cursor: pointer;" [routerLink]="['/PrintPage', recipe().id]">print</mat-icon>
-          </span>
-        </mat-card-header>
-        <mat-card-header>
-          <mat-card-subtitle>náročnosť: {{this.recipe().difficulty}}</mat-card-subtitle>
-        </mat-card-header>
+          </div>
 
-        <mat-card-content>
-          <img class="detail_image" [src]="this.showImage()" />
-        </mat-card-content>
+          <!-- Recipe Image -->
+          <div class="recipe-image-container">
+            <img class="recipe-image" [src]="this.showImage()" alt="{{this.recipe()?.name}}"/> <!-- Added safe navigation operator -->
+          </div>
 
-        <br>
-        <br>
+          <!-- Recipe Content Tabs -->
+          <div class="recipe-content-tabs">
+            <mat-tab-group animationDuration="0ms">
 
-        <mat-card-content>
-          <p class="detail_description">
-            <mat-card-title>Ingrediencie:</mat-card-title>
-            {{this.recipe().ingrediencie}}
-          </p>
-        </mat-card-content>
-        <br>
-        <mat-card-content>
-          <p class="detail_description">
-            <mat-card-title>Popis:</mat-card-title>
-            {{this.recipe().description}}
-          </p>
-        </mat-card-content>
-        <br>
-        <mat-card-content>
-          <ul class="detail_description">
-            <mat-card-title>Postup:</mat-card-title>
-            <li *ngFor="let postup of recipe().postupicky">{{ postup }}</li>
-          </ul>
-        </mat-card-content>
+              <!-- Tab 1: Postup (Instructions) -->
+              <mat-tab label="Postup">
+                <div class="tab-content-padding">
+                   <ol class="instructions">
+                      <li *ngFor="let postup of recipe()?.postupicky">{{ postup }}</li> <!-- Added safe navigation operator -->
+                   </ol>
+                </div>
+              </mat-tab>
 
-        <!-- Nutrition Table at the Bottom -->
-        <mat-card-content>
-          <table class="nutrition-table">
-            <thead>
-              <tr>
-                <th>Obsah jedla</th>
-                <th>Hodnoty</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Tuky</td>
-                <td>{{this.recipe().tuky}} g</td>
-              </tr>
-              <tr>
-                <td>Cukor</td>
-                <td>{{this.recipe().cukor}} g</td>
-              </tr>
-              <tr>
-                <td>Sacharidy</td>
-                <td>{{this.recipe().sacharidy}} g</td>
-              </tr>
-              <tr>
-                <td>Bielkoviny</td>
-                <td>{{this.recipe().bielkoviny}} g</td>
-              </tr>
-              <tr>
-                <td>Kalorie</td>
-                <td>{{this.recipe().kalorie}} kCal</td>
-              </tr>
-              <tr>
-                <td>Gramáž</td>
-                <td>{{this.recipe().gramaz}} g</td>
-              </tr>
-            </tbody>
-          </table>
-        </mat-card-content>
+              <!-- Tab 2: Ingrediencie -->
+              <mat-tab label="Ingrediencie">
+                 <div class="tab-content-padding">
+                    <table class="ingredients-table">
+                      <tbody>
+                         <!-- Added check for recipe().ingrediencie before splitting -->
+                        <tr *ngFor="let ingredient of recipe()?.ingrediencie?.split(',')"> <!-- Added safe navigation operator -->
+                          <td>{{ingredient}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                 </div>
+              </mat-tab>
 
-        <!-- Centered Delete and Back Buttons -->
-        <mat-card-footer>
-          <mat-card-actions style="display: flex; justify-content: center; gap: 10px;">
-            <button mat-raised-button [routerLink]="['/Recipes']">Back</button>
-            <div *ngIf="recipeService.chRecipe.checkID == recipeService.chRecipe.userID ||recipeService.chRecipe.admin == true">
-              <mat-icon style="cursor: pointer;" (click)="deleteBtn()">delete</mat-icon>
+              <!-- Tab 3: Výživové hodnoty -->
+              <mat-tab label="Výživové hodnoty">
+                 <div class="tab-content-padding">
+                    <table class="nutrition-table">
+                      <thead style="background-color: blue;">
+                        <tr><th>Obsah jedla</th><th>Hodnoty</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr><td>Tuky</td><td>{{this.recipe()?.tuky}} g</td></tr> <!-- Added safe navigation operator -->
+                        <tr><td>Cukor</td><td>{{this.recipe()?.cukor}} g</td></tr> <!-- Added safe navigation operator -->
+                        <tr><td>Sacharidy</td><td>{{this.recipe()?.sacharidy}} g</td></tr> <!-- Added safe navigation operator -->
+                        <tr><td>Bielkoviny</td><td>{{this.recipe()?.bielkoviny}} g</td></tr> <!-- Added safe navigation operator -->
+                        <tr><td>Kalórie</td><td>{{this.recipe()?.kalorie}} kCal</td></tr> <!-- Added safe navigation operator -->
+                        <tr><td>Gramáž</td><td>{{this.recipe()?.gramaz}} g</td></tr> <!-- Added safe navigation operator -->
+                      </tbody>
+                    </table>
+                 </div>
+              </mat-tab>
+
+            </mat-tab-group>
+          </div>
+
+          <!-- Recipe Footer -->
+          <div class="recipe-footer">
+            <button mat-raised-button [routerLink]="['/Recipes']">Späť na recepty</button>
+            <div *ngIf="recipeService?.chRecipe?.checkID == recipeService?.chRecipe?.userID || recipeService?.chRecipe?.admin == true"> <!-- Added safe navigation operator -->
+              <button mat-icon-button color="warn" (click)="deleteBtn()" matTooltip="Vymazať recept">
+                <mat-icon>delete</mat-icon>
+              </button>
             </div>
-          </mat-card-actions>
-        </mat-card-footer>
-      </mat-card>
-    </div>
-  </ng-template>
+          </div>
+        </mat-card>
+      </div>
+    </div> <!-- End recipe-details-wrapper -->
 
-  <!-- Comments Section -->
-  <div class="comment-section" *ngIf="clicked == false">
-    <h2>Comments</h2>
-    <div class="comment-box">
-      <textarea id="koment" name="komentar" placeholder="Add a comment..." rows="3"></textarea>
-      <button (click)="addComment()">Submit</button>
-    </div>
-    <div *ngFor="let recension of recensions(); let i = index" class="comment">
-      <div class="comment-header">
-        <a [routerLink]="['/userProfile', recension.userName]">
-          <h3>{{recension.profileName}}</h3>
-        </a>
-        <span class="comment-id">pridané: {{recension.datetime}}</span>
-      </div>
-      <p>{{recension.content}}</p>
-      <div class="comment-actions">
-        <div *ngIf="recension.userID == recension.checkID">
-          <mat-icon (click)="Vymaz(recension.id)" class="delete-icon">delete</mat-icon>
+
+    <!-- Comments Section Wrapper (Gets the shadow) -->
+    <div class="comments-section-wrapper">
+      <div class="comments-container"> <!-- Content Centering/Layout -->
+        <h2 class="comments-title">Komentáre</h2>
+
+        <div class="comment-form">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Pridať komentár</mat-label>
+            <textarea matInput id="koment" name="komentar" rows="3"></textarea> <!-- Consider using [(ngModel)] or formControl for the comment input -->
+          </mat-form-field>
+          <button mat-raised-button color="primary" (click)="addComment()">Odoslať</button>
         </div>
-        <div class="like-dislike-container">
-          <div class="like-button">
-            <mat-icon (click)="likeRecension(recension.id)">thumb_up</mat-icon>
-            <span>{{recension.amountOfLikes}}</span>
+
+        <div class="comments-list">
+          <!-- Loop through comments -->
+           <!-- Added safe navigation operator to recensions() call -->
+          <div *ngFor="let recension of recensions?.(); let i = index" class="comment-card">
+            <div class="comment-header">
+               <!-- Added safe navigation operator -->
+              <a [routerLink]="['/userProfile', recension?.userName]" class="comment-author">
+                <h3>{{recension?.profileName}}</h3> <!-- Added safe navigation operator -->
+              </a>
+               <!-- Added safe navigation operator -->
+              <span class="comment-date">{{recension?.datetime | date:'medium'}}</span>
+            </div>
+            <div class="comment-content">
+              <p>{{recension?.content}}</p> <!-- Added safe navigation operator -->
+            </div>
+            <div class="comment-footer">
+               <!-- Actions shown only to owner/admin -->
+                <!-- Added safe navigation operator -->
+               <div class="comment-actions" *ngIf="recension?.userID == recension?.checkID || recipeService?.chRecipe?.admin == true">
+                 <button mat-icon-button color="warn" (click)="Vymaz(recension?.id)" matTooltip="Vymazať komentár"> <!-- Added safe navigation operator -->
+                    <mat-icon>delete</mat-icon>
+                 </button>
+               </div>
+               <!-- Spacer -->
+                <!-- Added safe navigation operator -->
+               <div class="comment-footer-spacer" *ngIf="!(recension?.userID == recension?.checkID || recipeService?.chRecipe?.admin == true)"></div>
+               <!-- Votes -->
+               <div class="comment-votes">
+                  <!-- Added safe navigation operator -->
+                 <button mat-icon-button (click)="likeRecension(recension?.id)" matTooltip="Páči sa mi">
+                   <mat-icon>thumb_up</mat-icon>
+                   <span class="vote-count">{{recension?.amountOfLikes}}</span> <!-- Added safe navigation operator -->
+                 </button>
+                  <!-- Added safe navigation operator -->
+                 <button mat-icon-button (click)="disslikeRecension(recension?.id)" matTooltip="Nepáči sa mi">
+                   <mat-icon>thumb_down</mat-icon>
+                   <span class="vote-count">{{recension?.amountOfDisslikes}}</span> <!-- Added safe navigation operator -->
+                 </button>
+               </div>
+            </div>
           </div>
-          <div class="dislike-button">
-            <mat-icon (click)="disslikeRecension(recension.id)">thumb_down</mat-icon>
-            <span>{{recension.amountOfDisslikes}}</span>
-          </div>
+          <!-- End loop -->
+
+           <!-- Placeholder if no comments -->
+            <!-- Added safe navigation operator -->
+           <div *ngIf="!recensions?.() || recensions?.()?.length === 0" class="no-comments">
+              <p>Zatiaľ žiadne komentáre.</p>
+           </div>
+
         </div>
       </div>
-    </div>
-  </div>
-</body>
+    </div> <!-- End comments-section-wrapper -->
+
+  </ng-template> <!-- End #noCourses -->
+
+</div> <!-- End .container -->
