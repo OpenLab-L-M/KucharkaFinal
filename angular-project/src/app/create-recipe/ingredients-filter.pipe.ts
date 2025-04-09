@@ -7,19 +7,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class IngredientsFilterPipe implements PipeTransform {
 
-  transform( ingredients: string[], searchTerm: string): string[] {
-   
-      if (!ingredients) {
-        return [];
-      }
-      if (!searchTerm) {
-        return ingredients;
-      }
-      searchTerm = searchTerm.toLocaleLowerCase();
-  
-      return ingredients.filter(it => {
-        return it.toLocaleLowerCase().includes(searchTerm);
-      });
+  transform( ingredients: string[], searchTerm: string, dummy: number): string[] {
+    return !searchTerm
+    ? ingredients
+    : ingredients.filter(
+        (item) =>
+          item.toLowerCase().includes(searchTerm.toLowerCase())
+      );
   }
 
 }

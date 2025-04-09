@@ -134,7 +134,7 @@ user = signal<UserDTO>(undefined)
   deleteUser(userName: string){
     this.userService.deleteUser(userName)
     .pipe(takeUntil(this.destroy$))
-    .subscribe(result => this.users.update(res => [...res, result]));
+    .subscribe(result => this.users.update(items => items.filter(item => item.userName !== userName)));
 
   }
 

@@ -68,7 +68,7 @@ export class CreateRecipeComponent {
   ingredients: string[] = [];
   currentUser: UserDTO;
   //ingredients: Array<string>;//= ["múka", "vajíčka", "mlieko", "cukor", "maslo", "soľ", "orechy", "ovocie", "zelenina", "ryža", "cesnak", "cibuľa", "paprika", "kura", "hovädzina", "bravčová", "losos", "tuniak", "olivový olej", "ocet", "korenie", "cestoviny", "zemiaky", "mrkva", "brokolica", "karfiol", "špenát", "jablká", "hrušky", "banány", "pomaranče", "citróny", "jahody", "čučoriedky", "maliny", "čerešne", "broskyne", "marhule", "ananás", "kiwi", "mango", "avokádo", "paradajky", "uhorky", "zeler", "cícer", "sója", "lentičky", "fazuľa", "hrach", "jogurt", "smotana", "syr", "káva", "čaj", "kakao"];
-
+dummy: number = 0;
   rada: string = "";
   showSuggestionsMobile = false; 
   getDataFromChild(e){
@@ -115,6 +115,7 @@ toggleSuggestionsMobile(): void {
         event.previousIndex,
         event.currentIndex,
       );
+      this.dummy++;
       if(event.container.data == this.vybrane){
         const dialogRef = this.dialog.open(AddGramsDialogComponent, {
           width: '500px',

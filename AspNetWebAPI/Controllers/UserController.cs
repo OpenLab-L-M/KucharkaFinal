@@ -326,7 +326,7 @@ namespace AspNetCoreAPI.Controllers
             var favouriteRecipeIds = _context.UserRecipes.Select(f => f.RecipeId).ToList();
             var fav = _context.UserRecipes
               .Include(f => f.recept)
-              .Where(f => f.UserId == f.UserId  )
+              .Where(f => f.UserId == GetCurrentUser().Id)
               .ToList();
             return fav.Select(f => mapReceptToDto(f.recept));
             

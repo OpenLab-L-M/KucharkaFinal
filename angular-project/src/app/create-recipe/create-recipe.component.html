@@ -172,12 +172,12 @@
         <div
           cdkDropList
           #todoList="cdkDropList"
-          [cdkDropListData]="ingredients"
+          [cdkDropListData]="ingredients | ingredientsFilter : searchTerm : dummy"
           [cdkDropListConnectedTo]="[doneList]"
           class="example-list"
           (cdkDropListDropped)="drop($event)">
           <input type="text" [(ngModel)]="searchTerm" placeholder="Find an ingredience" class="findInput"/>
-          <div *ngFor="let item of ingredients | ingredientsFilter : searchTerm">
+          <div *ngFor="let item of ingredients | ingredientsFilter : searchTerm : dummy">
             <div class="example-box" cdkDrag>
               <span class="ingredient-name">{{item}}</span>
               @if(currentUser.admin == true){
@@ -364,15 +364,17 @@
   
       <div class="example-container">
         <h2 style="color: #3E2723; font-size: 25px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">ingredience:</h2>
+        <input type="text" [(ngModel)]="searchTerm" placeholder="Find an ingredience" class="findInput"/>
         <div
+        
           cdkDropList
           #todoList="cdkDropList"
-          [cdkDropListData]="ingredients"
+          [cdkDropListData]="ingredients | ingredientsFilter : searchTerm : dummy"
           [cdkDropListConnectedTo]="[doneList]"
           class="example-list"
           (cdkDropListDropped)="drop($event)">
-          <input type="text" [(ngModel)]="searchTerm" placeholder="Find an ingredience" class="findInput"/>
-          <div *ngFor="let item of ingredients | ingredientsFilter : searchTerm">
+
+          <div *ngFor="let item of ingredients | ingredientsFilter : searchTerm : dummy">
             <div class="example-box" cdkDrag>
               <span class="ingredient-name">{{item}}</span>
               @if(currentUser.admin == true){

@@ -27,7 +27,7 @@
 
   <div class="action-buttons" style="display: flex; justify-content: center; gap: 10px;">
      <!-- Disabled logic might need adjustment based on how units are validated -->
-    <button mat-raised-button color="primary" (click)="addGrams()" [disabled]="!(inputString.length > 0 && isAnyUnitSelected())">Ulož</button>
+    <button mat-raised-button color="primary" (click)="addGrams()" [disabled]="!(inputString.length > 0 && unit.length > 0)">Ulož</button>
     <button mat-raised-button (click)="onNoClick()">Zrušiť</button> <!-- Changed label to be more descriptive -->
   </div>
 

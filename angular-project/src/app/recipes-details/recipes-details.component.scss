@@ -1,40 +1,34 @@
-/* Global Styles */
-:root {
+/* Global Styles Variables (Can be in global styles.css/scss or defined here/above) */
+:root { /* Or :host if needed and variables defined globally */
   --primary-color: #3f51b5;
   --accent-color: #ff4081;
   --warn-color: #f44336;
   --light-text: #757575;
   --dark-text: #212121;
   --border-color: #e0e0e0;
-  --background-color: #f5f5f5; /* Ensure this is not pure white if wrappers are white */
+  --background-color: #f5f5f5;
   --card-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  /* Slightly more visible shadow */
   --container-shadow: 0 5px 18px rgba(0, 0, 0, 0.15);
 }
 
-/* Body styles (Apply in styles.css) */
-body {
-  font-family: 'Roboto', sans-serif;
+/* Apply background to host if needed, otherwise rely on global body styles */
+/* :host {
+  display: block; // Often needed for component layout
   background-color: var(--background-color);
-  color: var(--dark-text);
-  margin: 0;
-  padding: 0; /* Remove body padding */
-  line-height: 1.6;
-}
+} */
 
 /* Main Container for Padding/Spacing */
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 5% 20px 30px 20px; /* Default 5% top padding, horizontal, bottom */
-  box-sizing: border-box; /* Include padding in width calculation */
+  padding: 5% 20px 30px 20px; /* Top padding, Horizontal, Bottom */
+  box-sizing: border-box;
 }
 
 /* Form Styles */
 .inside_container {
   max-width: 800px;
-  /* Removed margin: 30px auto; Use container padding for top space */
-  margin: 0 auto 30px auto; /* Only bottom margin needed */
+  margin: 0 auto 30px auto; /* Only bottom margin needed if container handles top */
   padding: 20px;
   background: white;
   border-radius: 8px;
@@ -55,6 +49,8 @@ body {
   box-shadow: none;
 }
 
+/* Use ::ng-deep only if necessary for Angular Material overrides */
+/* Example: ::ng-deep .edit_form mat-form-field .mdc-notched-outline { ... } */
 mat-form-field {
   width: 100%;
   margin-bottom: 20px;
@@ -70,31 +66,27 @@ mat-form-field {
 /* --- Recipe Details Section --- */
 .recipe-details-wrapper {
   max-width: 1000px;
-  /* Removed margin: 30px auto; Use container padding for top space */
-  margin: 0 auto 30px auto; /* Only bottom margin needed */
-  background-color: white; /* Crucial for shadow visibility */
+  margin: 0 auto 30px auto; /* Bottom margin */
+  background-color: white;
   border-radius: 12px;
-  box-shadow: var(--container-shadow); /* Apply shadow here */
+  box-shadow: var(--container-shadow);
   overflow: hidden;
 }
 
 .recipe-container {
-  max-width: 100%;
-  margin: 0;
-  box-shadow: none;
-  border-radius: 0;
-  background-color: transparent;
+  /* Removed redundant styles now handled by wrapper */
 }
 
 .recipe-card {
-  box-shadow: none;
+  box-shadow: none; /* Shadow is on the wrapper */
   border-radius: 0;
   overflow: visible;
   margin-bottom: 0;
+  background-color: transparent; /* Ensure it doesn't obscure wrapper */
 }
 
 .recipe-header {
-  padding: 24px 24px 0;
+  padding: 24px 24px 0; /* Reduced bottom padding */
 }
 
 .recipe-title {
@@ -108,7 +100,6 @@ mat-form-field {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
   flex-wrap: wrap;
   gap: 10px;
 }
@@ -127,7 +118,8 @@ mat-form-field {
 
 .time mat-icon {
   margin-right: 5px;
-  color: var(--primary-color);
+  color: var(--primary-color); /* Or inherit */
+  vertical-align: middle; /* Align icon better */
 }
 
 .recipe-actions {
@@ -135,176 +127,319 @@ mat-form-field {
   gap: 10px;
 }
 
+/* Recipe Description Styles */
+.recipe-description-container {
+  padding: 16px 24px 20px 24px; /* T R B L */
+}
+
+.recipe-description {
+  color: var(--dark-text);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+  text-align: justify; /* Optional */
+}
+
 .recipe-image-container {
   width: 100%;
   max-height: 450px;
   overflow: hidden;
+  line-height: 0; /* Prevent extra space */
 }
 
 .recipe-image {
   width: 100%;
   height: auto;
+  max-height: 450px; /* Ensure image respects container height */
   object-fit: cover;
-  display: block;
+  display: block; /* Remove potential inline spacing */
 }
 
 /* Recipe Content Tabs Styles */
 .recipe-content-tabs {
-   padding: 0;
+   padding: 0; /* Remove padding if tabs handle it */
 }
 
-.recipe-content-tabs mat-tab-group {
-   /* Optional: Remove default Material tab bottom border */
-   /* border-bottom: none; */
-   /* Ensure header background is set if needed */
-   /* background-color: white; */
-}
-.recipe-content-tabs .mat-mdc-tab-header {
-   /* Optional: Add custom border */
-   /* border-bottom: 1px solid var(--border-color); */
-}
-
+/* Use ::ng-deep carefully if Material styles need override */
+/* e.g., ::ng-deep .recipe-content-tabs .mat-mdc-tab-body-content { padding: 24px; } */
 .tab-content-padding {
   padding: 24px;
 }
 
 /* Ingredients Table */
 .ingredients-table {
-  width: 100%; border-collapse: collapse; margin: 0;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
 }
 .ingredients-table td {
-  padding: 10px; border-bottom: 1px solid var(--border-color);
+  padding: 10px;
+  border-bottom: 1px solid var(--border-color);
 }
-.ingredients-table tr:last-child td { border-bottom: none; }
+.ingredients-table tr:last-child td {
+  border-bottom: none;
+}
 
 /* Instructions */
-.instructions { padding-left: 20px; margin: 0; }
-.instructions li { margin-bottom: 10px; }
+.instructions {
+  padding-left: 20px; /* Indent list items */
+  margin: 0;
+  list-style-position: outside; /* Ensure numbers are outside content flow */
+}
+.instructions li {
+  margin-bottom: 10px;
+  line-height: 1.6; /* Ensure readability */
+}
 
 /* Nutrition Table */
 .nutrition-table {
-  width: 100%; border-collapse: collapse; margin: 0;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
 }
 .nutrition-table th, .nutrition-table td {
-  padding: 12px 15px; border-bottom: 1px solid var(--border-color); text-align: left;
+  padding: 12px 15px;
+  border-bottom: 1px solid var(--border-color);
+  text-align: left;
 }
-.nutrition-table th { background-color: var(--primary-color); color: white; }
-.nutrition-table td:last-child { text-align: right; }
-.nutrition-table tr:hover { background-color: rgba(0, 0, 0, 0.04); }
-.nutrition-table tr:last-child td { border-bottom: none; }
+.nutrition-table thead { /* Apply styles to thead instead of inline */
+  background-color: var(--primary-color);
+  color: white;
+}
+.nutrition-table td:last-child {
+  text-align: right;
+  font-weight: 500; /* Make values slightly bolder */
+}
+.nutrition-table tbody tr:hover { /* Subtle hover effect */
+  background-color: rgba(0, 0, 0, 0.04);
+}
+.nutrition-table tr:last-child td {
+  border-bottom: none;
+}
 
 /* Recipe Footer */
 .recipe-footer {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 16px 24px; border-top: 1px solid var(--border-color);
-  background-color: #fafafa;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-top: 1px solid var(--border-color);
+  background-color: #fafafa; /* Light background for footer */
 }
 
 /* --- Comments Section --- */
 .comments-section-wrapper {
   max-width: 1000px;
-  /* Removed margin: 30px auto; Use container padding for top space */
-  margin: 0 auto 30px auto; /* Only bottom margin */
-  background-color: white; /* Crucial for shadow visibility */
+  margin: 0 auto 30px auto; /* Bottom margin */
+  background-color: white;
   border-radius: 8px;
-  box-shadow: var(--container-shadow); /* Apply shadow here */
+  box-shadow: var(--container-shadow);
   padding: 24px;
 }
 
 .comments-container {
-  max-width: 100%; margin: 0; padding: 0;
-  box-shadow: none; border-radius: 0; background-color: transparent;
+  /* Removed redundant styles */
 }
 
 .comments-title {
-  font-size: 1.5rem; margin: 0 0 20px 0; color: var(--dark-text);
-  padding-bottom: 10px; border-bottom: 1px solid var(--border-color);
+  font-size: 1.5rem;
+  margin: 0 0 20px 0;
+  color: var(--dark-text);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 500;
 }
 
 .comment-form {
-  margin-bottom: 30px; display: flex; flex-direction: column; align-items: flex-end;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Align button to the right */
 }
 
-.full-width { width: 100%; margin-bottom: 10px; }
+/* Ensure form field takes full width */
+.comment-form .full-width {
+  width: 100%;
+  margin-bottom: 10px;
+}
 
-.comments-list { display: flex; flex-direction: column; gap: 20px; }
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
 .comment-card {
-  background: #f9f9f9; border-radius: 6px; padding: 15px 20px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  background: #f9f9f9; /* Slightly off-white for comments */
+  border-radius: 6px;
+  padding: 15px 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06); /* Subtle shadow */
 }
 
 .comment-header {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 10px; flex-wrap: wrap; gap: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap; /* Allow wrapping on small screens */
+  gap: 5px;
 }
 
+.comment-author {
+  text-decoration: none; /* Remove default link underline */
+}
 .comment-author h3 {
-  margin: 0; color: var(--primary-color); font-size: 1rem; font-weight: 500;
+  margin: 0;
+  color: var(--primary-color);
+  font-size: 1rem;
+  font-weight: 500;
 }
-.comment-author:hover h3 { text-decoration: underline; }
+.comment-author:hover h3 {
+  text-decoration: underline;
+}
 
-.comment-date { font-size: 0.8rem; color: var(--light-text); }
-.comment-content { margin-bottom: 15px; word-wrap: break-word; }
+.comment-date {
+  font-size: 0.8rem;
+  color: var(--light-text);
+  white-space: nowrap; /* Prevent date from wrapping */
+}
+.comment-content {
+  margin-bottom: 15px;
+  word-wrap: break-word; /* Break long words */
+}
+.comment-content p {
+  margin: 0; /* Remove default paragraph margin */
+  line-height: 1.6;
+}
 
 .comment-footer {
-  display: flex; justify-content: space-between; align-items: center; min-height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 40px; /* Ensure consistent height */
 }
-.comment-actions { display: flex; align-items: center; }
-.comment-footer-spacer { flex-grow: 1; }
-.comment-votes { display: flex; gap: 10px; align-items: center; }
-.vote-count { font-size: 0.9rem; margin-left: 2px; color: var(--light-text); }
-.comment-votes button mat-icon { color: var(--light-text); }
-.comment-actions button mat-icon { color: var(--warn-color); }
+.comment-actions {
+  display: flex;
+  align-items: center;
+}
+.comment-footer-spacer {
+  flex-grow: 1; /* Pushes votes to the right */
+}
+.comment-votes {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.vote-count {
+  font-size: 0.9rem;
+  margin-left: 2px;
+  color: var(--light-text);
+  min-width: 12px; /* Give space for numbers */
+  text-align: center;
+}
+/* Standardize icon colors in footer */
+.comment-votes button mat-icon {
+  color: var(--light-text);
+}
+.comment-votes button:hover mat-icon {
+  color: var(--dark-text); /* Darken on hover */
+}
+.comment-actions button mat-icon {
+  color: var(--warn-color);
+}
 
-.no-comments { color: var(--light-text); text-align: center; padding: 20px; }
+
+.no-comments {
+  color: var(--light-text);
+  text-align: center;
+  padding: 20px 0; /* Vertical padding only */
+  font-style: italic;
+}
 
 /* Responsive Design */
 @media (max-width: 1024px) {
+  /* Adjust max-width wrappers for padding */
   .recipe-details-wrapper, .comments-section-wrapper, .inside_container {
       margin-left: 20px;
       margin-right: 20px;
-      max-width: none;
+      /* max-width: none; /* Allow shrinking below max-width */
   }
 }
 
 @media (max-width: 768px) {
   .container {
-    /* Responsive 12% top padding */
-    padding-top: 12%;
-    padding-left: 15px; /* Adjust horizontal padding */
+    padding-top: 12%; /* More top padding on mobile */
+    padding-left: 15px;
     padding-right: 15px;
   }
 
+  /* Remove side margins, rely on container padding */
   .recipe-details-wrapper, .comments-section-wrapper, .inside_container {
-      margin-left: 0; /* Remove margin, use container padding */
+      margin-left: 0;
       margin-right: 0;
-      margin-top: 0; /* Remove top margin */
-      margin-bottom: 20px; /* Keep bottom margin */
-      max-width: 100%; /* Ensure full width within container padding */
+      margin-top: 0;
+      margin-bottom: 20px;
+      max-width: 100%; /* Ensure full width within container */
+      border-radius: 8px; /* Slightly reduce border radius */
+  }
+  .recipe-details-wrapper {
+      border-radius: 10px; /* Keep recipe radius slightly larger */
   }
 
-  .recipe-header, .tab-content-padding, .recipe-footer { padding: 15px; }
+  /* Reduce padding inside elements */
+  .recipe-header { padding: 15px 15px 0; }
+  .recipe-description-container { padding: 10px 15px 15px 15px; }
+  .tab-content-padding { padding: 15px; }
+  .recipe-footer { padding: 15px; }
   .comments-section-wrapper { padding: 15px; }
   .comment-card { padding: 15px; }
 
   .recipe-title { font-size: 1.7rem; }
+
+  /* Stack footer items */
   .recipe-footer {
-    flex-direction: column-reverse; gap: 15px; align-items: flex-start;
+    flex-direction: column-reverse; /* Button below delete */
+    gap: 15px;
+    align-items: flex-start; /* Align back button left */
   }
-  .recipe-footer > div { align-self: flex-end; }
+  .recipe-footer > div { /* Delete button container */
+    align-self: flex-end; /* Push delete button right */
+  }
+
+  .comments-title { font-size: 1.3rem; }
 }
 
 @media (max-width: 480px) {
+  .container {
+    padding-top: 15%; /* Even more space at top */
+  }
+
   .inside_container { padding: 15px; }
   .form-title { font-size: 1.5rem; margin-bottom: 20px; }
-  .form-actions { flex-direction: column; gap: 10px; }
-  .form-actions button { width: 100%; }
+  .form-actions {
+    flex-direction: column; /* Stack form buttons */
+    gap: 10px;
+  }
+  .form-actions button {
+    width: 100%; /* Full width buttons */
+  }
 
   .recipe-title { font-size: 1.5rem; }
   .time-difficulty {
-      flex-direction: column; align-items: flex-start; gap: 5px;
+      flex-direction: column; /* Stack time/difficulty */
+      align-items: flex-start;
+      gap: 5px;
   }
-   .tab-content-padding { padding: 15px; }
+   .recipe-description-container { padding: 5px 15px 10px 15px; }
+   .recipe-description { font-size: 0.9rem; }
+
+   /* Adjust table padding on small screens */
+   .nutrition-table th, .nutrition-table td,
+   .ingredients-table td { padding: 8px 10px; }
+
+   .tab-content-padding { padding: 10px; } /* Reduce tab padding */
    .comment-card { padding: 10px 15px; }
+   .comment-header { gap: 8px; } /* Reduce gap in comment header */
+   .comment-votes { gap: 5px; } /* Reduce gap between vote buttons */
+
 }

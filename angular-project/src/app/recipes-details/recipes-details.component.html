@@ -17,6 +17,14 @@
           <mat-label>Ingrediencie</mat-label>
           <textarea matInput id="ingrediencie" formControlName="ingrediencie" rows="3"></textarea>
         </mat-form-field>
+
+        <!-- Description Input Field -->
+        <mat-form-field appearance="outline">
+          <mat-label>Popis</mat-label>
+          <!-- Make sure 'description' matches your form control name -->
+          <textarea matInput id="description" formControlName="description" rows="4"></textarea>
+        </mat-form-field>
+
         <!-- Time (cas) -->
         <mat-form-field appearance="outline">
           <mat-label>Čas (min)</mat-label>
@@ -26,7 +34,8 @@
         <!-- Submit and Cancel Buttons -->
         <div class="form-actions">
           <button mat-raised-button color="primary" (click)="submit()">Uložiť</button>
-          <button mat-stroked-button color="warn" [routerLink]="['/RecipesDetails']">Zrušiť</button> <!-- Adjust route if needed -->
+          <!-- Adjust route if needed -->
+          <button mat-stroked-button color="warn" (click)="CancelEdit()">Zrušiť</button>
         </div>
       </form>
     </div>
@@ -41,28 +50,39 @@
         <mat-card class="recipe-card"> <!-- Angular Material Card Structure -->
           <!-- Recipe Header -->
           <div class="recipe-header">
-            <h1 class="recipe-title">{{this.recipe()?.name}}</h1> <!-- Added safe navigation operator -->
+            <h1 class="recipe-title">{{ this.recipe()?.name }}</h1>
             <div class="recipe-meta">
               <div class="time-difficulty">
-                <span class="time"><mat-icon>query_builder</mat-icon> {{this.recipe()?.cas}} min</span> <!-- Added safe navigation operator -->
-                <span class="difficulty">Náročnosť: {{this.recipe()?.difficulty}}</span> <!-- Added safe navigation operator -->
+                <span class="time"><mat-icon>query_builder</mat-icon> {{ this.recipe()?.cas }} min</span>
+                <span class="difficulty">Náročnosť: {{ this.recipe()?.difficulty }}</span>
               </div>
               <div class="recipe-actions">
-                <div *ngIf="recipeService?.chRecipe?.checkID == recipeService?.chRecipe?.userID"> <!-- Added safe navigation operator -->
+                <!-- Added safe navigation operator -->
+                <div *ngIf="recipeService?.chRecipe?.checkID == recipeService?.chRecipe?.userID">
                   <button mat-icon-button (click)="edit()" matTooltip="Upraviť">
                     <mat-icon>edit</mat-icon>
                   </button>
                 </div>
-                <button mat-icon-button [routerLink]="['/PrintPage', recipe()?.id]" matTooltip="Tlačiť"> <!-- Added safe navigation operator -->
+                <!-- Added safe navigation operator -->
+                <button mat-icon-button [routerLink]="['/PrintPage', recipe()?.id]" matTooltip="Tlačiť">
                   <mat-icon>print</mat-icon>
                 </button>
               </div>
             </div>
           </div>
 
+          <!-- Recipe Description -->
+          <!-- Check if description exists; Adjust property name if needed -->
+          <div class="recipe-description-container" *ngIf="this.recipe()?.description">
+            <p class="recipe-description">
+              {{ this.recipe()?.description }}
+            </p>
+          </div>
+
           <!-- Recipe Image -->
           <div class="recipe-image-container">
-            <img class="recipe-image" [src]="this.showImage()" alt="{{this.recipe()?.name}}"/> <!-- Added safe navigation operator -->
+            <!-- Added safe navigation operator -->
+            <img class="recipe-image" [src]="this.showImage()" alt="{{ this.recipe()?.name }}"/>
           </div>
 
           <!-- Recipe Content Tabs -->
@@ -73,7 +93,8 @@
               <mat-tab label="Postup">
                 <div class="tab-content-padding">
                    <ol class="instructions">
-                      <li *ngFor="let postup of recipe()?.postupicky">{{ postup }}</li> <!-- Added safe navigation operator -->
+                      <!-- Added safe navigation operator -->
+                      <li *ngFor="let postup of recipe()?.postupicky">{{ postup }}</li>
                    </ol>
                 </div>
               </mat-tab>
@@ -83,9 +104,9 @@
                  <div class="tab-content-padding">
                     <table class="ingredients-table">
                       <tbody>
-                         <!-- Added check for recipe().ingrediencie before splitting -->
-                        <tr *ngFor="let ingredient of recipe()?.ingrediencie?.split(',')"> <!-- Added safe navigation operator -->
-                          <td>{{ingredient}}</td>
+                         <!-- Added check & safe navigation operator -->
+                        <tr *ngFor="let ingredient of recipe()?.ingrediencie?.split(',')">
+                          <td>{{ ingredient }}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -96,16 +117,17 @@
               <mat-tab label="Výživové hodnoty">
                  <div class="tab-content-padding">
                     <table class="nutrition-table">
-                      <thead style="background-color: blue;">
+                      <thead> <!-- Style applied via CSS now -->
                         <tr><th>Obsah jedla</th><th>Hodnoty</th></tr>
                       </thead>
                       <tbody>
-                        <tr><td>Tuky</td><td>{{this.recipe()?.tuky}} g</td></tr> <!-- Added safe navigation operator -->
-                        <tr><td>Cukor</td><td>{{this.recipe()?.cukor}} g</td></tr> <!-- Added safe navigation operator -->
-                        <tr><td>Sacharidy</td><td>{{this.recipe()?.sacharidy}} g</td></tr> <!-- Added safe navigation operator -->
-                        <tr><td>Bielkoviny</td><td>{{this.recipe()?.bielkoviny}} g</td></tr> <!-- Added safe navigation operator -->
-                        <tr><td>Kalórie</td><td>{{this.recipe()?.kalorie}} kCal</td></tr> <!-- Added safe navigation operator -->
-                        <tr><td>Gramáž</td><td>{{this.recipe()?.gramaz}} g</td></tr> <!-- Added safe navigation operator -->
+                        <!-- Added safe navigation operator -->
+                        <tr><td>Tuky</td><td>{{ this.recipe()?.tuky }} g</td></tr>
+                        <tr><td>Cukor</td><td>{{ this.recipe()?.cukor }} g</td></tr>
+                        <tr><td>Sacharidy</td><td>{{ this.recipe()?.sacharidy }} g</td></tr>
+                        <tr><td>Bielkoviny</td><td>{{ this.recipe()?.bielkoviny }} g</td></tr>
+                        <tr><td>Kalórie</td><td>{{ this.recipe()?.kalorie }} kCal</td></tr>
+                        <tr><td>Gramáž</td><td>{{ this.recipe()?.gramaz }} g</td></tr>
                       </tbody>
                     </table>
                  </div>
@@ -117,7 +139,8 @@
           <!-- Recipe Footer -->
           <div class="recipe-footer">
             <button mat-raised-button [routerLink]="['/Recipes']">Späť na recepty</button>
-            <div *ngIf="recipeService?.chRecipe?.checkID == recipeService?.chRecipe?.userID || recipeService?.chRecipe?.admin == true"> <!-- Added safe navigation operator -->
+            <!-- Added safe navigation operator -->
+            <div *ngIf="recipeService?.chRecipe?.checkID == recipeService?.chRecipe?.userID || recipeService?.chRecipe?.admin == true">
               <button mat-icon-button color="warn" (click)="deleteBtn()" matTooltip="Vymazať recept">
                 <mat-icon>delete</mat-icon>
               </button>
@@ -136,59 +159,64 @@
         <div class="comment-form">
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Pridať komentár</mat-label>
-            <textarea matInput id="koment" name="komentar" rows="3"></textarea> <!-- Consider using [(ngModel)] or formControl for the comment input -->
+            <!-- Consider using [(ngModel)] or formControl for the comment input -->
+            <textarea matInput id="koment" name="komentar" rows="3"></textarea>
           </mat-form-field>
           <button mat-raised-button color="primary" (click)="addComment()">Odoslať</button>
         </div>
 
         <div class="comments-list">
           <!-- Loop through comments -->
-           <!-- Added safe navigation operator to recensions() call -->
+          <!-- Added safe navigation operator to recensions() call -->
           <div *ngFor="let recension of recensions?.(); let i = index" class="comment-card">
             <div class="comment-header">
-               <!-- Added safe navigation operator -->
+              <!-- Added safe navigation operator -->
               <a [routerLink]="['/userProfile', recension?.userName]" class="comment-author">
-                <h3>{{recension?.profileName}}</h3> <!-- Added safe navigation operator -->
+                <h3>{{ recension?.profileName }}</h3>
               </a>
-               <!-- Added safe navigation operator -->
-              <span class="comment-date">{{recension?.datetime | date:'medium'}}</span>
+              <!-- Added safe navigation operator -->
+              <span class="comment-date">{{ recension?.datetime | date:'medium' }}</span>
             </div>
             <div class="comment-content">
-              <p>{{recension?.content}}</p> <!-- Added safe navigation operator -->
+              <!-- Added safe navigation operator -->
+              <p>{{ recension?.content }}</p>
             </div>
             <div class="comment-footer">
-               <!-- Actions shown only to owner/admin -->
+              <!-- Actions shown only to owner/admin -->
+              <!-- Added safe navigation operator -->
+              <div class="comment-actions" *ngIf="recension?.userID == recension?.checkID || recipeService?.chRecipe?.admin == true">
                 <!-- Added safe navigation operator -->
-               <div class="comment-actions" *ngIf="recension?.userID == recension?.checkID || recipeService?.chRecipe?.admin == true">
-                 <button mat-icon-button color="warn" (click)="Vymaz(recension?.id)" matTooltip="Vymazať komentár"> <!-- Added safe navigation operator -->
-                    <mat-icon>delete</mat-icon>
-                 </button>
-               </div>
-               <!-- Spacer -->
+                <button mat-icon-button color="warn" (click)="Vymaz(recension?.id)" matTooltip="Vymazať komentár">
+                   <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+              <!-- Spacer -->
+              <!-- Added safe navigation operator -->
+              <div class="comment-footer-spacer" *ngIf="!(recension?.userID == recension?.checkID || recipeService?.chRecipe?.admin == true)"></div>
+              <!-- Votes -->
+              <div class="comment-votes">
                 <!-- Added safe navigation operator -->
-               <div class="comment-footer-spacer" *ngIf="!(recension?.userID == recension?.checkID || recipeService?.chRecipe?.admin == true)"></div>
-               <!-- Votes -->
-               <div class="comment-votes">
+                <button mat-icon-button (click)="likeRecension(recension?.id)" matTooltip="Páči sa mi">
+                  <mat-icon>thumb_up</mat-icon>
                   <!-- Added safe navigation operator -->
-                 <button mat-icon-button (click)="likeRecension(recension?.id)" matTooltip="Páči sa mi">
-                   <mat-icon>thumb_up</mat-icon>
-                   <span class="vote-count">{{recension?.amountOfLikes}}</span> <!-- Added safe navigation operator -->
-                 </button>
+                  <span class="vote-count">{{ recension?.amountOfLikes }}</span>
+                </button>
+                <!-- Added safe navigation operator -->
+                <button mat-icon-button (click)="disslikeRecension(recension?.id)" matTooltip="Nepáči sa mi">
+                  <mat-icon>thumb_down</mat-icon>
                   <!-- Added safe navigation operator -->
-                 <button mat-icon-button (click)="disslikeRecension(recension?.id)" matTooltip="Nepáči sa mi">
-                   <mat-icon>thumb_down</mat-icon>
-                   <span class="vote-count">{{recension?.amountOfDisslikes}}</span> <!-- Added safe navigation operator -->
-                 </button>
-               </div>
+                  <span class="vote-count">{{ recension?.amountOfDisslikes }}</span>
+                </button>
+              </div>
             </div>
           </div>
           <!-- End loop -->
 
-           <!-- Placeholder if no comments -->
-            <!-- Added safe navigation operator -->
-           <div *ngIf="!recensions?.() || recensions?.()?.length === 0" class="no-comments">
-              <p>Zatiaľ žiadne komentáre.</p>
-           </div>
+          <!-- Placeholder if no comments -->
+          <!-- Added safe navigation operator -->
+          <div *ngIf="!recensions?.() || recensions?.()?.length === 0" class="no-comments">
+             <p>Zatiaľ žiadne komentáre.</p>
+          </div>
 
         </div>
       </div>
