@@ -36,7 +36,7 @@ import { NakupnyZoznamComponent } from './app/nakupny-zoznam/nakupny-zoznam.comp
 export function getBaseUrl() {
   // https://localhost:7186/api
   //return 'https://GulityCrown.bsite.net/api';
-  return 'https://localhost:7186/api';
+  return 'https://GulityCrown.bsite.net/api';
 }
 
 export function tokenGetter() {
@@ -55,7 +55,7 @@ bootstrapApplication(AppComponent, {
           tokenGetter: tokenGetter,
           //'https://localhost:7189',
           //'https://GulityCrown.bsite.net/api'
-           allowedDomains: ['https://localhost:7189'],
+           allowedDomains: ['https://GulityCrown.bsite.net/api'],
           disallowedRoutes: [],
         },
       })),

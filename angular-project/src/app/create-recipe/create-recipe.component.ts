@@ -70,7 +70,7 @@ export class CreateRecipeComponent {
   //ingredients: Array<string>;//= ["múka", "vajíčka", "mlieko", "cukor", "maslo", "soľ", "orechy", "ovocie", "zelenina", "ryža", "cesnak", "cibuľa", "paprika", "kura", "hovädzina", "bravčová", "losos", "tuniak", "olivový olej", "ocet", "korenie", "cestoviny", "zemiaky", "mrkva", "brokolica", "karfiol", "špenát", "jablká", "hrušky", "banány", "pomaranče", "citróny", "jahody", "čučoriedky", "maliny", "čerešne", "broskyne", "marhule", "ananás", "kiwi", "mango", "avokádo", "paradajky", "uhorky", "zeler", "cícer", "sója", "lentičky", "fazuľa", "hrach", "jogurt", "smotana", "syr", "káva", "čaj", "kakao"];
 
   rada: string = "";
- 
+  showSuggestionsMobile = false; 
   getDataFromChild(e){
     debugger;
     this.inputString = e;
@@ -80,7 +80,14 @@ export class CreateRecipeComponent {
   @HostListener('window:resize', ['$event'])
 onResize(event) {
   this.innerWidth = window.innerWidth;
+  if (this.innerWidth > 699 && this.showSuggestionsMobile) {
+    this.showSuggestionsMobile = false;
+  }
 }
+toggleSuggestionsMobile(): void {
+  this.showSuggestionsMobile = !this.showSuggestionsMobile;
+}
+
   ngOnInit() {
     this.setIngredients();
     this.innerWidth = window.innerWidth;
