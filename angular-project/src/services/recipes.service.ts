@@ -8,7 +8,7 @@ import { EditDTO } from 'src/app/recipes-details/recipes-details.component';
 import {ImageDTO} from "../app/DTOs/ImageDTO";
 import { RecensionsDTO } from 'src/app/DTOs/recensions-dto';
 import { FormArray } from '@angular/forms';
-
+import { paginatorData } from 'src/app/DTOs/PaginatorData';
 
 @Injectable({
   providedIn: 'root'
@@ -116,5 +116,7 @@ returnTranslation(ingr: string){
 deleteIngredient(ingr: string){
   return this.http.delete(this.baseUrl + '/deleteIngredient/' + ingr);
 }
-
+getPaginatedRecipes(nojo: paginatorData){
+  return this.http.post<RecipesDTO[]>(this.baseUrl + '/GetPaginated',nojo)
+}
 }

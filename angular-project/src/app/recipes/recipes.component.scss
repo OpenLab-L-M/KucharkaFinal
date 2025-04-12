@@ -8,16 +8,23 @@ body #backgroundos {
   opacity: 0.8;
 }
 
+/* Reset default body margin if needed */
+body {
+  margin: 0;
+  height: 100vh; /* Ensure body takes full viewport height */
+  overflow: hidden; /* Prevent body scroll, let containers handle it */
+}
+
+
 /* Main Container */
 .example-container {
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
-  flex-direction: column;
+  height: 100vh; /* Make container fill viewport height */
+  overflow: hidden; /* Prevent this container from scrolling */
 }
 
 /* Left Sidebar (Filters) */
 .example-sidenav {
+  /* --- RESTORED original margin --- */
   margin-top: 3%;
   width: 27%;
   background-color: #2c3e50;
@@ -26,11 +33,12 @@ body #backgroundos {
   color: #ecf0f1;
   font-family: 'Arial', sans-serif;
   transition: transform 0.3s ease-in-out;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar-content {
-  height: 100%;
+  flex-grow: 1;
   overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -74,6 +82,7 @@ body #backgroundos {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
 }
 
 .filter-subtitle {
@@ -90,6 +99,7 @@ body #backgroundos {
 .filter-sections.two-column-layout {
   display: flex;
   gap: 15px;
+  flex-shrink: 0;
 }
 
 .filter-column {
@@ -171,6 +181,7 @@ body #backgroundos {
   cursor: pointer;
   transition: background-color 0.3s;
   width: 100%;
+  flex-shrink: 0;
 }
 
 .clear-filter-button:hover {
@@ -185,6 +196,7 @@ body #backgroundos {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
   padding: 8px 12px;
+  flex-shrink: 0;
 }
 
 .search-input {
@@ -211,19 +223,39 @@ body #backgroundos {
 }
 
 /* Main Content Area */
+/* --- KEEP Flexbox for vertical layout --- */
 .example-sidenav-content {
-  flex: 1;
   padding: 20px;
   background-color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
+/* --- RESTORED original margin --- */
 .recipes-container {
   display: grid;
   margin-top: 5%;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 20px;
+
+  /* --- KEEP Flexbox item rules --- */
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-bottom: 10px; /* Keep padding for space above paginator */
 }
 
+/* --- KEEP Paginator Styles --- */
+.recipe-paginator {
+  flex-shrink: 0;
+  margin-top: 20px;
+  padding: 10px 0;
+  width: 100%;
+}
+
+/* Recipe Card Styles (Unchanged) */
 .recipes-items {
   background-color: white;
   border-radius: 10px;
@@ -334,9 +366,10 @@ body #backgroundos {
   transform: scale(1.05);
 }
 
+/* Create Button (Unchanged) */
 .create {
   position: fixed;
-  bottom: 20px;
+  bottom: 80px; /* Adjusted this as per your previous code */
   right: 20px;
   z-index: 1000;
 }
@@ -357,6 +390,8 @@ body #backgroundos {
 #create_link:hover {
   background-color: #d35400;
 }
+
+/* Shopping List Button (Unchanged) */
 .shopping-list-filter-button {
   margin-top: 10px;
   background-color: #3498db;
@@ -373,6 +408,7 @@ body #backgroundos {
   justify-content: center;
   gap: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
 }
 
 .shopping-list-filter-button:hover {
@@ -393,47 +429,66 @@ body #backgroundos {
 /* Mobile Styles */
 @media (max-width: 768px) {
   .example-sidenav {
-    margin-top: 12%;
+    /* --- RESTORED original margin --- */
+    margin-top: 12%; /* As per original screenshot context */
     width: 100%;
     position: fixed;
     height: 100vh;
+    top: 0;
+    left: 0;
     z-index: 1000;
     transform: translateX(-100%);
-    overflow: hidden;
-    margin-bottom: 5%;
+    margin-bottom: 0;
   }
-  
+
   .filter-sections.two-column-layout {
     flex-direction: column;
   }
-  
+
+  /* --- RESTORED original margin --- */
   .recipes-container {
-      padding-left: 10%;
-      margin-top: 15%;
-      grid-template-columns: 1fr;
+    margin-top: 15%; /* As per original screenshot context */
+    padding-left: 20px;
+    padding-right: 20px;
+    grid-template-columns: 1fr;
   }
-  
+
   .example-sidenav[style*="visibility: visible"] {
     transform: translateX(0);
   }
-  
+
   .close-sidebar-btn {
     display: block;
   }
-  
+
   .open-sidebar-btn {
     display: block;
+    top: 15px;
+    left: 15px;
   }
-  
+
   .example-sidenav-content {
-    padding-top: 60px;
+    padding-top: 70px;
+    height: 100%;
   }
-  
+
   .recipes-items {
     width: 100%;
+    height: auto;
+    min-height: 350px;
   }
-  
-  .clear-filter-button{
-    margin-bottom: 40px;
+
+  .sidebar-content {
+    padding-bottom: 80px;
+  }
+
+  .clear-filter-button,
+  .shopping-list-filter-button {
+    margin-bottom: 10px;
+  }
+
+  .recipe-paginator {
+    margin-top: 15px;
+    padding: 5px 0;
   }
 }

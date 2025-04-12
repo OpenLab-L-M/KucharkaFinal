@@ -1,5 +1,5 @@
-import { Component, HostListener, inject, signal } from '@angular/core';
-import {forkJoin, Subject, Subscription, takeUntil} from 'rxjs';
+import { Component, HostListener, inject, model, signal } from '@angular/core';
+import {forkJoin, Subject, Subscription, take, takeUntil} from 'rxjs';
 import { NgIf } from '@angular/common';
 import { NgFor } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
@@ -32,6 +32,9 @@ import { CdkAccordion } from '@angular/cdk/accordion';
 import { MatDialog } from '@angular/material/dialog';
 import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { PaginatorCComponent } from '../paginator-c/paginator-c.component';
+import { PageEvent } from '@angular/material/paginator';
+import { SlicePipe } from '@angular/common';
 
 @Component({
   selector: 'app-recipes',
@@ -56,7 +59,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
      MatNavList,
      DecimalPipe,
      MatCheckboxModule,
-     MatProgressSpinnerModule
+     MatProgressSpinnerModule,
+     PaginatorCComponent,
+     SlicePipe
   ],
 
   templateUrl: './recipes.component.html',
@@ -64,6 +69,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 })
 export class RecipesComponent {
   imageDTO: ImageDTO[] = [];
+  totalRecipes = signal(0); // Total count for paginator length
+  currentPageSize = signal(10); // Default page size
+  currentPageIndex = signal(0); // Default page index
   userImages: CreatorDTO[] = [];
   isFavourite(recipeId: number): boolean {
     return this.favRecipes.some(fav => fav.id === recipeId);
@@ -77,6 +85,21 @@ export class RecipesComponent {
     
     
       
+    }
+    paginatedRecipes = signal<RecipesDTO[]>([])
+    handlePageEvent(event: PageEvent): void {
+      this.recipeService.getPaginatedRecipes({
+        length: this.currentPageSize(),
+         index: this.currentPageIndex()})
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(res => this.paginatedRecipes.set(res));
+      console.log('Page event:', event);
+      console.log('Current Index Signal:', this.currentPageIndex());
+      console.log('Current Size Signal:', this.currentPageSize());
+  
+      // If you were fetching data from a backend API *per page*,
+      // you would trigger the fetch here using the new index/size.
+      // Example: this.fetchRecipesForPage(this.currentPageIndex(), this.currentPageSize());
     }
   portions = signal<number>(undefined);
   recipeService = inject(RecipesService);
@@ -163,6 +186,10 @@ export class RecipesComponent {
     
     this.isDataLoaded$ = forkJoin({
       recipes: this.recipeService.getRecipesList(),
+      paginated: this.recipeService.getPaginatedRecipes({
+        length: this.currentPageSize(),
+        index: this.currentPageIndex()
+      }),
       favRecipes: this.userService.getFavourites(),
       currentUser: this.userService.getCurrentUser(),
       images: this.recipeService.getAllImages(),
@@ -171,7 +198,9 @@ export class RecipesComponent {
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
         this.realRecipes.set(result.recipes);
+        this.paginatedRecipes.set(result.paginated);
         this.useris = result.currentUser;
+        this.totalRecipes.set(result.recipes.length);
         this.favRecipes = result.favRecipes;
         this.imageDTO = result.images;
         this.userImages = result.userCreators;

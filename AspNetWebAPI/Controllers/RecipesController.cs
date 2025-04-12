@@ -12,6 +12,7 @@ using System.Security.Cryptography;
 using DeepL;
 using System.Net.Http;
 using Nutritionix;
+using System.Linq;
 
 namespace AspNetCoreAPI.Controllers
 {
@@ -63,6 +64,36 @@ namespace AspNetCoreAPI.Controllers
                     imageId = dbRecipe.ImageId,
                     
         }); 
+        }
+        [HttpPost("/GetPaginated")]
+        public async Task<IEnumerable<RecipesDTO>> GetPaginatedRecipes([FromBody] PaginatorData jono)
+        {
+            var dbRecipe = await _context.Recipes.ToListAsync();
+            return dbRecipe.TakeWhile(x => dbRecipe.Count() <= jono.Length).Where(x=> x.Id == jono.Index).Select(x => new RecipesDTO
+            {
+
+                Id = x.Id,
+                Name = x.Name,
+                Description = x.Description,
+                Difficulty = x.Difficulty,
+                ImageURL = x.ImageURL,
+                CheckID = x.CheckID,
+                userID = x.userID,
+                Ingrediencie = x.Ingrediencie,
+                Veganske = x.Veganske,
+                Vegetarianske = x.Vegetarianske,
+                Ranajky = x.Ranajky,
+                Obed = x.Obed,
+                Vecera = x.Vecera,
+                Tuky = x.Tuky,
+                Sacharidy = x.Sacharidy,
+                Bielkoviny = x.Bielkoviny,
+                Cukor = x.Cukor,
+                Gramaz = x.Gramaz,
+                Kalorie = x.Kalorie,
+                Cas = x.Cas,
+                imageId = x.ImageId,
+            });
         }
         public async Task<List<string>> mapToPostupyStrings( int recipesID)
         {

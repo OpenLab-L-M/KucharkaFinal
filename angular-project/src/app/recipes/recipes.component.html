@@ -149,10 +149,13 @@
       </button>
 
       <!-- Recipe Cards Container -->
-       
+      
       <div class="recipes-container">
-        <mat-card class="recipes-items" *ngFor="let recipe of realRecipes() | filter : sSearchRecept : selectedIngredients : searchBarQuery">
+        @if(sSearchRecept.length > 0 ||paginatedRecipes().length <= 0){
+        @for(recipe of realRecipes() | filter : sSearchRecept : selectedIngredients : searchBarQuery; track recipe; let i = $index){
+        <mat-card class="recipes-items" >
           <!-- Recipe Name at the Top -->
+           
           <mat-card-title class="recipes-name">
             <span class="recipe-name-text">{{recipe.name}}</span>
           </mat-card-title>
@@ -191,8 +194,64 @@
             <img mat-card-image [src]="getImage(recipe.id)" class="recipes-images" matTooltip="Details of {{recipe.name}}" [routerLink]="['/RecipesDetails', recipe.id]">
           </div>
         </mat-card>
+      }
+    }
+    @else if(sSearchRecept.length <= 0){
+      @for(recipe of paginatedRecipes() | filter : sSearchRecept : selectedIngredients : searchBarQuery; track recipe; let i = $index){
+        <mat-card class="recipes-items" >
+          <!-- Recipe Name at the Top -->
+           
+          <mat-card-title class="recipes-name">
+            <span class="recipe-name-text">{{recipe.name}}</span>
+          </mat-card-title>
+
+          <!-- Recipe Details (Timer, Portions, Calories) -->
+          <div class="recipe-details">
+            <!-- Timer -->
+            <div class="detail-item">
+              <mat-icon class="detail-icon">query_builder</mat-icon>
+              <span class="detail-text">{{recipe.cas}} min</span>
+            </div>
+
+            <!-- Portions -->
+            <div class="detail-item">
+              <mat-icon class="detail-icon">restaurant</mat-icon>
+              <span class="detail-text">{{recipe.gramaz / 250 | number : '1.0-0'}}</span>
+            </div>
+
+            <!-- Calories -->
+            <div class="detail-item">
+              <mat-icon class="detail-icon">local_fire_department</mat-icon>
+              <span class="detail-text">{{recipe.kalorie}} KCal</span>
+            </div>
+
+            <!-- Favorite Heart -->
+            <div class="favourite-container">
+              <input type="checkbox" id="favourite-{{recipe.id}}" class="favourite-checkbox" (click)="ktoryRecept(recipe.id)" [checked]="isFavourite(recipe.id)">
+              <label for="favourite-{{recipe.id}}" class="favourite-label">
+                <mat-icon class="heart-icon">favorite</mat-icon>
+              </label>
+            </div>
+          </div>
+
+          <!-- Recipe Image - Fills remaining space -->
+          <div class="image-container">
+            <img mat-card-image [src]="getImage(recipe.id)" class="recipes-images" matTooltip="Details of {{recipe.name}}" [routerLink]="['/RecipesDetails', recipe.id]">
+          </div>
+        </mat-card>
+      }
+    }
       </div>
-    </div>}
+      <app-paginator-c
+      class="recipe-paginator"
+          [length]="totalRecipes()"
+          [(pageSize)]="currentPageSize"
+          [(pageIndex)]="currentPageIndex"
+          (pageChanged)="handlePageEvent($event)"></app-paginator-c>
+    </div>
+
+  }
+
     @else if(isDataLoaded$ && !isDataLoaded$.closed){
       <mat-spinner style="margin: auto; margin-top: 30%;"></mat-spinner>
     }
@@ -206,4 +265,5 @@
       <mat-icon>add</mat-icon>
     </button>
   </div>
+
 </body>
