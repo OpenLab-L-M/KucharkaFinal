@@ -8,7 +8,9 @@ namespace AspNetCoreAPI.Models
 
         [Key]
         public int Id { get; set; }
+        public string? userId { get; set; } = null;
         public byte[]? image { get; set; }
+
 
         public Recipe Recipe { get; set; }
     }

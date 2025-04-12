@@ -5,6 +5,7 @@ namespace AspNetCoreAPI
     public class RecipesDTO
     {
         public int Id { get; set; }
+        public byte[]? image { get; set; }
         public string? Name { get; set; }
         public bool? Favourite { get; set; }
         public string? Description { get; set; }

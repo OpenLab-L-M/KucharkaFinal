@@ -4,6 +4,7 @@ using AspNetCoreAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AspNetCoreAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250412183852_rememberDeleted")]
+    partial class rememberDeleted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -116,7 +119,7 @@ namespace AspNetCoreAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserRecipes", (string)null);
+                    b.ToTable("UserRecipes");
                 });
 
             modelBuilder.Entity("AspNetCoreAPI.Models.Images", b =>
@@ -135,7 +138,7 @@ namespace AspNetCoreAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Images", (string)null);
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("AspNetCoreAPI.Models.Ingredience", b =>
@@ -151,7 +154,7 @@ namespace AspNetCoreAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Ingredience", (string)null);
+                    b.ToTable("Ingredience");
                 });
 
             modelBuilder.Entity("AspNetCoreAPI.Models.LikeRecensions", b =>
@@ -177,7 +180,7 @@ namespace AspNetCoreAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("LikeRecensions", (string)null);
+                    b.ToTable("LikeRecensions");
                 });
 
             modelBuilder.Entity("AspNetCoreAPI.Models.NakupnyList", b =>
@@ -202,7 +205,7 @@ namespace AspNetCoreAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("NakupnyLists", (string)null);
+                    b.ToTable("NakupnyLists");
                 });
 
             modelBuilder.Entity("AspNetCoreAPI.Models.Postupy", b =>
@@ -226,7 +229,7 @@ namespace AspNetCoreAPI.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("Postupiky", (string)null);
+                    b.ToTable("Postupiky");
                 });
 
             modelBuilder.Entity("AspNetCoreAPI.Models.Recensions", b =>
@@ -276,7 +279,7 @@ namespace AspNetCoreAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Recensions", (string)null);
+                    b.ToTable("Recensions");
                 });
 
             modelBuilder.Entity("AspNetCoreAPI.Models.Recipe", b =>
@@ -353,7 +356,7 @@ namespace AspNetCoreAPI.Migrations
                     b.HasIndex("ImageId")
                         .IsUnique();
 
-                    b.ToTable("Recipes", (string)null);
+                    b.ToTable("Recipes");
                 });
 
             modelBuilder.Entity("AspNetCoreAPI.Models.TaskList", b =>
@@ -389,7 +392,7 @@ namespace AspNetCoreAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tasks", (string)null);
+                    b.ToTable("Tasks");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

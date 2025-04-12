@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Identity.Client;
+
 using System;
 using System.Linq;
 using System.Security.Claims;
@@ -194,12 +195,19 @@ namespace AspNetCoreAPI.Controllers
 
 
         [HttpDelete("/deleteUser/{userName}")]
-        public GetUserDTO DeleteUser([FromRoute] string userName)
+        public async Task<ActionResult<GetUserDTO>> DeleteUser([FromRoute] string userName)
         {
-            var userForDeletion = _context.Users.FirstOrDefault(x => x.UserName == userName);
+            var userForDeletion =  _context.Users.FirstOrDefault(x => x.UserName == userName);
+            var usersRecensions = await _context.Recensions.Where(x => x.UserId == userForDeletion.Id).ExecuteDeleteAsync();
+            var usersRecipes = await _context.Recipes.Where(x => x.userID == userForDeletion.Id).ExecuteDeleteAsync();
+            var nakupnyZoznam = await _context.NakupnyLists.Where(x => x.UserId == userForDeletion.Id).ExecuteDeleteAsync();
+            var userRecipes = await _context.UserRecipes.Where(x => x.UserId == userForDeletion.Id).ExecuteDeleteAsync();
+            var likes = await _context.LikeRecensions.Where(x => x.UserId == userForDeletion.Id).ExecuteDeleteAsync();
+            var tasks = await _context.Tasks.Where(x => x.UserId == userForDeletion.Id).ExecuteDeleteAsync();
+            var images = await _context.Recipes.Where(x => x.userID == userForDeletion.Id).ExecuteDeleteAsync();
             _context.Remove(userForDeletion);
             _context.SaveChanges();
-            return null;
+            return Ok();
         }
         [HttpGet("/getUserCreators")]
         public ActionResult<List<GetUserDTO>> GetAllUserCreators()

@@ -220,12 +220,15 @@ namespace AspNetCoreAPI.Controllers
                 {
                     postedFile.CopyTo(memoryStream);
                     fileBytes = memoryStream.ToArray();
+                    
                 }
 
 
                 var images = new Models.Images()
                 {
-                    image = fileBytes
+                    image = fileBytes,
+                    userId = GetCurrentUser().Id
+                    
                 };
          
                 _context.Images.Add(images);
