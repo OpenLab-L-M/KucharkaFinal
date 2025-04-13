@@ -69,46 +69,18 @@ namespace AspNetCoreAPI.Controllers
         }); 
         }
         [HttpPost("/GetPaginated")]
-        public  IEnumerable<RecipesDTO> GetPaginatedRecipes([FromBody] PaginatorData jono)
+        public async Task<IEnumerable<RecipesDTO>> GetPaginatedRecipes([FromBody] PaginatorData jono)
         {
-            int index = (int)jono.Index;
-            int length = (int)jono.Length;
-            var dbRecipes = _context.Recipes;
-            if(index == 0)
-            {
-                return _context.Recipes.Where(x => x.Id <= length).Select(
-                    dbRecipe => new RecipesDTO
-                    {
-                        Id = dbRecipe.Id,
-                        Name = dbRecipe.Name,
-                        Description = dbRecipe.Description,
-                        Difficulty = dbRecipe.Difficulty,
-                        ImageURL = dbRecipe.ImageURL,
-                        CheckID = dbRecipe.CheckID,
-                        userID = dbRecipe.userID,
-                        Ingrediencie = dbRecipe.Ingrediencie,
-                        Veganske = dbRecipe.Veganske,
-                        Vegetarianske = dbRecipe.Vegetarianske,
-                        Ranajky = dbRecipe.Ranajky,
-                        Obed = dbRecipe.Obed,
-                        Vecera = dbRecipe.Vecera,
-                        Tuky = dbRecipe.Tuky,
-                        Sacharidy = dbRecipe.Sacharidy,
-                        Bielkoviny = dbRecipe.Bielkoviny,
-                        Cukor = dbRecipe.Cukor,
-                        Gramaz = dbRecipe.Gramaz,
-                        Kalorie = dbRecipe.Kalorie,
-                        Cas = dbRecipe.Cas,
-                        imageId = dbRecipe.ImageId,
-                    });
-            }
-        
-            else
-            {
-                return _context.Recipes.Where(x => x.Id >= index+5 && dbRecipes.Where(x => x.Id >= index+5).Count() <= length).Select(
-                    dbRecipe => new RecipesDTO
-                    {
-                        Id = dbRecipe.Id,
+
+            var query = _context.Recipes
+                     .OrderBy(r => r.Id); 
+
+            var paginatedDbRecipes = await query
+                .Skip((int)jono.Index * (int)jono.Length) 
+                .Take((int)jono.Length)             
+                .Select(dbRecipe => new RecipesDTO   
+                {
+                    Id = dbRecipe.Id,
                     Name = dbRecipe.Name,
                     Description = dbRecipe.Description,
                     Difficulty = dbRecipe.Difficulty,
@@ -129,9 +101,11 @@ namespace AspNetCoreAPI.Controllers
                     Kalorie = dbRecipe.Kalorie,
                     Cas = dbRecipe.Cas,
                     imageId = dbRecipe.ImageId,
-                    });
-            }
-           
+                })
+                .ToListAsync();                // Execute the final query
+
+            return paginatedDbRecipes;
+
         }
         public async Task<List<string>> mapToPostupyStrings( int recipesID)
         {
