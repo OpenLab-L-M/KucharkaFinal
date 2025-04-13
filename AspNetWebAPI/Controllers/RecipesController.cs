@@ -13,6 +13,9 @@ using DeepL;
 using System.Net.Http;
 using Nutritionix;
 using System.Linq;
+using Mailjet.Client.Resources;
+using static System.Net.Mime.MediaTypeNames;
+using System.Drawing;
 
 namespace AspNetCoreAPI.Controllers
 {
@@ -66,34 +69,69 @@ namespace AspNetCoreAPI.Controllers
         }); 
         }
         [HttpPost("/GetPaginated")]
-        public async Task<IEnumerable<RecipesDTO>> GetPaginatedRecipes([FromBody] PaginatorData jono)
+        public  IEnumerable<RecipesDTO> GetPaginatedRecipes([FromBody] PaginatorData jono)
         {
-            var dbRecipe = await _context.Recipes.ToListAsync();
-            return dbRecipe.TakeWhile(x => dbRecipe.Count() <= jono.Length).Where(x=> x.Id == jono.Index).Select(x => new RecipesDTO
+            int index = (int)jono.Index;
+            int length = (int)jono.Length;
+            var dbRecipes = _context.Recipes;
+            if(index == 0)
             {
-
-                Id = x.Id,
-                Name = x.Name,
-                Description = x.Description,
-                Difficulty = x.Difficulty,
-                ImageURL = x.ImageURL,
-                CheckID = x.CheckID,
-                userID = x.userID,
-                Ingrediencie = x.Ingrediencie,
-                Veganske = x.Veganske,
-                Vegetarianske = x.Vegetarianske,
-                Ranajky = x.Ranajky,
-                Obed = x.Obed,
-                Vecera = x.Vecera,
-                Tuky = x.Tuky,
-                Sacharidy = x.Sacharidy,
-                Bielkoviny = x.Bielkoviny,
-                Cukor = x.Cukor,
-                Gramaz = x.Gramaz,
-                Kalorie = x.Kalorie,
-                Cas = x.Cas,
-                imageId = x.ImageId,
-            });
+                return _context.Recipes.Where(x => x.Id <= length).Select(
+                    dbRecipe => new RecipesDTO
+                    {
+                        Id = dbRecipe.Id,
+                        Name = dbRecipe.Name,
+                        Description = dbRecipe.Description,
+                        Difficulty = dbRecipe.Difficulty,
+                        ImageURL = dbRecipe.ImageURL,
+                        CheckID = dbRecipe.CheckID,
+                        userID = dbRecipe.userID,
+                        Ingrediencie = dbRecipe.Ingrediencie,
+                        Veganske = dbRecipe.Veganske,
+                        Vegetarianske = dbRecipe.Vegetarianske,
+                        Ranajky = dbRecipe.Ranajky,
+                        Obed = dbRecipe.Obed,
+                        Vecera = dbRecipe.Vecera,
+                        Tuky = dbRecipe.Tuky,
+                        Sacharidy = dbRecipe.Sacharidy,
+                        Bielkoviny = dbRecipe.Bielkoviny,
+                        Cukor = dbRecipe.Cukor,
+                        Gramaz = dbRecipe.Gramaz,
+                        Kalorie = dbRecipe.Kalorie,
+                        Cas = dbRecipe.Cas,
+                        imageId = dbRecipe.ImageId,
+                    });
+            }
+        
+            else
+            {
+                return _context.Recipes.Where(x => x.Id >= index+5 && dbRecipes.Where(x => x.Id >= index+5).Count() <= length).Select(
+                    dbRecipe => new RecipesDTO
+                    {
+                        Id = dbRecipe.Id,
+                    Name = dbRecipe.Name,
+                    Description = dbRecipe.Description,
+                    Difficulty = dbRecipe.Difficulty,
+                    ImageURL = dbRecipe.ImageURL,
+                    CheckID = dbRecipe.CheckID,
+                    userID = dbRecipe.userID,
+                    Ingrediencie = dbRecipe.Ingrediencie,
+                    Veganske = dbRecipe.Veganske,
+                    Vegetarianske = dbRecipe.Vegetarianske,
+                    Ranajky = dbRecipe.Ranajky,
+                    Obed = dbRecipe.Obed,
+                    Vecera = dbRecipe.Vecera,
+                    Tuky = dbRecipe.Tuky,
+                    Sacharidy = dbRecipe.Sacharidy,
+                    Bielkoviny = dbRecipe.Bielkoviny,
+                    Cukor = dbRecipe.Cukor,
+                    Gramaz = dbRecipe.Gramaz,
+                    Kalorie = dbRecipe.Kalorie,
+                    Cas = dbRecipe.Cas,
+                    imageId = dbRecipe.ImageId,
+                    });
+            }
+           
         }
         public async Task<List<string>> mapToPostupyStrings( int recipesID)
         {

@@ -70,7 +70,7 @@ import { SlicePipe } from '@angular/common';
 export class RecipesComponent {
   imageDTO: ImageDTO[] = [];
   totalRecipes = signal(0); // Total count for paginator length
-  currentPageSize = signal(10); // Default page size
+  currentPageSize = signal(8); // Default page size
   currentPageIndex = signal(0); // Default page index
   userImages: CreatorDTO[] = [];
   isFavourite(recipeId: number): boolean {
