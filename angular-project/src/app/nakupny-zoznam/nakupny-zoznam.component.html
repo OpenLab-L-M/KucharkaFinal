@@ -22,7 +22,8 @@
     <!-- List of Ingredients -->
     <div class="ingredient-list">
       <h3 class="column-title">Tvoj zoznam</h3>
-      <div *ngFor="let ingredient of ingrediencie()" class="ingredient-item">
+      @for(ingredient of ingrediencie(); track ingredient){
+      <div class="ingredient-item">
         <label for="ingredient-{{ingredient.id}}" class="ingredient-label">
           <input id="ingredient-{{ingredient.id}}" type="checkbox" class="ingredient-checkbox" 
                  (click)="checkOwned(ingredient.id)" [checked]="ingredient.isChecked">
@@ -38,14 +39,18 @@
           </button>
         </label>
       </div>
+    }
     </div>
 
     <!-- Price Display -->
     <div class="price-display">
       <h3 class="column-title">Ceny</h3>
-      <div *ngFor="let cena of ceny; let last = last" class="price-item" [class.last-item]="last">
-        <span class="price-text">{{cena}}</span>
-      </div>
+      @for(cena of ceny; track cena; let last = $last){
+        <div class="price-item" [class.last-item]="last">
+          <span class="price-text">{{cena}}</span>
+        </div>
+      }
+     
     </div>
   </div>
 

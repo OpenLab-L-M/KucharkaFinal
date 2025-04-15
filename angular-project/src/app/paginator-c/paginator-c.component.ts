@@ -11,23 +11,20 @@ import { RecipesComponent } from '../recipes/recipes.component';
   styleUrl: './paginator-c.component.css'
 })
 export class PaginatorCComponent {
-  length = input.required<number>(); // Use input() for one-way data flow down
+  length = input.required<number>(); 
 
-  // Model Inputs (Two-Way Binding): Parent provides initial value,
-  // child updates it, and parent gets notified implicitly.
-  pageSize = model.required<number>(); // Required initial page size
-  pageIndex = model(0); // Default to first page (index 0)
 
-  // Output to Parent: Emit event when page changes
-  pageChanged = output<PageEvent>(); // Use output()
+  pageSize = model.required<number>(); 
+  pageIndex = model(0); 
 
-  // Function to handle the paginator's (page) event
+  pageChanged = output<PageEvent>(); 
+
+
   onPageChange(event: PageEvent): void {
-    // Update the model signals - this notifies the parent via the two-way binding
+
     this.pageIndex.set(event.pageIndex);
     this.pageSize.set(event.pageSize);
 
-    // Explicitly emit the event for the parent to react (e.g., fetch new data)
     this.pageChanged.emit(event);
   }
 }

@@ -2,8 +2,9 @@
   <!-- Background Image -->
   <div id="backgroundos"></div>
 
-  <!-- Main Container -->
-  <div *ngIf="clicked == true; else noCourses" class="same_as_background">
+  @if(clicked == true){
+  <div class="same_as_background">
+    
     <div class="profile-container">
       <!-- Left Section: Profile Picture, Email, and Buttons -->
       <div class="profile-left">
@@ -54,9 +55,12 @@
         </div>
       </div>
     </div>
+  
   </div>
+  }
+  @if(clicked == false){
+  <div  class="UserAvaiableContainer">
 
-  <ng-template #noCourses class="UserAvaiableContainer">
     <div class="settings-icon">
       <mat-icon (click)="chPasswordClicked()" style="cursor: pointer;">settings</mat-icon>
     </div>
@@ -80,52 +84,58 @@
       </div>
       
       @if((ourFavRecipes().length > 0 || ourListOfRecipes.length > 0 || recensions.length > 0) && chcemRecepty == true ) {
-        <div *ngIf="ourListOfRecipes.length > 0">
+        @if(ourListOfRecipes.length > 0){
+        <div >
           <h1 class="section-title">Your Recipes</h1>
           <div class="recipes-container">
-            <mat-card class="recipes-items" *ngFor="let recipe of ourListOfRecipes">
-              <!-- Recipe Name at the Top -->
-              <mat-card-title class="recipes-name">
-                <span class="recipe-name-text">{{recipe.name}}</span>
-              </mat-card-title>
-    
-              <!-- Recipe Details (Timer, Portions, Calories) -->
-              <div class="recipe-details">
-                <!-- Timer -->
-                <div class="detail-item">
-                  <mat-icon class="detail-icon">query_builder</mat-icon>
-                  <span class="detail-text">{{recipe.cas}} min</span>
+            @for(recipe of ourListOfRecipes; track recipe){
+              <mat-card class="recipes-items">
+                <!-- Recipe Name at the Top -->
+                <mat-card-title class="recipes-name">
+                  <span class="recipe-name-text">{{recipe.name}}</span>
+                </mat-card-title>
+      
+                <!-- Recipe Details (Timer, Portions, Calories) -->
+                <div class="recipe-details">
+                  <!-- Timer -->
+                  <div class="detail-item">
+                    <mat-icon class="detail-icon">query_builder</mat-icon>
+                    <span class="detail-text">{{recipe.cas}} min</span>
+                  </div>
+      
+                  <!-- Portions -->
+                  <div class="detail-item">
+                    <mat-icon class="detail-icon">restaurant</mat-icon>
+                    <span class="detail-text">{{recipe.gramaz / 250 | number : '1.0-0'}}</span>
+                  </div>
+      
+                  <!-- Calories with Favorite Heart -->
+                  <div class="detail-item calories">
+                    <mat-icon class="detail-icon">local_fire_department</mat-icon>
+                    <span class="detail-text">{{recipe.kalorie}} KCal</span>
+                    <input type="checkbox" id="favourite-{{recipe.id}}" class="favourite-checkbox" (click)="ktoryRecept(recipe.id)" [checked]="isFavourite(recipe.id)">
+                    <label for="favourite-{{recipe.id}}" class="favourite-label">
+                      <mat-icon class="heart-icon">favorite</mat-icon>
+                    </label>
+                  </div>
                 </div>
-    
-                <!-- Portions -->
-                <div class="detail-item">
-                  <mat-icon class="detail-icon">restaurant</mat-icon>
-                  <span class="detail-text">{{recipe.gramaz / 250 | number : '1.0-0'}}</span>
+      
+                <!-- Recipe Image - Fills remaining space -->
+                <div class="image-container">
+                  <img mat-card-image [src]="getImage(recipe.id)" class="recipes-images" matTooltip="Details of {{recipe.name}}" [routerLink]="['/RecipesDetails', recipe.id]">
                 </div>
-    
-                <!-- Calories with Favorite Heart -->
-                <div class="detail-item calories">
-                  <mat-icon class="detail-icon">local_fire_department</mat-icon>
-                  <span class="detail-text">{{recipe.kalorie}} KCal</span>
-                  <input type="checkbox" id="favourite-{{recipe.id}}" class="favourite-checkbox" (click)="ktoryRecept(recipe.id)" [checked]="isFavourite(recipe.id)">
-                  <label for="favourite-{{recipe.id}}" class="favourite-label">
-                    <mat-icon class="heart-icon">favorite</mat-icon>
-                  </label>
-                </div>
-              </div>
-    
-              <!-- Recipe Image - Fills remaining space -->
-              <div class="image-container">
-                <img mat-card-image [src]="getImage(recipe.id)" class="recipes-images" matTooltip="Details of {{recipe.name}}" [routerLink]="['/RecipesDetails', recipe.id]">
-              </div>
-            </mat-card>
+              </mat-card>
+            }
+
           </div>
         </div>
-
-        <div *ngIf="user().userName == currentUserUsername && ourFavRecipes().length > 0">
+      }
+        @if(user().userName == currentUserUsername && ourFavRecipes().length > 0){
+        <div >
           <h1 class="section-title">My Favourite Recipes</h1>
           <div class="recipes-container">
-            <mat-card class="recipes-items" *ngFor="let recipe of ourFavRecipes()">
+            @for(recipe of ourFavRecipes(); track recipe){
+            <mat-card class="recipes-items">
               <!-- Recipe Name at the Top -->
               <mat-card-title class="recipes-name">
                 <span class="recipe-name-text">{{recipe.name}}</span>
@@ -161,20 +171,27 @@
                 <img mat-card-image [src]="getImage(recipe.id)" class="recipes-images" matTooltip="Details of {{recipe.name}}" [routerLink]="['/RecipesDetails', recipe.id]">
               </div>
             </mat-card>
+          }
           </div>
         </div>
-
-        <div class="comment-section" *ngIf="recensions.length > 0">
+      }
+        @if(recensions.length > 0){
+        <div class="comment-section">
           <h2>My Comments</h2>
-          <div *ngFor="let recension of recensions; let i = index" class="comment" [routerLink]="['/RecipesDetails', recension.recipesID]">
-            <div class="comment-header">
-              <h3>{{recension.profileName}}</h3>
-              <span>{{recension.datetime}}</span>
+          @for(recension of recensions; track recension){
+            <div  class="comment" [routerLink]="['/RecipesDetails', recension.recipesID]">
+              <div class="comment-header">
+                <h3>{{recension.profileName}}</h3>
+                <span>{{recension.datetime}}</span>
+              </div>
+              <p class="comment-recipe">{{recension.recipesName}}</p>
+              <p class="comment-content">{{recension.content}}</p>
             </div>
-            <p class="comment-recipe">{{recension.recipesName}}</p>
-            <p class="comment-content">{{recension.content}}</p>
+          }
           </div>
-        </div>
+          
+          
+      }
       }
       @else if((ourFavRecipes().length == 0 || ourListOfRecipes.length == 0 || recensions.length == 0) && chcemRecepty == true ) {
         <ng-template #nicTuNieje>
@@ -240,15 +257,17 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let user of users(); let i = index">
-                  <td>{{ i + 1 }}</td>
-                  <td>{{ user.userName }}</td>
-                  <td>
-                    <button class="delete-btn" (click)="deleteUser(user.userName)">
-                      <i class="fas fa-trash-alt"></i> Delete
-                    </button>
-                  </td>
-                </tr>
+                @for(user of users(); track user; let i = $index;){
+                  <tr>
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ user.userName }}</td>
+                    <td>
+                      <button class="delete-btn" (click)="deleteUser(user.userName)">
+                        <i class="fas fa-trash-alt"></i> Delete
+                      </button>
+                    </td>
+                  </tr>
+                }
               </tbody>
             </table>
           </div>
@@ -258,5 +277,6 @@
     @else if(isDataLoaded$ && !isDataLoaded$.closed){
       <mat-spinner style="margin: auto; margin-top: 25%;"></mat-spinner>
     }
-  </ng-template>
+  </div>
+}
 </body>

@@ -126,7 +126,10 @@
                  <!-- Assuming suggestions rendering logic was similar -->
                 <div class="suggestions-scroller">
                   <ul>
-                    <li *ngFor="let suggestion of suggestions">{{ suggestion }}</li>
+                    @for(suggestion of suggestions; track suggestion){
+                      <li>{{ suggestion }}</li>
+                    }
+
                   </ul>
                 </div>
               </div>
@@ -177,16 +180,19 @@
           class="example-list"
           (cdkDropListDropped)="drop($event)">
           <input type="text" [(ngModel)]="searchTerm" placeholder="Find an ingredience" class="findInput"/>
-          <div *ngFor="let item of ingredients | ingredientsFilter : searchTerm : dummy">
-            <div class="example-box" cdkDrag>
-              <span class="ingredient-name">{{item}}</span>
-              @if(currentUser.admin == true){
-              <button mat-icon-button class="delete-button" (click)="deleteIngredient(item)">
-                <mat-icon>delete</mat-icon>
-              </button>
-              }
+          @for(item of ingredients | ingredientsFilter : searchTerm : dummy; track item){
+            <div>
+              <div class="example-box" cdkDrag>
+                <span class="ingredient-name">{{item}}</span>
+                @if(currentUser.admin == true){
+                <button mat-icon-button class="delete-button" (click)="deleteIngredient(item)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+                }
+              </div>
             </div>
-          </div>
+          }
+          
         </div>
          <!-- Original had button here -->
          <button (click)="openDialogis()">pridaj ingredienciu</button>
@@ -198,9 +204,12 @@
       <div class="formaNaPostup">
         <h1>Napíš svoj postup</h1>
         <form [formGroup]="postupForm" class="postupForm">
-          <div formArrayName="postupy" *ngFor="let postup of postupy.controls; let i = index">
-            <textarea rows="3" [formControlName]="i" placeholder="Postup"></textarea>
-          </div>
+          @for(postup of postupy.controls; let i = $index; track postup){
+            <div formArrayName="postupy">
+              <textarea rows="3" [formControlName]="i" placeholder="Postup"></textarea>
+            </div>
+          }
+
           <button class="beautyBtn" (click)="pridajPostup()">Pridať postup</button>
         </form>
       </div>
@@ -343,7 +352,9 @@
                   <div class="suggestions-scroller">
                     
                     <ul>
-                      <li *ngFor="let suggestion of suggestions">{{ suggestion }}</li>
+                      @for(suggestion of suggestions; track suggestion){
+                        <li>{{ suggestion }}</li>
+                      }
                     </ul>
                   
                   </div>
@@ -373,17 +384,19 @@
           [cdkDropListConnectedTo]="[doneList]"
           class="example-list"
           (cdkDropListDropped)="drop($event)">
-
-          <div *ngFor="let item of ingredients | ingredientsFilter : searchTerm : dummy">
-            <div class="example-box" cdkDrag>
-              <span class="ingredient-name">{{item}}</span>
-              @if(currentUser.admin == true){
-              <button mat-icon-button class="delete-button" (click)="deleteIngredient(item)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            }
+          @for(item of ingredients | ingredientsFilter : searchTerm : dummy; track item){
+            <div>
+              <div class="example-box" cdkDrag>
+                <span class="ingredient-name">{{item}}</span>
+                @if(currentUser.admin == true){
+                <button mat-icon-button class="delete-button" (click)="deleteIngredient(item)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              }
+              </div>
             </div>
-          </div>
+          }
+
         </div>
       </div>
       <button (click)="openDialogis()">pridaj ingredienciu</button>
@@ -391,9 +404,12 @@
       <div class="formaNaPostup">
         <h1>Napíš svoj postup</h1>
         <form [formGroup]="postupForm" class="postupForm">
-          <div formArrayName="postupy" *ngFor="let postup of postupy.controls; let i = index">
-            <textarea rows="3" [formControlName]="i" placeholder="Postup"></textarea>
-          </div>
+          @for(postup of postupy.controls; track postup; let i = $index){
+            <div formArrayName="postupy">
+              <textarea rows="3" [formControlName]="i" placeholder="Postup"></textarea>
+            </div>
+          }
+
           <button class="beautyBtn" (click)="pridajPostup()">Pridať postup</button>
         </form>
       </div>
