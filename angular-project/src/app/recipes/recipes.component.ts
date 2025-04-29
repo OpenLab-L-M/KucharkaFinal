@@ -119,6 +119,7 @@ export class RecipesComponent {
   // Dietary Filters
   veganChecked: boolean = false;
   vegetarianChecked: boolean = false;
+  bezlepkoveChecked: boolean = false;
 
   // Course Filters
   ranajkyChecked: boolean = false;
@@ -250,6 +251,7 @@ export class RecipesComponent {
     this.hardChecked = false;
     this.veganChecked = false;
     this.vegetarianChecked = false;
+    this.bezlepkoveChecked = false;
     this.ranajkyChecked = false;
     this.obedyChecked = false;
     this.vecereChecked = false;

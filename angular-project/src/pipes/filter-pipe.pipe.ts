@@ -65,6 +65,7 @@ export class FilterPipe implements PipeTransform {
       // C. Dietary
       const veganskeMatches = !otherFiltersArray.includes('veganske') || !!item.veganske; // Use original case-sensitive array if keywords are exact
       const vegetarianskeMatches = !otherFiltersArray.includes('vegetarianske') || !!item.vegetarianske;
+      const bezlepkoveMatches = !otherFiltersArray.includes('bezlepkove') || !!item.bezlepkove;
 
       // D. Course
       const normalizedItemName = normalizeString(item.name ?? '');
@@ -167,7 +168,7 @@ export class FilterPipe implements PipeTransform {
 
       // --- Final Decision: Combine all filter results ---
       return (
-        searchBarMatches && difficultyMatches && veganskeMatches && vegetarianskeMatches &&
+        searchBarMatches && difficultyMatches && veganskeMatches && vegetarianskeMatches && bezlepkoveMatches &&
         salatyMatches && polievkyMatches && natierkyMatches && obedyMatches &&
         ranajkyMatches && vecereMatches && cukorMatches && bielkovinyMatches &&
         sacharidyMatches &&

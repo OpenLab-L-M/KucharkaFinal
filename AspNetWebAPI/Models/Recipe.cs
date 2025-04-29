@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -22,6 +21,7 @@ namespace AspNetCoreAPI.Models
         public ICollection<Postupy>? Postupies { get; set; }
         public bool? Veganske { get; set; }
         public bool? Vegetarianske { get; set; }
+        public bool? Bezlepkove { get; set; }
         public int? Tuky {  get; set; }
         public int? Cukor {  get; set; }
         public bool? Ranajky { get; set; }

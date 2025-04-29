@@ -57,9 +57,11 @@
                 <input type="checkbox" value="vegetarianske" [(ngModel)]="vegetarianChecked" (ngModelChange)="vegetarianChecked = $event" (click)="filterRecipesByDifficulty('vegetarianske')" (click)="call()">
                 <span class="checkbox-label">Vegetarianske</span>
               </label>
+              <label class="cyberpunk-checkbox">
+                <input type="checkbox" value="bezlepkove" [(ngModel)]="bezlepkoveChecked" (ngModelChange)="bezlepkoveChecked = $event" (click)="filterRecipesByDifficulty('bezlepkove')" (click)="call()">
+                <span class="checkbox-label">Bezlepkove</span>
+              </label>
             </div>
-            <br>
-            <br>
 
             <!-- Course Filters -->
             <div class="filter-section">
@@ -101,15 +103,15 @@
             <!-- Preference Filters -->
             <div class="filter-section">
               <h4 class="filter-subtitle">Preferencie <mat-icon>thumb_up</mat-icon></h4>
-              <label class="cyberpunk-checkbox">
+              <label class="cyberpunk-checkbox1">
                 <input type="checkbox" value="cukor" [(ngModel)]="sugarChecked" (ngModelChange)="sugarChecked = $event" (click)="filterRecipesByDifficulty('cukor')" (click)="call()">
                 <span class="checkbox-label">Bez cukru</span>
               </label>
-              <label class="cyberpunk-checkbox">
+              <label class="cyberpunk-checkbox1">
                 <input type="checkbox" value="bielkoviny" [(ngModel)]="proteinChecked" (ngModelChange)="proteinChecked = $event" (click)="filterRecipesByDifficulty('bielkoviny')" (click)="call()">
                 <span class="checkbox-label">Vysoký obsah bielkovín</span>
               </label>
-              <label class="cyberpunk-checkbox">
+              <label class="cyberpunk-checkbox1">
                 <input type="checkbox" value="sacharidy" [(ngModel)]="carbohydratesChecked" (ngModelChange)="carbohydratesChecked = $event" (click)="filterRecipesByDifficulty('sacharidy')" (click)="call()">
                 <span class="checkbox-label">Nízky obsah sacharidov</span>
               </label>

@@ -3,8 +3,35 @@ body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f5f5f5;
+  background-color: transparent;
   color: #333;
+  
+}
+
+#backgroundik {
+  padding: 20px;
+  background-color: #f8f9fa;
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  height: 100%;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-image: 
+    radial-gradient(
+      circle at 10% 20%, 
+      rgba(230, 126, 34, 0.15) 10%, 
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 90% 80%, 
+      rgba(52, 152, 219, 0.15) 10%, 
+      transparent 35%
+      );
+      z-index: 3;
+    
 }
 
 .homepage {
@@ -25,6 +52,7 @@ body {
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 40px;
+  z-index: 0;
 }
 
 .content {
@@ -33,6 +61,7 @@ body {
   justify-content: space-between;
   width: 100%;
   gap: 40px;
+  z-index: 0;
 }
 
 .text {

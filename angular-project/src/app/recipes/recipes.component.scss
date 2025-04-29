@@ -8,6 +8,7 @@ body #backgroundos {
   opacity: 0.8;
 }
 
+
 /* Reset default body margin if needed */
 body {
   margin: 0;
@@ -15,6 +16,27 @@ body {
   overflow: hidden; /* Prevent body scroll, let containers handle it */
 }
 
+
+#backgroundos {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0; /* Ensure full coverage */
+  z-index: 3;
+  background-color: #f8f9fa; /* Fallback */
+  background-image: 
+    radial-gradient(
+      circle at 10% 20%, 
+      rgba(230, 126, 34, 0.15) 0%, 
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 90% 80%, 
+      rgba(52, 152, 219, 0.15) 0%, 
+      transparent 25%
+    );
+}
 
 /* Main Container */
 .example-container {
@@ -166,6 +188,63 @@ body {
   color: #95a5a6;
 }
 
+
+
+
+
+.cyberpunk-checkbox1 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: #ecf0f1;
+  padding: 1px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  margin-bottom: 8px;
+}
+
+.cyberpunk-checkbox1:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.cyberpunk-checkbox1 input[type="checkbox"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #e67e22;
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+}
+
+.cyberpunk-checkbox1 input[type="checkbox"]:checked {
+  background-color: #e67e22;
+}
+
+.cyberpunk-checkbox1 input[type="checkbox"]:checked::after {
+  content: '✔';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  color: white;
+}
+
+.cyberpunk-checkbox1 input[type="checkbox"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cyberpunk-checkbox1 input[type="checkbox"]:disabled + .checkbox-label {
+  color: #95a5a6;
+}
+
+
+
+
+
 .checkbox-label {
   font-size: 16px;
 }
@@ -226,12 +305,25 @@ body {
 /* --- KEEP Flexbox for vertical layout --- */
 .example-sidenav-content {
   padding: 20px;
-  background-color: #f5f5f5;
+  background-color: #f8f9fa;
   display: flex;
   flex-direction: column;
   height: 100%;
+  top: 0;
+  left: 0;
   box-sizing: border-box;
   overflow: hidden;
+  background-image: 
+    radial-gradient(
+      circle at 10% 20%, 
+      rgba(230, 126, 34, 0.15) 10%, 
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 90% 80%, 
+      rgba(52, 152, 219, 0.15) 10%, 
+      transparent 35%
+    );
 }
 
 /* --- RESTORED original margin --- */

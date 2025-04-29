@@ -43,6 +43,7 @@ export class RecipesService {
     cas: any;
     veganske: any;
     vegetarianske: any;
+    bezlepkove: any;
     imageURL: string;
     name: string;
     description: string
